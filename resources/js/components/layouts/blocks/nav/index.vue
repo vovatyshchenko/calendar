@@ -9,7 +9,7 @@
         >
             <v-list-item>
                 <v-list-item-content>
-                    <v-list-item-title>ToDo LIST</v-list-item-title>
+                    <v-list-item-title>Calendar</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
@@ -37,7 +37,7 @@
                 @click.stop="drawer = !drawer"
                 class="hidden-md-and-up"
             />
-            <v-toolbar-title>ToDo LIST</v-toolbar-title>
+            <v-toolbar-title>Calendar</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn text v-for="(item, index) in nav_items"
                 :key="index"
@@ -47,6 +47,15 @@
                 <v-icon v-html="item.icon"></v-icon>
                 {{ item.title }}
             </v-btn>
+            <v-btn text
+                class="hidden-sm-and-down"
+                @click.stop="logout"
+                v-if="is_user_authenticated"
+              >
+              <v-icon>mdi-power</v-icon>
+              Выход
+              </v-btn>
+
         </v-app-bar>
     </div>
 </template>
@@ -56,18 +65,22 @@
     data: () => ({
       drawer: false,
     }),
+    methods: {
+      logout() {
+        this.$store.dispatch('logout_user');
+        this.$router.push({ path: "/login" });
+      }
+    },
     computed: {
+      is_user_authenticated() {
+        return this.$store.getters.is_user_authenticated;
+      },
       nav_items() {
         return [
           {
             icon: 'mdi-home',
             title: 'HOME',
             route: '/'
-          },
-          {
-            icon: 'mdi-mail',
-            title: 'ABOUT',
-            route: '/about'
           }
         ];
       }

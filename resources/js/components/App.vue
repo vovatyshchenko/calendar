@@ -17,5 +17,11 @@
 <script>
   export default {
     data: () => ({}),
+    created() {
+      if (localStorage.hasOwnProperty('token')){
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
+        this.$store.dispatch("state_change");
+      }
+    }
   }
 </script>

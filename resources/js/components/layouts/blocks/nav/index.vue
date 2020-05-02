@@ -14,7 +14,7 @@
             </v-list-item>
             <v-divider></v-divider>
             <v-list dense>
-                <v-list-item link 
+                <v-list-item link
                     v-for="(item, index) in nav_items"
                     :key="index"
                     :to="item.route"

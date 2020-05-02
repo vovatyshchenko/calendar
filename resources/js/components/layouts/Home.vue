@@ -9,13 +9,15 @@
     >
       Добро пожаловать {{user_info.name}}
     </v-snackbar>
-    <h1>HOME PAGE</h1>
+      <menu-calendar></menu-calendar>
   </div>
 </template>
 
 <script>
 export default {
-  data: () => ({}),
+  data: () => ({
+
+  }),
   computed: {
     is_user_authenticated() {
       return this.$store.getters.is_user_authenticated;
@@ -29,6 +31,6 @@ export default {
       if (value === false) this.$router.push({ path: "/login" });
     }
   }
-} 
+}
 </script>
 

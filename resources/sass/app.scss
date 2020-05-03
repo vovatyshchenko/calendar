@@ -1,5 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 // Variables
 @import 'variables';
@@ -11,3 +11,6 @@
 @import"~material-icons/iconfont/material-icons.css";
 @import "~@mdi/font/scss/materialdesignicons.scss";
 
+html, body {
+    font-family: 'Roboto', sans-serif;
+}

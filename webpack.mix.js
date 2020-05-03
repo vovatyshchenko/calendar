@@ -2,11 +2,15 @@ const mix = require('laravel-mix');
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 var webpackconfig = {
    plugins: [
          new VuetifyLoaderPlugin(),
-         new CaseSensitivePathsPlugin()
+         new CaseSensitivePathsPlugin(),
+         new MomentLocalesPlugin({
+            localesToKeep: ['ru'],
+        })
    ]
 }
 

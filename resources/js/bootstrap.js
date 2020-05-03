@@ -1,3 +1,8 @@
+import moment from 'moment';
+import 'moment/src/locale/ru'
+window.moment = moment;
+moment.locale('ru');
+
 window._ = require('lodash');
 
 /**

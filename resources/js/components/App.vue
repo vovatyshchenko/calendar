@@ -3,8 +3,8 @@
     <nav-block></nav-block>
       <v-content>
         <v-container class="fill-height">
-          <v-row align="center" justify="center">
-            <v-col class="text-center">
+          <v-row>
+            <v-col>
               <router-view></router-view>
             </v-col>
           </v-row>
@@ -17,11 +17,11 @@
 <script>
   export default {
     data: () => ({}),
-    created() {
+    /*created() {
       if (localStorage.hasOwnProperty('token')){
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
         this.$store.dispatch("state_change");
       }
-    }
+    }*/
   }
 </script>

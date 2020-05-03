@@ -25,6 +25,8 @@ window.Vue = Vue;
 
 Vue.component('nav-block', require('./components/layouts/blocks/nav/index.vue').default);
 Vue.component('footer-block', require('./components/layouts/blocks/footer/index.vue').default);
+Vue.component('calendar-year', require('./components/layouts/calendar/year/index.vue').default);
+Vue.component('calendar-month', require('./components/layouts/calendar/month/index.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

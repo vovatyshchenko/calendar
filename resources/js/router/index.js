@@ -13,7 +13,7 @@ const routes = [
         component: Home,
         name: 'home',
         path: '/',
-        beforeEnter: guard
+        //beforeEnter: guard
     },
     {
         component: Login,

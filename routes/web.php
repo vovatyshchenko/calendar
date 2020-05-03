@@ -1,6 +1,10 @@
 <?php
 
+
+
 use Illuminate\Support\Facades\Route;
+
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +18,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Auth::routes();
+Route::view('/', 'index')->middleware('auth');
+//Route::view('/{any}', 'index')->where('any', '.*');
+Route::get('/auth/redirect','Auth\AuthController@authorizathion')->name('login');
+Route::get('/auth/callback', 'Auth\AuthController@callback');
 
-Route::view('/{any}', 'index')->where('any', '.*');
+Route::middleware('auth')->post('/logout', 'Auth\LogoutController@logout');

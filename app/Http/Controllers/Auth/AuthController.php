@@ -15,11 +15,11 @@ class AuthController extends Controller
     protected function authorizathion()
     {
         $query = http_build_query([
-            'client_id' => env('CLIENT_ID'),//запросить у Богдана и вынести в конфиг
-            'redirect_uri' =>  env('REDIRECT_URL'),//урл куда оправит сайт Богдана после успешной
+            'client_id' =>10,//запросить у Богдана и вынести в конфиг
+            'redirect_uri' => 'http://laravelproject.s-host.net/auth/callback',//урл куда оправит сайт Богдана после успешной
             'response_type' => 'code',
         ]);
-        return redirect(env('AUTORIZATION_URL').$query);
+        return redirect('https://team1-group-project.azurewebsites.net/oauth/authorize?'.$query);
     }
 
     protected function callback(Request $request)
@@ -27,12 +27,12 @@ class AuthController extends Controller
         //заюзать use GuzzleHttp\Client;
         $http = new Client;
 
-        $response = $http->post(env('GET_TOKEN'), [
+        $response = $http->post('http://team1-group-project.azurewebsites.net/oauth/token', [
             'form_params' => [
                 'grant_type' => 'authorization_code',
-                'client_id' =>env('CLIENT_ID'), //данные которые выдаст Богдан. вынести в конфиг
-                'client_secret' =>env('CLIENT_SECRET') ,//данные которые выдаст Богдан. вынести в конфиг
-                'redirect_uri' => env('REDIRECT_URL'),
+                'client_id' =>10, //данные которые выдаст Богдан. вынести в конфиг
+                'client_secret' =>'Z7qx5zHZ1XKFVUXUQzbbtCF2O6TJpDy5rzsk7iDU' ,//данные которые выдаст Богдан. вынести в конфиг
+                'redirect_uri' => 'http://laravelproject.s-host.net/auth/callback',
                 'code' => $request->code,
             ],
         ]);
@@ -46,7 +46,7 @@ class AuthController extends Controller
 
             // получение данных пользователя
             $ch = curl_init();
-            $url = env('GET_USER');
+            $url ='http://team1-group-project.azurewebsites.net/api/user';
             $header = array(
                 'Authorization: Bearer ' . $access_token
             );

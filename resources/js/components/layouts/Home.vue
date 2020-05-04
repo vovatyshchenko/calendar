@@ -1,15 +1,10 @@
 <template>
   <div>
-    <v-row align="center" justify="end">
-      <v-col cols="12" md="8">
+    <div class="d-flex row justify-content-end">
+      <div class="col-8">
         <calendar-year></calendar-year>
-      </v-col>
-    </v-row>
-    <v-row align="center" justify="end">
-      <v-col cols="12" md="8">
-        <calendar-month></calendar-month>
-      </v-col>
-    </v-row>
+      </div>
+    </div>
   </div>
 </template>
 

@@ -1,17 +1,9 @@
 <template>
-  <v-app id="inspire">
-    <nav-block></nav-block>
-      <v-content>
-        <v-container class="fill-height">
-          <v-row>
-            <v-col>
-              <router-view></router-view>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-content>
-    <footer-block></footer-block> 
-  </v-app>
+  <div>
+    <div class="container">
+      <router-view></router-view>
+    </div> 
+  </div>
 </template>
 
 <script>

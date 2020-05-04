@@ -2,7 +2,7 @@
     <div>
         <div class="Cell">
             <div class="d-flex flex-column">
-                <span class="date"><span>{{date}}</span></span>
+                <span class="date"><span>{{currentDate}}</span></span>
                 <ul class="d-flex align-center flex-column">
                     <li :style="{background:item.background}" :class="'event'+index" v-for="(item, index) in Events">
                         <span>{{item.text|cutText(21)}}</span>
@@ -15,10 +15,11 @@
 
 <script>
     export default {
+        props:['date'],
         data(){
+
             return{
-                day:["апвпвп", "укеукеуке","кеукеуеуе","кеуеуеуе","кеуеуеу","укеуеуе", "кеукеуеуеуеуе"],
-                date:29
+                dateForMonth:""
                 ,
                 Events:[
                     {text:'Удивительный хаббл1222' ,background:'#F5E3F9'},
@@ -33,14 +34,35 @@
                     : value;
             }
         },
+        computed:{
+            currentDate(){
+                this.dateForMonth=this.date;
+                let parseDate = this.dateForMonth.split("-");
+                let months=["Декабря","Января","Февраля","Марта","Апреля","Мая","Июня","Июля","Августа","Сентября","Октября","Ноября"]
+                let dateForCalendar="";
+                if(parseDate[0]=='1')
+                {
+                    dateForCalendar=parseDate[0]+" "+months[parseDate[1]];
+                }
+                else{
+                    dateForCalendar=parseDate[0];
+                }
+
+               return dateForCalendar
+            }
+        },
+        created()
+        {
+
+        }
     }
 </script>
 
 <style scoped>
     .Cell{
         min-height: 118px;
-        background: red;
-        /*background: #FFFFFF;*/
+
+        background: #FFFFFF;
         min-width: 158px;
     }
     .Cell .date{
@@ -53,8 +75,9 @@
         font-weight: bold;
         font-size: 14px;
         line-height: 30px;
-        color: #808080;
+
         padding:10px 9px;
+        color: #CCCCCC;
     }
     .Cell .event0 {
         /*background: #F5E3F9;*/
@@ -80,10 +103,7 @@
     ul li :hover{
 
     }
-    .der{
-        width: 1000px;
-        height: 1000px;
-    }
+
     ul li {
         list-style: none;
         min-width: 150px;

@@ -1,72 +1,126 @@
 <template>
-    <table class="table">
-        <thead>
-        <tr>
-            <td v-for="d in day">{{d}}</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="week in 4">
-            <td v-for="(day, index) in 7">
-                <cell-month></cell-month>
-<!--                <CellMonth></CellMonth>-->
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div>
+        {{month}}
+        {{year}}
+        <table class="table">
+            <thead>
+            <tr>
+                <td class="header" v-for="d in day">{{d}}</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="week in getMonth">
+                <td v-for="(day, index) in week">
+                    <cell-month :date="day"></cell-month>
+<!--                    {{day}} <span v-if="day==1"> {{month}} </span>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button @click="page++">Добавить</button>
+        <button @click="page--">Убрать</button>
+    </div>
 </template>
 
 <script>
 export default {
     data(){
         return{
-            day:["апвпвп", "укеукеуке","кеукеуеуе","кеуеуеуе","кеуеуеу","укеуеуе", "кеукеуеуеуеуе"],
+            day:["Понедельник", "Вторник","Среда","Четверг","Пятница","Суббота", "Воскресенье"],
+            page:0,
+            month:0,
+            year:0,
         }
     },
-    methods:{
-        calendar: function(){
-            var days = [];
-            var week = 0;
-            days[week] = [];
-            var dlast = new Date(this.year, this.month + 1, 0).getDate();
-            for (let i = 1; i <= dlast; i++) {
-                if (new Date(this.year, this.month, i).getDay() != this.dFirstMonth) {
-                    a = {index:i};
-                    days[week].push(a);
-                } else {
-                    week++;
-                    days[week] = [];
-                    a = {index:i};
-                    days[week].push(a);
-                }
-            }
-            if (days[0].length > 0) {
-                for (let i = days[0].length; i < 7; i++) {
-                    days[0].unshift('');
-                }
-            }
-            this.dayChange;
-            return days;
-        },
-        getNow() {
-            let currentWeek=[];
-            let timestamp=[];
+    methods:{},
+    computed:{
+        getMonth()
+        {
+            let Month=[];
+            let month1=[];
+            let counter=0;
             let nowDate = new Date();
-            nowDate.setDate(nowDate.getDate()-nowDate.getDay());
-            for(let i=1;i<7;i++){
-                let param =new Date(nowDate.setDate(nowDate.getDate()+1))
-                let day = param.getDate()<10?'0'+param.getDate():param.getDate();
-                let month = param.getMonth()+1<10?'0'+(param.getMonth()+1):param.getMonth()+1;
-                let year = param.getFullYear();
-                timestamp.push(+new Date(param));
-                currentWeek.push(day+"."+month+"."+year)
+            let M=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"]
+            if(this.page!=0)
+            {
+                nowDate.setMonth(nowDate.getMonth()+this.page);
             }
-            return {'currentWeek':currentWeek,'timestamp':timestamp};
+            else{
+                nowDate=new Date()
+            }
+            nowDate.setDate(1);
+
+            if(nowDate.getDate()-nowDate.getDay()==1)
+            {
+                nowDate.setDate(nowDate.getDate()-7);
+
+            }
+            this.month=M[nowDate.getMonth()];
+            this.year=nowDate.getFullYear();
+            nowDate.setDate(nowDate.getDate()-nowDate.getDay());
+
+            for(let i=1;;i++){
+
+                let param =new Date(nowDate.setDate(nowDate.getDate()+1))
+                let day = param.getDate();
+                let month =param.getMonth()+1;
+                let year = param.getFullYear();
+
+                if(day==1&&i>7)
+                {
+                    month1.push(Month);
+                    break;
+                }
+                Month.push(day+"-"+month+"-"+year)
+                if(i%7==0)
+                {
+                    month1.push(Month);
+                    Month=[];
+                    counter++;
+                }
+            }
+            return month1;
+        },
+
+    },
+
+    created(){
+        console.log(this.getMonth);
+    },
+    watch:{
+        page(){
+            console.log(this.getMonth);
         }
     }
+
+
 }
 </script>
 
-<style>
+<style scoped>
+    .header{
+        max-width: 160px;
+        min-height: 90px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 900;
+        font-size: 12px;
+        line-height: 90px;
+        /* identical to box height, or 750% */
 
+        text-align: center;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+
+        color: #B3B3B3;
+    }
+    .table th, .table td {
+        padding:0px;
+    }
+    .table {
+        max-width: 1100px;
+    }
+    .table td {
+        border: 2px solid  #F5F5F5;
+    }
 </style>

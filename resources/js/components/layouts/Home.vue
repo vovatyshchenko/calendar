@@ -4,10 +4,11 @@
       <v-col cols="12" md="8">
         <calendar-year></calendar-year>
       </v-col>
+        <router-link active-class="font-bold" to="/month">Перейти на месяц</router-link>
     </v-row>
     <v-row align="center" justify="end">
       <v-col cols="12" md="8">
-        <calendar-month></calendar-month>
+
       </v-col>
     </v-row>
   </div>
@@ -29,7 +30,7 @@ export default {
       if (value === false) this.$router.push({ path: "/login" });
     }
   }*/
-} 
+}
 </script>
 
 <style>

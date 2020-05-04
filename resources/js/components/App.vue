@@ -10,7 +10,8 @@
           </v-row>
         </v-container>
       </v-content>
-    <footer-block></footer-block> 
+
+    <footer-block></footer-block>
   </v-app>
 </template>
 

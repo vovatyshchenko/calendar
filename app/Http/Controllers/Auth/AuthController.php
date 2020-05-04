@@ -16,9 +16,9 @@ class AuthController extends Controller
     {
         $query = http_build_query([
             'client_id' => env('CLIENT_ID'),//запросить у Богдана и вынести в конфиг
-            'redirect_uri' =>  env('REDIRECT_URL'),//урл куда оправит сайт Богдана после успешной
+            'redirect_uri' =>  env('REDIRECT_URI'),//урл куда оправит сайт Богдана после успешной
             'response_type' => 'code',
-   
+
         ]);
         return redirect(env('AUTORIZATION_URL').$query);
     }
@@ -33,7 +33,7 @@ class AuthController extends Controller
                 'grant_type' => 'authorization_code',
                 'client_id' =>env('CLIENT_ID'), //данные которые выдаст Богдан. вынести в конфиг
                 'client_secret' =>env('CLIENT_SECRET') ,//данные которые выдаст Богдан. вынести в конфиг
-                'redirect_uri' => env('REDIRECT_URL'),
+                'redirect_uri' => env('REDIRECT_URI'),
                 'code' => $request->code,
             ],
         ]);

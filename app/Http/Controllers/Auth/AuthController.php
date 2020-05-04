@@ -18,7 +18,6 @@ class AuthController extends Controller
             'client_id' => env('CLIENT_ID'),//запросить у Богдана и вынести в конфиг
             'redirect_uri' =>  env('REDIRECT_URL'),//урл куда оправит сайт Богдана после успешной
             'response_type' => 'code',
-            'scope' => '',
         ]);
         return redirect(env('AUTORIZATION_URL').$query);
     }

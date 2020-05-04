@@ -20,10 +20,9 @@ export default {
     },
     actions: {
         increment() {
-            axios.get('http://kayaposoft.com/enrico/json/v1.0/?action=getPublicHolidaysForMonth&month=1&year=2014&country=rus')
+            axios.post('http://kayaposoft.com/enrico/json/v1.0/?action=getPublicHolidaysForMonth&month=1&year=2014&country=rus')
                 .then(function(response){
-                    console.log(response.data); // ex.: { holidays: ''}
-                    console.log(response.status); // ex.: 200
+
                 });
         }
     }

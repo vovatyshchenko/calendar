@@ -86,6 +86,7 @@ export default {
 
     created(){
         console.log(this.getMonth);
+        // this.$store.dispatch('increment');
     },
     watch:{
         page(){

@@ -26,7 +26,7 @@ class CreateUserCategoryTable extends Migration
                 ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreign('grade_id')
+            $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')
                 ->onUpdate('cascade')

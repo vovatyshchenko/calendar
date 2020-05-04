@@ -18,8 +18,6 @@ class CreateActivitiesTable extends Migration
             $table->string('name');
             $table->string('location');
             $table->string('about');
-            $table->timestamp('date_start');
-            $table->timestamp('date_end');
             $table->timestamp('status');
             $table->timestamps();
         });

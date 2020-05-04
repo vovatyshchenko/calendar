@@ -18,10 +18,12 @@ use Illuminate\Http\Request;
 */
 
 //Auth::routes();
-Route::view('/', 'index')
-    ->middleware('auth');
-Route::view('/{any}', 'index')->where('any', '.*');
+
 Route::get('/auth/redirect','Auth\AuthController@authorizathion')->name('login');
 Route::get('/auth/callback', 'Auth\AuthController@callback');
+Route::view('/', 'index')->middleware('auth');
+
+
+Route::view('/{any}', 'index')->where('any', '.*')->middleware('auth');
 
 //Route::middleware('auth')->post('/logout', 'Auth\LogoutController@logout');

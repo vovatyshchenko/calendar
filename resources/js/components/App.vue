@@ -1,5 +1,6 @@
 <template>
   <div>
+    <user-block></user-block>
     <div class="container">
       <router-view></router-view>
     </div> 

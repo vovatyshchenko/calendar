@@ -23,6 +23,7 @@ export default {
         justify-content: flex-end;
         flex-wrap: wrap;
         position: relative;
+        background-color: #fff;
     }
     .user {
         position: relative;

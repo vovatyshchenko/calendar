@@ -6,7 +6,8 @@ Vue.use(VueRouter);
 
 import Home from '../components/layouts/Home';
 import Login from '../components/layouts/auth/Login';
-import Register from '../components/layouts/auth/Register';
+import Year from '../components/layouts/calendar/year/index';
+import MonthIndex from "../components/layouts/calendar/month/MonthIndex";
 
 const routes = [
     {
@@ -21,9 +22,14 @@ const routes = [
         path: '/login'
     },
     {
-        component: Register,
-        name: 'register',
-        path: '/register'
+        component: Year,
+        name: 'calendar-year',
+        path: '/year'
+    },
+    {
+        component:MonthIndex,
+        name: 'calendar-month',
+        path: '/month'
     }
 ];
 
@@ -32,11 +38,11 @@ export default new VueRouter({
     routes
 });
 
-function guard(from, to, next) {
-    if (Store.getters.is_user_authenticated === true){
-      next()
-    }  
-    else{
-      next('/login')
-    }  
-}
+// function guard(from, to, next) {
+//     if (Store.getters.is_user_authenticated === true){
+//       next()
+//     }
+//     else{
+//       next('/login')
+//     }
+// }

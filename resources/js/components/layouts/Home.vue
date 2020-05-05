@@ -1,10 +1,13 @@
 <template>
-  <div>
-    <div class="d-flex row justify-content-end">
-      <div class="col-8">
+  <div>  
+    <v-row align="center">
+      <v-col>
         <calendar-year></calendar-year>
-      </div>
-    </div>
+        <calendar-month></calendar-month>
+        <cell-month></cell-month>
+        <router-link active-class="font-bold" to="/month">Перейти на месяц</router-link>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -24,7 +27,7 @@ export default {
       if (value === false) this.$router.push({ path: "/login" });
     }
   }*/
-} 
+}
 </script>
 
 <style>

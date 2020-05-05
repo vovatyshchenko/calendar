@@ -23,7 +23,7 @@ window.Vue = Vue;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('nav-block', require('./components/layouts/blocks/nav/index.vue').default);
+Vue.component('user-block', require('./components/layouts/blocks/nav/user.vue').default);
 Vue.component('footer-block', require('./components/layouts/blocks/footer/index.vue').default);
 
 Vue.component('calendar-year', require('./components/layouts/calendar/year/index.vue').default);

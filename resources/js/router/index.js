@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 
 import Home from '../components/layouts/Home';
 import Login from '../components/layouts/auth/Login';
-import Register from '../components/layouts/auth/Register';
+import Year from '../components/layouts/calendar/year/index';
 import MonthIndex from "../components/layouts/calendar/month/MonthIndex";
 import Day from "../components/layouts/calendar/day/Day";
 import WeekIndex from "../components/layouts/calendar/week/WeekIndex";
@@ -24,9 +24,9 @@ const routes = [
         path: '/login'
     },
     {
-        component: Register,
-        name: 'register',
-        path: '/register'
+        component: Year,
+        name: 'calendar-year',
+        path: '/year'
     },
     {
         component: MonthIndex,

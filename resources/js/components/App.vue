@@ -1,6 +1,6 @@
 <template>
     <v-app id="inspire">
-        <nav-block></nav-block>
+        <user-block></user-block>
         <div>
             <v-app>
                 <menu-calendar></menu-calendar>

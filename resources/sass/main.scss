@@ -1,0 +1,23 @@
+.content-block {
+    display: flex;
+    background-color: #fafafa;
+}
+.calendar-block {
+    margin: 15px auto 15px;
+    width: 100%;
+    max-width: 1200px;
+    background-color: #fff;
+}
+body {
+    margin: 0;
+    background-color: #fafafa;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 30px;
+}
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}

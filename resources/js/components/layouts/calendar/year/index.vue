@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <div class="header">
       <button @click="change_year_minus()">&lt;--</button>
       <div class="title">{{ year }}</div>
@@ -54,6 +54,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .main {
+    max-width: 75%;
+    margin: 0 auto;
+  }
   .header {
     padding: 0.25em;
     display: flex;

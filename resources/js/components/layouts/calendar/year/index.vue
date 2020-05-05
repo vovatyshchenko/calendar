@@ -31,6 +31,7 @@ export default {
   created() {
     this.$store.dispatch('year_data', this.year);
     this.$store.dispatch('week_days');
+    this.$store.dispatch('get_holidays');
   },
   methods: {
     change_year_minus(){
@@ -48,6 +49,12 @@ export default {
     },
     days() {
       return this.$store.getters.get_days;
+    },
+    days() {
+      return this.$store.getters.get_days;
+    },
+    holidays() {
+      return this.$store.getters.get_holidays;
     },
   }
 }

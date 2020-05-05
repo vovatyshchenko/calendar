@@ -29,8 +29,8 @@ Vue.component('footer-block', require('./components/layouts/blocks/footer/index.
 Vue.component('calendar-year', require('./components/layouts/calendar/year/index.vue').default);
 
 Vue.component('calendar-month', require('./components/layouts/calendar/month/MonthIndex.vue').default);
-Vue.component('calendar-month', require('./components/layouts/calendar/month/MonthIndex.vue').default);
-Vue.component('cell-month', require('./components/layouts/calendar/month/CellCalendar/CellMonth').default);
+
+
 Vue.component('calendar-day', require('./components/layouts/calendar/day/Day').default);
 
 Vue.component('menu-calendar', require('./components/layouts/menu/Menu').default);

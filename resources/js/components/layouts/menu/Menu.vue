@@ -5,7 +5,7 @@
             color="#fafafa"
             flat
         >
-            <v-app-bar-nav-icon @click="change_qwe()"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click="change_drawer()"></v-app-bar-nav-icon>
             <v-toolbar-title>Календарь</v-toolbar-title>
             <div class="menu-info">
                 <v-btn width="130" height="50" class="today-btn menu-btn" color="#fff" depressed>Сегодня</v-btn>
@@ -40,7 +40,7 @@
             drawer: false,
         }),
         methods: {
-            change_qwe() {
+            change_drawer() {
                 this.$store.commit('change_drawer');
                 this.drawer=!this.drawer;
             }

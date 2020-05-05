@@ -20,10 +20,24 @@ export default {
     },
     actions: {
         increment() {
-            axios.post('http://kayaposoft.com/enrico/json/v1.0/?action=getPublicHolidaysForMonth&month=1&year=2014&country=rus')
-                .then(function(response){
 
-                });
+            axios.get(
+                'http://kayaposoft.com/enrico/json/v1.0/?action=getPublicHolidaysForMonth&month=1&year=2014&country=rus',
+                {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        "Access-Control-Allow-Origin": 'http://127.0.0.1:8000'
+                    },
+                    proxy: {
+                        host: '127.0.0.1',
+                        port: 8000
+                    }
+                }
+            ).then(function () {
+
+            }).catch(function () {
+
+            });
         }
     }
   }

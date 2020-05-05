@@ -35,7 +35,7 @@ export default {
        let day = moment({year: this.year, month: m, day: 1});// формируем дату на первый день каждого месяца
        let daysInMonth = day.daysInMonth(); // количество дней в месяце
        // готовим объект месяца
-       let month = { 
+       let month = {
          title: day.format("MMMM"),
          weeks: {},
        };
@@ -45,9 +45,9 @@ export default {
          // небольшой хак, момент считает
          // последние дни декабря за первую неделю,
          // но мне надо чтобы считалось за 53
-         if (m === 11 && week === 1) {
-           week = 53
-         }
+         // if (m === 11 && week === 1) {
+         //   week = 53
+         // }
          // если неделя еще не присутствует в месяце, то добавляем ее
          if (!month.weeks.hasOwnProperty(week)) {
            month.weeks[week] = {}

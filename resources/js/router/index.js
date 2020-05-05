@@ -8,6 +8,7 @@ import Home from '../components/layouts/Home';
 import Login from '../components/layouts/auth/Login';
 import Register from '../components/layouts/auth/Register';
 import MonthIndex from "../components/layouts/calendar/month/MonthIndex";
+import Day from "../components/layouts/calendar/day/Day";
 
 const routes = [
     {
@@ -27,10 +28,16 @@ const routes = [
         path: '/register'
     },
     {
-        component:MonthIndex,
+        component: MonthIndex,
         name: 'calendar-month',
         path: '/month'
+    },
+    {
+        component: Day,
+        name: 'calendar-day',
+        path: '/day'
     }
+
 ];
 
 export default new VueRouter({

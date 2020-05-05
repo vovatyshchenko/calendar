@@ -8,6 +8,7 @@ import Home from '../components/layouts/Home';
 import Login from '../components/layouts/auth/Login';
 import Register from '../components/layouts/auth/Register';
 import MonthIndex from "../components/layouts/calendar/month/MonthIndex";
+import WeekIndex from "../components/layouts/calendar/week/WeekIndex";
 
 const routes = [
     {
@@ -30,6 +31,11 @@ const routes = [
         component:MonthIndex,
         name: 'calendar-month',
         path: '/month'
+    },
+    {
+        component:WeekIndex,
+        name: 'calendar-week',
+        path: '/week'
     }
 ];
 

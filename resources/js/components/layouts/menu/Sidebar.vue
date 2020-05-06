@@ -7,14 +7,7 @@
             class="bg-calendar calendar-sidebar"
         >
             <v-btn width="130" height="50" class="create-btn menu-btn" color="#1875F0" depressed>Создать</v-btn>
-            <div class="side-data-picker">
-                <div class="side-data-picker-header">
-                    August 2020
-                </div>
-                <div class="side-data-picker-body">
-
-                </div>
-            </div>
+            <mini-calendar></mini-calendar>
             <type-list></type-list>
         </v-navigation-drawer>
     </div>

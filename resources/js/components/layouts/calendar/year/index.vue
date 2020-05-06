@@ -1,21 +1,21 @@
-  <template>
-  <div>
+<template>
+  <div class="main">
     <div class="header">
-      <button @click="--year">&lt;--</button>
+      <button @click="change_year_minus()">&lt;--</button>
       <div class="title">{{ year }}</div>
-      <button @click="++year">--&gt;</button>
+      <button @click="change_year_plus()">--&gt;</button>
     </div>
     <div class="year">
-      <div class="month" v-for="month in yearData">
+      <div class="month" v-for="month in data">
         <div class="title">{{ month.title }}</div>
         <div class="week">
-          <div class="day" v-for="d in weekDays">
-            <span>{{d}}</span>
+          <div class="day" v-for="d in days">
+            <span class="day__title">{{d}}</span>
           </div>
         </div>
         <div class="week" v-for="week in month.weeks">
           <div class="day" v-for="day in 7">
-            <span v-if="week[day]">{{ week[day].date.getDate() }}</span>
+            <span class="days" v-if="week[day]">{{ week[day].date.getDate() }}</span>
           </div>
         </div>
       </div>
@@ -28,59 +28,42 @@ export default {
   data: () => ({
     year: (new Date()).getFullYear()
   }),
-  computed: {
-    yearData() {
-     let data = [];
-     for (let m = 0; m < 12; m++) {
-       let day = moment({year: this.year, month: m, day: 1});// формируем дату на первый день каждого месяца
-       let daysInMonth = day.daysInMonth(); // количество дней в месяце
-       // готовим объект месяца
-       let month = {
-         title: day.format("MMMM"),
-         weeks: {},
-       };
-       // итерируем по количеству дней в месяце
-       for (let d = 0; d < daysInMonth; d++) {
-         let week = day.week();
-         // небольшой хак, момент считает
-         // последние дни декабря за первую неделю,
-         // но мне надо чтобы считалось за 53
-         // if (m === 11 && week === 1) {
-         //   week = 53
-         // }
-         // если неделя еще не присутствует в месяце, то добавляем ее
-         if (!month.weeks.hasOwnProperty(week)) {
-           month.weeks[week] = {}
-         }
-         // добавляем день, у weekday() нумерация с нуля,
-         // поэтому добавляю единицу, можно и не добавлять,
-         // но так будет удобнее
-         month.weeks[week][day.weekday() + 1] = {
-           date: day.toDate(),
-         };
-         // итерируем день на единицу, moment мутирует исходное значение
-         day.add(1, 'd');
-       }
-       // добавлям данные по месяцу в год
-       data.push(month);
-     }
-     return data
-   },
-    weekDays () { // дни недели
-      let days = [];
-      for(let i = 1; i<=7;i++) {
-        days.push(moment().isoWeekday(i).format("dd"))
-      }
-      return days;
+  created() {
+    this.$store.dispatch('year_data', this.year);
+    this.$store.dispatch('week_days');
+    this.$store.dispatch('get_holidays');
+  },
+  methods: {
+    change_year_minus(){
+      this.year--;
+      this.$store.dispatch('year_data', this.year);
     },
- }
+    change_year_plus(){
+      this.year++;
+      this.$store.dispatch('year_data', this.year);
+    }
+  },
+  computed: {
+    data() {
+      return this.$store.getters.get_year;
+    },
+    days() {
+      return this.$store.getters.get_days;
+    },
+    days() {
+      return this.$store.getters.get_days;
+    },
+    holidays() {
+      return this.$store.getters.get_holidays;
+    },
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-  @mixin font-style {
-    font-style: normal;
-    letter-spacing: 1px;
+  .main {
+    max-width: 75%;
+    margin: 0 auto;
   }
   .header {
     padding: 0.25em;
@@ -89,42 +72,50 @@ export default {
     justify-content: space-between;
   }
   .title {
-    padding: 0 30px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    padding-left: 30px;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 60px;
+    color: #666666;
+    flex-grow: 1;
+    flex-basis: 0;
+    border-top: 1px solid #F5F5F5;
+    border-bottom: 3px solid #F5F5F5;
   }
   .week {
     display: flex;
-    span {
-      @include font-style;
-      line-height: 14px;
+    padding: 0 40px 10px 10px;
+  }
+  .days {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 14px;
+    color: #999999;
+  }
+  .day__title {
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 30px;
+      letter-spacing: 1px;
       color: #808080;
-    }
   }
   .day {
     margin: 0.25em;
     flex-grow: 1;
     flex-basis: 0;
-    @include font-style;
-    font-weight: bold;
-    font-size: 12px;
-    line-height: 14px;
-    color: #999999;
-    padding: 7px 0;
   }
   .year {
     display: flex;
     flex-wrap: wrap;
   }
   .month {
-    @include font-style;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 60px;
-    color: #666666;
-    margin: 0.25em;
-    flex-grow: 1;
-    flex-basis: 0;
+    background-color: #fff;
     border-radius: 6px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    margin: 0.02em;
+    flex-grow: 1;
+    flex-basis: 0;
   }
 </style>

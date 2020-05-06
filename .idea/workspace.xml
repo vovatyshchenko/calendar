@@ -23,11 +23,6 @@
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/Menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/Menu.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/Sidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/Sidebar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/menu/sidebar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/menu/sidebar.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,6 +215,7 @@
       <workItem from="1588491184352" duration="26604000" />
       <workItem from="1588668137878" duration="25640000" />
       <workItem from="1588696814570" duration="9212000" />
+      <workItem from="1588749187635" duration="107000" />
     </task>
     <servers />
   </component>

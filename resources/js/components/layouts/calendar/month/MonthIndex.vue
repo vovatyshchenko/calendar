@@ -66,7 +66,7 @@ export default {
                 let currentMonth =param.getMonth()+1;
                 let currentYear = param.getFullYear();
 
-                if(currentDay==1&&i>7)
+                if(currentDay==1&&i>7 &&week.length>0)
                 {
                     if(week.length<7)
                     {
@@ -84,6 +84,9 @@ export default {
                      monthDividedIntoWeeks.push(week);
                     break;
                 }
+                else if(currentDay==1&&i>7){
+                    break;
+                }
 
                 week.push(currentDay+"-"+currentMonth+"-"+currentYear)
                 if(i%7==0)
@@ -95,7 +98,6 @@ export default {
             }
             return  monthDividedIntoWeeks;
         },
-
     },
 
     created(){

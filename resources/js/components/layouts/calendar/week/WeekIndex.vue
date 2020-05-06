@@ -1,33 +1,17 @@
 <template>
     <div>
-    <table class="table table-bordered ">
-        <thead>
-        <tr class="border">
-            <th class="time d-flex  align-items-end " scope="col"><span>День</span></th>
-            <th  class="day " scope="col"><span class="d-block"><span>Понедельник,</span><span class="number">2</span></span></th>
-            <th class="day " scope="col"><span class="d-block"><span>Вторник,</span><span class="number">2</span></span></th>
-            <th class="day " scope="col"><span class="d-block"><span>Среда,</span><span class="number">2</span></span></th>
-            <th class="day " scope="col"><span class="d-block"><span>Четверг,</span><span class="number">2</span></span></th>
-            <th class="day " scope="col"><span class="d-block"><span>Пятница,</span><span class="number">2</span></span></th>
-            <th class="day " scope="col"><span class="d-block"><span>Суббота,</span><span class="number">2</span></span></th>
-            <th class="day" scope="col"><span class="d-block"><span>Воскресенье,</span><span class="number">2</span></span></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(item, index) in 24">
-            <th scope="row">{{item}}:00</th>
-<!--            <td></td>-->
-<!--            <td></td>-->
-<!--            <td></td>-->
-<!--            <td></td>-->
-<!--            <td></td>-->
-<!--            <td></td>-->
-<!--            <td></td>-->
-        </tr>
-        </tbody>
-    </table>
-        <button @click="page+=7">Добавить</button>
-        <button @click="page-=7">Убрать</button>
+    <div>
+        <span>День</span>
+        <ul>
+            <li class="p-4" v-for="(item,index) in 24">{{item}}</li>
+        </ul>
+    </div>
+     <div v-for="(r,index) in 7">
+         <span>понедельник</span>
+         <ul>
+             <li class="p-4" v-for="(item,index) in 24">{{item}}</li>
+         </ul>
+     </div>
 </div>
 </template>
 
@@ -37,16 +21,44 @@
         data(){
             return{
                 page:0,
-                f:0,
                 year:0,
+                dayNumber:[]
             }
         },
         methods:{
+          getDayFromDate(date){
+              switch (date) {
+                  case 0:
+                       return 'Понедельник'
+                      break;
+                  case 1:
+                      return 'Вторник'
+                      break;
+                  case 2:
+                      return 'Среда'
+                      break;
+                  case 3:
+                      return 'Четверг'
+                      break;
+                  case 4:
+                      return 'Пятница'
+                      break;
+                  case 5:
+                      return 'Суббота'
+                      break;
+                  case 6:
+                      return 'Воскресенье'
+                      break;
+                  default:
+                      break;
+              }
+          }
         },
         computed:{
             getWeek() {
                 let currentWeek=[];
                 let timestamp=[];
+                this.dayNumber=[];
                 let nowDate=new Date();
                 if(this.page!=0)
                 {
@@ -57,26 +69,29 @@
                     nowDate=new Date()
                 }
 
-
-                nowDate.setMonth(this.f);
                 nowDate.setDate(nowDate.getDate()-nowDate.getDay());
                 let months=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"]
+                this.day=nowDate.getDay();
                 this.month=months[nowDate.getMonth()];
                 this.year=nowDate.getFullYear();
                 for(let i=1;i<=7;i++){
 
                     let param =new Date(nowDate.setDate(nowDate.getDate()+1))
-                    let day = param.getDate()<10?'0'+param.getDate():param.getDate();
-                    let month = param.getMonth()+1<10?'0'+(param.getMonth()+1):param.getMonth()+1;
+                    let day = param.getDate();
+                    let month =param.getMonth()+1;
                     let year = param.getFullYear();
-                    timestamp.push(+new Date(param));
+                    this.dayNumber.push(day);
                     currentWeek.push(day+"."+month+"."+year)
                 }
-                return {'currentWeek':currentWeek,'timestamp':timestamp};
-            }
+                return currentWeek;
+            },
+
         },
+
+
         created(){
             this.f=3;
+            console.log(this.getWeek);
         },
         watch:{
             page(){

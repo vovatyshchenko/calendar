@@ -40,6 +40,9 @@ Vue.component('calendar-month', require('./components/layouts/calendar/month/Mon
 Vue.component('cell-month', require('./components/CellCalendar/CellMonth').default);
 Vue.component('calendar-week', require('./components/layouts/calendar/week/WeekIndex').default);
 Vue.component('cell-week', require('./components/CellCalendar/CellWeek').default);
+Vue.component('cell-year',require('./components/CellCalendar/CellYear').default);
+Vue.component('year',require('./components/layouts/calendar/year/Year').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -20,9 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="530ed881-a690-4da1-94b1-52aaa0d6d684" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/App.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,6 +216,7 @@
       <workItem from="1588668137878" duration="25640000" />
       <workItem from="1588696814570" duration="9212000" />
       <workItem from="1588749187635" duration="107000" />
+      <workItem from="1588749308495" duration="4208000" />
     </task>
     <servers />
   </component>
@@ -263,6 +264,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="303" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588530586616" />
+    <state x="841" y="387" width="719" height="271" key="MultipleFileMergeDialog" timestamp="1588749377544">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state x="841" y="387" width="719" height="271" key="MultipleFileMergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1588749377544" />
     <state x="449" y="154" width="1022" height="737" key="SettingsEditor" timestamp="1588701029608">
       <screen x="0" y="27" width="1920" height="985" />
     </state>

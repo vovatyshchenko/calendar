@@ -1,6 +1,5 @@
 <template>
     <v-app id="inspire">
-        <user-block></user-block>
         <div>
             <v-app>
                 <menu-calendar></menu-calendar>
@@ -19,12 +18,17 @@
 
 <script>
 export default {
-    data: () => ({}),
+    data: () => ({
+
+    }),
     computed: {
         drawer() {
             return this.$store.getters.drawer;
         }
     },
+    methods: {
+
+    }
 }
 </script>
 

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class HolidayController extends Controller
 {
-    function json_fix_cyr($json_str) {
+    function jsonEncode($jsonStr) {
         $cyr_chars = array (
             '\u0430' => 'а', '\u0410' => 'А',
             '\u0431' => 'б', '\u0411' => 'Б',
@@ -49,9 +49,9 @@ class HolidayController extends Controller
             '\t' => ''
         );
         foreach ($cyr_chars as $cyr_char_key => $cyr_char) {
-            $json_str = str_replace($cyr_char_key, $cyr_char, $json_str);
+            $jsonStr = str_replace($cyr_char_key, $cyr_char, $jsonStr);
         }
-        return $json_str;
+        return $jsonStr;
     }
 
     public function getHoliday()
@@ -68,7 +68,7 @@ class HolidayController extends Controller
         $jsonString = json_encode($response, true);
         $data=json_decode($jsonString);
 
-        echo print_r($this->json_fix_cyr($data));
+        echo print_r($this->jsonEncode($data));
 
         $status = curl_getinfo($curl);
         curl_close($curl);

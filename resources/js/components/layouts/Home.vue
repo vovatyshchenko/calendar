@@ -1,12 +1,12 @@
 <template>
-  <div>  
+  <div>
     <v-row align="center">
       <v-col>
-        <calendar-year></calendar-year>
-        <calendar-month></calendar-month>
-        <cell-month></cell-month>
-        <router-link active-class="font-bold" to="/month">Перейти на месяц</router-link>
+          <year></year>
       </v-col>
+
+        <router-link active-class="font-bold" to="/month">Перейти на месяц</router-link>
+
     </v-row>
   </div>
 </template>

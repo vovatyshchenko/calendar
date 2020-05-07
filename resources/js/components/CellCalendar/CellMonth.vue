@@ -47,8 +47,8 @@
                 else{
                     dateForCalendar=parseDate[0];
                 }
-
-               return dateForCalendar
+                console.log(parseDate[1]);
+               return dateForCalendar;
             }
         },
         created()

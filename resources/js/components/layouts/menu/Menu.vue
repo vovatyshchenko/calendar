@@ -23,11 +23,11 @@
                 </div>
             </div>
             <div class="select-calendar">
-                <select name="select">
-                    <option value="value1" selected>День</option>
-                    <option value="value2">Неделя</option>
-                    <option value="value3">Месяц</option>
-                    <option value="value4">Год</option>
+                <select name="select" v-model="route" @click="set_route()" placeholder="День">
+                    <option selected value="/">День</option>
+                    <option value="/week">Неделя</option>
+                    <option value="/month">Месяц</option>
+                    <option value="/year">Год</option>
                 </select>
             </div>
         </v-app-bar>
@@ -38,12 +38,17 @@
     export default {
         data: () => ({
             drawer: false,
+            route: '/'
         }),
         methods: {
             change_drawer() {
                 this.$store.commit('change_drawer');
                 this.drawer=!this.drawer;
-            }
+            },
+            set_route() {
+                this.$store.dispatch('set_calendar_page', this.route);
+                this.$router.push({ path: this.$store.getters.calendar_route });  
+            },
         },
     }
 </script>

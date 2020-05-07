@@ -1,32 +1,16 @@
 <template>
   <div>
-    <v-row align="center">
-      <v-col>
-          <year></year>
-      </v-col>
-
-        <router-link active-class="font-bold" to="/month">Перейти на месяц</router-link>
-
-    </v-row>
+    <div class="row">
+      <div class="col-12">
+          <calendar-day></calendar-day>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({}),
-  /*computed: {},
-    is_user_authenticated() {
-      return this.$store.getters.is_user_authenticated;
-    },
-    user_info() {
-      return this.$store.getters.user_info;
-    },
-  },
-  watch: {
-    is_user_authenticated(value) {
-      if (value === false) this.$router.push({ path: "/login" });
-    }
-  }*/
 }
 </script>
 

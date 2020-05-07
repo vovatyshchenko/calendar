@@ -1,8 +1,7 @@
 <template>
-    <div>
-
-        {{mon}}
-        {{year}}
+    <div class="year__wrapper">
+        {{ mon }}
+        {{ year }}
         <table class="table">
             <thead>
             <tr>
@@ -12,20 +11,18 @@
             <tbody>
             <tr v-for="week in getMonth">
                 <td v-for="(day, index) in week">
-                    {{day}}
+                    {{ day }}
                     <!--                      <cell-month :date="day"></cell-month>-->
                     <!--                    {{day}} <span v-if="day==1"> {{month}} </span>-->
                 </td>
             </tr>
             </tbody>
         </table>
-
     </div>
 </template>
 
 <script>
     export default {
-
         name: "CellYear",
         props:['year','month'],
         data(){
@@ -59,29 +56,22 @@
 
                 nowDate.setDate(nowDate.getDate()-nowDate.getDay());
 
-                for(let i=1;;i++){
-
+                for(let i=1; ; i++){
                     let param =new Date(nowDate.setDate(nowDate.getDate()+1))
                     let currentDay = param.getDate();
                     let currentMonth =param.getMonth()+1;
                     let currentYear = param.getFullYear();
                     console.log(currentMonth);
-                    if(currentDay==1&&i>7)
-                    {
-
+                    if(currentDay==1&&i>7){
                         monthDividedIntoWeeks.push(week);
                         break;
                     }
-
-                    if(currentMonth==LastMonth||(LastMonth==0 && currentMonth==12))
-                    {
+                    if(currentMonth==LastMonth||(LastMonth==0 && currentMonth==12)){
                         week.push(null);
                         continue;
                     }
                     week.push(currentDay+"-"+currentMonth+"-"+currentYear)
-                    if(i%7==0)
-                    {
-
+                    if(i%7==0){
                         monthDividedIntoWeeks.push(week);
                         week=[];
                         counter++;
@@ -101,7 +91,9 @@
 </script>
 
 <style scoped>
-.table{
-    max-width: 500px;
-}
+    .year__wrapper{
+        display: flex;
+        flex-direction: column;
+    }
+
 </style>

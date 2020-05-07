@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+require_once('Holidays/index.php');
 //Auth::routes();
 
 //Route::get('/auth/redirect','Auth\AuthController@authorizathion')->name('login');
@@ -27,3 +27,4 @@ use Illuminate\Http\Request;
 Route::view('/{any}', 'index')->where('any', '.*');
 
 //Route::middleware('auth')->post('/logout', 'Auth\LogoutController@logout');
+

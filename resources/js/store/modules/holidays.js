@@ -1,38 +1,50 @@
 export default {
     state: {
-        holidays: {},
-        year_holidays: {}
+        holidays: []
     },
     mutations: {
-        set_holidays(state, payload) {
-            state.holidays = payload;
-        },
-        set_year_holidays(state, payload) {
-            state.year_holidays = payload;
+        set_holidays(state, params) {
+
+            state.holidays = params.data;
+
         }
     },
     actions: {
-        get_holidays({ commit }) {
-            axios.get('/api/get-holidays')
-            .then(responce => {
-                commit('set_holidays', responce.data);
-            })
-            .catch(error => {
-                commit('set_error', error.message);
-            })
-          },
-          get_year_holidays({ commit }) {
-            axios.get('/api/get-year-holidays')
-            .then(responce => {
-                commit('set_year_holidays', responce.data);
-            })
-            .catch(error => {
-                commit('set_error', error.message);
-            })
-          }
+         get_holidays(context, paramData) {
+
+             axios.post('/month/get-holidays', paramData)
+                .then(response => {
+
+                    let newResponse = {};
+
+                    _.each(response.data, function (value, index) {
+                        const day = response.data[index].date.day;
+                        newResponse[day] = response.data[index].date
+                        newResponse[day]['date']=response.data[index];
+                        newResponse[day]['englishName'] = value.englishName;
+                        newResponse[day]['localName']= value.localName;
+                    });
+                    console.log(newResponse);
+                    const params = {
+                        data: newResponse,
+                        // currentMonthKey: `${paramData.year}/${paramData.month}`,
+                    }
+                    context.commit("set_holidays", params);
+                    // console.log(response.data);
+                })
+                .catch(error => {
+
+                    context.commit("set_error", error.message);
+                })
+        }
+
     },
-    getters:{
+    getters: {
         holidays: state => state.holidays,
-        year_holidays: state => state.year_holidays
+        // holidays(state,currentMonth)
+        // {
+        //     return state.holidays[currentMonth];
+        // }
     }
+
 }

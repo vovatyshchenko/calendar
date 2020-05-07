@@ -1,6 +1,11 @@
 <template>
     <div>
         <div class="Cell">
+            {{EventsTest}}
+<!--            <div>{{valueTest}}</div>-->
+<!--        <div>{{EventsTest.date}}</div>-->
+<!--            <div v-for="(dayInfo,item) in EventsTest">{{dayInfo.}}</div>-->
+<!--            <div >{{EventsTest.localName ||""}}</div>-->
             <div class="d-flex flex-column">
                 <span class="date"><span>{{currentDate}}</span></span>
                 <ul class="d-flex align-center flex-column">
@@ -15,12 +20,12 @@
 
 <script>
     export default {
-        props:['date'],
+        props:['date','holiday'],
         data(){
 
             return{
-                dateForMonth:""
-                ,
+                dateForMonth:"",
+
                 Events:[
                     {text:'Удивительный хаббл1222' ,background:'#F5E3F9'},
                     {text:'Брендинг знаете ли вы2',background: "#FEEACC"}
@@ -29,6 +34,13 @@
         },
         filters: {
             cutText(value, symbolsCount) {
+                return value.length > symbolsCount
+                    ? value.slice(0, symbolsCount - 3) + '...'
+                    : value;
+            }
+        },
+        methods:{
+            cutTextFunction(value,symbolsCount){
                 return value.length > symbolsCount
                     ? value.slice(0, symbolsCount - 3) + '...'
                     : value;
@@ -47,14 +59,18 @@
                 else{
                     dateForCalendar=parseDate[0];
                 }
-                console.log(parseDate[1]);
                return dateForCalendar;
+            },
+            EventsTest(){
+                this.dateForMonth=this.date;
+                let parseDate = this.dateForMonth.split("-");
+                if(this.$store.getters.holidays[parseDate[0]])
+                {
+                   return  this.cutTextFunction(this.$store.getters.holidays[parseDate[0]].localName,21);
+                }
+
             }
         },
-        created()
-        {
-
-        }
     }
 </script>
 

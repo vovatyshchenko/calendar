@@ -18,13 +18,34 @@ export default {
                     let newResponse = {};
 
                     _.each(response.data, function (value, index) {
-                        const day = response.data[index].date.day;
-                        newResponse[day] = response.data[index].date
-                        newResponse[day]['date']=response.data[index];
-                        newResponse[day]['englishName'] = value.englishName;
-                        newResponse[day]['localName']= value.localName;
+                        const month = response.data[index].date.month;
+                        newResponse[month] =[];
+                        // newResponse[month]['englishName'] = value.englishName;
+                        // newResponse[month]['localName']= value.localName;
                     });
-                    console.log(newResponse);
+                    _.each(newResponse, function (value, index) {
+                        _.each(response.data, function (dayValue,dayIndex) {
+                            const month = response.data[dayIndex].date.month;
+                            if(index==month)
+                            {
+                                let res={}
+                                const day = response.data[dayIndex].date.day;
+
+                                // newResponse[day] = response.data[index].date
+                                // newResponse[day]['date']=response.data[index];
+                                // newResponse[day]['englishName'] = value.englishName;
+                                // newResponse[day]['localName']= value.localName;
+                                // dayValue.date['localName']=dayValue.localName;
+                                // dayValue.date['englishName']=dayValue.englishName;
+                                res[day]=response.data[dayIndex].date;
+                                res[day]['englishName'] = dayValue.englishName;
+                                res[day]['localName']= dayValue.localName;
+                                newResponse[index][dayValue.date.day]=res[day];
+                            }
+
+                        });
+
+                    });
                     const params = {
                         data: newResponse,
                         // currentMonthKey: `${paramData.year}/${paramData.month}`,
@@ -35,6 +56,7 @@ export default {
                 .catch(error => {
 
                     context.commit("set_error", error.message);
+                    console.log();
                 })
         }
 

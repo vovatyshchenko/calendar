@@ -46,7 +46,7 @@
                     : value;
             }
         },
-        computed:{
+      computed:{
             currentDate(){
                 this.dateForMonth=this.date;
                 let parseDate = this.dateForMonth.split("-");
@@ -61,14 +61,16 @@
                 }
                return dateForCalendar;
             },
-            EventsTest(){
+                 EventsTest(){
                 this.dateForMonth=this.date;
                 let parseDate = this.dateForMonth.split("-");
-                if(this.$store.getters.holidays[parseDate[0]])
+                if(this.$store.getters.holidays[parseDate[1]])
                 {
-                   return  this.cutTextFunction(this.$store.getters.holidays[parseDate[0]].localName,21);
+                    if(this.$store.getters.holidays[parseDate[1]][parseDate[0]])
+                    {
+                        return this.$store.getters.holidays[parseDate[1]][parseDate[0]].localName;
+                    }
                 }
-
             }
         },
     }

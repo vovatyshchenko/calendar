@@ -55,7 +55,8 @@ class Holiday extends Model
     public function getHolidaysForMonth($data)
     {
         $month=["Январь"=>1,"Февраль"=>2,"Март"=>3,"Апрель"=>4,"Май"=>5,"Июнь"=>6,"Июль"=>7,"Август"=>8,"Сентябрь"=>9,"Октябрь"=>10,"Ноябрь"=>11,"Декабрь"=>12];
-        $json_url = "http://kayaposoft.com/enrico/json/v1.0/?action=getPublicHolidaysForMonth&month=".$month[$data['month']]."&year=".$data['year']."&country=ukr";
+//        $json_url = "http://kayaposoft.com/enrico/json/v1.0/?action=getPublicHolidaysForMonth&month=".$month[$data['month']]."&year=".$data['year']."&country=ukr";
+        $json_url = "http://kayaposoft.com/enrico/json/v1.0/?action=getPublicHolidaysForYear&year=".$data['year']."&country=ukr";
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $json_url);
         curl_setopt($curl, CURLOPT_HEADER, false);

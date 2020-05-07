@@ -50,13 +50,13 @@
                 this.month = months[nowDate.getMonth()];
                 this.year = nowDate.getFullYear();
 
-                let object = {
-                    month: this.month,
-                    year: this.year,
-                }
-
-
-                this.$store.dispatch('get_holidays', object);
+                // let object = {
+                //     month: this.month,
+                //     year: this.year,
+                // }
+                //
+                //
+                // this.$store.dispatch('get_holidays', object);
 
                 if (nowDate.getDate() - nowDate.getDay() == 1) {
                     nowDate.setDate(nowDate.getDate() - 7);
@@ -99,22 +99,24 @@
                 return monthDividedIntoWeeks;
             },
         },
-         mounted() {
+         created() {
             //todo 1.получить ключ,сформировать ключ
             //todo 2. этот ключ,спрашиваешь если ли данные в обьекте holidays
 
 
-            let CurrentDate = {
-                month: this.month,
-                year: this.year,
+            // let CurrentDate = {
+            //     // month: this.month,
+            //     year: this.year,
+            // }
 
-            }
-
-            this.$store.dispatch('get_holidays', CurrentDate);
-
+            this.$store.dispatch('get_holidays', {year:this.year});
         },
         // this.$store.dispatch('get_holidays');
         watch:{
+            year()
+            {
+                this.$store.dispatch('get_holidays',{year:this.year});
+            },
             page()
             {
                 console.log(this.page);

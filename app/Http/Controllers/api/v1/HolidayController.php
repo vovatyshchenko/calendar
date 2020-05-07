@@ -14,7 +14,7 @@ class HolidayController extends Controller
     public function index(Request $request)
     {
 
-
+   
        return (new Holiday())->getHolidaysForMonth($request->all());
     }
 }

@@ -62,6 +62,6 @@ export default {
     },
     getters: {
         get_days: (state)=>state.days, 
-        get_year: (state)=>state.data
+        get_year: (state)=>state.data,
     }
   }

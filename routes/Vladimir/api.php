@@ -5,4 +5,4 @@
     Route::post('/register', 'api\v1\auth\AuthController@register');
     Route::middleware('auth:api')->get('/getuser', 'api\v1\user\UserController@getCurrentUser');
 });*/
-Route::get('/get-holidays', 'api\v1\HolidayController@getHoliday');
+//Route::get('/get-holidays', 'api\v1\HolidayController@indexMonth');

@@ -1,6 +1,8 @@
 <template>
     <div>
         <div class="Cell">
+<!--        <div>{{EventsTest.date}}</div>-->
+            <div v-for="(dayInfo,item) in EventsTest">{{dayInfo}}</div>
             <div class="d-flex flex-column">
                 <span class="date"><span>{{currentDate}}</span></span>
                 <ul class="d-flex align-center flex-column">
@@ -15,7 +17,7 @@
 
 <script>
     export default {
-        props:['date'],
+        props:['date','holiday'],
         data(){
 
             return{
@@ -47,14 +49,15 @@
                 else{
                     dateForCalendar=parseDate[0];
                 }
-                console.log(parseDate[1]);
                return dateForCalendar;
+            },
+            EventsTest(){
+                console.log(11);
+                this.dateForMonth=this.date;
+                let parseDate = this.dateForMonth.split("-");
+              return this.$store.getters.holidays[parseDate[0]];
             }
         },
-        created()
-        {
-
-        }
     }
 </script>
 

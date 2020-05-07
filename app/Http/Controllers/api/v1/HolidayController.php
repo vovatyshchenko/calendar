@@ -54,7 +54,7 @@ class HolidayController extends Controller
         return $jsonStr;
     }
 
-    public function getHoliday()
+    public function getHolidays()
     {
         $json_url = "http://kayaposoft.com/enrico/json/v1.0/?action=getPublicHolidaysForMonth&month=1&year=2020&country=ukr";
 
@@ -72,5 +72,25 @@ class HolidayController extends Controller
 
         $status = curl_getinfo($curl);
         curl_close($curl);
+    }
+
+    public function getYearHolidays()
+    {
+        $json_url = "https://kayaposoft.com/enrico/json/v2.0/?action=getHolidaysForYear&year=2020&country=ukr&holidayType=public_holiday";
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $json_url);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        $response = curl_exec($curl);
+
+        $jsonString = json_encode($response, true);
+        $data=json_decode($jsonString);
+
+        $status = curl_getinfo($curl);
+        curl_close($curl);
+
+        return($this->jsonEncode($data));
     }
 }

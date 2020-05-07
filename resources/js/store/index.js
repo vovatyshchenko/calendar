@@ -12,11 +12,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
+        Holidays,
         Common,
         User,
         Display,
         Calendar,
-        Holidays,
         Change_calendar_type
     }
 });

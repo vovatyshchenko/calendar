@@ -2,17 +2,15 @@
     <v-app id="inspire">
         <user-block></user-block>
         <div>
-            <v-app>
-                <menu-calendar></menu-calendar>
-                <div class="content-block">
-                    <sidebar-calendar v-if="drawer"></sidebar-calendar>
-                    <div align="center" class="calendar-block">
-                        <v-content>
-                            <router-view></router-view>
-                        </v-content>
-                    </div>
+            <menu-calendar></menu-calendar>
+            <div class="content-block">
+                <sidebar-calendar v-if="drawer"></sidebar-calendar>
+                <div align="center" class="calendar-block">
+                    <v-content>
+                        <router-view></router-view>
+                    </v-content>
                 </div>
-            </v-app>
+            </div>
         </div>
     </v-app>
 </template>

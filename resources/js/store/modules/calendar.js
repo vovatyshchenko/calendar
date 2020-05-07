@@ -15,7 +15,7 @@ export default {
         year_data({ commit }, year) {
             let data = [];
             for (let m = 0; m < 12; m++) {
-              let day = moment({year: year, month: m, day: 1});// формируем дату на первый день каждого месяца
+              let day = moment({ year: year, month: m, day: 1 });// формируем дату на первый день каждого месяца
               let days_in_month = day.daysInMonth(); // количество дней в месяце
               // готовим объект месяца
               let month = { 
@@ -30,6 +30,9 @@ export default {
                 // но мне надо чтобы считалось за 53
                 if (m === 11 && week === 1) {
                   week = 53
+                }
+                if (m === 0 && week === 53 || week === 52) {
+                  week = 0
                 }
                 // если неделя еще не присутствует в месяце, то добавляем ее
                 if (!month.weeks.hasOwnProperty(week)) {
@@ -58,7 +61,7 @@ export default {
           },
     },
     getters: {
-        get_days: (state)=>state.days,
+        get_days: (state)=>state.days, 
         get_year: (state)=>state.data
     }
   }

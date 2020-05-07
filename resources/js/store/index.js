@@ -6,6 +6,7 @@ import User from './modules/user';
 import Display from './modules/display';
 import Calendar from './modules/calendar';
 import Holidays from './modules/holidays';
+import Change_calendar_type from './modules/change_calendar_type';
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
         User,
         Display,
         Calendar,
-        Holidays
+        Holidays,
+        Change_calendar_type
     }
 });

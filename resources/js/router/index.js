@@ -6,10 +6,9 @@ Vue.use(VueRouter);
 
 import Home from '../components/layouts/Home';
 import Login from '../components/layouts/auth/Login';
-import Year from '../components/layouts/calendar/year/index';
-import MonthIndex from "../components/layouts/calendar/month/MonthIndex";
-import Day from "../components/layouts/calendar/day/Day";
-import WeekIndex from "../components/layouts/calendar/week/WeekIndex";
+import Year from '../components/layouts/Year';
+import Month from '../components/layouts/Month';
+import Week from '../components/layouts/Week';
 
 const routes = [
     {
@@ -29,18 +28,12 @@ const routes = [
         path: '/year'
     },
     {
-        component: MonthIndex,
+        component: Month,
         name: 'calendar-month',
         path: '/month'
     },
     {
-
-        component: Day,
-        name: 'calendar-day',
-        path: '/day'
-    },
-    {
-        component: WeekIndex,
+        component: Week,
         name: 'calendar-week',
         path: '/week'
     }

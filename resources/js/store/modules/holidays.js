@@ -6,7 +6,7 @@ export default {
         set_holidays(state, params) {
 
             state.holidays = params.data;
-            console.log(state.holidays);
+
         }
     },
     actions: {
@@ -20,18 +20,14 @@ export default {
                     _.each(response.data, function (value, index) {
                         const day = response.data[index].date.day;
                         newResponse[day] = response.data[index].date
-
-
-                        // newResponse[index]['date']=response.data[index];
+                        newResponse[day]['date']=response.data[index];
                         newResponse[day]['englishName'] = value.englishName;
-                        newResponse[day]['localName'] = value.localName;
-
+                        newResponse[day]['localName']= value.localName;
                     });
-                    // console.log(newResponse);
-
+                    console.log(newResponse);
                     const params = {
                         data: newResponse,
-                        currentMonthKey: `${paramData.year}/${paramData.month}`,
+                        // currentMonthKey: `${paramData.year}/${paramData.month}`,
                     }
                     context.commit("set_holidays", params);
                     // console.log(response.data);

@@ -104,13 +104,13 @@
             //todo 2. этот ключ,спрашиваешь если ли данные в обьекте holidays
 
 
-            let object = {
+            let CurrentDate = {
                 month: this.month,
                 year: this.year,
 
             }
 
-            this.$store.dispatch('get_holidays', object);
+            this.$store.dispatch('get_holidays', CurrentDate);
 
         },
         // this.$store.dispatch('get_holidays');

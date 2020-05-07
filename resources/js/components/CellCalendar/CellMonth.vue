@@ -1,8 +1,11 @@
 <template>
     <div>
         <div class="Cell">
+            {{EventsTest}}
+<!--            <div>{{valueTest}}</div>-->
 <!--        <div>{{EventsTest.date}}</div>-->
-            <div v-for="(dayInfo,item) in EventsTest">{{dayInfo}}</div>
+<!--            <div v-for="(dayInfo,item) in EventsTest">{{dayInfo.}}</div>-->
+<!--            <div >{{EventsTest.localName ||""}}</div>-->
             <div class="d-flex flex-column">
                 <span class="date"><span>{{currentDate}}</span></span>
                 <ul class="d-flex align-center flex-column">
@@ -21,8 +24,8 @@
         data(){
 
             return{
-                dateForMonth:""
-                ,
+                dateForMonth:"",
+
                 Events:[
                     {text:'Удивительный хаббл1222' ,background:'#F5E3F9'},
                     {text:'Брендинг знаете ли вы2',background: "#FEEACC"}
@@ -31,6 +34,13 @@
         },
         filters: {
             cutText(value, symbolsCount) {
+                return value.length > symbolsCount
+                    ? value.slice(0, symbolsCount - 3) + '...'
+                    : value;
+            }
+        },
+        methods:{
+            cutTextFunction(value,symbolsCount){
                 return value.length > symbolsCount
                     ? value.slice(0, symbolsCount - 3) + '...'
                     : value;
@@ -52,10 +62,13 @@
                return dateForCalendar;
             },
             EventsTest(){
-                console.log(11);
                 this.dateForMonth=this.date;
                 let parseDate = this.dateForMonth.split("-");
-              return this.$store.getters.holidays[parseDate[0]];
+                if(this.$store.getters.holidays[parseDate[0]])
+                {
+                   return  this.cutTextFunction(this.$store.getters.holidays[parseDate[0]].localName,21);
+                }
+
             }
         },
     }

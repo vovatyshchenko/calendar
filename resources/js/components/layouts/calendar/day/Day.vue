@@ -19,7 +19,13 @@
 
 <script>
     export default {
-
+        data: () => ({
+            fullDate: 0
+        }),
+        // created() {
+        //     let parseDate = this.$route.query.date.split(".");
+        //     this.fullDate=new Date(parseDate[2], parseDate[1], parseDate[0]);
+        // }
     }
 </script>
 

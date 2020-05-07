@@ -6,7 +6,7 @@
             floating
             class="bg-calendar calendar-sidebar"
         >
-            <v-btn width="130" height="50" class="create-btn menu-btn" color="#1875F0" depressed>Создать</v-btn>
+            <v-btn width="130" height="50" class="create-btn menu-btn" color="#1875F0" depressed @click="showModal = !showModal">Создать</v-btn>
             <mini-calendar></mini-calendar>
             <type-list></type-list>
         </v-navigation-drawer>
@@ -15,6 +15,9 @@
 
 <script>
     export default {
+        data: () => ({
+            showModal: false
+        }),
         computed: {
             drawer() {
                 return this.$store.getters.drawer;

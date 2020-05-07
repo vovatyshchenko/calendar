@@ -13,7 +13,9 @@
                 <tbody>
                     <tr v-for="week in getMonth" class="mini-calendar-week">
                         <td v-for="(day, index) in week" class="mini-calendar-day">
-                            <span v-on:click="getDate(day)">{{currentDate(day)}}</span>
+                            <router-link :to="{path:'day', query: {date:day}}">
+                                <span v-on:click="getDate(day)">{{currentDate(day)}}</span>
+                            </router-link>
                         </td>
                     </tr>
                 </tbody>
@@ -35,11 +37,13 @@
         methods:{
             currentDate(date){
                 this.dateForMonth=date;
-                let parseDate = this.dateForMonth.split("-");
+                let parseDate = this.dateForMonth.split(".");
                 return parseDate[0];
             },
             getDate(date) {
-                console.log(date);
+                let parseDate = date.split(".");
+                let fullDate=new Date(parseDate[2], parseDate[1]-1, parseDate[0]);
+                this.$store.commit('set_date', fullDate);
             }
         },
         computed:{
@@ -75,25 +79,29 @@
                     let currentMonth =param.getMonth()+1;
                     let currentYear = param.getFullYear();
 
-                    if(currentDay==1&&i>7)
+                    if(currentDay==1&&i>7 &&week.length>0)
                     {
                         if(week.length<7)
                         {
                             for (let day=week.length+1;day<=7;day++)
                             {
 
-                                week.push(currentDay+"-"+currentMonth+"-"+currentYear);
+                                week.push(currentDay+"."+currentMonth+"."+currentYear);
                                 param =new Date(nowDate.setDate(nowDate.getDate()+1))
                                 currentDay = param.getDate();
                                 currentMonth =param.getMonth()+1;
                                 currentYear = param.getFullYear();
                             }
                         }
+
                         monthDividedIntoWeeks.push(week);
                         break;
                     }
+                    else if(currentDay==1&&i>7){
+                        break;
+                    }
 
-                    week.push(currentDay+"-"+currentMonth+"-"+currentYear)
+                    week.push(currentDay+"."+currentMonth+"."+currentYear)
                     if(i%7==0)
                     {
                         monthDividedIntoWeeks.push(week);

@@ -46,6 +46,7 @@ Vue.component('cell-year',require('./components/CellCalendar/CellYear').default)
 Vue.component('year',require('./components/layouts/calendar/year/Year').default);
 
 Vue.component('mini-calendar', require('./components/layouts/menu/blocks/MiniCalendar').default);
+Vue.component('create-modal', require('./components/layouts/menu/blocks/CreateModal').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

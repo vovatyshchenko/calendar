@@ -17,7 +17,7 @@
                         <v-icon right>mdi-arrow-right</v-icon>
                     </v-btn>
                 </div>
-                <span class="menu-date">Апрель 2020</span>
+                <span class="menu-date">{{displayDate}}</span>
                 <div class="menu-search">
                     Поиск
                 </div>
@@ -38,11 +38,17 @@
     export default {
         data: () => ({
             drawer: false,
+            menuDate: 0,
         }),
         methods: {
             change_drawer() {
                 this.$store.commit('change_drawer');
                 this.drawer=!this.drawer;
+            },
+        },
+        computed: {
+            displayDate() {
+                return this.$store.getters.menuDate;
             }
         },
     }

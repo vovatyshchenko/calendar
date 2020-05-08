@@ -21,7 +21,6 @@
 export default {
     data: () => ({
         showModal: true,
-        fullDate: 0
     }),
     computed: {
         drawer() {

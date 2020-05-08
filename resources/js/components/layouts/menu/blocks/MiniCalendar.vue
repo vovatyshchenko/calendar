@@ -14,7 +14,7 @@
                     <tr v-for="week in getMonth" class="mini-calendar-week">
                         <td v-for="(day, index) in week" class="mini-calendar-day">
                             <router-link :to="{path:'day', query: {date:day}}">
-                                <span v-on:click="getDate(day)">{{currentDate(day)}}</span>
+                                <span v-on:click="setDate(day)">{{currentDate(day)}}</span>
                             </router-link>
                         </td>
                     </tr>
@@ -40,7 +40,7 @@
                 let parseDate = this.dateForMonth.split(".");
                 return parseDate[0];
             },
-            getDate(date) {
+            setDate(date) {
                 let parseDate = date.split(".");
                 let fullDate=new Date(parseDate[2], parseDate[1]-1, parseDate[0]);
                 this.$store.commit('set_date', fullDate);

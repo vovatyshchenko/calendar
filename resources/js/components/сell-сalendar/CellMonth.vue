@@ -1,11 +1,6 @@
 <template>
     <div>
         <div class="Cell">
-
-<!--            <div>{{valueTest}}</div>-->
-<!--        <div>{{EventsTest.date}}</div>-->
-<!--            <div v-for="(dayInfo,item) in EventsTest">{{dayInfo.}}</div>-->
-<!--            <div >{{EventsTest.localName ||""}}</div>-->
             <div class="d-flex flex-column">
                <span class="date">
 

@@ -64,7 +64,7 @@ class AuthController extends Controller
             $user = User::firstOrCreate(
                 ['email' => $response['email']],
                 ['name'=> $response['name'],
-                    'password' => Hash::make('gfhjkm'), 'token' => $access->access_token]
+                    'password' => Hash::make('afrtw'), 'token' => $access->access_token]
 
             );
 

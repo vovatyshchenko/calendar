@@ -1,13 +1,24 @@
 <template>
     <div>
         <div class="Cell">
-            {{EventsTest}}
+
 <!--            <div>{{valueTest}}</div>-->
 <!--        <div>{{EventsTest.date}}</div>-->
 <!--            <div v-for="(dayInfo,item) in EventsTest">{{dayInfo.}}</div>-->
 <!--            <div >{{EventsTest.localName ||""}}</div>-->
             <div class="d-flex flex-column">
-                <span class="date"><span :class="EventsTest?'active':''">{{currentDate}}</span></span>
+               <span class="date">
+
+                   <v-tooltip top>
+                  <template v-slot:activator="{ on }">
+                       <span  v-on="on">{{eventsTest}}</span>
+                  </template>
+                  <span class="test">{{textHoliday}}</span>
+                </v-tooltip>
+                   <span class="number">
+                       <span :class="eventsTest?'active':''">{{currentDate}}</span>
+                   </span>
+               </span>
                 <ul class="d-flex align-center flex-column">
                     <li :style="{background:item.background}" :class="'event'+index" v-for="(item, index) in Events">
                         <span>{{item.text|cutText(21)}}</span>
@@ -25,6 +36,7 @@
 
             return{
                 dateForMonth:"",
+                text:'',
                 Events:[
                     {text:'Удивительный хаббл1222' ,background:'#F5E3F9'},
                     {text:'Брендинг знаете ли вы2',background: "#FEEACC"}
@@ -61,25 +73,43 @@
                 }
                return dateForCalendar;
             },
-                 EventsTest(){
+            eventsTest(){
                 this.dateForMonth=this.date;
                 let parseDate = this.dateForMonth.split("-");
                 if(this.$store.getters.holidays[parseDate[1]])
                 {
                     if(this.$store.getters.holidays[parseDate[1]][parseDate[0]])
                     {
-
-                        return this.cutTextFunction(this.$store.getters.holidays[parseDate[1]][parseDate[0]].localName,14);
+                        this.text=this.$store.getters.holidays[parseDate[1]][parseDate[0]].localName;
+                        return this.cutTextFunction(this.$store.getters.holidays[parseDate[1]][parseDate[0]].localName,10);
                     }
                 }
+            },
+            textHoliday(){
+                return this.text;
             }
+
         },
     }
 </script>
 
 <style scoped>
-    .active{
-        background: #1b4b72!important;
+
+    .v-tooltip__content{
+        background: #F44336;
+    }
+    .my-tooltip-class{
+        min-width:200px;
+        min-height: 118px;
+        color: #FFFFFF;
+        padding:5px;
+        background: #F44336;
+    }
+    .Cell .date .number .active{
+        color: #FFFFFF;
+        padding:5px;
+        background: #F44336;
+        border-radius: 3px;
     }
     .Cell{
         min-height: 118px;
@@ -90,15 +120,14 @@
     .Cell .date{
         text-align: end;
     }
-    .Cell .date span
+    .Cell .date .number
     {
         font-family: Roboto;
         font-style: normal;
         font-weight: bold;
         font-size: 14px;
         line-height: 30px;
-
-        padding:10px 9px;
+        margin:10px 9px;
         color: #CCCCCC;
     }
     .Cell .event0 {

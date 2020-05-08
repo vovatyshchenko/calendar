@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col-12">
-          <calendar-month></calendar-month>
+          <calendar-day></calendar-day>
       </div>
     </div>
   </div>

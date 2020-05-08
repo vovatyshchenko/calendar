@@ -23,10 +23,10 @@
                 </div>
             </div>
             <div class="select-calendar">
-                <select name="select" v-model="route" @click="set_route()" placeholder="День">
-                    <option selected value="/">День</option>
+                <select name="select" v-model="route" @click="set_route()" placeholder="Месяц">
+                    <option selected value="/">Месяц</option>
                     <option value="/week">Неделя</option>
-                    <option value="/month">Месяц</option>
+                    <option value="/day">День</option>
                     <option value="/year">Год</option>
                 </select>
             </div>
@@ -47,8 +47,19 @@
             },
             set_route() {
                 this.$store.dispatch('set_calendar_page', this.route);
-                this.$router.push({ path: this.$store.getters.calendar_route });  
             },
+        },
+        computed: {
+            current_route() {
+                return this.$store.getters.calendar_route;
+            },
+        },
+        watch: {
+            current_route(value) {
+                if (value != window.location.pathname){
+                    this.$router.push({ path: value });  
+                }
+            }
         },
     }
 </script>

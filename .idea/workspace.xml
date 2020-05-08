@@ -22,8 +22,11 @@
     <list default="true" id="530ed881-a690-4da1-94b1-52aaa0d6d684" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/Menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/Menu.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/MiniCalendar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/MiniCalendar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/display.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/display.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,5 +276,9 @@
       <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state x="449" y="154" width="1022" height="737" key="SettingsEditor/0.27.1920.985@0.27.1920.985" timestamp="1588701029608" />
+    <state x="624" y="235" key="run.anything.popup" timestamp="1588932341527">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state x="624" y="235" key="run.anything.popup/0.27.1920.985@0.27.1920.985" timestamp="1588932341527" />
   </component>
 </project>

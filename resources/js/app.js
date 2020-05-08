@@ -21,24 +21,13 @@ window.Vue = Vue;
  Vue.component('type-list', require('./components/layouts/menu/blocks/TypeList').default);
  Vue.component('mini-calendar', require('./components/layouts/menu/blocks/MiniCalendar').default);
 
-Vue.component('calendar-month', require('./components/layouts/calendar/month/MonthIndex.vue').default);
 Vue.component('cell-month', require('./components/CellCalendar/CellMonth').default);
-Vue.component('calendar-week', require('./components/layouts/calendar/week/WeekIndex').default);
 Vue.component('cell-week', require('./components/CellCalendar/CellWeek').default);
 Vue.component('cell-year',require('./components/CellCalendar/CellYear').default);
 Vue.component('year',require('./components/layouts/calendar/year/Year').default);
 
-Vue.component('mini-calendar', require('./components/layouts/menu/blocks/MiniCalendar').default);
 Vue.component('create-modal', require('./components/layouts/menu/blocks/CreateModal').default);
- Vue.component('calendar-month', require('./components/layouts/calendar/month/MonthIndex.vue').default);
- Vue.component('cell-month', require('./components/CellCalendar/CellMonth').default);
- Vue.component('calendar-week', require('./components/layouts/calendar/week/WeekIndex').default);
- Vue.component('cell-week', require('./components/CellCalendar/CellWeek').default);
- Vue.component('cell-year',require('./components/CellCalendar/CellYear').default);
- Vue.component('year',require('./components/layouts/calendar/year/Year').default);
 
- Vue.component('cell-month', require('./components/CellCalendar/CellMonth').default);
- Vue.component('cell-week', require('./components/CellCalendar/CellWeek').default);
 
 const app = new Vue({
     el: '#app',

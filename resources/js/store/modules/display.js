@@ -19,7 +19,7 @@ export default {
             return state.drawer;
         },
         menuDate (state) {
-            return state.displayDate.getDate()+'.'+(state.displayDate.getMonth()+1)+'.'+state.displayDate.getFullYear();
+            return state.displayDate;
         }
     }
 }

@@ -13,7 +13,7 @@
                 <tbody>
                     <tr v-for="week in getMonth" class="mini-calendar-week">
                         <td v-for="(day, index) in week" class="mini-calendar-day">
-                            <router-link :to="{path:'day', query: {date:day}}">
+                            <router-link to="/">
                                 <span v-on:click="setDate(day)">{{currentDate(day)}}</span>
                             </router-link>
                         </td>

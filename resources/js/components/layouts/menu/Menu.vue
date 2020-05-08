@@ -28,9 +28,9 @@
             </div>
             <div class="select-calendar">
                 <select name="select" v-model="route" @click="set_route()" placeholder="День">
-                    <option selected value="/">День</option>
+                    <option selected value="/day">День</option>
                     <option value="/week">Неделя</option>
-                    <option value="/month">Месяц</option>
+                    <option value="/">Месяц</option>
                     <option value="/year">Год</option>
                 </select>
             </div>
@@ -56,38 +56,38 @@
             },
             minus_date() {
                 let fullDate=this.$store.getters.menuDate;
-                if (window.location.pathname == '/month' || window.location.pathname == '/week') {
-                    fullDate.setMonth(fullDate.getMonth()-1);
+                if (window.location.pathname == '/day') {
+                    fullDate.setDate(fullDate.getDate()-1);
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear()-1);
                 } else {
-                    fullDate.setDate(fullDate.getDate()-1);
+                    fullDate.setMonth(fullDate.getMonth()-1);
                 }
                 this.$store.commit('set_date', fullDate);
                 console.log(this.$store.getters.menuDate);
             },
             plus_date() {
                 let fullDate=this.$store.getters.menuDate;
-                if (window.location.pathname == '/month' || window.location.pathname == '/week') {
-                    fullDate.setMonth(fullDate.getMonth()+1);
+                if (window.location.pathname == '/day') {
+                    fullDate.setDate(fullDate.getDate()+1);
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear()+1);
                 } else {
-                    fullDate.setDate(fullDate.getDate()+1);
+                    fullDate.setMonth(fullDate.getMonth()+1);
                 }
                 this.$store.commit('set_date', fullDate);
                 console.log(this.$store.getters.menuDate);
             },
             display_date() {
                 console.log(this.$store.getters.menuDate);
-                if (window.location.pathname == '/month' || window.location.pathname == '/week') {
-                    let months=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
-                    return months[this.$store.getters.menuDate.getMonth()]+' '+this.$store.getters.menuDate.getFullYear();
+                if (window.location.pathname == '/day') {
+                    return this.$store.getters.menuDate.getDate()+'.'+(this.$store.getters.menuDate.getMonth()+1)+'.'+this.$store.getters.menuDate.getFullYear();
                 }
                 if (window.location.pathname == '/year') {
                     return this.$store.getters.menuDate.getFullYear();
                 }
-                return this.$store.getters.menuDate.getDate()+'.'+(this.$store.getters.menuDate.getMonth()+1)+'.'+this.$store.getters.menuDate.getFullYear();
+                let months=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
+                return months[this.$store.getters.menuDate.getMonth()]+' '+this.$store.getters.menuDate.getFullYear();
             },
             set_date() {
                 let fullDate=new Date();

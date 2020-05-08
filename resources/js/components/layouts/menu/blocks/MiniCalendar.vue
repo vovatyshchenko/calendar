@@ -11,10 +11,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="week in getMonth" class="mini-calendar-week">
-                        <td v-for="(day, index) in week" class="mini-calendar-day">
-                            <router-link to="/">
-                                <span v-on:click="setDate(day)">{{currentDate(day)}}</span>
+                    <tr v-for="week in getMonth" class="mini-calendar-day">
+                        <td v-for="(day, index) in week" :class="{activeDay:activeDay(day)}">
+                            <router-link to="/day">
+                                <span v-on:click="setDate(day)" :class="activeMonth(day)?'activeMonth':'noActiveMonth'">{{currentDate(day)}}</span>
                             </router-link>
                         </td>
                     </tr>
@@ -32,6 +32,7 @@
                 page:0,
                 month:0,
                 year:0,
+                noActive: false
             }
         },
         methods:{
@@ -40,6 +41,26 @@
                 let parseDate = this.dateForMonth.split(".");
                 return parseDate[0];
             },
+            activeMonth(date){
+                this.dateForMonth=date;
+                let currentMonth = new Date().getMonth();
+                let parseDate = this.dateForMonth.split(".");
+                if (parseDate[1]==currentMonth+1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            activeDay(date){
+                this.dateForMonth=date;
+                let currentDay = new Date().getDate();
+                let parseDate = this.dateForMonth.split(".");
+                if (parseDate[0]==currentDay) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
             setDate(date) {
                 let parseDate = date.split(".");
                 let fullDate=new Date(parseDate[2], parseDate[1]-1, parseDate[0]);
@@ -47,6 +68,9 @@
             }
         },
         computed:{
+            noActiveMonth (){
+
+            },
             getMonth()
             {
                 let week=[];
@@ -151,8 +175,25 @@
         text-align: center;
         letter-spacing: 1px;
         color: #999999;
+        text-decoration: none;
+    }
+    .mini-calendar-day a {
+        text-decoration: none;
     }
     .mini-calendar-day span {
         cursor: pointer;
+    }
+    .activeMonth {
+        color: #999999;
+    }
+    .noActiveMonth {
+        color: #E6E6E6;
+    }
+    .activeDay {
+        background: #1875F0;
+        border-radius: 32px;
+    }
+    .activeDay span {
+        color: #FFFFFF;
     }
 </style>

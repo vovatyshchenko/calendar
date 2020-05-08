@@ -6,7 +6,7 @@
                 <div class="content-block">
                     <sidebar-calendar v-if="drawer"></sidebar-calendar>
                     <div align="center" class="calendar-block">
-<!--                        <create-modal></create-modal>-->
+                        <create-modal></create-modal>
                         <v-content>
                             <router-view></router-view>
                         </v-content>

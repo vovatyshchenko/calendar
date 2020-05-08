@@ -19,7 +19,9 @@
 
 <script>
     export default {
-
+        data: () => ({
+            fullDate: 0
+        }),
     }
 </script>
 

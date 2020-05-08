@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="table-responsive">
         {{month}}
         {{year}}
         <table class="table">
@@ -11,8 +11,8 @@
             <tbody>
             <tr v-for="week in getMonth">
                 <td v-for="(day, index) in week">
-                    <cell-month :date="day"></cell-month>
-<!--                    {{day}} <span v-if="day==1"> {{month}} </span>-->
+                    <cell-month ref="test" :holiday="holidays" :date="day"></cell-month>
+                    <!--                    {{day}} <span v-if="day==1"> {{month}} </span>-->
                 </td>
             </tr>
             </tbody>
@@ -23,99 +23,111 @@
 </template>
 
 <script>
-export default {
-    data(){
-        return{
-            day:["Понедельник", "Вторник","Среда","Четверг","Пятница","Суббота", "Воскресенье"],
-            page:0,
-            month:0,
-            year:0,
-        }
-    },
-    methods:{},
-    computed:{
-        getMonth()
-        {
-            let week=[];
-            let monthDividedIntoWeeks=[];
-            let counter=0;
-            let nowDate = new Date();
-            let months=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"]
-            if(this.page!=0)
-            {
-                nowDate.setMonth(nowDate.getMonth()+this.page);
+    export default {
+        data() {
+            return {
+                day: ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
+                page: 0,
+                month: (new Date()).getMonth(),
+                year: (new Date()).getFullYear(),
+                holidays: null
             }
-            else{
-                nowDate=new Date()
-            }
-            nowDate.setDate(1);
-            this.month=months[nowDate.getMonth()];
-            this.year=nowDate.getFullYear();
+        },
+        methods: {},
+        computed: {
+            getMonth() {
+                let week = [];
+                let monthDividedIntoWeeks = [];
+                let counter = 0;
+                let nowDate = new Date();
+                let months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
+                if (this.page != 0) {
+                    nowDate.setMonth(nowDate.getMonth() + this.page);
+                } else {
+                    nowDate = new Date()
+                }
+                nowDate.setDate(1);
+                this.month = months[nowDate.getMonth()];
+                this.year = nowDate.getFullYear();
 
-            if(nowDate.getDate()-nowDate.getDay()==1)
-            {
-                nowDate.setDate(nowDate.getDate()-7);
-            }
+                // let object = {
+                //     month: this.month,
+                //     year: this.year,
+                // }
+                //
+                //
+                // this.$store.dispatch('get_holidays', object);
 
-            nowDate.setDate(nowDate.getDate()-nowDate.getDay());
+                if (nowDate.getDate() - nowDate.getDay() == 1) {
+                    nowDate.setDate(nowDate.getDate() - 7);
+                }
 
-            for(let i=1;;i++){
+                nowDate.setDate(nowDate.getDate() - nowDate.getDay());
 
-                let param =new Date(nowDate.setDate(nowDate.getDate()+1))
-                let currentDay = param.getDate();
-                let currentMonth =param.getMonth()+1;
-                let currentYear = param.getFullYear();
+                for (let i = 1; ; i++) {
 
-                if(currentDay==1&&i>7 &&week.length>0)
-                {
-                    if(week.length<7)
-                    {
-                        for (let day=week.length+1;day<=7;day++)
-                        {
+                    let param = new Date(nowDate.setDate(nowDate.getDate() + 1))
+                    let currentDay = param.getDate();
+                    let currentMonth = param.getMonth() + 1;
+                    let currentYear = param.getFullYear();
 
-                            week.push(currentDay+"-"+currentMonth+"-"+currentYear);
-                            param =new Date(nowDate.setDate(nowDate.getDate()+1))
-                            currentDay = param.getDate();
-                            currentMonth =param.getMonth()+1;
-                            currentYear = param.getFullYear();
+                    if (currentDay == 1 && i > 7 && week.length > 0) {
+                        if (week.length < 7) {
+                            for (let day = week.length + 1; day <= 7; day++) {
+
+                                week.push(currentDay + "-" + currentMonth + "-" + currentYear);
+                                param = new Date(nowDate.setDate(nowDate.getDate() + 1))
+                                currentDay = param.getDate();
+                                currentMonth = param.getMonth() + 1;
+                                currentYear = param.getFullYear();
+                            }
                         }
+
+                        monthDividedIntoWeeks.push(week);
+                        break;
+                    } else if (currentDay == 1 && i > 7) {
+                        break;
                     }
 
-                     monthDividedIntoWeeks.push(week);
-                    break;
+                    week.push(currentDay + "-" + currentMonth + "-" + currentYear)
+                    if (i % 7 == 0) {
+                        monthDividedIntoWeeks.push(week);
+                        week = [];
+                        counter++;
+                    }
                 }
-                else if(currentDay==1&&i>7){
-                    break;
-                }
-
-                week.push(currentDay+"-"+currentMonth+"-"+currentYear)
-                if(i%7==0)
-                {
-                    monthDividedIntoWeeks.push(week);
-                    week=[];
-                    counter++;
-                }
-            }
-            return  monthDividedIntoWeeks;
+                return monthDividedIntoWeeks;
+            },
         },
-    },
+         created() {
+            //todo 1.получить ключ,сформировать ключ
+            //todo 2. этот ключ,спрашиваешь если ли данные в обьекте holidays
 
-    created(){
-        console.log(this.getMonth);
-    },
-    watch:{
-        page(){
 
-            console.log(this.page);
+            // let CurrentDate = {
+            //     // month: this.month,
+            //     year: this.year,
+            // }
+
+            this.$store.dispatch('get_holidays', {year:this.year});
+        },
+        // this.$store.dispatch('get_holidays');
+        watch:{
+            year()
+            {
+                this.$store.dispatch('get_holidays',{year:this.year});
+            },
+            page()
+            {
+                console.log(this.page);
+            }
         }
+
     }
-
-
-}
 </script>
 
 <style scoped>
-    .header{
+    .header {
         max-width: 160px;
         min-height: 90px;
         font-family: Roboto;
@@ -131,13 +143,16 @@ export default {
 
         color: #B3B3B3;
     }
+
     .table th, .table td {
-        padding:0px;
+        padding: 0px;
     }
+
     .table {
         max-width: 1100px;
     }
+
     .table td {
-        border: 2px solid  #F5F5F5;
+        border: 2px solid #F5F5F5;
     }
 </style>

@@ -29,14 +29,14 @@ export default {
     year: (new Date()).getFullYear()
   }),
   created() {
-    this.$store.dispatch('year_data', this.year);
+    this.$store.dispatch('get_year_holidays');
     this.$store.dispatch('week_days');
-    this.$store.dispatch('get_holidays');
+    this.$store.dispatch('year_data', this.year);
   },
   methods: {
     change_year_minus(){
       this.year--;
-      this.$store.dispatch('year_data', this.year);
+      //this.$store.dispatch('year_data', this.year);
     },
     change_year_plus(){
       this.year++;
@@ -53,9 +53,15 @@ export default {
     days() {
       return this.$store.getters.get_days;
     },
-    holidays() {
-      return this.$store.getters.get_holidays;
+    year_holidays() {
+      return this.$store.getters.year_holidays;
     },
+  },
+  watch: {
+    if (year_holidays) {
+      this.$store.dispatch('year_data', this.year);
+      return;
+    }
   }
 }
 </script>

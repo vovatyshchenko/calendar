@@ -1,7 +1,10 @@
 <template>
+
+
     <v-dialog
         v-model="showModal"
-        max-width="705"
+        max-width="750"
+        persistent
     >
         <v-card>
             <div class="modal-wrapper">
@@ -89,92 +92,6 @@
         </v-card>
     </v-dialog>
 
-<!--    <transition name="modal">-->
-<!--        <div class="modal-mask">-->
-<!--            <div class="modal-wrapper">-->
-<!--                <div class="modal-container " >-->
-<!--                    <div class="modal-header">-->
-<!--                        <v-row>-->
-<!--                            <v-col class="cols 3">-->
-<!--                                <a href="">МЕРОПРИЯТИЕ</a>-->
-<!--                            </v-col>-->
-<!--                            <v-col class="cols 3">-->
-<!--                                <a href="">НАПОМИНАНИЕ</a>-->
-<!--                            </v-col>-->
-<!--                            <v-col class="cols 3">-->
-<!--                                <a href="">ЗАДАЧА</a>-->
-<!--                            </v-col>-->
-<!--                            <v-col class="cols 3">-->
-<!--                                <button class="modal-default-button" @click="$emit('close')">-->
-<!--                                    <span class="close"></span>-->
-<!--                                </button>-->
-<!--                            </v-col>-->
-<!--                        </v-row>-->
-<!--                        <hr class="line">-->
-<!--                        &lt;!&ndash; <slot name="header">-->
-
-<!--                          </slot>&ndash;&gt;-->
-<!--                    </div>-->
-<!--                    <div class="modal-body">-->
-<!--                        <div class="p-5">-->
-<!--                            <p class="name">Название*</p>-->
-<!--                            <input class="name_input" type="text" size="53">-->
-<!--                        </div>-->
-<!--                        <div class="p-0">-->
-<!--                            <p class="name">Гости</p>-->
-<!--                            <input class="name_input" type="text" size="53">-->
-<!--                        </div>-->
-<!--                        <div class="p-0">-->
-<!--                            <p class="name">Место расположения</p>-->
-<!--                            <input class="name_input" type="text" size="53">-->
-<!--                        </div>-->
-<!--                        <div class="p-0">-->
-<!--                            <p class="name">Описание*</p>-->
-<!--                            <input class="name_input" type="text" size="53">-->
-<!--                        </div>-->
-<!--                        <v-row>-->
-<!--                            <v-col class="4">-->
-<!--                                <p class="name">Начало*</p>-->
-<!--                            </v-col>-->
-<!--                            <v-col class="4">-->
-<!--                                <input type="date" id="begin" name="party" >-->
-<!--                            </v-col>-->
-<!--                            <v-col class="4">-->
-<!--                                <input type="time">-->
-<!--                            </v-col>-->
-<!--                        </v-row>-->
-<!--                        <v-row>-->
-<!--                            <v-col class="4">-->
-<!--                                <p class="name">Окончание*</p>-->
-<!--                            </v-col>-->
-<!--                            <v-col class="4">-->
-<!--                                <input type="date" id="end" name="party" >-->
-<!--                            </v-col>-->
-<!--                            <v-col class="4">-->
-<!--                                <input type="time">-->
-<!--                            </v-col>-->
-<!--                        </v-row>-->
-
-<!--                        &lt;!&ndash;<slot name="body">-->
-<!--                            </slot> &ndash;&gt;-->
-<!--                    </div>-->
-
-<!--                    <div class="modal-footer">-->
-<!--                        <v-row>-->
-<!--                            <v-col class="cols 6" id="btn_save">-->
-<!--                                <a href="">СОХРАНИТЬ</a>-->
-<!--                            </v-col>-->
-<!--                            <v-col class="cols 6" >-->
-<!--                                <a href="">ОТМЕНИТЬ</a>-->
-<!--                            </v-col>-->
-<!--                        </v-row>-->
-<!--                        &lt;!&ndash;<slot name="footer">-->
-<!--                            </slot> &ndash;&gt;-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </transition>-->
 </template>
 
 
@@ -182,7 +99,7 @@
     export default {
         data: () => ({
             format: 'dddd MMMM Do, YYYY',
-            date: new Date()
+            date: new Date(),
         }),
         methods: {
             change_show_modal() {

@@ -7,7 +7,7 @@
 <!--            <div v-for="(dayInfo,item) in EventsTest">{{dayInfo.}}</div>-->
 <!--            <div >{{EventsTest.localName ||""}}</div>-->
             <div class="d-flex flex-column">
-                <span class="date"><span>{{currentDate}}</span></span>
+                <span class="date"><span :class="EventsTest?'active':''">{{currentDate}}</span></span>
                 <ul class="d-flex align-center flex-column">
                     <li :style="{background:item.background}" :class="'event'+index" v-for="(item, index) in Events">
                         <span>{{item.text|cutText(21)}}</span>
@@ -25,7 +25,6 @@
 
             return{
                 dateForMonth:"",
-
                 Events:[
                     {text:'Удивительный хаббл1222' ,background:'#F5E3F9'},
                     {text:'Брендинг знаете ли вы2',background: "#FEEACC"}
@@ -48,6 +47,7 @@
         },
       computed:{
             currentDate(){
+
                 this.dateForMonth=this.date;
                 let parseDate = this.dateForMonth.split("-");
                 let months=["Декабря","Января","Февраля","Марта","Апреля","Мая","Июня","Июля","Августа","Сентября","Октября","Ноября"]
@@ -68,7 +68,8 @@
                 {
                     if(this.$store.getters.holidays[parseDate[1]][parseDate[0]])
                     {
-                        return this.$store.getters.holidays[parseDate[1]][parseDate[0]].localName;
+
+                        return this.cutTextFunction(this.$store.getters.holidays[parseDate[1]][parseDate[0]].localName,14);
                     }
                 }
             }
@@ -77,6 +78,9 @@
 </script>
 
 <style scoped>
+    .active{
+        background: #1b4b72!important;
+    }
     .Cell{
         min-height: 118px;
 

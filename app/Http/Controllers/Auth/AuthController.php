@@ -15,8 +15,8 @@ class AuthController extends Controller
     protected function authorizathion()
     {
         $query = http_build_query([
-            'client_id' => env('CLIENT_ID'),//запросить у Богдана и вынести в конфиг
-            'redirect_uri' =>  env('REDIRECT_URI'),//урл куда оправит сайт Богдана после успешной
+            'client_id' => env('CLIENT_ID'),
+            'redirect_uri' =>  env('REDIRECT_URI'),
             'response_type' => 'code',
 
         ]);
@@ -31,21 +31,20 @@ class AuthController extends Controller
         $response = $http->post(env('GET_TOKEN'), [
             'form_params' => [
                 'grant_type' => 'authorization_code',
-                'client_id' =>env('CLIENT_ID'), //данные которые выдаст Богдан. вынести в конфиг
-                'client_secret' =>env('CLIENT_SECRET') ,//данные которые выдаст Богдан. вынести в конфиг
+                'client_id' =>env('CLIENT_ID'),
+                'client_secret' =>env('CLIENT_SECRET') ,
                 'redirect_uri' => env('REDIRECT_URI'),
                 'code' => $request->code,
             ],
         ]);
 
 
-        $access = json_decode((string) $response->getBody());//данные с токеном. придет сам токен и время его жизни
+        $access = json_decode((string) $response->getBody());
 
         if (isset($access->access_token) && $access->access_token) {
-            // you would like to store the access_token in the session though...
+
             $access_token = $access->access_token;
 
-            // получение данных пользователя
             $ch = curl_init();
             $url = env('GET_USER');
             $header = array(
@@ -59,9 +58,8 @@ class AuthController extends Controller
             $result = curl_exec($ch);
             curl_close($ch);
 
-            $response = json_decode($result, true);//данные о user пришедшие от Богдана
+            $response = json_decode($result, true);
 
-//нужно сохранить пользователя на вашем преокте, если уже есть пользователь с таким email тогда обновить токен
 
             $user = User::firstOrCreate(
                 ['email' => $response['email']],
@@ -70,16 +68,13 @@ class AuthController extends Controller
 
             );
 
-//авторизовать пользователя
+
             $Rres = Auth::login($user);
 
-//перекинуть в личны кабинет
+
             return response()->redirectTo(RouteServiceProvider::HOME);
         }
     }
 
 }
 
-    /*
-    team1-group-project.azurewebsites.net - урл Богдана, его тоже вынести в конфиг
-    */

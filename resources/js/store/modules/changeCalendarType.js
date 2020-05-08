@@ -15,7 +15,7 @@ export default {
             else if (route == '/week') {
                 commit('set_route', route);
             }
-            else if (route == '/month') {
+            else if (route == '/day') {
                 commit('set_route', route);
             }
             else if (route == '/year') {

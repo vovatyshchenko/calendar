@@ -47,8 +47,20 @@
             },
             set_route() {
                 this.$store.dispatch('set_calendar_page', this.route);
-                this.$router.push({ path: this.$store.getters.calendar_route });  
+                //this.$router.push({ path: this.$store.getters.calendar_route });  
             },
+        },
+        computed: {
+            current_route() {
+                return this.$store.getters.calendar_route;
+            },
+        },
+        watch: {
+            current_route(value) {
+                if (value != window.location.pathname){
+                    this.$router.push({ path: value });  
+                }
+            }
         },
     }
 </script>

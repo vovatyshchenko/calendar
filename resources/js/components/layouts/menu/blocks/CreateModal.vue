@@ -1,6 +1,4 @@
 <template>
-
-
     <v-dialog
         v-model="showModal"
         max-width="750"

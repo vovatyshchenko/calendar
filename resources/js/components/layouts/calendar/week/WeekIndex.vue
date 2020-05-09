@@ -1,6 +1,7 @@
 <template>
     <div>
     <div>
+        {{getABC}}
         <span>День</span>
         <ul>
             <li class="p-4" v-for="(item,index) in 24">{{item}}</li>
@@ -12,6 +13,7 @@
              <li class="p-4" v-for="(item,index) in 24">{{item}}</li>
          </ul>
      </div>
+
 </div>
 </template>
 
@@ -85,6 +87,9 @@
                 }
                 return currentWeek;
             },
+            getABC() {
+                return this.$store.getters.menuDate;
+            }
 
         },
 

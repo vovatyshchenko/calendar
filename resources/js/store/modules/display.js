@@ -12,7 +12,7 @@ export default {
             state.showModal=!state.showModal;
         },
         set_date(state, date) {
-            state.displayDate=date;
+            state.displayDate=new Date(date);
         }
     },
     actions: {
@@ -27,6 +27,7 @@ export default {
         },
         menuDate (state) {
             return state.displayDate;
-        }
+        },
+
     }
 }

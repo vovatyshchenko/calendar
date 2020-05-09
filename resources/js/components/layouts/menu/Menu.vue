@@ -79,7 +79,6 @@
                 console.log(this.$store.getters.menuDate);
             },
             display_date() {
-                console.log(this.$store.getters.menuDate);
                 if (window.location.pathname == '/day') {
                     return this.$store.getters.menuDate.getDate()+'.'+(this.$store.getters.menuDate.getMonth()+1)+'.'+this.$store.getters.menuDate.getFullYear();
                 }

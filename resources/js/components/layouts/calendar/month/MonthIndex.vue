@@ -46,40 +46,32 @@
                 } else {
                     nowDate = new Date()
                 }
-                nowDate.setDate(1);
+                nowDate.setDate(1);//устанавливается первый день месяца
                 this.month = months[nowDate.getMonth()];
                 this.year = nowDate.getFullYear();
-
-                // let object = {
-                //     month: this.month,
-                //     year: this.year,
-                // }
-                //
-                //
-                // this.$store.dispatch('get_holidays', object);
 
                 if (nowDate.getDate() - nowDate.getDay() == 1) {
                     nowDate.setDate(nowDate.getDate() - 7);
                 }
 
-                nowDate.setDate(nowDate.getDate() - nowDate.getDay());
+                nowDate.setDate(nowDate.getDate() - nowDate.getDay());//устанавливаю день с понедельника
 
                 for (let i = 1; ; i++) {
 
-                    let param = new Date(nowDate.setDate(nowDate.getDate() + 1))
-                    let currentDay = param.getDate();
-                    let currentMonth = param.getMonth() + 1;
-                    let currentYear = param.getFullYear();
+                    let parseDate = new Date(nowDate.setDate(nowDate.getDate() + 1))//устанавливаю
+                    let currentDay = parseDate.getDate();
+                    let currentMonth = parseDate.getMonth() + 1;
+                    let currentYear = parseDate.getFullYear();
 
                     if (currentDay == 1 && i > 7 && week.length > 0) {
                         if (week.length < 7) {
                             for (let day = week.length + 1; day <= 7; day++) {
 
                                 week.push(currentDay + "-" + currentMonth + "-" + currentYear);
-                                param = new Date(nowDate.setDate(nowDate.getDate() + 1))
-                                currentDay = param.getDate();
-                                currentMonth = param.getMonth() + 1;
-                                currentYear = param.getFullYear();
+                                parseDate = new Date(nowDate.setDate(nowDate.getDate() + 1))
+                                currentDay = parseDate.getDate();
+                                currentMonth = parseDate.getMonth() + 1;
+                                currentYear = parseDate.getFullYear();
                             }
                         }
 
@@ -100,18 +92,8 @@
             },
         },
          created() {
-            //todo 1.получить ключ,сформировать ключ
-            //todo 2. этот ключ,спрашиваешь если ли данные в обьекте holidays
-
-
-            // let CurrentDate = {
-            //     // month: this.month,
-            //     year: this.year,
-            // }
-
             this.$store.dispatch('get_holidays', {year:this.year});
         },
-        // this.$store.dispatch('get_holidays');
         watch:{
             year()
             {
@@ -122,7 +104,6 @@
                 console.log(this.page);
             }
         }
-
     }
 </script>
 

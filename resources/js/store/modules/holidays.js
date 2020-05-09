@@ -20,8 +20,6 @@ export default {
                     _.each(response.data, function (value, index) {
                         const month = response.data[index].date.month;
                         newResponse[month] =[];
-                        // newResponse[month]['englishName'] = value.englishName;
-                        // newResponse[month]['localName']= value.localName;
                     });
                     _.each(newResponse, function (value, index) {
                         _.each(response.data, function (dayValue,dayIndex) {
@@ -30,13 +28,6 @@ export default {
                             {
                                 let res={}
                                 const day = response.data[dayIndex].date.day;
-
-                                // newResponse[day] = response.data[index].date
-                                // newResponse[day]['date']=response.data[index];
-                                // newResponse[day]['englishName'] = value.englishName;
-                                // newResponse[day]['localName']= value.localName;
-                                // dayValue.date['localName']=dayValue.localName;
-                                // dayValue.date['englishName']=dayValue.englishName;
                                 res[day]=response.data[dayIndex].date;
                                 res[day]['englishName'] = dayValue.englishName;
                                 res[day]['localName']= dayValue.localName;
@@ -48,10 +39,8 @@ export default {
                     });
                     const params = {
                         data: newResponse,
-                        // currentMonthKey: `${paramData.year}/${paramData.month}`,
                     }
                     context.commit("set_holidays", params);
-                    // console.log(response.data);
                 })
                 .catch(error => {
 
@@ -63,10 +52,6 @@ export default {
     },
     getters: {
         holidays: state => state.holidays,
-        // holidays(state,currentMonth)
-        // {
-        //     return state.holidays[currentMonth];
-        // }
     }
 
 }

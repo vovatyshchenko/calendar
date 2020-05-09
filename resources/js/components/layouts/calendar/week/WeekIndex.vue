@@ -1,6 +1,7 @@
 <template>
     <div>
     <div>
+        {{getABC}}
         <span>День</span>
         <ul>
             <li class="p-4" v-for="(item,index) in 24">{{item}}</li>
@@ -12,6 +13,7 @@
              <li class="p-4" v-for="(item,index) in 24">{{item}}</li>
          </ul>
      </div>
+
 </div>
 </template>
 
@@ -76,26 +78,26 @@
                 this.year=nowDate.getFullYear();
                 for(let i=1;i<=7;i++){
 
-                    let param =new Date(nowDate.setDate(nowDate.getDate()+1))
-                    let day = param.getDate();
-                    let month =param.getMonth()+1;
-                    let year = param.getFullYear();
+                    let parseDate =new Date(nowDate.setDate(nowDate.getDate()+1))
+                    let day = parseDate.getDate();
+                    let month =parseDate.getMonth()+1;
+                    let year = parseDate.getFullYear();
                     this.dayNumber.push(day);
                     currentWeek.push(day+"."+month+"."+year)
                 }
                 return currentWeek;
             },
+            getABC() {
+                return this.$store.getters.menuDate;
+            }
 
         },
 
 
         created(){
-            this.f=3;
-            console.log(this.getWeek);
         },
         watch:{
             page(){
-
                 console.log(this.getWeek);
             }
         }

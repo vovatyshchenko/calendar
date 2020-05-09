@@ -60,6 +60,7 @@
                     fullDate.setDate(fullDate.getDate()-1);
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear()-1);
+                    this.$store.dispatch('year_data');
                 } else {
                     fullDate.setMonth(fullDate.getMonth()-1);
                 }
@@ -72,6 +73,7 @@
                     fullDate.setDate(fullDate.getDate()+1);
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear()+1);
+                    this.$store.dispatch('year_data');
                 } else {
                     fullDate.setMonth(fullDate.getMonth()+1);
                 }

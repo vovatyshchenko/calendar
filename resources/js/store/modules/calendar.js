@@ -12,8 +12,9 @@ export default {
         },
     },
     actions: {
-        year_data({ commit }, year) {
+        year_data({ commit, getters }) {
             let data = [];
+            let year = getters.menuDate.getFullYear();
             for (let m = 0; m < 12; m++) {
               let day = moment({ year: year, month: m, day: 1 });// формируем дату на первый день каждого месяца
               let days_in_month = day.daysInMonth(); // количество дней в месяце

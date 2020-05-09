@@ -1,7 +1,7 @@
 <template>
     <div>
     <div>
-        {{getABC}}
+        {{ger}}
         <span>День</span>
         <ul>
             <li class="p-4" v-for="(item,index) in 24">{{item}}</li>
@@ -13,7 +13,6 @@
              <li class="p-4" v-for="(item,index) in 24">{{item}}</li>
          </ul>
      </div>
-
 </div>
 </template>
 
@@ -24,7 +23,8 @@
             return{
                 page:0,
                 year:0,
-                dayNumber:[]
+                dayNumber:[],
+
             }
         },
         methods:{
@@ -87,19 +87,20 @@
                 }
                 return currentWeek;
             },
-            getABC() {
-                return this.$store.getters.menuDate;
+
+            ger()
+            {
+                console.log('f');
+                return this.$store.getters.displayDate;
             }
 
         },
 
-
-        created(){
-        },
         watch:{
             page(){
                 console.log(this.getWeek);
-            }
+            },
+
         }
     }
 </script>

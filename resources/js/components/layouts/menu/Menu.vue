@@ -43,7 +43,8 @@
         data: () => ({
             drawer: false,
             menuDate: 0,
-            route: '/'
+            route: '/',
+            year:new Date().getFullYear(),
         }),
         methods: {
             change_drawer() {
@@ -65,7 +66,9 @@
                     fullDate.setMonth(fullDate.getMonth()-1);
                 }
                 this.$store.commit('set_date', fullDate);
-                console.log(this.$store.getters.menuDate);
+                this.$store.commit('setCurrentYear',fullDate);
+                this.year=this.$store.getters.year;
+
             },
             plus_date() {
                 let fullDate=this.$store.getters.menuDate;
@@ -78,7 +81,9 @@
                     fullDate.setMonth(fullDate.getMonth()+1);
                 }
                 this.$store.commit('set_date', fullDate);
-                console.log(this.$store.getters.menuDate);
+
+                this.$store.commit('setCurrentYear',fullDate);
+                this.year=this.$store.getters.year;
             },
             display_date() {
                 if (window.location.pathname == '/day') {
@@ -101,13 +106,20 @@
             },
 
         },
+        created(){
+            this.$store.dispatch('get_holidays', {year:this.year});
+        },
         watch: {
             current_route(value) {
                 if (value != window.location.pathname){
                     this.$router.push({ path: value });
                 }
             },
+            year(){
+                this.$store.dispatch('get_holidays',{year:this.year});
+            }
         },
+
     }
 </script>
 

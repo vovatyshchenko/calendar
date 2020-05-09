@@ -16,12 +16,12 @@ export default {
     Vue.component('mini-calendar', require('./components/layouts/menu/blocks/MiniCalendar').default);
 
     Vue.component('calendar-month', require('./components/layouts/calendar/month/MonthIndex.vue').default);
-    Vue.component('cell-month', require('./components/сell-сalendar/CellMonth').default);
+    Vue.component('cell-month', require('./components/layouts/сell-сalendar/CellMonth').default);
     Vue.component('calendar-week', require('./components/layouts/calendar/week/WeekIndex').default);
-    Vue.component('cell-week', require('./components/сell-сalendar/CellWeek').default);
-    Vue.component('cell-year',require('./components/сell-сalendar/CellYear').default);
+    Vue.component('cell-week', require('./components/layouts/сell-сalendar/CellWeek').default);
+    Vue.component('cell-year',require('./components/layouts/сell-сalendar/CellYear').default);
     Vue.component('year',require('./components/layouts/calendar/year/Year').default);
 
-    Vue.component('cell-month', require('./components/сell-сalendar/CellMonth').default);
-    Vue.component('cell-week', require('./components/сell-сalendar/CellWeek').default);
+    Vue.component('cell-month', require('./components/layouts/сell-сalendar/CellMonth').default);
+    Vue.component('cell-week', require('./components/layouts/сell-сalendar/CellWeek').default);
 }

@@ -3,15 +3,13 @@
         <div class="Cell">
             <div class="d-flex flex-column">
                <span class="date">
-
-                   <v-tooltip top>
-                  <template v-slot:activator="{ on }">
-                       <span  v-on="on">{{eventsTest}}</span>
-                  </template>
-                  <span class="test">{{textHoliday}}</span>
-                </v-tooltip>
                    <span class="number">
-                       <span :class="eventsTest?'active':''">{{currentDate}}</span>
+                      <v-tooltip top>
+                         <template v-slot:activator="{ on }">
+                              <span  v-on="on":class="holidayTextEvent?'active':''">{{currentDate}}</span>
+                        </template>
+                        <span class="test">{{holidayTextEvent}}</span>
+                        </v-tooltip>
                    </span>
                </span>
                 <ul class="d-flex align-center flex-column">
@@ -25,10 +23,11 @@
 </template>
 
 <script>
+    import holiday from '../../../mixin/holiday'
     export default {
-        props:['date','holiday'],
+        props:['date'],
+        mixins: [holiday],
         data(){
-
             return{
                 dateForMonth:"",
                 text:'',
@@ -36,13 +35,6 @@
                     {text:'Удивительный хаббл1222' ,background:'#F5E3F9'},
                     {text:'Брендинг знаете ли вы2',background: "#FEEACC"}
                 ]
-            }
-        },
-        filters: {
-            cutText(value, symbolsCount) {
-                return value.length > symbolsCount
-                    ? value.slice(0, symbolsCount - 3) + '...'
-                    : value;
             }
         },
         methods:{
@@ -61,29 +53,19 @@
                 let dateForCalendar="";
                 if(parseDate[0]=='1')
                 {
-                    dateForCalendar=parseDate[0]+" "+months[parseDate[1]];
+                    if(parseDate[1]==12)
+                    {
+                        dateForCalendar=parseDate[0]+" "+months[0];
+                    }
+                    else{
+                        dateForCalendar=parseDate[0]+" "+months[parseDate[1]];
+                    }
                 }
                 else{
                     dateForCalendar=parseDate[0];
                 }
                return dateForCalendar;
             },
-            eventsTest(){
-                this.dateForMonth=this.date;
-                let parseDate = this.dateForMonth.split("-");
-                if(this.$store.getters.holidays[parseDate[1]])
-                {
-                    if(this.$store.getters.holidays[parseDate[1]][parseDate[0]])
-                    {
-                        this.text=this.$store.getters.holidays[parseDate[1]][parseDate[0]].localName;
-                        return this.cutTextFunction(this.$store.getters.holidays[parseDate[1]][parseDate[0]].localName,10);
-                    }
-                }
-            },
-            textHoliday(){
-                return this.text;
-            }
-
         },
     }
 </script>

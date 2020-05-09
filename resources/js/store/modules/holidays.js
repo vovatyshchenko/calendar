@@ -1,12 +1,11 @@
 export default {
     state: {
-        holidays: []
+        holidays: [],
+
     },
     mutations: {
         set_holidays(state, params) {
-
             state.holidays = params.data;
-
         }
     },
     actions: {
@@ -47,8 +46,7 @@ export default {
                     context.commit("set_error", error.message);
                     console.log();
                 })
-        }
-
+        },
     },
     getters: {
         holidays: state => state.holidays,

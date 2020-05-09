@@ -1,10 +1,5 @@
 <template>
   <div class="main">
-    <div class="header">
-      <button @click="change_year_minus()">&lt;--</button>
-      <div class="title">{{ year }}</div>
-      <button @click="change_year_plus()">--&gt;</button>
-    </div>
     <div class="year">
       <div class="month" v-for="month in data">
         <div class="title">{{ month.title }}</div>
@@ -25,23 +20,11 @@
 
 <script>
 export default {
-  data: () => ({
-    year: (new Date()).getFullYear()
-  }),
+  data: () => ({ }),
   created() {
     this.$store.dispatch('get_year_holidays');
     this.$store.dispatch('week_days');
     this.$store.dispatch('year_data', this.year);
-  },
-  methods: {
-    change_year_minus(){
-      this.year--;
-      //this.$store.dispatch('year_data', this.year);
-    },
-    change_year_plus(){
-      this.year++;
-      this.$store.dispatch('year_data', this.year);
-    }
   },
   computed: {
     data() {
@@ -50,19 +33,10 @@ export default {
     days() {
       return this.$store.getters.get_days;
     },
-    days() {
-      return this.$store.getters.get_days;
-    },
     year_holidays() {
       return this.$store.getters.year_holidays;
     },
   },
-  watch: {
-    if (year_holidays) {
-      this.$store.dispatch('year_data', this.year);
-      return;
-    }
-  }
 }
 </script>
 

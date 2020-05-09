@@ -22,9 +22,10 @@
     <list default="true" id="530ed881-a690-4da1-94b1-52aaa0d6d684" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/month/MonthIndex.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/month/MonthIndex.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/year/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/year/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/Menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/Menu.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/calendar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +221,7 @@
       <workItem from="1588749187635" duration="107000" />
       <workItem from="1588749308495" duration="4208000" />
       <workItem from="1588956557876" duration="7511000" />
-      <workItem from="1589010955098" duration="9079000" />
+      <workItem from="1589010955098" duration="9980000" />
     </task>
     <servers />
   </component>
@@ -268,14 +269,14 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="303" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588530586616" />
-    <state x="9" y="128" width="1896" height="825" key="MergeDialog" timestamp="1588939535464">
+    <state x="9" y="128" width="1896" height="825" key="MergeDialog" timestamp="1589020170935">
       <screen x="0" y="27" width="1920" height="985" />
     </state>
-    <state x="9" y="128" width="1896" height="825" key="MergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1588939535464" />
-    <state x="414" y="387" width="1146" height="380" key="MultipleFileMergeDialog" timestamp="1588960535148">
+    <state x="9" y="128" width="1896" height="825" key="MergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1589020170935" />
+    <state x="414" y="387" width="1146" height="380" key="MultipleFileMergeDialog" timestamp="1589020170937">
       <screen x="0" y="27" width="1920" height="985" />
     </state>
-    <state x="414" y="387" width="1146" height="380" key="MultipleFileMergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1588960535148" />
+    <state x="414" y="387" width="1146" height="380" key="MultipleFileMergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1589020170937" />
     <state x="449" y="154" width="1022" height="737" key="SettingsEditor" timestamp="1588943345296">
       <screen x="0" y="27" width="1920" height="985" />
     </state>

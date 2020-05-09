@@ -1,5 +1,6 @@
 <template>
     <div class="calendar-day">
+        <span>{{getDay}}</span>
         <div class="day-header" align="left">
             <div class="day-time-header"><span>Время</span></div>
             <div class="day-event-header"><span>Событие</span></div>
@@ -22,6 +23,11 @@
         data: () => ({
             fullDate: 0
         }),
+        computed: {
+            getDay() {
+                return this.$store.getters.menuDate;
+            }
+        }
     }
 </script>
 

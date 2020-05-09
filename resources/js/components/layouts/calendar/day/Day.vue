@@ -1,6 +1,6 @@
 <template>
     <div class="calendar-day">
-        <span>{{getDay}}</span>
+        <span>{{holidayTextEventForDay}}</span>
         <div class="day-header" align="left">
             <div class="day-time-header"><span>Время</span></div>
             <div class="day-event-header"><span>Событие</span></div>
@@ -17,16 +17,16 @@
         </div>
     </div>
 </template>
-
 <script>
+
+    import holiday from '../../../../mixin/holiday'
     export default {
+        mixins: [holiday],
         data: () => ({
             fullDate: 0
         }),
         computed: {
-            getDay() {
-                return this.$store.getters.menuDate;
-            }
+
         }
     }
 </script>

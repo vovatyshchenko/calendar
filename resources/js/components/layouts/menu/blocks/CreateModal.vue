@@ -1,4 +1,74 @@
 <template>
+  <v-row justify="center">
+    <v-dialog v-model="showModal" persistent max-width="800px">
+      <v-card>
+        <v-card-title>
+            <v-tabs
+                v-model="tab"
+                background-color="transparent"
+            >
+                <v-tab
+                    v-for="item in items"
+                    :key="item"
+                >
+                    {{ item }}
+                </v-tab>
+            </v-tabs>
+            <!--<v-btn icon  @click="todo"><v-icon>mdi-close</v-icon></v-btn>-->
+        </v-card-title>
+        <v-tabs-items v-model="tab">
+            <v-tab-item>
+                <v-card-text>
+                    <events-modal></events-modal>
+                </v-card-text>
+            </v-tab-item>
+             <v-tab-item>
+                <v-card-text>
+                    <reminders-modal></reminders-modal>
+                </v-card-text>
+            </v-tab-item>
+           <v-tab-item>
+                <v-card-text>
+                    <tasks-modal></tasks-modal>
+                </v-card-text>
+            </v-tab-item>
+            <v-tab-item>
+                <v-card-text>
+                    <bdays-modal></bdays-modal>
+                </v-card-text>
+            </v-tab-item>
+        </v-tabs-items>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="todo">Сохранить</v-btn>
+          <v-btn color="blue darken-1" text @click="todo">Отмена</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-row>
+</template>
+
+<script>
+	export default {
+        data: () => ({ 
+            tab: null,
+            items: [
+                'МЕРОПРИЯТИЕ', 'НАПОМИНАНИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',
+            ],
+        }),
+        methods: {
+            todo() {
+                this.$store.commit('change_show_modal');
+            },
+        },
+        computed: {
+            showModal() {
+                return this.$store.getters.showModal;
+            }
+        },
+	}
+</script>
+<!--<template>
     <v-dialog
         v-model="showModal"
         max-width="750"
@@ -25,9 +95,6 @@
                             </v-col>
                         </v-row>
                         <hr class="line">
-                        <!-- <slot name="header">
-
-                          </slot>-->
                     </div>
                     <div class="modal-body">
                         <div class="p-5">
@@ -68,9 +135,6 @@
                                 <input type="time">
                             </v-col>
                         </v-row>
-
-                        <!--<slot name="body">
-                            </slot> -->
                     </div>
 
                     <div class="modal-footer">
@@ -82,8 +146,6 @@
                                 <a href="">ОТМЕНИТЬ</a>
                             </v-col>
                         </v-row>
-                        <!--<slot name="footer">
-                            </slot> -->
                     </div>
                 </div>
             </div>
@@ -264,4 +326,4 @@
     #btn_save {
         margin-left: 75px;
     }
-</style>
+</style>-->

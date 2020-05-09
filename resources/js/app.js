@@ -20,6 +20,11 @@ Vue.component('sidebar-calendar', require('./components/layouts/menu/Sidebar').d
 Vue.component('type-list', require('./components/layouts/menu/blocks/TypeList').default);
 Vue.component('mini-calendar', require('./components/layouts/menu/blocks/MiniCalendar').default);
 Vue.component('create-modal', require('./components/layouts/menu/blocks/CreateModal').default);
+//modal
+Vue.component('events-modal', require('./components/layouts/menu/blocks/modals/events').default);
+Vue.component('bdays-modal', require('./components/layouts/menu/blocks/modals/bdays').default);
+Vue.component('tasks-modal', require('./components/layouts/menu/blocks/modals/tasks').default);
+Vue.component('reminders-modal', require('./components/layouts/menu/blocks/modals/reminders').default);
 
 Vue.component('calendar-month', require('./components/layouts/calendar/month/MonthIndex.vue').default);
 Vue.component('cell-month', require('./components/сell-сalendar/CellMonth').default);

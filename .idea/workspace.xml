@@ -22,10 +22,9 @@
     <list default="true" id="530ed881-a690-4da1-94b1-52aaa0d6d684" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/week/WeekIndex.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/week/WeekIndex.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/month/MonthIndex.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/month/MonthIndex.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/year/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/year/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/Menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/Menu.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/CreateModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/CreateModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/display.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/display.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,6 +220,7 @@
       <workItem from="1588749187635" duration="107000" />
       <workItem from="1588749308495" duration="4208000" />
       <workItem from="1588956557876" duration="7511000" />
+      <workItem from="1589010955098" duration="9079000" />
     </task>
     <servers />
   </component>

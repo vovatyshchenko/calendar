@@ -19,6 +19,7 @@
         </table>
         <button @click="page++">Добавить</button>
         <button @click="page--">Убрать</button>
+
     </div>
 </template>
 
@@ -39,23 +40,23 @@
                 let week = [];
                 let monthDividedIntoWeeks = [];
                 let counter = 0;
-                let nowDate = new Date();
+                let nowDate = new Date(this.$store.getters.menuDate);
                 let months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
-                if (this.page != 0) {
-                    nowDate.setMonth(nowDate.getMonth() + this.page);
-                } else {
-                    nowDate = new Date()
-                }
+                // if (this.page != 0) {
+                //     nowDate.setMonth(nowDate.getMonth() + this.page);
+                // } else {
+                //     nowDate = new Date()
+                // }
                 nowDate.setDate(1);//устанавливается первый день месяца
                 this.month = months[nowDate.getMonth()];
                 this.year = nowDate.getFullYear();
-
+                //
                 if (nowDate.getDate() - nowDate.getDay() == 1) {
                     nowDate.setDate(nowDate.getDate() - 7);
                 }
-
+                //
                 nowDate.setDate(nowDate.getDate() - nowDate.getDay());//устанавливаю день с понедельника
-
+                //
                 for (let i = 1; ; i++) {
 
                     let parseDate = new Date(nowDate.setDate(nowDate.getDate() + 1))//устанавливаю
@@ -73,6 +74,8 @@
                                 currentMonth = parseDate.getMonth() + 1;
                                 currentYear = parseDate.getFullYear();
                             }
+                            nowDate.setDate(1);
+                            nowDate.setDate(nowDate.getDate()-1);
                         }
 
                         monthDividedIntoWeeks.push(week);
@@ -88,6 +91,9 @@
                         counter++;
                     }
                 }
+                console.log(nowDate, 5);
+
+                console.log(this.$store.getters.menuDate, 6)
                 return monthDividedIntoWeeks;
             },
         },

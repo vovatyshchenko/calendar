@@ -60,7 +60,7 @@
                     fullDate.setDate(fullDate.getDate()-1);
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear()-1);
-                } else {
+                } else if (window.location.pathname == '/') {
                     fullDate.setMonth(fullDate.getMonth()-1);
                 }
                 this.$store.commit('set_date', fullDate);
@@ -88,10 +88,6 @@
                 let months=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
                 return months[this.$store.getters.menuDate.getMonth()]+' '+this.$store.getters.menuDate.getFullYear();
             },
-            set_date() {
-                let fullDate=new Date();
-                this.$store.commit('set_date', fullDate);
-            }
         },
         computed: {
             current_route() {

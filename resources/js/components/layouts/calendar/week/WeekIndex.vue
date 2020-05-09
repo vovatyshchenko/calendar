@@ -1,19 +1,18 @@
 <template>
-    <div>
-    <div>
-        {{ger}}
-        <span>День</span>
-        <ul>
-            <li class="p-4" v-for="(item,index) in 24">{{item}}</li>
-        </ul>
+    <div class="calendar-week" align="center">
+        <div class="week-header">
+            <div class="week-time-header"><span>День</span></div>
+            <div v-for="n in 7" class="week-event-header"><span>{{days[n-1]}}</span></div>
+        </div>
+        <div class="week-body">
+            <div class="hour-block" v-for="n in 24" align="left">
+                <div class="week-time"><span>{{n}}:00</span></div>
+                <div v-for="n in 7" class="week-events">
+                    <cell-week></cell-week>
+                </div>
+            </div>
+        </div>
     </div>
-     <div v-for="(r,index) in 7">
-         <span>понедельник</span>
-         <ul>
-             <li class="p-4" v-for="(item,index) in 24">{{item}}</li>
-         </ul>
-     </div>
-</div>
 </template>
 
 <script>
@@ -21,6 +20,7 @@
         name: "WeekIndex",
         data(){
             return{
+                days: ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
                 page:0,
                 year:0,
                 dayNumber:[],
@@ -105,45 +105,6 @@
     }
 </script>
 
-<style scoped>
-    .time span{
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 20px;
-        color: #808080;
-        margin: 0 auto 44px auto;
-
-    }
-    .day {
-        width: 148px;
-        height:208px;
-
-    }
-    .time{
-        width: 63px;
-        height:208px
-    }
-    table th{
-        padding:0;
-    }
-    table {
-        max-width: 1110px;
-    }
-    .day .number {
-        margin-left: 11px;
-    }
-    .day span {
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: 900;
-        font-size: 12px;
-        line-height: 90px;
-        text-align: center;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        color: #B3B3B3;
-        padding:0  0 106px 0;
-    }
+<style lang="scss" scoped>
+    @import "./resources/sass/calendar/week.scss";
 </style>

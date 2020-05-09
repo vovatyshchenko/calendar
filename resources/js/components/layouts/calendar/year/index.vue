@@ -36,7 +36,7 @@ export default {
   methods: {
     change_year_minus(){
       this.year--;
-      //this.$store.dispatch('year_data', this.year);
+      this.$store.dispatch('year_data', this.year);
     },
     change_year_plus(){
       this.year++;

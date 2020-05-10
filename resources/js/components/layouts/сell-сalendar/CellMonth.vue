@@ -4,12 +4,13 @@
             <div class="d-flex flex-column">
                <span class="date">
                    <span class="number">
-                      <v-tooltip top>
+                      <v-tooltip top v-if="holidayTextEvent">
                          <template v-slot:activator="{ on }">
                               <span  v-on="on":class="holidayTextEvent?'active':''">{{currentDate}}</span>
                         </template>
                         <span class="test">{{holidayTextEvent}}</span>
                         </v-tooltip>
+                       <span v-else >{{currentDate}}</span>
                    </span>
                </span>
                 <ul class="d-flex align-center flex-column">

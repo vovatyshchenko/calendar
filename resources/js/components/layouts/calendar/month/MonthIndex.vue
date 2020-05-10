@@ -9,7 +9,7 @@
             <tbody>
             <tr v-for="week in getMonth">
                 <td v-for="(day, index) in week">
-                    <cell-month ref="test" :date="day"></cell-month>
+                    <cell-month  :date="day"></cell-month>
                 </td>
             </tr>
             </tbody>

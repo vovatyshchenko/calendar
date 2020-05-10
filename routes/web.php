@@ -23,7 +23,7 @@ require_once('Holidays/index.php');
 //Route::get('/auth/callback', 'Auth\AuthController@callback');
 //Route::view('/', 'index')->middleware('auth');
 
-
+Route::post('/create-activity', ('Api\v1\ActivityController@store'));
 Route::view('/{any}', 'index')->where('any', '.*');
 
 //Route::middleware('auth')->post('/logout', 'Auth\LogoutController@logout');

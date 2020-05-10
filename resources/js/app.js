@@ -26,7 +26,7 @@ Vue.component('type-list', require('./components/layouts/menu/blocks/TypeList').
 Vue.component('mini-calendar', require('./components/layouts/menu/blocks/MiniCalendar').default);
 Vue.component('create-modal', require('./components/layouts/menu/blocks/CreateModal').default);
 //modal
-Vue.component('events-modal', require('./components/layouts/menu/blocks/modals/events').default);
+Vue.component('activity-modal', require('./components/layouts/menu/blocks/modals/Activity').default);
 Vue.component('bdays-modal', require('./components/layouts/menu/blocks/modals/bdays').default);
 Vue.component('tasks-modal', require('./components/layouts/menu/blocks/modals/tasks').default);
 Vue.component('reminders-modal', require('./components/layouts/menu/blocks/modals/reminders').default);
@@ -54,7 +54,6 @@ Vue.filter('cutText', function (value, symbolsCount){
         ? value.slice(0, symbolsCount - 3) + '...'
         : value;
 })
-
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)

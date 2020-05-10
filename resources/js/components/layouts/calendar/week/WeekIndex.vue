@@ -4,17 +4,19 @@
             <div class="week-time-header week-header"><span>День</span></div>
             <div class="week-time hour-block" v-for="n in 24"><span>{{n}}:00</span></div>
         </div>
-        <div class="week-col" v-for="n in 7">
-            <div class="week-event-header week-header"><span>{{days[n-1]}}</span></div>
+        <div class="week-col" v-for="(date,index) in dateOfWeek">
+            <div class="week-event-header week-header"><span>{{days[index]}},{{dayNumber[index]}}</span>
+            </div>
             <div class="week-events hour-block" v-for="n in 24">
-                <cell-week></cell-week>
+                <cell-week :date="date"></cell-week>
             </div>
         </div>
     </div>
 </template>
-
 <script>
+    import holiday from '../../../../mixin/holiday'
     export default {
+        mixins: [holiday],
         name: "WeekIndex",
         data(){
             return{
@@ -52,7 +54,7 @@
                     let year = parseDate.getFullYear();
 
                     this.dayNumber.push(day);
-                    currentWeek.push(day+"."+month+"."+year)
+                    currentWeek.push(day+"-"+month+"-"+year)
                     this.$store.commit('setCurrentWeek',currentWeek);
                 }
                 return currentWeek;

@@ -19,7 +19,7 @@
         <v-tabs-items v-model="tab">
             <v-tab-item>
                 <v-card-text>
-                    <events-modal></events-modal>
+                    <activity-modal></activity-modal>
                 </v-card-text>
             </v-tab-item>
              <v-tab-item>

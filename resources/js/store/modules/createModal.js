@@ -1,6 +1,6 @@
 export default {
     state: {
-        event: {   
+        event: {
             name: null,
             guests: null,
             location: null,
@@ -8,7 +8,7 @@ export default {
             timeStart: null,
             timeEnd: null,
         },
-        bday: {   
+        bday: {
             name: null,
             description: null,
             time: null,
@@ -35,15 +35,9 @@ export default {
     },
     actions: {
         //запись мероприятия в БД
-        eventStore ({ commit }, event){
-            axios.post('РОУТ КОТОРЫЙ ЛАРКИ ДЛЯ КОНТРОЛЛЕРА', {
-                name: event.name,
-                guests: event.guests,
-                location: event.location,
-                description: event.description,
-                timeStart: event.timeStart,
-                timeEnd: event,timeEnd,
-            })
+        activityCreate ({ commit }, event){
+
+            axios.post('/create-activity',event)
             .then(responce => {
                 commit("clear_error");
                 commit("set_processing", false);
@@ -54,23 +48,23 @@ export default {
             })
         },
         //запись дня рождения в БД
-        bdayStore ({ commit }, bday){
-            axios.post('РОУТ КОТОРЫЙ ЛАРКИ ДЛЯ КОНТРОЛЛЕРА', {
-                name: bday.name,
-                description: bday.description,
-                time: bday.time,
-                allDay: bday.allDay,
-                everyYear: bday.everyYear,
-            })
-            .then(responce => {
-                commit("clear_error");
-                commit("set_processing", false);
-            })
-            .catch(error => {
-                commit("set_processing", false);
-                commit("set_error", error);
-            })
-        },
+        // bdayStore ({ commit }, bday){
+        //     axios.post('РОУТ КОТОРЫЙ ЛАРКИ ДЛЯ КОНТРОЛЛЕРА', {
+        //         name: bday.name,
+        //         description: bday.description,
+        //         time: bday.time,
+        //         allDay: bday.allDay,
+        //         everyYear: bday.everyYear,
+        //     })
+        //     .then(responce => {
+        //         commit("clear_error");
+        //         commit("set_processing", false);
+        //     })
+        //     .catch(error => {
+        //         commit("set_processing", false);
+        //         commit("set_error", error);
+        //     })
+        // },
     },
     getters:{
         get_events: state => state.event,

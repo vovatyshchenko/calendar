@@ -53,11 +53,6 @@
                 'МЕРОПРИЯТИЕ', 'НАПОМИНАНИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',
             ],
         }),
-        methods: {
-            todo() {
-                this.$store.commit('changeShowModal');
-            },
-        },
 
         computed: {
             showModal() {

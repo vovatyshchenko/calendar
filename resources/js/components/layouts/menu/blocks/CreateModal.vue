@@ -44,13 +44,14 @@
           <v-btn color="blue darken-1" text @click="todo">Отмена</v-btn>
         </v-card-actions>
       </v-card>
+
     </v-dialog>
   </v-row>
 </template>
 
 <script>
 	export default {
-        data: () => ({ 
+        data: () => ({
             tab: null,
             items: [
                 'МЕРОПРИЯТИЕ', 'НАПОМИНАНИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',

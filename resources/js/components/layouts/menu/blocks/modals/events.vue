@@ -1,4 +1,3 @@
-
 <template>
     <form  @submit.prevent="submit">
         <div class="error-message" v-if="globalErrorMessasge">Заполните все обязательные поля</div>
@@ -65,13 +64,14 @@
         <v-btn color="blue darken-1" text @click="closeModal()">Отмена</v-btn>
       </v-card-actions>
   </div>
+ </form>
 </template>
 
 <script>
 export default {
   data: () => ({
     date: new Date().toISOString().substr(0, 10),
-    event: {   
+    event: {
             name: null,
             guests: null,
             location: null,

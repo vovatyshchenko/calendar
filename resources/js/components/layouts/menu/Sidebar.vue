@@ -20,7 +20,7 @@
         }),
         methods: {
             change_show_modal() {
-                this.$store.commit('change_show_modal');
+                this.$store.commit('changeShowModal');
                 this.showModal=!this.showModal;
             },
         },

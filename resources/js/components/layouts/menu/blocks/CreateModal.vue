@@ -50,7 +50,7 @@
 
 <script>
 	export default {
-        data: () => ({ 
+        data: () => ({
             tab: null,
             items: [
                 'МЕРОПРИЯТИЕ', 'НАПОМИНАНИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',
@@ -58,7 +58,7 @@
         }),
         methods: {
             todo() {
-                this.$store.commit('change_show_modal');
+                this.$store.commit('changeShowModal');
             },
         },
         computed: {

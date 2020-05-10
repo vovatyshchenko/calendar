@@ -6,28 +6,31 @@
             flat
         >
             <v-app-bar-nav-icon @click="change_drawer()"></v-app-bar-nav-icon>
-            <v-toolbar-title>Календарь</v-toolbar-title>
-            <div class="menu-info">
-                <v-btn width="130" height="50" class="today-btn menu-btn" color="#fff" depressed>Сегодня</v-btn>
-                <div class="arrows-block">
-<!--                    <router-link to="/">-->
-                        <v-btn @click="minus_date()" depressed>
-                            <v-icon left>mdi-arrow-left</v-icon>
-                        </v-btn>
-<!--                    </router-link>-->
-<!--                    <router-link to="/">-->
-                        <v-btn @click="plus_date()" depressed>
-                            <v-icon right>mdi-arrow-right</v-icon>
-                        </v-btn>
-<!--                    </router-link>-->
-                </div>
-                <span class="menu-date">{{display_date()}}</span>
-                <div class="menu-search">
-                    Поиск
-                </div>
+            <v-toolbar-title>
+                <span class="menu-title">Календарь</span>
+            </v-toolbar-title>
+            <div class="menu-today-block">
+                <button class="menu-today-link" @click="today()" v-ripple>
+                    <span>Сегодня</span>
+                </button>
             </div>
+            <div class="arrows-block">
+                <button @click="minus_date()" class="arrow-left" v-ripple>
+                    <v-icon>mdi-arrow-left</v-icon>
+                </button>
+                <button @click="plus_date()" class="arrow-right" v-ripple>
+                    <v-icon>mdi-arrow-right</v-icon>
+                </button>
+            </div>
+            <div class="menu-date-info">
+                <span class="menu-date">{{display_date()}}</span>
+            </div>
+            <div class="menu-search">
+                Поиск
+            </div>
+
             <div class="select-calendar">
-                <select name="select" v-model="route" @click="set_route()" placeholder="День">
+                <select name="select" v-model="route" @click="set_route()" data-icon="mdi-arrow-left">
                     <option selected value="/day">День</option>
                     <option value="/week">Неделя</option>
                     <option value="/">Месяц</option>
@@ -47,8 +50,14 @@
             year:new Date().getFullYear(),
         }),
         methods: {
+            today(){
+                this.$store.commit('setDate', new Date);
+                if (window.location.pathname != '/day'){
+                    this.$router.push('day');
+                }
+            },
             change_drawer() {
-                this.$store.commit('change_drawer');
+                this.$store.commit('changeDrawer');
                 this.drawer=!this.drawer;
             },
             set_route() {
@@ -65,7 +74,7 @@
                 } else {
                     fullDate.setMonth(fullDate.getMonth()-1);
                 }
-                this.$store.commit('set_date', fullDate);
+                this.$store.commit('setDate', fullDate);
                 this.$store.commit('setCurrentYear',fullDate);
                 this.year=this.$store.getters.year;
 
@@ -80,7 +89,7 @@
                 } else {
                     fullDate.setMonth(fullDate.getMonth()+1);
                 }
-                this.$store.commit('set_date', fullDate);
+                this.$store.commit('setDate', fullDate);
 
                 this.$store.commit('setCurrentYear',fullDate);
                 this.year=this.$store.getters.year;
@@ -97,7 +106,7 @@
             },
             set_date() {
                 let fullDate=new Date();
-                this.$store.commit('set_date', fullDate);
+                this.$store.commit('setDate', fullDate);
             }
         },
         computed: {

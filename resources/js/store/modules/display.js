@@ -3,7 +3,8 @@ export default {
         drawer: false,
         showModal: false,
         displayDate: new Date(),
-        year:new Date().getFullYear()
+        year:new Date().getFullYear(),
+        currentWeek:[]
     },
     mutations: {
         changeDrawer(state) {
@@ -20,6 +21,10 @@ export default {
         setDate(state, date) {
             state.displayDate=new Date(date);
         },
+        setCurrentWeek(state,date)
+        {
+            state.currentWeek=date;
+        }
 
     },
     actions: {
@@ -37,6 +42,9 @@ export default {
         },
         year(state){
             return state.year;
+        },
+        week(state){
+            return state.currentWeek;
         }
 
     }

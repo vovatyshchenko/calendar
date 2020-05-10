@@ -26,49 +26,19 @@
             }
         },
         methods:{
-          getDayFromDate(date){
-              switch (date) {
-                  case 0:
-                       return 'Понедельник'
-                      break;
-                  case 1:
-                      return 'Вторник'
-                      break;
-                  case 2:
-                      return 'Среда'
-                      break;
-                  case 3:
-                      return 'Четверг'
-                      break;
-                  case 4:
-                      return 'Пятница'
-                      break;
-                  case 5:
-                      return 'Суббота'
-                      break;
-                  case 6:
-                      return 'Воскресенье'
-                      break;
-                  default:
-                      break;
-              }
-          }
         },
         computed:{
-            getWeek() {
+            dateOfWeek() {
                 let currentWeek=[];
-                let timestamp=[];
                 this.dayNumber=[];
-                let nowDate=new Date();
-                if(this.page!=0)
+                let nowDate=new Date(this.$store.getters.menuDate);
+                if (nowDate.getDate() - nowDate.getDay() == 1) {
+                    nowDate.setDate(nowDate.getDate() - 7);
+                }
+                if(nowDate.getDay()==0)
                 {
-
-                    nowDate.setDate(nowDate.getDate()+this.page);
+                    nowDate.setDate(nowDate.getDate() - 7);
                 }
-                else{
-                    nowDate=new Date()
-                }
-
                 nowDate.setDate(nowDate.getDate()-nowDate.getDay());
                 let months=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"]
                 this.day=nowDate.getDay();
@@ -80,26 +50,25 @@
                     let day = parseDate.getDate();
                     let month =parseDate.getMonth()+1;
                     let year = parseDate.getFullYear();
+
                     this.dayNumber.push(day);
                     currentWeek.push(day+"."+month+"."+year)
+                    this.$store.commit('setCurrentWeek',currentWeek);
                 }
                 return currentWeek;
             },
-
-            ger()
+            holidayTextEventForMonth()
             {
-                console.log('f');
-                return this.$store.getters.displayDate;
-            }
-
-        },
-
-        watch:{
-            page(){
-                console.log(this.getWeek);
+                let dateForMonth = this.$store.getters.week;
+             return  console.log(dateForMonth);
+                // if (this.$store.getters.holidays[dateForMonth.getMonth() + 1]) {
+                //     if (this.$store.getters.holidays[dateForMonth.getMonth() + 1][dateForMonth.getDate()]) {
+                //
+                //         return  this.$store.getters.holidays[dateForMonth.getMonth() + 1][dateForMonth.getDate()].localName;
+                //     }
+                // }
             },
-
-        }
+        },
     }
 </script>
 

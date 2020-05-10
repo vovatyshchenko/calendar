@@ -71,7 +71,11 @@
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear()-1);
                     this.$store.dispatch('year_data');
-                } else {
+                }
+                 else if (window.location.pathname == '/week') {
+                    fullDate.setDate(fullDate.getDate()-7);
+                }
+                 else {
                     fullDate.setMonth(fullDate.getMonth()-1);
                 }
                 this.$store.commit('setDate', fullDate);
@@ -86,7 +90,11 @@
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear()+1);
                     this.$store.dispatch('year_data');
-                } else {
+                }
+                else if (window.location.pathname == '/week') {
+                    fullDate.setDate(fullDate.getDate()+7);
+                }
+                else {
                     fullDate.setMonth(fullDate.getMonth()+1);
                 }
                 this.$store.commit('setDate', fullDate);

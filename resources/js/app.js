@@ -27,6 +27,7 @@ Vue.component('mini-calendar', require('./components/layouts/menu/blocks/MiniCal
 Vue.component('create-modal', require('./components/layouts/menu/blocks/CreateModal').default);
 //modal
 Vue.component('activity-modal', require('./components/layouts/menu/blocks/modals/Activity').default);
+
 Vue.component('bdays-modal', require('./components/layouts/menu/blocks/modals/bdays').default);
 Vue.component('tasks-modal', require('./components/layouts/menu/blocks/modals/tasks').default);
 Vue.component('reminders-modal', require('./components/layouts/menu/blocks/modals/reminders').default);

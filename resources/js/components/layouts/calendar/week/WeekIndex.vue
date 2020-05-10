@@ -1,17 +1,13 @@
 <template>
     <div class="calendar-week" align="center">
-        <div class="week-header">
-
-            <div class="week-time-header"><span>День</span></div>
-            <div v-for="n in 7" class="week-event-header"><span>{{days[n-1]}},{{dayNumber[n-1]}}{{holidayTextEventForMonth}}</span></div>
+        <div class="week-info">
+            <div class="week-time-header week-header"><span>День</span></div>
+            <div class="week-time hour-block" v-for="n in 24"><span>{{n}}:00</span></div>
         </div>
-        <div class="week-body">
-            {{dateOfWeek}}
-            <div class="hour-block" v-for="n in 24" align="left">
-                <div class="week-time"><span>{{n}}:00</span></div>
-                <div v-for="n in 7" class="week-events">
-                    <cell-week></cell-week>
-                </div>
+        <div class="week-col" v-for="n in 7">
+            <div class="week-event-header week-header"><span>{{days[n-1]}}</span></div>
+            <div class="week-events hour-block" v-for="n in 24">
+                <cell-week></cell-week>
             </div>
         </div>
     </div>

@@ -7,10 +7,10 @@ export default {
         currentWeek:[]
     },
     mutations: {
-        change_drawer(state) {
+        changeDrawer(state) {
             state.drawer=!state.drawer;
         },
-        change_show_modal(state) {
+        changeShowModal(state) {
             state.showModal=!state.showModal;
             console.log(state.showModal);
         },
@@ -18,7 +18,7 @@ export default {
             let currentDate=new Date(date);
             state.year=currentDate.getFullYear();
         },
-        set_date(state, date) {
+        setDate(state, date) {
             state.displayDate=new Date(date);
         },
         setCurrentWeek(state,date)

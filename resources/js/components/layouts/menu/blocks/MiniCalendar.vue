@@ -64,7 +64,7 @@
             setDate(date) {
                 let parseDate = date.split(".");
                 let fullDate=new Date(parseDate[2], parseDate[1]-1, parseDate[0]);
-                this.$store.commit('set_date', fullDate);
+                this.$store.commit('setDate', fullDate);
             }
         },
         computed:{

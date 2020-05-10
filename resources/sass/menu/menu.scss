@@ -1,29 +1,74 @@
 .calendar-menu {
-    border-top: 3px solid #C4C4C4;
-    border-bottom: 3px solid #C4C4C4;
-}
-.menu-btn {
-    box-sizing: border-box;
-    border-radius: 4px;
-    border: 2px solid #F5F5F5;
-    text-align: center;
-    text-transform: uppercase;
-}
-.menu-info {
+    border: 3px solid #F5F5F5;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    max-width: 1100px;
 }
-.today-btn {
+.menu-title {
+    font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 60px;
+    color: #808080;
+}
+.menu-today-block {
+    width: 100%;
+    max-width: 240px;
+    text-align: center;
+}
+.menu-today-link {
+    width: 130px;
+    height: 50px;
+    background-color: #fff;
+    border: 2px solid #F5F5F5;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+.menu-today-link:active,
+.menu-today-link:focus,
+.arrows-block button:active,
+.arrows-block button:focus{
+    outline: none;
+}
+.menu-today-block span {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
     color: #666666;
 }
+.menu-today-link:hover {
+    opacity: 0.7;
+}
 .arrows-block {
+    width: 90px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.arrows-block button{
+    background: #FFFFFF;
+    border: 2px solid #F5F5F5;
+    box-sizing: border-box;
+    width: 42px;
     height: 40px;
+}
+.arrows-block button:hover {
+    opacity: 0.7;
+}
+.arrows-block i {
+    opacity: 0.5;
+}
+.arrow-left {
+    border-right: 1px;
+    border-radius: 4px 0px 0px 4px;
+}
+.arrow-right {
+    border-left: 1px;
+    border-radius: 0px 4px 4px 0px;
+}
+.menu-date-info {
+    width: 100%;
+    max-width: 210px;
+    text-align: center;
 }
 .menu-date {
     font-weight: 500;
@@ -41,7 +86,7 @@
     border-radius: 4px;
 }
 .select-calendar {
-    border-left: 3px solid #C4C4C4;
+    border-left: 3px solid #F5F5F5;
     width: 100%;
     max-width: 340px;
     display: flex;

@@ -38,11 +38,6 @@
                 </v-card-text>
             </v-tab-item>
         </v-tabs-items>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="todo">Сохранить</v-btn>
-          <v-btn color="blue darken-1" text @click="todo">Отмена</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </v-row>
@@ -50,17 +45,14 @@
 
 <script>
 	export default {
+        
         data: () => ({ 
             tab: null,
             items: [
                 'МЕРОПРИЯТИЕ', 'НАПОМИНАНИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',
             ],
         }),
-        methods: {
-            todo() {
-                this.$store.commit('change_show_modal');
-            },
-        },
+       
         computed: {
             showModal() {
                 return this.$store.getters.showModal;
@@ -68,6 +60,9 @@
         },
 	}
 </script>
+<style scoped type="scss">
+    
+</style>
 <!--<template>
     <v-dialog
         v-model="showModal"

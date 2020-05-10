@@ -7,127 +7,100 @@
             :error-messages="nameErrors"
             outlined
             dense
-            label="Название*"
-            @input="$v.name.$touch()"
-            @blur="$v.name.$touch()"
-        ></v-text-field>
+            v-model="event.name"
+            :rules="rules"
+          ></v-text-field>
+      </v-col>
+      <v-col cols="12" md="12">
+        <div class="mb-2">Гости</div>
         <v-text-field
             v-model="guests"
             :error-messages="guestsErrors"
             outlined
             dense
-            label="Гости"
-            @input="$v.name.$touch()"
-            @blur="$v.name.$touch()"
-        ></v-text-field>
+            v-model="event.guests"
+          ></v-text-field>
+      </v-col>
+      <v-col cols="12" md="12">
+        <div class="mb-2">Место располодения</div>
         <v-text-field
             v-model="location"
             :error-messages="locationErrors"
             outlined
             dense
-            label="Место проведения"
-            @input="$v.location.$touch()"
-            @blur="$v.location.$touch()"
-        ></v-text-field>
+            v-model="event.location"
+          ></v-text-field>
+      </v-col>
+      <v-col cols="12" md="12">
+        <div class="mb-2">Описание*</div>
         <v-text-field
             v-model="about"
             :error-messages="aboutErrors"
             outlined
             dense
-            label="Описание*"
-            @input="$v.about.$touch()"
-            @blur="$v.about.$touch()"
+            v-model="event.description"
+            :rules="rules"
+          ></v-text-field>
+      </v-col>
+      <v-col cols="12" md="12">
+        <span class="mb-2">Начало*:</span>
+          <v-text-field
+            v-model="date"
+            prepend-icon="event"
+            readonly
+          ></v-text-field>
+      </v-col>
+      <v-col cols="12" md="12">
+        <span class="mb-2">Окончания*:</span>
+        <v-text-field
+            v-model="date"
+            prepend-icon="event"
+            readonly
         ></v-text-field>
-        <div class="d-flex">
-            <div>
-
-            <span>yfxfkj</span>
-                <v-flex xs12 lg6>
-
-                    <v-menu
-                        v-model="menu1"
-                        :close-on-content-click="false"
-                        full-width
-                        max-width="290"
-                    >
-                        <template v-slot:activator="{ on }">
-                            <v-text-field
-                                :value="computedDateFormattedMomentjs"
-                                clearable
-
-                                readonly
-                                v-on="on"
-                            ></v-text-field>
-                        </template>
-                        <v-date-picker
-                            locale="ru"
-                            v-model="date"
-                            @change="menu1 = false"
-                        ></v-date-picker>
-                    </v-menu>
-                </v-flex>
-        </div>
-            <v-menu
-                ref="menu"
-                v-model="menu2"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                :return-value.sync="time"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="290px"
-            >
-                <template v-slot:activator="{ on }">
-                    <v-text-field
-                        class="eer"
-                        v-model="time"
-                        label="Picker in menu"
-                        readonly
-                        v-on="on"
-                    ></v-text-field>
-                </template>
-                <v-time-picker
-                    format="24hr"
-                    v-if="menu2"
-                    v-model="time"
-                    full-width
-                    @click:minute="$refs.menu.save(time)"
-                ></v-time-picker>
-            </v-menu></div>
-
-        <b-button  class="btn btn-primary add mt-4" type="submit">Создать</b-button>
-    </form>
+      </v-col>
+    </v-row>
+     <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="blue darken-1" text @click="storeData()">Сохранить</v-btn>
+        <v-btn color="blue darken-1" text @click="closeModal()">Отмена</v-btn>
+      </v-card-actions>
+  </div>
 </template>
 
 <script>
-    import { validationMixin } from 'vuelidate'
-    import { required, email } from 'vuelidate/lib/validators'
-    export default {
-        mixins: [validationMixin],
-        validations: {
-            name: { required},
-            guests: { required},
-            email: { required, email },
-            select: { required },
-            location: { required },
-            about: { required },
-            checkbox: {
-                checked (val) {
-                    return val
-                },
-            },
+export default {
+  data: () => ({
+    date: new Date().toISOString().substr(0, 10),
+    event: {   
+            name: null,
+            guests: null,
+            location: null,
+            description: null,
+            timeStart: null,
+            timeEnd: null,
         },
-        data: () => ({
-            name: '',
-            menu1: false,
-            date: new Date().toISOString().substr(0, 10),
-            guests:'',
-            location:'',
-            time: '00:00',
-            menu2: false,
-            modal2: false,
-            about:'',
+        rules: [
+      v => !!v || "Пожалуйста, заполните поле",
+      v =>
+          (v && v.length >= 3) ||
+          "Поле должно содержать более 3-х символов"
+      ],
+   }),
+    methods: {
+          closeModal() {
+              this.$store.commit('change_show_modal');
+          },
+            storeData() {
+                this.$store.dispatch('eventStore', this.event);
+              }
+          },
+      computed: {
+        showModal() {
+          return this.$store.getters.showModal;
+        }
+      },
+}
+</script>
 
 
 

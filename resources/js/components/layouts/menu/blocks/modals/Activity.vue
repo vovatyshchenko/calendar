@@ -16,8 +16,8 @@
             outlined
             dense
             label="Гости"
-            @input="$v.name.$touch()"
-            @blur="$v.name.$touch()"
+            @input="$v.guests.$touch()"
+            @blur="$v.guests.$touch()"
         ></v-text-field>
         <v-text-field
             v-model="location"
@@ -49,15 +49,13 @@
                         <template v-slot:activator="{ on }">
                             <v-text-field
                                 :value="computedDateFormattedMomentjs"
-                                clearable
-
                                 readonly
                                 v-on="on"
                             ></v-text-field>
                         </template>
                         <v-date-picker
                             locale="ru"
-                            v-model="date"
+                            v-model="dateStart"
                             @change="openDataStart = false"
                         ></v-date-picker>
                     </v-menu>
@@ -103,8 +101,7 @@
                         max-width="290">
                         <template v-slot:activator="{ on }">
                             <v-text-field
-                                :value="computedDateFormattedMomentjs"
-                                clearable
+                                :value="computedDateFormattedMomentjsForEnd"
 
                                 readonly
                                 v-on="on"
@@ -112,7 +109,7 @@
                         </template>
                         <v-date-picker
                             locale="ru"
-                            v-model="date"
+                            v-model="dateEnd"
                             @change="openDataEnd = false"
                         ></v-date-picker>
                     </v-menu>
@@ -162,11 +159,13 @@
         mixins: [validationMixin],
         validations: {
             name: { required},
-            guests: { required},
+            guests: {required},
             email: { required, email },
             select: { required },
             location: { required },
             description: { required },
+            dateStart:{required},
+            dateStart:{required},
             checkbox: {
                 checked (val) {
                     return val
@@ -174,25 +173,32 @@
             },
         },
         data: () => ({
-            name: '',
+            name:null,
             menu1: false,
-            date: new Date().toISOString().substr(0, 10),
-            guests:'',
-            location:'',
+            dateStart: new Date().toISOString().substr(0, 10),
+            dateEnd: new Date().toISOString().substr(0, 10),
+            guests:null,
+            location:null,
             timeStart: '00:00',
             timeEnd: '00:00',
             OpenTimeStart: false,
             openDataStart: false,
             OpenTimeEnd: false,
             openDataEnd: false,
-            description:'',
+            description:null,
         }),
         computed: {
             computedDateFormattedMomentjs () {
-                return this.date ? moment(this.date).format('D MMM  YYYY') : ''
+                return this.dateStart ? moment(this.dateStart).format('D MMM  YYYY') : ''
             },
             computedDateFormattedDatefns () {
-                return this.date ? format(this.date, 'D MMM   YYYY') : ''
+                return this.dateStart ? format(this.dateStart, 'D MMM   YYYY') : ''
+            },
+            computedDateFormattedMomentjsForEnd () {
+                return this.dateEnd ? moment(this.dateEnd).format('D MMM  YYYY') : ''
+            },
+            computedDateFormattedDatefnsForEnd () {
+                return this.dateEnd ? format(this.dateEnd, 'D MMM   YYYY') : ''
             },
             checkboxErrors () {
                 const errors = []
@@ -201,6 +207,12 @@
                 return errors
             },
             selectErrors () {
+                const errors = []
+                if (!this.$v.select.$dirty) return errors
+                !this.$v.select.required && errors.push('Item is required')
+                return errors
+            },
+            dateStartErrors () {
                 const errors = []
                 if (!this.$v.select.$dirty) return errors
                 !this.$v.select.required && errors.push('Item is required')
@@ -259,15 +271,18 @@
                 ) {
                     this.$toaster.warning('Your toaster warning message.')
                 } else {
-                    const data = new FormData(this.$refs.createEvent);
+
                     this.$store.dispatch('activityCreate',{
                         name: this.name,
                         guests: this.guests,
                         location: this.location,
                         description: this.description,
-                        timeStart: this.timeStart,
-                        timeEnd: this.timeEnd});
-                    this.clear()
+                        time_start: this.timeStart,
+                        time_end: this.timeEnd,
+                        date_end: this.dateEnd,
+                        date_start:this.dateStart
+                        });
+                        this.clear()
                 }
             },
             closeModal() {

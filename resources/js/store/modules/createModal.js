@@ -36,7 +36,6 @@ export default {
     actions: {
         //запись мероприятия в БД
         activityCreate ({ commit }, event){
-
             axios.post('/create-activity',event)
             .then(responce => {
                 commit("clear_error");

@@ -24,7 +24,14 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'year' => 'required|integer',
+            'name' => 'required|string|max:100',
+            'quests' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'description' => 'required|string|max:255',
+            'time_start'=>'required|string|max:10',
+            'time_end'=>'required|string|max:10',
+            'date_start'=>'required|date_format:Y-m-d',
+            'date_end'=>'required|date_format:Y-m-d|after_or_equal:date_start'
         ];
     }
 }

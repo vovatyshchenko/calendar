@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 */
 require_once('Holidays/index.php');
 //Auth::routes();
-
+//
 //Route::get('/auth/redirect','Auth\AuthController@authorizathion')->name('login');
 //Route::get('/auth/callback', 'Auth\AuthController@callback');
 //Route::view('/', 'index')->middleware('auth');

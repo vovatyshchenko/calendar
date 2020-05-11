@@ -22,6 +22,7 @@
                 page:0,
                 year:0,
                 dayNumber:[],
+                month: 0
 
             }
         },

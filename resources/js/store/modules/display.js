@@ -3,6 +3,7 @@ export default {
         drawer: false,
         showModal: false,
         displayDate: new Date(),
+        datepicker: new Date(),
         year:new Date().getFullYear(),
         currentWeek:[]
     },
@@ -20,6 +21,9 @@ export default {
         },
         setDate(state, date) {
             state.displayDate=new Date(date);
+        },
+        setDatePicker(state, date) {
+            state.datepicker=new Date(date);
         },
         setCurrentWeek(state,date)
         {
@@ -40,12 +44,14 @@ export default {
         menuDate (state) {
             return state.displayDate;
         },
+        datepicker (state) {
+            return state.datepicker;
+        },
         year(state){
             return state.year;
         },
         week(state){
             return state.currentWeek;
         }
-
     }
 }

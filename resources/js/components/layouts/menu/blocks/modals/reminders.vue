@@ -32,6 +32,10 @@
             <div class="characters">ваш контент</div>
         </v-col>
         <v-spacer></v-spacer>
+        <div class="d-flex justify-content-between">
+            <v-btn type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
+            <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
+        </div>
     </v-row>
 </template>
 

@@ -123,15 +123,15 @@
                 ></v-time-picker>
             </v-menu>
         </div>
-        <v-col cols="12" md="12">
+        <v-col class="d-flex align-items-center">
             <span>Весь день</span>
             <v-checkbox v-model="isRemind"></v-checkbox>
         </v-col>
-        <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn  type="submit" color="blue darken-1" text >Сохранить</v-btn>
-            <v-btn color="blue darken-1" text @click="closeModal()">Отмена</v-btn>
-        </v-card-actions>
+           <div class="d-flex justify-content-between">
+                <v-btn type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
+                <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
+            </div>
     </form>
 </template>
 

@@ -31,9 +31,9 @@
 
             <div class="select-calendar">
                 <select name="select" v-model="route" @click="set_route()" data-icon="mdi-arrow-left">
-                    <option selected value="/day">День</option>
-                    <option value="/week">Неделя</option>
                     <option value="/">Месяц</option>
+                    <option value="/day">День</option>
+                    <option value="/week">Неделя</option>
                     <option value="/year">Год</option>
                 </select>
             </div>
@@ -46,7 +46,7 @@
         data: () => ({
             drawer: false,
             menuDate: 0,
-            route: '/',
+            route: window.location.pathname,
             year:new Date().getFullYear(),
         }),
         methods: {

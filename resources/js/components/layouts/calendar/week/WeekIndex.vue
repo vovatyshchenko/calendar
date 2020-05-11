@@ -4,12 +4,8 @@
             <div class="week-time-header week-header"><span>День</span></div>
             <div class="week-time hour-block" v-for="n in 24"><span>{{n}}:00</span></div>
         </div>
-        <div class="week-col" v-for="(date,index) in dateOfWeek">
-            <div class="week-event-header week-header"><span>{{days[index]}},{{dayNumber[index]}}</span>
-            </div>
-            <div class="week-events hour-block" v-for="n in 24">
-                <cell-week :date="date"></cell-week>
-            </div>
+        <div class="week-col" v-for="(date) in dateOfWeek">
+            <cell-week :date="[date]"></cell-week>
         </div>
     </div>
 </template>
@@ -20,7 +16,6 @@
         name: "WeekIndex",
         data(){
             return{
-                days: ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
                 page:0,
                 year:0,
                 dayNumber:[],

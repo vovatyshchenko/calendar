@@ -6,7 +6,7 @@
             floating
             class="bg-calendar calendar-sidebar"
         >
-            <v-btn width="130" height="50" class="create-btn menu-btn" color="#1875F0" depressed @click="change_show_modal()">Создать</v-btn>
+            <button class="create-btn" @click="change_show_modal()" v-ripple>Создать</button>
             <mini-calendar></mini-calendar>
             <type-list></type-list>
         </v-navigation-drawer>

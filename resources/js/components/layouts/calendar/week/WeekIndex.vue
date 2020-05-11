@@ -5,7 +5,7 @@
             <div class="week-time hour-block" v-for="n in 24"><span>{{n}}:00</span></div>
         </div>
         <div class="week-col" v-for="(date) in dateOfWeek">
-            <cell-week :date="[date]"></cell-week>
+            <cell-week :date="date"></cell-week>
         </div>
     </div>
 </template>
@@ -54,17 +54,6 @@
                     this.$store.commit('setCurrentWeek',currentWeek);
                 }
                 return currentWeek;
-            },
-            holidayTextEventForMonth()
-            {
-                let dateForMonth = this.$store.getters.week;
-             return  console.log(dateForMonth);
-                // if (this.$store.getters.holidays[dateForMonth.getMonth() + 1]) {
-                //     if (this.$store.getters.holidays[dateForMonth.getMonth() + 1][dateForMonth.getDate()]) {
-                //
-                //         return  this.$store.getters.holidays[dateForMonth.getMonth() + 1][dateForMonth.getDate()].localName;
-                //     }
-                // }
             },
         },
     }

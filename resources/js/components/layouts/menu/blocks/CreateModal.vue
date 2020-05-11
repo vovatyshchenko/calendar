@@ -29,7 +29,7 @@
             </v-tab-item>
            <v-tab-item>
                 <v-card-text>
-                    <tasks-modal></tasks-modal>
+                    <task-modal></task-modal>
                 </v-card-text>
             </v-tab-item>
             <v-tab-item>

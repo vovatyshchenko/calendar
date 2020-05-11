@@ -18,14 +18,12 @@
          },
          holidayTextEvent()
          {
-             console.log(this.date);
              let parseDate = this.date.split("-");
 
              if(this.$store.getters.holidays[parseDate[1]])
              {
                  if(this.$store.getters.holidays[parseDate[1]][parseDate[0]])
                  {
-                     console.log(this.$store.getters.holidays[parseDate[1]][parseDate[0]].localName);
                      return this.$store.getters.holidays[parseDate[1]][parseDate[0]].localName;
                  }
              }

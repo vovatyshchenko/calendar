@@ -62,7 +62,7 @@
                 </v-flex>
             </div>
             <v-menu
-                ref="menu"
+                ref="start"
                 v-model="OpenTimeStart"
                 :close-on-content-click="false"
                 :nudge-right="40"
@@ -86,7 +86,7 @@
                     v-if="OpenTimeStart"
                     v-model="timeStart"
                     full-width
-                    @click:minute="$refs.menu.save(timeStart)"
+                    @click:minute="$refs.start.save(timeStart)"
                 ></v-time-picker>
             </v-menu>
         </div>
@@ -116,7 +116,7 @@
                 </v-flex>
             </div>
             <v-menu
-                ref="menu"
+                ref="end"
                 v-model="OpenTimeEnd"
                 :close-on-content-click="false"
                 :nudge-right="40"
@@ -140,7 +140,7 @@
                     v-if="OpenTimeEnd"
                     v-model="timeEnd"
                     full-width
-                    @click:minute="$refs.menu.save(timeEnd)"
+                    @click:minute="$refs.end.save(timeEnd)"
                 ></v-time-picker>
             </v-menu>
         </div>
@@ -179,7 +179,7 @@
                     !this.locationErrors.length==0||
                     !this.descriptionErrors.length==0
                 ) {
-                    this.$toaster.warning('Your toaster warning message.')
+                    this.$toaster.info('Будьте внимательны при заполнении полей.')
                 } else {
 
                     this.$store.dispatch('activityCreate',{
@@ -196,7 +196,7 @@
                 }
             },
             closeModal() {
-                this.$store.commit('change_show_modal');
+                this.$store.commit('changeShowModal');
             },
             storeData() {
                 this.$store.dispatch('bdayStore', this.bday);

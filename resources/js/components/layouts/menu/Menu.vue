@@ -52,6 +52,7 @@
         methods: {
             today(){
                 this.$store.commit('setDate', new Date);
+                this.$store.commit('setDatePicker', new Date);
                 if (window.location.pathname != '/day'){
                     this.$router.push('day');
                 }

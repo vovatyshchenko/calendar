@@ -6,12 +6,19 @@ import router from './router';
 import store from './store';
 import VeeValidate from 'vee-validate';
 
-Vue.use(VeeValidate);
+import Toaster from 'v-toaster'
+import 'v-toaster/dist/v-toaster.css'
+
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import { ValidationProvider } from 'vee-validate';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-window.Vue = Vue;
 
+window.Vue = Vue;
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
+Vue.use(VeeValidate);
+Vue.use(Toaster, {timeout: 5000});
 Vue.component('user-block', require('./components/layouts/blocks/nav/user.vue').default);
 Vue.component('footer-block', require('./components/layouts/blocks/footer/index.vue').default);
 //calrndars
@@ -28,8 +35,8 @@ Vue.component('create-modal', require('./components/layouts/menu/blocks/CreateMo
 //modal
 Vue.component('activity-modal', require('./components/layouts/menu/blocks/modals/Activity').default);
 
-Vue.component('bdays-modal', require('./components/layouts/menu/blocks/modals/bdays').default);
-Vue.component('tasks-modal', require('./components/layouts/menu/blocks/modals/tasks').default);
+Vue.component('bdays-modal', require('./components/layouts/menu/blocks/modals/Birthday').default);
+Vue.component('task-modal', require('./components/layouts/menu/blocks/modals/Task').default);
 Vue.component('reminders-modal', require('./components/layouts/menu/blocks/modals/reminders').default);
 
 Vue.component('calendar-month', require('./components/layouts/calendar/month/MonthIndex.vue').default);
@@ -37,19 +44,11 @@ Vue.component('cell-month', require('./components/layouts/сell-сalendar/CellMo
 Vue.component('calendar-week', require('./components/layouts/calendar/week/WeekIndex').default);
 Vue.component('cell-week', require('./components/layouts/сell-сalendar/CellWeek').default);
 Vue.component('cell-year',require('./components/layouts/сell-сalendar/CellYear').default);
+Vue.component('hour-block',require('./components/layouts/сell-сalendar/blocks/Hour').default);
 Vue.component('year',require('./components/layouts/calendar/year/Year').default);
+Vue.component('ValidationProvider', ValidationProvider);
 
 
-import Toaster from 'v-toaster'
-
-// You need a specific loader for CSS files like https://github.com/webpack/css-loader
-import 'v-toaster/dist/v-toaster.css'
-
-// optional set default imeout, the default is 10000 (10 seconds).
-Vue.use(Toaster, {timeout: 5000})
-import { ValidationProvider } from 'vee-validate';
-
-Vue.component('ValidationProvider', ValidationProvider);;
 Vue.filter('cutText', function (value, symbolsCount){
     return value.length > symbolsCount
         ? value.slice(0, symbolsCount - 3) + '...'
@@ -57,9 +56,7 @@ Vue.filter('cutText', function (value, symbolsCount){
 })
 
 // Install BootstrapVue
-Vue.use(BootstrapVue)
-// Optionally install the BootstrapVue icon components plugin
-Vue.use(IconsPlugin)
+
 const app = new Vue({
     el: '#app',
     vuetify: Vuetify,

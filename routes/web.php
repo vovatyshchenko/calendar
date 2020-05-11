@@ -18,12 +18,14 @@ use Illuminate\Http\Request;
 */
 require_once('Holidays/index.php');
 //Auth::routes();
-
-Route::get('/auth/redirect','Auth\AuthController@authorizathion')->name('login');
-Route::get('/auth/callback', 'Auth\AuthController@callback');
+//
+//Route::get('/auth/redirect','Auth\AuthController@authorizathion')->name('login');
+//Route::get('/auth/callback', 'Auth\AuthController@callback');
 //Route::view('/', 'index')->middleware('auth');
 
 Route::post('/create-activity', ('Api\v1\ActivityController@store'));
+Route::post('/create-task', ('Api\v1\TaskController@store'));
+Route::post('/create-birthday', ('Api\v1\BirthdayController@store'));
 Route::view('/{any}', 'index')->where('any', '.*');
 
 //Route::middleware('auth')->post('/logout', 'Auth\LogoutController@logout');

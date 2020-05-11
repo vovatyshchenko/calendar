@@ -46,6 +46,28 @@ export default {
                 commit("set_error", error);
             })
         },
+        taskCreate ({ commit }, event){
+            axios.post('/create-task',event)
+                .then(responce => {
+                    commit("clear_error");
+                    commit("set_processing", false);
+                })
+                .catch(error => {
+                    commit("set_processing", false);
+                    commit("set_error", error);
+                })
+        },
+        BirthdayCreate ({ commit }, event){
+            axios.post('/create-birthday',event)
+                .then(responce => {
+                    commit("clear_error");
+                    commit("set_processing", false);
+                })
+                .catch(error => {
+                    commit("set_processing", false);
+                    commit("set_error", error);
+                })
+        },
         //запись дня рождения в БД
         // bdayStore ({ commit }, bday){
         //     axios.post('РОУТ КОТОРЫЙ ЛАРКИ ДЛЯ КОНТРОЛЛЕРА', {

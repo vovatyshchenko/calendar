@@ -22,7 +22,7 @@ class CreateActivitiesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('time_start',10);
             $table->string('time_end',10);
-            $table->timestamp('date_start')->nullable();
+            $table->timestamp('date_start');
             $table->timestamp('date_end')->nullable();
             $table->timestamps();
         });

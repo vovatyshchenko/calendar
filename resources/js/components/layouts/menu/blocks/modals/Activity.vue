@@ -16,8 +16,8 @@
             outlined
             dense
             label="Гости"
-            @input="$v.name.$touch()"
-            @blur="$v.name.$touch()"
+            @input="$v.guests.$touch()"
+            @blur="$v.guests.$touch()"
         ></v-text-field>
         <v-text-field
             v-model="location"
@@ -49,15 +49,13 @@
                         <template v-slot:activator="{ on }">
                             <v-text-field
                                 :value="computedDateFormattedMomentjs"
-                                clearable
-
                                 readonly
                                 v-on="on"
                             ></v-text-field>
                         </template>
                         <v-date-picker
                             locale="ru"
-                            v-model="date"
+                            v-model="dateStart"
                             @change="openDataStart = false"
                         ></v-date-picker>
                     </v-menu>
@@ -103,8 +101,7 @@
                         max-width="290">
                         <template v-slot:activator="{ on }">
                             <v-text-field
-                                :value="computedDateFormattedMomentjs"
-                                clearable
+                                :value="computedDateFormattedMomentjsForEnd"
 
                                 readonly
                                 v-on="on"
@@ -112,7 +109,7 @@
                         </template>
                         <v-date-picker
                             locale="ru"
-                            v-model="date"
+                            v-model="dateEnd"
                             @change="openDataEnd = false"
                         ></v-date-picker>
                     </v-menu>
@@ -156,99 +153,24 @@
 </template>
 
 <script>
-    import { validationMixin } from 'vuelidate'
-    import { required, email } from 'vuelidate/lib/validators'
+    import validation from '../../../../../mixin/validation'
     export default {
-        mixins: [validationMixin],
-        validations: {
-            name: { required},
-            guests: { required},
-            email: { required, email },
-            select: { required },
-            location: { required },
-            description: { required },
-            checkbox: {
-                checked (val) {
-                    return val
-                },
-            },
-        },
+        mixins: [validation],
         data: () => ({
-            name: '',
+            name:null,
             menu1: false,
-            date: new Date().toISOString().substr(0, 10),
-            guests:'',
-            location:'',
+            dateStart: new Date().toISOString().substr(0, 10),
+            dateEnd: new Date().toISOString().substr(0, 10),
+            guests:null,
+            location:null,
             timeStart: '00:00',
             timeEnd: '00:00',
             OpenTimeStart: false,
             openDataStart: false,
             OpenTimeEnd: false,
             openDataEnd: false,
-            description:'',
+            description:null,
         }),
-        computed: {
-            computedDateFormattedMomentjs () {
-                return this.date ? moment(this.date).format('D MMM  YYYY') : ''
-            },
-            computedDateFormattedDatefns () {
-                return this.date ? format(this.date, 'D MMM   YYYY') : ''
-            },
-            checkboxErrors () {
-                const errors = []
-                if (!this.$v.checkbox.$dirty) return errors
-                !this.$v.checkbox.checked && errors.push('You must agree to continue!')
-                return errors
-            },
-            selectErrors () {
-                const errors = []
-                if (!this.$v.select.$dirty) return errors
-                !this.$v.select.required && errors.push('Item is required')
-                return errors
-            },
-            nameErrors () {
-                const errors = []
-                if (!this.$v.name.$dirty) return errors
-                !this.$v.name.required && errors.push(' ')
-                return errors
-            },
-            guestsErrors () {
-                const errors = []
-                if (!this.$v.guests.$dirty) return errors
-                !this.$v.guests.required && errors.push(' ')
-                return errors
-            },
-            emailErrors () {
-                const errors = []
-                if (!this.$v.email.$dirty) return errors
-                !this.$v.email.email && errors.push('Must be valid e-mail')
-                !this.$v.email.required && errors.push()
-                return errors
-            },
-            locationErrors () {
-                const errors = []
-                if (!this.$v.location.$dirty) return errors
-                !this.$v.location.required && errors.push(' ')
-                return errors
-            },
-            descriptionErrors () {
-                const errors = []
-                if (!this.$v.description.$dirty) return errors
-                !this.$v.description.required && errors.push(' ')
-                return errors
-            },
-            globalErrorMessasge(){
-                if(this.nameErrors.length>0
-                    ||this.guestsErrors.length>0
-                    ||this.locationErrors.length>0
-                    ||this.descriptionErrors.length>0
-                )
-                {
-                    return true;
-                }
-                return false;
-            }
-        },
         methods: {
             submit () {
                 this.$v.$touch()
@@ -259,15 +181,18 @@
                 ) {
                     this.$toaster.warning('Your toaster warning message.')
                 } else {
-                    const data = new FormData(this.$refs.createEvent);
+
                     this.$store.dispatch('activityCreate',{
                         name: this.name,
                         guests: this.guests,
                         location: this.location,
                         description: this.description,
-                        timeStart: this.timeStart,
-                        timeEnd: this.timeEnd});
-                    this.clear()
+                        time_start: this.timeStart,
+                        time_end: this.timeEnd,
+                        date_end: this.dateEnd,
+                        date_start:this.dateStart
+                        });
+                        this.clear()
                 }
             },
             closeModal() {

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Activity\StoreRequest;
+use App\Models\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ActivityController extends Controller
 {
@@ -12,8 +14,11 @@ class ActivityController extends Controller
     {
         return strip_tags(trim($data));
     }
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        return ['result'=>$request->all()];
+        $user_id=Auth::user()->id;
+        $request['user_id']=$user_id;
+        $result= Activity::create($request->all());
+        return response(['message' => true], 200);
     }
 }

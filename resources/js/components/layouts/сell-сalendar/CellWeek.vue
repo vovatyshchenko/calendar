@@ -5,7 +5,9 @@
 </template>
 
 <script>
+
     export default {
+        props:['date'],
         name: "CellWeek"
     }
 </script>

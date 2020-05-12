@@ -32,9 +32,7 @@ export default {
                                 res[day]['localName']= dayValue.localName;
                                 newResponse[index][dayValue.date.day]=res[day];
                             }
-
                         });
-
                     });
                     const params = {
                         data: newResponse,
@@ -42,9 +40,7 @@ export default {
                     context.commit("set_holidays", params);
                 })
                 .catch(error => {
-
                     context.commit("set_error", error.message);
-                    console.log();
                 })
         },
     },

@@ -1,52 +1,31 @@
 export default {
     state: {
-        event: {
-            name: null,
-            guests: null,
-            location: null,
-            description: null,
-            timeStart: null,
-            timeEnd: null,
-        },
-        bday: {
-            name: null,
-            description: null,
-            time: null,
-            allDay: null,
-            everyYear: null,
-        }
+        status: false,
     },
     mutations: {
-        setEvent(state, payload) {
-            state.event.name = payload.name;
-            state.event.guests = payload.guests;
-            state.event.location = payload.location;
-            state.event.description = payload.description;
-            state.event.timeStart = payload.timeStart;
-            state.event.timeEnd = payload.timeEnd;
-        },
-        setBday(state, payload) {
-            state.bday.name = payload.name;
-            state.bday.description = payload.description;
-            state.bday.time = payload.time;
-            state.bday.allDay = payload.allDay;
-            state.bday.everyYear = payload.everyYear;
+        setStatus(state, payload) {
+            state.status = payload
         },
     },
     actions: {
-        //запись мероприятия в БД
         activityCreate ({ commit }, event){
+            commit("set_processing", true);
             axios.post('/create-activity',event)
             .then(responce => {
+                if (responce.data.message) {
+                    commit("setStatus", true);
+                }
                 commit("clear_error");
                 commit("set_processing", false);
             })
             .catch(error => {
                 commit("set_processing", false);
+                commit("setStatus", false);
                 commit("set_error", error);
             })
         },
         taskCreate ({ commit }, event){
+            commit("set_processing", true);
             axios.post('/create-task',event)
                 .then(responce => {
                     commit("clear_error");
@@ -57,19 +36,24 @@ export default {
                     commit("set_error", error);
                 })
         },
-        BirthdayCreate ({ commit }, event){
-            axios.post('/create-birthday',event)
+        birthdayCreate ({ commit }, bday){
+            commit("set_processing", true);
+            axios.post('/create-birthday',bday)
                 .then(responce => {
+                    if (responce.data.message) {
+                        commit("setStatus", true);
+                    }
                     commit("clear_error");
                     commit("set_processing", false);
                 })
                 .catch(error => {
                     commit("set_processing", false);
+                    commit("setStatus", false);
                     commit("set_error", error);
                 })
         },
     },
-    getters:{
-        get_events: state => state.event,
+    getters: {
+        getStatus: (state)=>state.status,
     }
 }

@@ -11,8 +11,8 @@ class BirthdayController extends Controller
 {
     public function store(StoreRequest $request)
     {
-        $user_id=Auth::user()->id;
-        $request['user_id']=$user_id;
+        //$user_id=Auth::user()->id;
+        $request['user_id']=10;
         Birthday::create($request->all());
         return response(['message' => true], 200);
     }

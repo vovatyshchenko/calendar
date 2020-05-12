@@ -16,8 +16,8 @@ class ActivityController extends Controller
     }
     public function store(StoreRequest $request)
     {
-        $user_id=Auth::user()->id;
-        $request['user_id']=$user_id;
+        //$user_id=Auth::user()->id;
+        $request['user_id']=10;
         $result= Activity::create($request->all());
         return response(['message' => true], 200);
     }

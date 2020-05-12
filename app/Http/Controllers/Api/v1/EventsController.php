@@ -11,7 +11,7 @@ class EventsController extends Controller
     public function getEvents(Request $request)
     {
         $event=new Event();
-        $tasks = $event->getTasks('2020-05-12','2020-05-12');
+        $tasks = $event->getTasks('2020-05-12','2020-05-19');
         foreach($tasks as $key=>$task)
         {
             $tasks[$key]->type='task';
@@ -21,7 +21,7 @@ class EventsController extends Controller
         {
             $activities[$key]->type='activity';
         }
-        $birthdays = $event->getBirthdays('2020-05-12','2020-05-12');
+        $birthdays = $event->getBirthdays('2020-05-12','2020-05-19');
         foreach($birthdays as $key=>$birthday)
         {
             $birthdays[$key]->type='birthday';

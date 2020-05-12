@@ -140,10 +140,10 @@ export default {
                 this.$store.dispatch('birthdayCreate', {
                     name: this.name,
                     description: this.description,
-                    time: this.time,
+                    time_start: this.time,
                     date: this.dateStart,
-                    allDay:this.allDay,
-                    allYear:this.allYear,
+                    is_remind:this.allDay,
+                    is_remind_year:this.allYear,
                 });
                 this.clear();
             }

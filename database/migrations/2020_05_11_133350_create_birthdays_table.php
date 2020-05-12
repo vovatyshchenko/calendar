@@ -16,11 +16,10 @@ class CreateBirthdaysTable extends Migration
         Schema::create('birthdays', function (Blueprint $table) {
             $table->id();
             $table->string('name',100);
-            $table->string('description',150);
             $table->unsignedBigInteger('user_id');
-            $table->string('time',10);
-            $table->boolean('allDay')->default(0);
-            $table->boolean('allYear')->default(0);
+            $table->string('time_start',10);
+            $table->boolean('is_remind')->default(0);
+            $table->boolean('is_remind_year')->default(0);
             $table->timestamp('date');
             $table->timestamps();
         });

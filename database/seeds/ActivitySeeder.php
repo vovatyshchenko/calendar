@@ -41,7 +41,7 @@ class ActivitySeeder extends Seeder
                 'guests' => 'Гость1,Гость8,Гость6',
                 'location' => 'г.Краматорск',
                 'time_start' => '00:00',
-                'time_end' => '00:00',
+                'time_end' => '12:00',
                 'date_start' => '2020-5-12',
                 'date_end' => '2020-5-12',
             ],

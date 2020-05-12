@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'time'=>'required|string|max:10',
+            'time_start'=>'required|string|max:10',
             'date'=>'required|date_format:Y-m-d',
             'is_remind'=>'boolean',
             'is_remind_year'=>'boolean'

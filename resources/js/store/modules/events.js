@@ -13,23 +13,23 @@ export default {
             axios.post('/events', event)
                 .then(response => {
                     let monthsEvents = {};
-                    // _.each(response.data['birthdays'],function (value,key) {
-                    //     const day=moment(key).format('YYYY-MM-DD');
-                    //
-                    //     _.each(value,function(val){
-                    //         const birthdayKey=`birthday-${val.id}`;
-                    //         if(!_.has(monthsEvents, day))
-                    //         {
-                    //             monthsEvents[day]={
-                    //                 birthdayKey:val
-                    //             }
-                    //         }
-                    //         else
-                    //         {
-                    //             monthsEvents[day][birthdayKey]=val;
-                    //         }
-                    //     })
-                    // });
+                    _.each(response.data['birthdays'],function (value,key) {
+                        const day=moment(key).format('YYYY-MM-DD');
+
+                        _.each(value,function(val){
+                            const birthdayKey=`birthday-${val.id}`;
+                            if(!_.has(monthsEvents, day))
+                            {
+                                monthsEvents[day]={
+                                    birthdayKey:val
+                                }
+                            }
+                            else
+                            {
+                                monthsEvents[day][birthdayKey]=val;
+                            }
+                        })
+                    });
                     _.each(response.data['tasks'],function (value,key) {
                         const day=moment(key).format('YYYY-MM-DD');
 

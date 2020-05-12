@@ -72,6 +72,9 @@
                 return monthDividedIntoWeeks;
             },
         },
+        created() {
+            this.$store.dispatch('getEvents');
+        }
     }
 </script>
 

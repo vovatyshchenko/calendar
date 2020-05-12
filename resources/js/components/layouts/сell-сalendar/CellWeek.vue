@@ -10,14 +10,21 @@
         <div class="week-events hour-block" v-for="n in 24">
             <hour-block></hour-block>
         </div>
+
+<!--        <exit-confirmation ref="modal" @checking="checking()"></exit-confirmation>-->
+
+
+      
     </div>
 </template>
 
 <script>
+
     import holiday from '../../../mixin/holiday'
     export default {
         props:['date'],
         mixins: [holiday],
+
         data(){
             return{
                 days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],

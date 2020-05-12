@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="Cell">
+            {{Events}}
             <div class="d-flex flex-column">
                <span class="date">
                    <span class="number">
@@ -13,11 +14,11 @@
                        <span v-else >{{currentDate}}</span>
                    </span>
                </span>
-                <ul class="d-flex align-center flex-column">
-                    <li :style="{background:item.background}" :class="'event'+index" v-for="(item, index) in Events">
-                        <span>{{item.text|cutText(21)}}</span>
-                    </li>
-                </ul>
+<!--                <ul class="d-flex align-center flex-column">-->
+<!--                    <li :style="{background:item.background}" :class="'event'+index" v-for="(item, index) in Events">-->
+<!--                        <span>{{item.text|cutText(21)}}</span>-->
+<!--                    </li>-->
+<!--                </ul>-->
             </div>
         </div>
     </div>
@@ -32,10 +33,10 @@
             return{
                 dateForMonth:"",
                 text:'',
-                Events:[
-                    {text:'Удивительный хаббл1222' ,background:'#F5E3F9'},
-                    {text:'Брендинг знаете ли вы2',background: "#FEEACC"}
-                ]
+                // Events:[
+                //     {text:'Удивительный хаббл1222' ,background:'#F5E3F9'},
+                //     {text:'Брендинг знаете ли вы2',background: "#FEEACC"}
+                // ]
             }
         },
         methods:{
@@ -67,6 +68,9 @@
                 }
                return dateForCalendar;
             },
+            Events(){
+               return this.$store.getters.events;
+            }
         },
     }
 </script>

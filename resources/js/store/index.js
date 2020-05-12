@@ -8,7 +8,7 @@ import Holidays from './modules/holidays';
 import HolidaysYear from './modules/holidaysYear';
 import ChangeCalendarType from './modules/changeCalendarType';
 import CreateModal from './modules/createModal';
-
+import Events from './modules/events';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -19,6 +19,7 @@ export default new Vuex.Store({
         Display,
         Calendar,
         ChangeCalendarType,
-        CreateModal
+        CreateModal,
+        Events
     }
 });

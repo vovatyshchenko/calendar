@@ -6,7 +6,6 @@
             <v-tabs
                 v-model="tab"
                 background-color="transparent"
-                centered="true"
             >
                 <v-tab
                     v-for="item in items"
@@ -85,10 +84,22 @@
         font-size: 12px;
     }
     .v-tab {
-        display: flex;
-        justify-contetnt: space-between;
+        margin: 0 auto;
         border: 2px solid #F5F5F5;
         border-radius: 4px;
+    }
+    .v-tab:hover {
+        background-color: #1875F0;
+        color: #fff !important;
+    }
+    .v-tab--active {
+        background-color: #1875F0;
+        color: #fff !important;
+        border: 2px solid #1875F0;
+        border-radius: 4px;
+    }
+    .v-tabs-slider-wrapper {
+        opacity: 0;
     }
 </style>
 <!--<template>

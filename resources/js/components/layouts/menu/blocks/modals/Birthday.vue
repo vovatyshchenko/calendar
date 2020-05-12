@@ -1,5 +1,5 @@
 <template>
-    <form ref="createEvent"  @submit.prevent="submit">
+    <form ref="createEvent" @submit.prevent="submit">
         <div class="error-message" v-if="globalErrorMessasge">Заполните все обязательные поля</div>
         <label class="title__input_modal">Название*</label>
         <v-text-field
@@ -35,7 +35,7 @@
                                 :value="computedDateFormattedMomentjs"
                                 readonly
                                 outlined
-                                append-icon="place"
+                                append-icon="keyboard_arrow_down"
                                 v-on="on"
                             ></v-text-field>
                         </template>
@@ -64,7 +64,7 @@
                         v-model="timeStart"
                         readonly
                         outlined
-                        append-icon="place"
+                        append-icon="keyboard_arrow_down"
                         v-on="on"
                     ></v-text-field>
                 </template>

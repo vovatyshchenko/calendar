@@ -55,7 +55,7 @@
                                 :value="computedDateFormattedMomentjs"
                                 readonly
                                 outlined
-                                append-icon="place"
+                                append-icon="keyboard_arrow_down"
                                 v-on="on"
                             ></v-text-field>
                         </template>
@@ -84,7 +84,7 @@
                         v-model="timeStart"
                         readonly
                         outlined
-                        append-icon="place"
+                        append-icon="keyboard_arrow_down"
                         v-on="on"
                     ></v-text-field>
                 </template>
@@ -110,7 +110,7 @@
                             <v-text-field
                                 :value="computedDateFormattedMomentjsForEnd"
                                 outlined
-                                append-icon="place"
+                                append-icon="keyboard_arrow_down"
                                 readonly
                                 v-on="on"
                             ></v-text-field>
@@ -140,7 +140,7 @@
                         v-model="timeEnd"
                         readonly
                         outlined
-                        append-icon="place"
+                        append-icon="keyboard_arrow_down"
                         v-on="on"
                     ></v-text-field>
                 </template>

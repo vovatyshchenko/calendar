@@ -1,18 +1,29 @@
 <template>
     <form ref="createEvent"  @submit.prevent="submit">
         <div class="error-message" v-if="globalErrorMessasge">Заполните все обязательные поля</div>
+        <label class="title__input_modal">Название*</label>
         <v-text-field
             v-model="name"
             :error-messages="nameErrors"
             outlined
             dense
-            label="Название*"
+            label="Название"
             @input="$v.name.$touch()"
             @blur="$v.name.$touch()"
         ></v-text-field>
+        <label class="title__input_modal">Описание*</label>
+         <v-text-field
+            v-model="description"
+            :error-messages="descriptionErrors"
+            outlined
+            dense
+            label="Описание"
+            @input="$v.description.$touch()"
+            @blur="$v.description.$touch()"
+        ></v-text-field>
         <div class="d-flex">
-            <div>
-                <span>начало</span>
+            <div class="d-flex align-items-center">
+                <span class="label">Дата/Время</span>
                 <v-flex xs12 lg6>
                     <v-menu
                         v-model="openDataStart"
@@ -23,6 +34,8 @@
                             <v-text-field
                                 :value="computedDateFormattedMomentjs"
                                 readonly
+                                outlined
+                                append-icon="place"
                                 v-on="on"
                             ></v-text-field>
                         </template>
@@ -49,8 +62,9 @@
                     <v-text-field
                         class="eer"
                         v-model="timeStart"
-                        label="Picker in menu"
                         readonly
+                        outlined
+                        append-icon="place"
                         v-on="on"
                     ></v-text-field>
                 </template>
@@ -63,19 +77,19 @@
                 ></v-time-picker>
             </v-menu>
         </div>
-        <v-col cols="12" md="12">
-            <span>Весь день</span>
+        <v-col class="d-flex align-items-center">
+            <span class="label">Весь день</span>
             <v-checkbox v-model="isRemind"></v-checkbox>
         </v-col>
-        <v-col cols="12" md="12">
-            <span>Каждый год</span>
+        <v-col class="d-flex align-items-center">
+            <span class="label">Каждый год</span>
             <v-checkbox v-model="isRemindYear"></v-checkbox>
         </v-col>
-        <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn  type="submit" color="blue darken-1" text >Сохранить</v-btn>
-            <v-btn color="blue darken-1" text @click="closeModal()">Отмена</v-btn>
-        </v-card-actions>
+            <div class="d-flex justify-content-between">
+                <v-btn type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
+                <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
+            </div>
     </form>
 </template>
 
@@ -85,6 +99,7 @@ export default {
     mixins: [validation],
     data: () => ({
         name:null,
+        description: null,
         menu1: false,
         dateStart: new Date().toISOString().substr(0, 10),
         timeStart: '00:00',
@@ -101,6 +116,7 @@ export default {
             } else {
                 this.$store.dispatch('BirthdayCreate',{
                     name: this.name,
+                    description: this.description,
                     time: this.timeStart,
                     date: this.dateStart,
                     is_remind:this.isRemind,
@@ -124,6 +140,6 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 
 </style>

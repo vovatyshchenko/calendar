@@ -1,11 +1,12 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="showModal" persistent max-width="800px">
+    <v-dialog v-model="showModal" persistent max-width="1000px">
       <v-card>
         <v-card-title>
             <v-tabs
                 v-model="tab"
                 background-color="transparent"
+                centered="true"
             >
                 <v-tab
                     v-for="item in items"
@@ -39,22 +40,17 @@
             </v-tab-item>
         </v-tabs-items>
       </v-card>
-
     </v-dialog>
   </v-row>
 </template>
-
-
 <script>
 	export default {
-
         data: () => ({
             tab: null,
             items: [
                 'МЕРОПРИЯТИЕ', 'НАПОМИНАНИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',
             ],
         }),
-
         computed: {
             showModal() {
                 return this.$store.getters.showModal;
@@ -62,8 +58,38 @@
         },
 	}
 </script>
-<style scoped type="scss">
-
+<style type="scss">
+    .v-dialog {
+        background: #fff;
+        box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.07);
+        border-radius: 6px;
+    }
+    .v-card__text {
+        width: 483px;
+        margin: 0 auto;
+    }
+    .title__input_modal {
+        padding-left: 17px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        color: #808080;
+    }
+    .label {
+        padding-left: 17px;
+        margin-right: 50px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+    }
+    .v-tab {
+        display: flex;
+        justify-contetnt: space-between;
+        border: 2px solid #F5F5F5;
+        border-radius: 4px;
+    }
 </style>
 <!--<template>
     <v-dialog

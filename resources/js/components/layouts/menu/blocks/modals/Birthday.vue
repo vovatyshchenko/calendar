@@ -1,5 +1,7 @@
 <template>
     <form ref="createEvent" @submit.prevent="submit">
+        <v-progress-linear :active="processing" indeterminate height="5" color="red darken-1"></v-progress-linear>
+        <v-alert :value="error" type="warning">{{ error }}</v-alert>
         <div class="error-message" v-if="globalErrorMessasge">Заполните все обязательные поля</div>
         <label class="title__input_modal">Название*</label>
         <v-text-field
@@ -52,7 +54,7 @@
                 v-model="OpenTimeStart"
                 :close-on-content-click="false"
                 :nudge-right="40"
-                :return-value.sync="timeStart"
+                :return-value.sync="time"
                 transition="scale-transition"
                 offset-y
                 max-width="290px"
@@ -61,7 +63,7 @@
                 <template v-slot:activator="{ on }">
                     <v-text-field
                         class="eer"
-                        v-model="timeStart"
+                        v-model="time"
                         readonly
                         outlined
                         append-icon="keyboard_arrow_down"
@@ -71,19 +73,19 @@
                 <v-time-picker
                     format="24hr"
                     v-if="OpenTimeStart"
-                    v-model="timeStart"
+                    v-model="time"
                     full-width
-                    @click:minute="$refs.start.save(timeStart)"
+                    @click:minute="$refs.start.save(time)"
                 ></v-time-picker>
             </v-menu>
         </div>
         <v-col class="d-flex align-items-center">
             <span class="label">Весь день</span>
-            <v-checkbox v-model="isRemind"></v-checkbox>
+            <v-checkbox v-model="allDay"></v-checkbox>
         </v-col>
         <v-col class="d-flex align-items-center">
             <span class="label">Каждый год</span>
-            <v-checkbox v-model="isRemindYear"></v-checkbox>
+            <v-checkbox v-model="allYear"></v-checkbox>
         </v-col>
             <v-spacer></v-spacer>
             <div class="d-flex justify-content-between">
@@ -102,27 +104,48 @@ export default {
         description: null,
         menu1: false,
         dateStart: new Date().toISOString().substr(0, 10),
-        timeStart: '00:00',
+        time: '00:00',
         OpenTimeStart: false,
         openDataStart: false,
-        isRemind:false,
-        isRemindYear:false
+        allDay:false,
+        allYear:false
     }),
+    computed: {
+        error() {
+            return this.$store.getters.get_error;
+        },
+        processing() {
+            return this.$store.getters.get_processing;
+        },
+        status() {
+            return this.$store.getters.getStatus;
+        },
+    },
+    watch: {
+        status(value) {
+            if (value === true) {
+                this.$toaster.success('Даннык успешно сохранены.');
+                this.$store.commit("setStatus", false);
+                this.$store.commit('changeShowModal');
+
+            }
+        }
+    },
     methods: {
         submit () {
             this.$v.$touch()
             if (!this.nameErrors.length==0) {
-                this.$toaster.info('Будьте внимательны при заполнении полей.')
+                this.$toaster.info('Будьте внимательны при заполнении полей.');
             } else {
-                this.$store.dispatch('BirthdayCreate',{
+                this.$store.dispatch('birthdayCreate', {
                     name: this.name,
                     description: this.description,
-                    time: this.timeStart,
+                    time: this.time,
                     date: this.dateStart,
-                    is_remind:this.isRemind,
-                    is_remind_year:this.isRemindYear,
+                    allDay:this.allDay,
+                    allYear:this.allYear,
                 });
-                this.clear()
+                this.clear();
             }
         },
         closeModal() {
@@ -131,9 +154,12 @@ export default {
         clear () {
             this.$v.$reset()
             this.name = ''
-            this.IsAllDay = false,
-            this.isRemindYear=false;
-        },
+            this.description = ''
+            this.time = '00:00'
+            this.dateStart = new Date().toISOString().substr(0, 10)
+            this.allDay = false
+            this.allYear = false
+        }
     },
 }
 

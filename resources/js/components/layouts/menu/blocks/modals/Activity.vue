@@ -1,5 +1,7 @@
 <template>
     <form ref="createEvent"  @submit.prevent="submit">
+        <v-progress-linear :active="processing" indeterminate height="5" color="red darken-1"></v-progress-linear>
+        <v-alert :value="error" type="warning">{{ error }}</v-alert>
         <div class="error-message" v-if="globalErrorMessasge">Заполните все обязательные поля</div>
         <label class="title__input_modal">Название*</label>
         <v-text-field
@@ -180,6 +182,27 @@
             openDataEnd: false,
             description:null,
         }),
+         computed: {
+            error() {
+                return this.$store.getters.get_error;
+            },
+            processing() {
+                return this.$store.getters.get_processing;
+            },
+            status() {
+                return this.$store.getters.getStatus;
+            },
+        },
+        watch: {
+            status(value) {
+                if (value === true) {
+                    this.$toaster.success('Даннык успешно сохранены.');
+                    this.$store.commit("setStatus", false);
+                    this.$store.commit('changeShowModal');
+
+                }
+            }
+        },
         methods: {
             submit () {
                 this.$v.$touch()
@@ -207,9 +230,6 @@
             closeModal() {
                 this.$store.commit('changeShowModal');
             },
-            storeData() {
-                this.$store.dispatch('bdayStore', this.bday);
-            },
             clear () {
                 this.$v.$reset()
                 this.name = ''
@@ -224,13 +244,5 @@
     }
 </script>
 <style scoped>
-    .error-message{
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 12px;
-        line-height: 60px;
-        text-align: center;
-        color: #F44336;
-    }
+    
 </style>

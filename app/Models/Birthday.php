@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Birthday extends Model
 {
     protected $fillable = [
-        'name','user_id','time','date','is_remind','is_remind_year'
+        'name', 'description', 'user_id','time','date','allDay','allYear'
     ];
 }

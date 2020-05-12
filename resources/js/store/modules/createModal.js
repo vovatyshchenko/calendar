@@ -68,24 +68,6 @@ export default {
                     commit("set_error", error);
                 })
         },
-        //запись дня рождения в БД
-        // bdayStore ({ commit }, bday){
-        //     axios.post('РОУТ КОТОРЫЙ ЛАРКИ ДЛЯ КОНТРОЛЛЕРА', {
-        //         name: bday.name,
-        //         description: bday.description,
-        //         time: bday.time,
-        //         allDay: bday.allDay,
-        //         everyYear: bday.everyYear,
-        //     })
-        //     .then(responce => {
-        //         commit("clear_error");
-        //         commit("set_processing", false);
-        //     })
-        //     .catch(error => {
-        //         commit("set_processing", false);
-        //         commit("set_error", error);
-        //     })
-        // },
     },
     getters:{
         get_events: state => state.event,

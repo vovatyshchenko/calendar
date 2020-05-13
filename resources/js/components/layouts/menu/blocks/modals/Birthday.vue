@@ -13,16 +13,6 @@
             @input="$v.name.$touch()"
             @blur="$v.name.$touch()"
         ></v-text-field>
-        <label class="title__input_modal">Описание*</label>
-         <v-text-field
-            v-model="description"
-            :error-messages="descriptionErrors"
-            outlined
-            dense
-            label="Описание"
-            @input="$v.description.$touch()"
-            @blur="$v.description.$touch()"
-        ></v-text-field>
         <div class="d-flex">
             <div class="d-flex align-items-center">
                 <span class="label">Дата/Время</span>
@@ -101,7 +91,6 @@ export default {
     mixins: [validation],
     data: () => ({
         name:null,
-        description: null,
         menu1: false,
         dateStart: new Date().toISOString().substr(0, 10),
         time: '00:00',
@@ -139,7 +128,6 @@ export default {
             } else {
                 this.$store.dispatch('birthdayCreate', {
                     name: this.name,
-                    description: this.description,
                     time_start: this.time,
                     date: this.dateStart,
                     is_remind:this.allDay,
@@ -154,7 +142,6 @@ export default {
         clear () {
             this.$v.$reset()
             this.name = ''
-            this.description = ''
             this.time = '00:00'
             this.dateStart = new Date().toISOString().substr(0, 10)
             this.allDay = false

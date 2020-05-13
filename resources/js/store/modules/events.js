@@ -62,13 +62,14 @@ export default {
                             }
                         })
                     });
+
                         let sortedMonthEvents={}
                     _.each(monthsEvents, function (dayEvents, day) {
                         sortedMonthEvents[day]= _.sortBy(dayEvents, ['time_start']);
 
                     })
                     console.log(sortedMonthEvents);
-                    context.commit('setEvents', response.data);
+                    context.commit('setEvents', sortedMonthEvents);
                     // console.log(responce.data['activities']);
                     context.commit("clear_error");
                     context.commit("set_processing", false);

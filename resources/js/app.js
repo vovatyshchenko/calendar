@@ -36,7 +36,7 @@ Vue.component('create-modal', require('./components/layouts/menu/blocks/CreateMo
 Vue.component('activity-modal', require('./components/layouts/menu/blocks/modals/Activity').default);
 Vue.component('bdays-modal', require('./components/layouts/menu/blocks/modals/Birthday').default);
 Vue.component('task-modal', require('./components/layouts/menu/blocks/modals/Task').default);
-Vue.component('reminders-modal', require('./components/layouts/menu/blocks/modals/reminders').default);
+Vue.component('reminders-modal', require('./components/layouts/menu/blocks/modals/Reminders').default);
 
 Vue.component('calendar-month', require('./components/layouts/calendar/month/MonthIndex.vue').default);
 Vue.component('cell-month', require('./components/layouts/сell-сalendar/CellMonth').default);

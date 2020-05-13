@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="showModal" persistent max-width="800px">
+    <v-dialog v-model="showModal" persistent max-width="850px">
     <!--<v-btn icon class="close" @click="showModal"><v-icon>mdi-close</v-icon></v-btn>-->
       <v-card>
         <v-card-title>
@@ -50,10 +50,26 @@
                 'МЕРОПРИЯТИЕ', 'НАПОМИНАНИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',
             ],
         }),
+        created() {
+            this.$eventBus.$on('type', this.getType);
+        },
+        methods: {
+            getType(value) {
+                 if (value == 'activity') {
+                    this.tab = 0;
+                } else if (value == 'reminders') {
+                    this.tab = 1;
+                } else if (value == 'task') {
+                    this.tab = 2;
+                } else if (value == 'birthday') {
+                    this.tab = 3;
+                }
+            }
+        },
         computed: {
             showModal() {
                 return this.$store.getters.showModal;
-            }
+            },
         },
 	}
 </script>

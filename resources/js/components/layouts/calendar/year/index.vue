@@ -10,7 +10,7 @@
         </div>
         <div class="week" v-for="week in month.weeks">
           <div class="day" v-for="day in 7">
-            <span class="days" v-if="week[day]">{{ week[day].date.getDate() }}</span>
+            <span :class="haveHolliday(week[day].holiday)?'holiday':'days'" v-if="week[day]">{{ week[day].date.getDate() }}</span>
           </div>
         </div>
       </div>
@@ -22,9 +22,18 @@
 export default {
   data: () => ({ }),
   created() {
-    this.$store.dispatch('get_year_holidays');
     this.$store.dispatch('week_days');
     this.$store.dispatch('year_data', this.year);
+  },
+  methods: {
+    haveHolliday(value) {
+      if (value.hasOwnProperty()) {
+        console.log(value.hasOwnProperty());
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   computed: {
     data() {
@@ -73,6 +82,12 @@ export default {
     font-weight: bold;
     line-height: 14px;
     color: #999999;
+  }
+  .holiday {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 14px;
+    color: red;
   }
   .day__title {
       font-weight: bold;

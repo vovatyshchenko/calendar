@@ -89,5 +89,6 @@ export default {
     },
     getters: {
         events: state => state.events,
+        type: state => state.type,
     }
 }

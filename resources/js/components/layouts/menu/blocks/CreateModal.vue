@@ -53,6 +53,9 @@
         created() {
             this.$eventBus.$on('type', this.getType);
         },
+        beforeDestroy() {
+            this.$eventBus.$off('type');
+        },
         methods: {
             getType(value) {
                  if (value == 'activity') {

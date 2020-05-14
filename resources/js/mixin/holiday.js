@@ -22,9 +22,9 @@
 
              if(this.$store.getters.holidays[parseDate[1]])
              {
-                 if(this.$store.getters.holidays[parseDate[1]][parseDate[0]])
+                 if(this.$store.getters.holidays[parseDate[1]][parseDate[2]])
                  {
-                     return this.$store.getters.holidays[parseDate[1]][parseDate[0]].localName;
+                     return this.$store.getters.holidays[parseDate[1]][parseDate[2]].localName;
                  }
              }
          }

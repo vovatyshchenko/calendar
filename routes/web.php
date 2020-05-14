@@ -28,6 +28,8 @@ Route::post('/create-activity', ('Api\v1\ActivityController@store'));
 Route::post('/create-task', ('Api\v1\TaskController@store'));
 Route::post('/create-birthday', ('Api\v1\BirthdayController@store'));
 Route::view('/{any}', 'index')->where('any', '.*');
-
+Route::delete('/delete-activity', ('Api\v1\ActivityController@destroy'));
+Route::delete('/delete-task', ('Api\v1\TaskController@destroy'));
+Route::delete('/delete-birthday/{id}', ('Api\v1\BirthdayController@destroy'));
 //Route::middleware('auth')->post('/logout', 'Auth\LogoutController@logout');
 

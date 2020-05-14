@@ -16,4 +16,9 @@ class BirthdayController extends Controller
         Birthday::create($request->all());
         return response(['message' => true], 200);
     }
+    public function destroy($id)
+    {
+            Birthday::destroy($id);
+            return response(['message' => true], 200);;
+    }
 }

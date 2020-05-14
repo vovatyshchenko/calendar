@@ -21,7 +21,7 @@ class CreateTasksTable extends Migration
             $table->string('time_start',10);
             $table->string('time_end',10);
             $table->boolean('is_remind')->default(0);
-            $table->timestamp('date_start');
+            $table->timestamp('date_start')->nullable();;
             $table->timestamp('date_end')->nullable();
             $table->timestamps();
         });

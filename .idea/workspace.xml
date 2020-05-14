@@ -20,27 +20,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="530ed881-a690-4da1-94b1-52aaa0d6d684" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/localhost.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/localhost.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/ActivityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/ActivityController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/BirthdayController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/BirthdayController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/EventsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/EventsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Activity.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Activity.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Birthday.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Birthday.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Event.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Task.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_10_193910_create_activities_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_05_10_193910_create_activities_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_11_122406_create_tasks_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_05_11_122406_create_tasks_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_11_133350_create_birthdays_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_05_11_133350_create_birthdays_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/TaskSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/TaskSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/month/MonthIndex.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/month/MonthIndex.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/week/WeekIndex.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/week/WeekIndex.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/Activity.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/Activity.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellMonth.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellMonth.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellWeek.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellWeek.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/CellItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/CellItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/mixin/holiday.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/mixin/holiday.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/modules/createModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/createModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/modules/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/events.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/modules/holidays.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/holidays.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,9 +48,7 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution>
-      <executable />
-    </execution>
+    <execution />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -248,6 +245,7 @@
       <workItem from="1589192613340" duration="11217000" />
       <workItem from="1589224520164" duration="886000" />
       <workItem from="1589416013479" duration="346000" />
+      <workItem from="1589490710229" duration="724000" />
     </task>
     <servers />
   </component>
@@ -259,13 +257,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2610" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1589392319845">
@@ -300,15 +297,15 @@
     </state>
     <state width="1877" height="350" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589416359932" />
     <state width="1874" height="253" key="GridCell.Tab.0.right/0.27.1920.985@0.27.1920.985" timestamp="1589136397952" />
-    <state x="6" y="75" width="1896" height="825" key="MergeDialog" timestamp="1589225343681">
+    <state x="6" y="75" width="1896" height="825" key="MergeDialog" timestamp="1589490986892">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="6" y="75" key="MergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1589225343681" />
+    <state x="6" y="75" key="MergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1589490986892" />
     <state x="9" y="128" width="1896" height="825" key="MergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1589192808481" />
-    <state x="295" y="266" width="1146" height="380" key="MultipleFileMergeDialog" timestamp="1589225343704">
+    <state x="295" y="266" width="1146" height="380" key="MultipleFileMergeDialog" timestamp="1589490986907">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="295" y="266" key="MultipleFileMergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1589225343704" />
+    <state x="295" y="266" key="MultipleFileMergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1589490986907" />
     <state x="414" y="387" width="1146" height="380" key="MultipleFileMergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1589192809865" />
     <state x="449" y="154" width="1022" height="737" key="SettingsEditor" timestamp="1589041555301">
       <screen x="0" y="27" width="1920" height="985" />

@@ -3,7 +3,7 @@
         <div class="Cell">
 
             <div v-for="(item,index) in Events">
-              <cell-item v-if="index<2"  :item="item"></cell-item>
+              <cell-item v-if="index<2" :index="index" :item="item"></cell-item>
             </div>
             <div >
                 <div v-if="Events?Events.length>2:''" class="text-center">
@@ -20,7 +20,7 @@
 
                         <v-list>
                             <div v-for="(item,index) in Events">
-                                <cell-item v-if="index>2" :item="item"></cell-item>
+                                <cell-item v-if="index>1" :item="item"></cell-item>
                             </div>
                         </v-list>
                     </v-menu>

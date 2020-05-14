@@ -1,17 +1,18 @@
 export default {
     state: {
         events: {},
+        statusDelete:false,
     },
     mutations: {
         setEvents(state, payload) {
             state.events = payload;
         },
-        deleteContacts(state, payload) {
-            state.events[payload.date].splice(0,1)
+        setStatusDelete(state, payload)
+        {
+            state.statusDelete = payload;
         }
     },
     actions: {
-        //запись мероприятия в БД
         getEvents(context, event) {
             axios.post('/events', event)
                 .then(response => {
@@ -59,12 +60,10 @@ export default {
                     });
 
                     let sortedMonthEvents = {}
-
                     _.each(monthsEvents, function (dayEvents, day) {
                         sortedMonthEvents[day] = _.sortBy(dayEvents, ['time_start']);
                     })
                     context.commit('setEvents', sortedMonthEvents);
-                    // console.log(responce.data['activities']);
                     context.commit("clear_error");
                     context.commit("set_processing", false);
 
@@ -75,16 +74,47 @@ export default {
                     context.commit("set_error", error);
                 })
         },
-        deleteEvent(context, event) {
-            console.log(event);
+        deleteBirthdays(context, event) {
             axios.delete(`/delete-birthday/${event.event.id}`)
-                .then(responce => {
-                    if (responce.data.message) {
-                        context.commit("setStatus", true);
-                        context.commit('deleteContacts',event)
+                .then(response => {
+                    if (response.data.message) {
+                        context.commit("setStatusDelete", true);
+                        context.dispatch('getEvents',{date_start:context.getters.getStartDate,date_end:context.getters.getEndDate})
                     }
                     context.commit("clear_error");
+
+                })
+                .catch(error => {
                     context.commit("set_processing", false);
+                    context.commit("set_error", error);
+                })
+        },
+        deleteActivity(context, event) {
+
+            axios.delete(`/delete-activity`,{data:event.event})
+                .then(response => {
+                    if (response.data.message) {
+                        context.commit("setStatusDelete", true);
+                        context.dispatch('getEvents',{date_start:context.getters.getStartDate,date_end:context.getters.getEndDate})
+                    }
+                    context.commit("clear_error");
+
+                })
+                .catch(error => {
+                    context.commit("set_processing", false);
+                    context.commit("set_error", error);
+                })
+        },
+        deleteTask(context, event) {
+
+            axios.delete(`/delete-task`,{data:event.event})
+                .then(response => {
+                    if (response.data.message) {
+                        context.commit("setStatusDelete", true);
+                        context.dispatch('getEvents',{date_start:context.getters.getStartDate,date_end:context.getters.getEndDate})
+                    }
+                    context.commit("clear_error");
+
                 })
                 .catch(error => {
                     context.commit("set_processing", false);
@@ -95,5 +125,6 @@ export default {
     getters: {
         events: state => state.events,
         type: state => state.type,
+        setStatusDelete:state=>state.statusDelete
     }
 }

@@ -16,7 +16,7 @@
 
                     v-on="on"
                 >
-                    Menu as Popover
+                   {{item.name|cutText(15)}}
                 </v-btn>
             </template>
 
@@ -46,14 +46,13 @@
                                 <button @click="dialog=false">23123</button>
                             </v-dialog>
                         </v-row>
-                        <button class="create-btn" @click="change_show_modal()" v-ripple>Редактировать</button>
+                        <button class="create-btn" @click="changeShowModal()" v-ripple>Редактировать</button>
                     </div>
                     <v-list-item-action>
                     </v-list-item-action>
                 <v-divider></v-divider>
                 <div>
-<!--                    {{item}}-->
-                   {{item.name}},,,   {{item.type}}
+                   {{index}},,,   {{item.type}}
                 </div>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -68,7 +67,7 @@
 
 <script>
     export default {
-        props:['item'],
+        props:['item','index'],
         name: "CellItem",
         data(){
            return{
@@ -83,12 +82,12 @@
             processing() {
                 return this.$store.getters.get_processing;
             },
-            status() {
-                return this.$store.getters.getStatus;
+            statusDelete() {
+                return this.$store.getters.setStatusDelete;
             },
         },
         methods:{
-            change_show_modal() {
+            changeShowModal() {
                 this.$store.commit('changeShowModal');
                 this.$eventBus.$emit('type', this.item.type);
                 this.menu = false;
@@ -97,39 +96,25 @@
             {
                 if(event.type=='birthday')
                 {
-                    this.$store.dispatch('deleteEvent',{event:event,date:'2020-05-12'})
+                    this.$store.dispatch('deleteBirthdays',{event:event})
                 }
                 else if(event.type=='activity')
                 {
-                    axios.delete('/delete-activity/'+id).then((response) =>{
-                        if(response.data.response=='deleted')
-                        {
-                            this.$toaster.success("Запись успешно удалена");
-                        }
-                    }).catch(e => {
-                        this.$toaster.error("Пользователь не найден");
-                    });
+                    this.$store.dispatch('deleteActivity',{event:event})
                 }
                 else if(event.type=='task')
                 {
-                    axios.delete('/delete-task/'+id).then((response) =>{
-                        if(response.data.response=='deleted')
-                        {
-                            this.$toaster.success("Запись успешно удалена");
-                        }
-                    }).catch(e => {
-                        this.$toaster.error("Пользователь не найден");
-                    });
+                    this.$store.dispatch('deleteTask',{event:event})
                 }
             }
         },
         watch: {
-            status(value) {
+            statusDelete(value) {
                 if (value === true) {
-                    this.$toaster.success('Даннык успешно сохранены.');
-                    this.$store.commit("setStatus", false);
+                    this.$toaster.success('Даннык успешно сохраненыw.');
                     this.dialog=false;
                     this.menu=false;
+                    this.$store.commit("setStatusDelete", false);
                 }
             }
         },

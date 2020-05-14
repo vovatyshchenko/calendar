@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->string('name',100);
             $table->string('description')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->string('time_start',10);
             $table->string('time_end',10);

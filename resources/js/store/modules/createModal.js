@@ -10,7 +10,7 @@ export default {
     actions: {
         activityCreate ({ commit,dispatch }, event){
             commit("set_processing", true);
-            axios.post('/create-activity',event)
+            axios.post('/create-activity', event)
             .then(responce => {
                 if (responce.data.message) {
                     commit("setStatus", true);
@@ -25,9 +25,9 @@ export default {
                 commit("set_error", error);
             })
         },
-        taskCreate ({ commit }, event){
+        taskCreate ({ commit }, task){
             commit("set_processing", true);
-            axios.post('/create-task',event)
+            axios.post('/create-task', task)
                 .then(responce => {
                     if (responce.data.message) {
                         commit("setStatus", true);
@@ -37,6 +37,7 @@ export default {
                 })
                 .catch(error => {
                     commit("set_processing", false);
+                    commit("setStatus", false);
                     commit("set_error", error);
                 })
         },

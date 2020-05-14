@@ -7,7 +7,8 @@ export default {
             state.events = payload;
         },
         deleteContacts(state, payload) {
-            state.events[payload.date].splice(0,1)
+            state.events[payload.date].splice(payload.index,1)
+            console.log(state.events,231);
         }
     },
     actions: {

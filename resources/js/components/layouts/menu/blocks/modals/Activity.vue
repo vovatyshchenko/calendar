@@ -196,7 +196,7 @@
         watch: {
             status(value) {
                 if (value === true) {
-                    this.$toaster.success('Даннык успешно сохранены.');
+                    this.$toaster.success('Данные успешно сохранены.');
                     this.$store.commit("setStatus", false);
                     this.$store.commit('changeShowModal');
 

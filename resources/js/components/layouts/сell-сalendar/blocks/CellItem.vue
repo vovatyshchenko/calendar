@@ -40,7 +40,7 @@
                                 <div class="flex">
                                     <div class="delete-modal">sdfsfsfsfsfsfsfsfsf</div>
                                     <div class="delete-modal">sdfsfsfsfsfsfsfsfsf</div>
-                                    <button @click="deleteEvent(item)">Удалить</button>
+                                    <button @click="deleteEvent(item,index)">Удалить</button>
                                 </div>
 
                                 <button @click="dialog=false">23123</button>
@@ -53,7 +53,7 @@
                 <v-divider></v-divider>
                 <div>
 <!--                    {{item}}-->
-                   {{item.name}},,,   {{item.type}}
+                   {{index}},,,   {{item.type}}
                 </div>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -68,7 +68,7 @@
 
 <script>
     export default {
-        props:['item'],
+        props:['item','index'],
         name: "CellItem",
         data(){
            return{
@@ -93,11 +93,11 @@
                 this.$eventBus.$emit('type', this.item.type);
                 this.menu = false;
             },
-            deleteEvent(event)
+            deleteEvent(event,index)
             {
                 if(event.type=='birthday')
                 {
-                    this.$store.dispatch('deleteEvent',{event:event,date:'2020-05-12'})
+                    this.$store.dispatch('deleteEvent',{event:event,date:'2020-05-14',index:index})
                 }
                 else if(event.type=='activity')
                 {

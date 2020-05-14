@@ -76,8 +76,8 @@ export default {
                 })
         },
         deleteEvent(context, event) {
-            context.commit('deleteContacts',event)
-            axios.delete(`/delete-birthday/${event.id}`)
+            console.log(event);
+            axios.delete(`/delete-birthday/${event.event.id}`)
                 .then(responce => {
                     if (responce.data.message) {
                         context.commit("setStatus", true);

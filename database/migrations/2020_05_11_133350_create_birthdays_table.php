@@ -17,10 +17,10 @@ class CreateBirthdaysTable extends Migration
             $table->id();
             $table->string('name',100);
             $table->unsignedBigInteger('user_id');
-            $table->string('time',10);
+            $table->string('time_start',10);
             $table->boolean('is_remind')->default(0);
             $table->boolean('is_remind_year')->default(0);
-            $table->timestamp('date');
+            $table->timestamp('date')->nullable();;
             $table->timestamps();
         });
 

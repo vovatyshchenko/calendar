@@ -1,15 +1,19 @@
 <template>
     <form ref="createEvent"  @submit.prevent="submit">
+        <v-progress-linear :active="processing" indeterminate height="5" color="red darken-1"></v-progress-linear>
+        <v-alert :value="error" type="warning">{{ error }}</v-alert>
         <div class="error-message" v-if="globalErrorMessasge">Заполните все обязательные поля</div>
+        <label class="title__input_modal">Название*</label>
         <v-text-field
             v-model="name"
             :error-messages="nameErrors"
             outlined
             dense
-            label="Название*"
+            label="Название"
             @input="$v.name.$touch()"
             @blur="$v.name.$touch()"
         ></v-text-field>
+        <label class="title__input_modal">Гости</label>
         <v-text-field
             v-model="guests"
             :error-messages="guestsErrors"
@@ -19,6 +23,7 @@
             @input="$v.guests.$touch()"
             @blur="$v.guests.$touch()"
         ></v-text-field>
+        <label class="title__input_modal">Место проведения</label>
         <v-text-field
             v-model="location"
             :error-messages="locationErrors"
@@ -28,18 +33,19 @@
             @input="$v.location.$touch()"
             @blur="$v.location.$touch()"
         ></v-text-field>
+        <label class="title__input_modal">Описаниe</label>
         <v-text-field
             v-model="description"
             :error-messages="descriptionErrors"
             outlined
             dense
-            label="Описание*"
+            label="Описание"
             @input="$v.description.$touch()"
             @blur="$v.description.$touch()"
         ></v-text-field>
         <div class="d-flex">
-            <div>
-                <span>начало</span>
+            <div class="d-flex align-items-center">
+                <span class="label">начало</span>
                 <v-flex xs12 lg6>
                     <v-menu
                         v-model="openDataStart"
@@ -50,6 +56,8 @@
                             <v-text-field
                                 :value="computedDateFormattedMomentjs"
                                 readonly
+                                outlined
+                                append-icon="keyboard_arrow_down"
                                 v-on="on"
                             ></v-text-field>
                         </template>
@@ -76,8 +84,9 @@
                     <v-text-field
                         class="eer"
                         v-model="timeStart"
-                        label="Picker in menu"
                         readonly
+                        outlined
+                        append-icon="keyboard_arrow_down"
                         v-on="on"
                     ></v-text-field>
                 </template>
@@ -91,8 +100,8 @@
             </v-menu>
         </div>
         <div class="d-flex">
-            <div>
-                <span>конец</span>
+            <div class="d-flex align-items-center">
+                <span class="label">конец</span>
                 <v-flex xs12 lg6>
                     <v-menu
                         v-model="openDataEnd"
@@ -102,7 +111,8 @@
                         <template v-slot:activator="{ on }">
                             <v-text-field
                                 :value="computedDateFormattedMomentjsForEnd"
-
+                                outlined
+                                append-icon="keyboard_arrow_down"
                                 readonly
                                 v-on="on"
                             ></v-text-field>
@@ -130,8 +140,9 @@
                     <v-text-field
                         class="eer"
                         v-model="timeEnd"
-                        label="Picker in menu"
                         readonly
+                        outlined
+                        append-icon="keyboard_arrow_down"
                         v-on="on"
                     ></v-text-field>
                 </template>
@@ -144,11 +155,11 @@
                 ></v-time-picker>
             </v-menu>
         </div>
-        <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn  type="submit" color="blue darken-1" text >Сохранить</v-btn>
-            <v-btn color="blue darken-1" text @click="closeModal()">Отмена</v-btn>
-        </v-card-actions>
+            <div class="d-flex justify-content-between">
+                <v-btn type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
+                <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
+            </div>
     </form>
 </template>
 
@@ -171,6 +182,27 @@
             openDataEnd: false,
             description:null,
         }),
+         computed: {
+            error() {
+                return this.$store.getters.get_error;
+            },
+            processing() {
+                return this.$store.getters.get_processing;
+            },
+            status() {
+                return this.$store.getters.getStatus;
+            },
+        },
+        watch: {
+            status(value) {
+                if (value === true) {
+                    this.$toaster.success('Даннык успешно сохранены.');
+                    this.$store.commit("setStatus", false);
+                    this.$store.commit('changeShowModal');
+
+                }
+            }
+        },
         methods: {
             submit () {
                 this.$v.$touch()
@@ -198,9 +230,6 @@
             closeModal() {
                 this.$store.commit('changeShowModal');
             },
-            storeData() {
-                this.$store.dispatch('bdayStore', this.bday);
-            },
             clear () {
                 this.$v.$reset()
                 this.name = ''
@@ -215,13 +244,5 @@
     }
 </script>
 <style scoped>
-    .error-message{
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 12px;
-        line-height: 60px;
-        text-align: center;
-        color: #F44336;
-    }
+    
 </style>

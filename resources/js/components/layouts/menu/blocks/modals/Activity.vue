@@ -196,9 +196,10 @@
         watch: {
             status(value) {
                 if (value === true) {
-                    this.$toaster.success('Даннык успешно сохранены.');
-                    this.$store.commit("setStatus", false);
+                    this.$toaster.success('Даннык успешно сохранены35435345234.');
                     this.$store.commit('changeShowModal');
+                    console.log(this.$store.getters.showModal, '322');
+                    this.$store.commit("setStatus", false);
                 }
             }
         },

@@ -21,4 +21,10 @@ class ActivityController extends Controller
         $result= Activity::create($request->all());
         return response(['message' => true], 200);
     }
+    public function destroy(Activity $activity)
+    {
+        $activity->delete();
+
+        return ['response'=>'deleted'];
+    }
 }

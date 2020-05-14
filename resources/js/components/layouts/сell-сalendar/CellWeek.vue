@@ -14,7 +14,7 @@
 <!--        <exit-confirmation ref="modal" @checking="checking()"></exit-confirmation>-->
 
 
-      
+
     </div>
 </template>
 
@@ -33,8 +33,8 @@
         computed: {
             getDayWeek() {
                 let parseDate = this.date.split("-");
-                let dayNumber= new Date(parseDate[2], parseDate[1]-1, parseDate[0]).getDay();
-                return this.days[dayNumber]+', '+parseDate[0];
+                let dayNumber= new Date(parseDate[0], parseDate[1]-1, parseDate[2]).getDay();
+                return this.days[dayNumber]+', '+parseDate[2];
             }
         }
     }

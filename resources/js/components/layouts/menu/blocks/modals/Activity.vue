@@ -199,7 +199,6 @@
                     this.$toaster.success('Данные успешно сохранены.');
                     this.$store.commit("setStatus", false);
                     this.$store.commit('changeShowModal');
-
                 }
             }
         },
@@ -244,5 +243,5 @@
     }
 </script>
 <style scoped>
-    
+
 </style>

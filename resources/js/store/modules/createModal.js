@@ -8,12 +8,13 @@ export default {
         },
     },
     actions: {
-        activityCreate ({ commit }, event){
+        activityCreate ({ commit,dispatch }, event){
             commit("set_processing", true);
             axios.post('/create-activity',event)
             .then(responce => {
                 if (responce.data.message) {
                     commit("setStatus", true);
+                    dispatch('getEvents',{date_start:'2020-04-27',date_end:'2020-05-31'})
                 }
                 commit("clear_error");
                 commit("set_processing", false);
@@ -28,6 +29,9 @@ export default {
             commit("set_processing", true);
             axios.post('/create-task',event)
                 .then(responce => {
+                    if (responce.data.message) {
+                        commit("setStatus", true);
+                    }
                     commit("clear_error");
                     commit("set_processing", false);
                 })

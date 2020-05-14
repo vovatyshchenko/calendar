@@ -75,25 +75,26 @@
 
                 this.dateForMonth=this.date;
                 let parseDate = this.dateForMonth.split("-");
-                this.dateForEvents=moment(parseDate[2]+'-'+parseDate[1]+'-'+parseDate[0]).format('YYYY-MM-DD');
+                this.dateForEvents=moment(parseDate[0]+'-'+parseDate[1]+'-'+parseDate[2]).format('YYYY-MM-DD');
                 let months=["Декабря","Января","Февраля","Марта","Апреля","Мая","Июня","Июля","Августа","Сентября","Октября","Ноября"]
                 let dateForCalendar="";
-                if(parseDate[0]=='1')
+                if(parseDate[2]=='1')
                 {
                     if(parseDate[1]==12)
                     {
-                        dateForCalendar=parseDate[0]+" "+months[0];
+                        dateForCalendar=parseDate[2]+" "+months[1];
                     }
                     else{
-                        dateForCalendar=parseDate[0]+" "+months[parseDate[1]];
+                        dateForCalendar=parseDate[2]+" "+months[parseDate[1]];
                     }
                 }
                 else{
-                    dateForCalendar=parseDate[0];
+                    dateForCalendar=parseDate[2];
                 }
                return dateForCalendar;
             },
             Events(){
+                console.log(this.$store.getters.events);
                return this.$store.getters.events[this.dateForEvents];
             },
         },

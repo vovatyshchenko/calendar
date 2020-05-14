@@ -50,7 +50,7 @@
                     let year = parseDate.getFullYear();
 
                     this.dayNumber.push(day);
-                    currentWeek.push(day+"-"+month+"-"+year)
+                    currentWeek.push(year+"-"+month+"-"+day)
                     this.$store.commit('setCurrentWeek',currentWeek);
                 }
                 return currentWeek;

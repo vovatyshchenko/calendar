@@ -6,7 +6,7 @@
         <title>Календарь</title>
         <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     </head>
-    <body>
+    <body class="p-0">
     <div id="app">
 
     </div>

@@ -16,4 +16,10 @@ class TaskController extends Controller
         Task::create($request->all());
         return response(['message' => true], 200);
     }
+    public function destroy(Task $task)
+    {
+        $task->delete();
+
+        return ['response'=>'deleted'];
+    }
 }

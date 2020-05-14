@@ -1,6 +1,31 @@
 <template>
     <div>
         <div class="Cell">
+
+            <div v-for="(item,index) in Events">
+              <cell-item v-if="index<2"  :item="item"></cell-item>
+            </div>
+            <div >
+                <div v-if="Events?Events.length>2:''" class="text-center">
+                    <v-menu top :close-on-click="closeOnClick">
+                        <template v-slot:activator="{ on }">
+                            <v-btn
+                                color="primary"
+                                dark
+                                v-on="on"
+                            >
+                                Dropdown
+                            </v-btn>
+                        </template>
+
+                        <v-list>
+                            <div v-for="(item,index) in Events">
+                                <cell-item v-if="index>2" :item="item"></cell-item>
+                            </div>
+                        </v-list>
+                    </v-menu>
+                </div>
+            </div>
             <div class="d-flex flex-column">
                <span class="date">
                    <span class="number">
@@ -13,29 +38,29 @@
                        <span v-else >{{currentDate}}</span>
                    </span>
                </span>
-                <ul class="d-flex align-center flex-column">
-                    <li :style="{background:item.background}" :class="'event'+index" v-for="(item, index) in Events">
-                        <span>{{item.text|cutText(21)}}</span>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import CellItem from "./blocks/CellItem";
     import holiday from '../../../mixin/holiday'
     export default {
         props:['date'],
         mixins: [holiday],
+        components:{CellItem},
         data(){
             return{
                 dateForMonth:"",
+                dateForEvents:null,
                 text:'',
-                Events:[
-                    {text:'Удивительный хаббл1222' ,background:'#F5E3F9'},
-                    {text:'Брендинг знаете ли вы2',background: "#FEEACC"}
-                ]
+                closeOnClick: true,
+                fav: true,
+                menu: false,
+                menu2:false,
+                message: false,
+                hints: true,
             }
         },
         methods:{
@@ -50,22 +75,27 @@
 
                 this.dateForMonth=this.date;
                 let parseDate = this.dateForMonth.split("-");
+                this.dateForEvents=moment(parseDate[0]+'-'+parseDate[1]+'-'+parseDate[2]).format('YYYY-MM-DD');
                 let months=["Декабря","Января","Февраля","Марта","Апреля","Мая","Июня","Июля","Августа","Сентября","Октября","Ноября"]
                 let dateForCalendar="";
-                if(parseDate[0]=='1')
+                if(parseDate[2]=='1')
                 {
                     if(parseDate[1]==12)
                     {
-                        dateForCalendar=parseDate[0]+" "+months[0];
+                        dateForCalendar=parseDate[2]+" "+months[1];
                     }
                     else{
-                        dateForCalendar=parseDate[0]+" "+months[parseDate[1]];
+                        dateForCalendar=parseDate[2]+" "+months[parseDate[1]];
                     }
                 }
                 else{
-                    dateForCalendar=parseDate[0];
+                    dateForCalendar=parseDate[2];
                 }
                return dateForCalendar;
+            },
+            Events(){
+                console.log(this.$store.getters.events);
+               return this.$store.getters.events[this.dateForEvents];
             },
         },
     }

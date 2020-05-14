@@ -1,18 +1,21 @@
 <template>
-    <form ref="createEvent"  @submit.prevent="submit">
+    <form ref="createEvent" @submit.prevent="submit">
+        <v-progress-linear :active="processing" indeterminate height="5" color="red darken-1"></v-progress-linear>
+        <v-alert :value="error" type="warning">{{ error }}</v-alert>
         <div class="error-message" v-if="globalErrorMessasge">Заполните все обязательные поля</div>
+        <label class="title__input_modal">Название*</label>
         <v-text-field
             v-model="name"
             :error-messages="nameErrors"
             outlined
             dense
-            label="Название*"
+            label="Название"
             @input="$v.name.$touch()"
             @blur="$v.name.$touch()"
         ></v-text-field>
         <div class="d-flex">
-            <div>
-                <span>начало</span>
+            <div class="d-flex align-items-center">
+                <span class="label">Дата/Время</span>
                 <v-flex xs12 lg6>
                     <v-menu
                         v-model="openDataStart"
@@ -23,6 +26,8 @@
                             <v-text-field
                                 :value="computedDateFormattedMomentjs"
                                 readonly
+                                outlined
+                                append-icon="keyboard_arrow_down"
                                 v-on="on"
                             ></v-text-field>
                         </template>
@@ -39,7 +44,7 @@
                 v-model="OpenTimeStart"
                 :close-on-content-click="false"
                 :nudge-right="40"
-                :return-value.sync="timeStart"
+                :return-value.sync="time"
                 transition="scale-transition"
                 offset-y
                 max-width="290px"
@@ -48,34 +53,35 @@
                 <template v-slot:activator="{ on }">
                     <v-text-field
                         class="eer"
-                        v-model="timeStart"
-                        label="Picker in menu"
+                        v-model="time"
                         readonly
+                        outlined
+                        append-icon="keyboard_arrow_down"
                         v-on="on"
                     ></v-text-field>
                 </template>
                 <v-time-picker
                     format="24hr"
                     v-if="OpenTimeStart"
-                    v-model="timeStart"
+                    v-model="time"
                     full-width
-                    @click:minute="$refs.start.save(timeStart)"
+                    @click:minute="$refs.start.save(time)"
                 ></v-time-picker>
             </v-menu>
         </div>
-        <v-col cols="12" md="12">
-            <span>Весь день</span>
-            <v-checkbox v-model="isRemind"></v-checkbox>
+        <v-col class="d-flex align-items-center">
+            <span class="label">Весь день</span>
+            <v-checkbox v-model="allDay"></v-checkbox>
         </v-col>
-        <v-col cols="12" md="12">
-            <span>Каждый год</span>
-            <v-checkbox v-model="isRemindYear"></v-checkbox>
+        <v-col class="d-flex align-items-center">
+            <span class="label">Каждый год</span>
+            <v-checkbox v-model="allYear"></v-checkbox>
         </v-col>
-        <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn  type="submit" color="blue darken-1" text >Сохранить</v-btn>
-            <v-btn color="blue darken-1" text @click="closeModal()">Отмена</v-btn>
-        </v-card-actions>
+            <div class="d-flex justify-content-between">
+                <v-btn type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
+                <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
+            </div>
     </form>
 </template>
 
@@ -87,26 +93,47 @@ export default {
         name:null,
         menu1: false,
         dateStart: new Date().toISOString().substr(0, 10),
-        timeStart: '00:00',
+        time: '00:00',
         OpenTimeStart: false,
         openDataStart: false,
-        isRemind:false,
-        isRemindYear:false
+        allDay:false,
+        allYear:false
     }),
+    computed: {
+        error() {
+            return this.$store.getters.get_error;
+        },
+        processing() {
+            return this.$store.getters.get_processing;
+        },
+        status() {
+            return this.$store.getters.getStatus;
+        },
+    },
+    watch: {
+        status(value) {
+            if (value === true) {
+                this.$toaster.success('Даннык успешно сохранены.');
+                this.$store.commit("setStatus", false);
+                this.$store.commit('changeShowModal');
+
+            }
+        }
+    },
     methods: {
         submit () {
             this.$v.$touch()
             if (!this.nameErrors.length==0) {
-                this.$toaster.info('Будьте внимательны при заполнении полей.')
+                this.$toaster.info('Будьте внимательны при заполнении полей.');
             } else {
-                this.$store.dispatch('BirthdayCreate',{
+                this.$store.dispatch('birthdayCreate', {
                     name: this.name,
-                    time: this.timeStart,
+                    time_start: this.time,
                     date: this.dateStart,
-                    is_remind:this.isRemind,
-                    is_remind_year:this.isRemindYear,
+                    is_remind:this.allDay,
+                    is_remind_year:this.allYear,
                 });
-                this.clear()
+                this.clear();
             }
         },
         closeModal() {
@@ -115,15 +142,17 @@ export default {
         clear () {
             this.$v.$reset()
             this.name = ''
-            this.IsAllDay = false,
-            this.isRemindYear=false;
-        },
+            this.time = '00:00'
+            this.dateStart = new Date().toISOString().substr(0, 10)
+            this.allDay = false
+            this.allYear = false
+        }
     },
 }
 
 
 </script>
 
-<style>
+<style scoped>
 
 </style>

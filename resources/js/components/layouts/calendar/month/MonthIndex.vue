@@ -22,7 +22,8 @@
         data() {
             return {
                 day: ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
-                year: this.$store.getters.year
+                year: this.$store.getters.year,
+
             }
         },
         methods: {},
@@ -48,7 +49,7 @@
                         if (week.length < 7) {
                             for (let day = week.length + 1; day <= 7; day++) {
 
-                                week.push(currentDay + "-" + currentMonth + "-" + currentYear);
+                                week.push(currentYear + "-" + currentMonth + "-" +currentDay)
                                 parseDate = new Date(nowDate.setDate(nowDate.getDate() + 1))
                                 currentDay = parseDate.getDate();
                                 currentMonth = parseDate.getMonth()+1;
@@ -62,7 +63,7 @@
                         break;
                     }
 
-                    week.push(currentDay + "-" + currentMonth + "-" + currentYear)
+                    week.push(currentYear + "-" + currentMonth + "-" +currentDay)
                     if (i % 7 == 0) {
                         monthDividedIntoWeeks.push(week);
                         week = [];
@@ -72,6 +73,12 @@
                 return monthDividedIntoWeeks;
             },
         },
+        created() {
+
+            // console.log(moment(this.getMonth[0][0]).format('YYYY-MM-DD'),2);
+            console.log(moment(this.getMonth[this.getMonth.length-1][6]).format('YYYY-MM-DD'),1);
+            this.$store.dispatch('getEvents',{date_start:moment(this.getMonth[0][0]).format('YYYY-MM-DD'),date_end:moment(this.getMonth[this.getMonth.length-1][6]).format('YYYY-MM-DD')});
+        }
     }
 </script>
 

@@ -90,6 +90,7 @@
         methods:{
             change_show_modal() {
                 this.$store.commit('changeShowModal');
+                this.$eventBus.$emit('type', this.item.type);
                 this.menu = false;
             },
             deleteEvent(event)

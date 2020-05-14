@@ -14,6 +14,7 @@ export default {
     actions: {
         year_data({ commit, getters }) {
             let data = [];
+            let holiday = '';
             let year = getters.menuDate.getFullYear();
             for (let m = 0; m < 12; m++) {
               let day = moment({ year: year, month: m, day: 1 });// формируем дату на первый день каждого месяца
@@ -25,6 +26,12 @@ export default {
               };
               // итерируем по количеству дней в месяце
               for (let d = 0; d < days_in_month; d++) {
+                holiday = '';
+                if (getters.holidays[m + 1]) { //проверяем есть ли праздник на текущий месяц (который итерируется)
+                  if (getters.holidays[m + 1][d + 1]) { //+1 к месяцу и дню moment ведет нумерация с 0, а нам нужно с 1 так с api приходит
+                    holiday = getters.holidays[m + 1][d + 1].localName;
+                  }
+                }
                 let week = day.week();
                 // небольшой хак, момент считает
                 // последние дни декабря за первую неделю,
@@ -42,8 +49,11 @@ export default {
                 // добавляем день, у weekday() нумерация с нуля,
                 // поэтому добавляю единицу, можно и не добавлять,
                 // но так будет удобнее
+
                 month.weeks[week][day.weekday() + 1] = {
                   date: day.toDate(),
+                  holiday: holiday,
+
                 };
                 // итерируем день на единицу, moment мутирует исходное значение
                 day.add(1, 'd');

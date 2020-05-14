@@ -56,6 +56,9 @@ Vue.filter('cutText', function (value, symbolsCount){
 
 // Install BootstrapVue
 
+//eventBus
+Vue.prototype.$eventBus = new Vue();
+
 const app = new Vue({
     el: '#app',
     vuetify: Vuetify,

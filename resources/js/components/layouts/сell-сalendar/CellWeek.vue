@@ -8,7 +8,7 @@
 
         </div>
         <div class="week-events hour-block" v-for="n in 24">
-            <hour-block></hour-block>
+<!--            <hour-block></hour-block>-->
         </div>
 
 <!--        <exit-confirmation ref="modal" @checking="checking()"></exit-confirmation>-->

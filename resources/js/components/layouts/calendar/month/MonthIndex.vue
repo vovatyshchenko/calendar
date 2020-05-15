@@ -74,8 +74,7 @@
             },
         },
         created() {
-
-            // console.log(moment(this.getMonth[0][0]).format('YYYY-MM-DD'),2);
+            //console.log(moment(this.getMonth[0][0]).format('YYYY-MM-DD'),2);
             console.log(moment(this.getMonth[this.getMonth.length-1][6]).format('YYYY-MM-DD'),1);
             this.$store.dispatch('getEvents',{date_start:moment(this.getMonth[0][0]).format('YYYY-MM-DD'),date_end:moment(this.getMonth[this.getMonth.length-1][6]).format('YYYY-MM-DD')});
         }

@@ -130,6 +130,7 @@
                     this.$store.commit("setStatus", false);
                     this.dialog=false;
                     this.menu=false;
+                    this.$store.commit('changeShowModal');
                 }
             }
         },

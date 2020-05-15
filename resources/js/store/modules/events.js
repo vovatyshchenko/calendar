@@ -69,7 +69,6 @@ export default {
 
                 })
                 .catch(error => {
-                    console.log(error);
                     context.commit("set_processing", false);
                     context.commit("set_error", error);
                 })

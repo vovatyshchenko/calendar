@@ -9,7 +9,7 @@ export default {
         }
     },
     actions: {
-        get_holidays(context, paramData) {
+        getHolidays(context, paramData) {
 
             axios.post('/month/get-holidays', paramData)
                 .then(response => {
@@ -38,7 +38,7 @@ export default {
                     context.commit("setHolidays", params);
                 })
                 .catch(error => {
-                    context.commit("set_error", error.message);
+                    context.commit("setError", error.message);
                 })
         },
     },

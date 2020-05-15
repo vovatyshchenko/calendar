@@ -64,13 +64,13 @@ export default {
                         sortedMonthEvents[day] = _.sortBy(dayEvents, ['time_start']);
                     })
                     context.commit('setEvents', sortedMonthEvents);
-                    context.commit("clear_error");
-                    context.commit("set_processing", false);
+                    context.commit("clearError");
+                    context.commit("setProcessing", false);
 
                 })
                 .catch(error => {
-                    context.commit("set_processing", false);
-                    context.commit("set_error", error);
+                    context.commit("setProcessing", false);
+                    context.commit("setError", error);
                 })
         },
         deleteBirthdays(context, event) {
@@ -80,12 +80,12 @@ export default {
                         context.commit("setStatusDelete", true);
                         context.dispatch('getEvents',{date_start:context.getters.getStartDate,date_end:context.getters.getEndDate})
                     }
-                    context.commit("clear_error");
+                    context.commit("clearError");
 
                 })
                 .catch(error => {
-                    context.commit("set_processing", false);
-                    context.commit("set_error", error);
+                    context.commit("setProcessing", false);
+                    context.commit("setError", error);
                 })
         },
         deleteActivity(context, event) {
@@ -96,12 +96,12 @@ export default {
                         context.commit("setStatusDelete", true);
                         context.dispatch('getEvents',{date_start:context.getters.getStartDate,date_end:context.getters.getEndDate})
                     }
-                    context.commit("clear_error");
+                    context.commit("clearError");
 
                 })
                 .catch(error => {
-                    context.commit("set_processing", false);
-                    context.commit("set_error", error);
+                    context.commit("setProcessing", false);
+                    context.commit("setError", error);
                 })
         },
         deleteTask(context, event) {
@@ -112,12 +112,12 @@ export default {
                         context.commit("setStatusDelete", true);
                         context.dispatch('getEvents',{date_start:context.getters.getStartDate,date_end:context.getters.getEndDate})
                     }
-                    context.commit("clear_error");
+                    context.commit("clearError");
 
                 })
                 .catch(error => {
-                    context.commit("set_processing", false);
-                    context.commit("set_error", error);
+                    context.commit("setProcessing", false);
+                    context.commit("setError", error);
                 })
         }
     },

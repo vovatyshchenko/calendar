@@ -4,13 +4,13 @@ export default {
         error: null
     },
     mutations: {
-        set_processing (state, payload) {
+        setProcessing (state, payload) {
             state.processing = payload
         },
-        set_error (state, payload) {
+        setError (state, payload) {
             state.error = payload
         },
-        clear_error (state) {
+        clearError (state) {
             state.error = null
         }
     },

@@ -125,7 +125,7 @@
 
         },
         created(){
-            this.$store.dispatch('get_holidays', {year:this.year});
+            this.$store.dispatch('getHolidays', {year:this.year});
         },
         watch: {
             current_route(value) {
@@ -134,7 +134,7 @@
                 }
             },
             year(){
-                this.$store.dispatch('get_holidays',{year:this.year});
+                this.$store.dispatch('getHolidays',{year:this.year});
             }
         },
 

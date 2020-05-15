@@ -10,7 +10,7 @@
         </div>
         <div class="week" v-for="week in month.weeks">
           <div class="day" v-for="day in 7">
-            <span :class="haveHolliday(week[day].holiday)?'holiday':'days'" v-if="week[day]">{{ week[day].date.getDate() }}</span>
+            <span :class="haveHolliday(week[day].holiday)?'holiday':'days'" v-if="week[day]" @dblclick="showHoliday(week[day].date)">{{ week[day].date.getDate() }}</span>
           </div>
         </div>
       </div>
@@ -27,12 +27,19 @@ export default {
   },
   methods: {
     haveHolliday(value) {
-      if (value.hasOwnProperty()) {
-        console.log(value.hasOwnProperty());
+      if (value != '') {
         return true;
       } else {
         return false;
       }
+    },
+    showHoliday(date) {
+      date = moment(date).format('YYYY-MM-DD');
+      this.$store.commit('setDate', date);
+      if (window.location.pathname != '/day') {
+        this.$router.push('day');
+      }
+
     },
   },
   computed: {
@@ -61,7 +68,6 @@ export default {
     justify-content: space-between;
   }
   .title {
-    padding-left: 30px;
     margin-bottom: 10px;
     text-transform: capitalize;
     font-weight: 500;
@@ -77,11 +83,14 @@ export default {
     display: flex;
     padding: 0 40px 10px 10px;
   }
-  .days {
+  .day {
     font-size: 12px;
     font-weight: bold;
     line-height: 14px;
     color: #999999;
+  }
+  .day:hover {
+    cursor: pointer;
   }
   .holiday {
     font-size: 12px;
@@ -112,5 +121,8 @@ export default {
     margin: 0.02em;
     flex-grow: 1;
     flex-basis: 0;
+  }
+  .v-content__wrap {
+      background-color: #f5f5f5 !important;
   }
 </style>

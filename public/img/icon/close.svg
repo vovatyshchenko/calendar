@@ -1,0 +1,21 @@
+<svg width="30" height="31" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="7" y="7" width="16" height="16">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M22 9.64175L20.59 8.3125L15 13.5824L9.41 8.3125L8 9.64175L13.59 14.9116L8 20.1815L9.41 21.5107L15 16.2409L20.59 21.5107L22 20.1815L16.41 14.9116L22 9.64175Z" fill="white" stroke="white"/>
+</mask>
+<g mask="url(#mask0)">
+<g filter="url(#filter0_d)">
+<rect x="2" y="2.65625" width="26" height="24.511" fill="#D8D8D8"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_d" x="-2" y="2.65625" width="34" height="32.511" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+</defs>
+</svg>

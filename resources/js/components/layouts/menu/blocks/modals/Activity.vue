@@ -199,7 +199,6 @@
                     this.$toaster.success('Данные успешно сохранены.');
                     this.$store.commit("setStatus", false);
                     this.$store.commit('changeShowModal');
-                    this.$store.commit("setStatus", false);
                 }
             }
         },

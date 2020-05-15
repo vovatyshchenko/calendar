@@ -13,7 +13,7 @@
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:calendar" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
     <select />
@@ -21,15 +21,14 @@
   <component name="ChangeListManager">
     <list default="true" id="530ed881-a690-4da1-94b1-52aaa0d6d684" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/ActivityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/ActivityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/BirthdayController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/BirthdayController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Activity.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Activity.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Birthday.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Birthday.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Task.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/month/MonthIndex.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/month/MonthIndex.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/MiniCalendar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/MiniCalendar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/Activity.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/Activity.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellWeek.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellWeek.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/CellItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/CellItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/Hour.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/Hour.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/calendar/day.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/calendar/day.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/year/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/year/index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,16 +234,12 @@
       <workItem from="1589192613340" duration="11217000" />
       <workItem from="1589224520164" duration="886000" />
       <workItem from="1589416013479" duration="346000" />
-      <workItem from="1589446703586" duration="9298000" />
-      <workItem from="1589459666794" duration="6634000" />
-      <workItem from="1589471963533" duration="2029000" />
-      <workItem from="1589519724995" duration="12389000" />
-      <workItem from="1589554907980" duration="786000" />
+      <workItem from="1589490710229" duration="3671000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -271,48 +266,44 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1588252943713" />
-    <state width="1874" height="253" key="GridCell.Tab.0.bottom" timestamp="1589456219423">
-      <screen x="0" y="27" width="1920" height="985" />
+    <state width="1877" height="350" key="GridCell.Tab.0.bottom" timestamp="1589416359932">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="350" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589416359932" />
-    <state width="1874" height="253" key="GridCell.Tab.0.bottom/0.27.1920.985@0.27.1920.985" timestamp="1589456219423" />
-    <state width="1874" height="253" key="GridCell.Tab.0.center" timestamp="1589456219423">
-      <screen x="0" y="27" width="1920" height="985" />
+    <state width="1874" height="253" key="GridCell.Tab.0.bottom/0.27.1920.985@0.27.1920.985" timestamp="1589136397952" />
+    <state width="1877" height="350" key="GridCell.Tab.0.center" timestamp="1589416359932">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="350" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589416359932" />
-    <state width="1874" height="253" key="GridCell.Tab.0.center/0.27.1920.985@0.27.1920.985" timestamp="1589456219423" />
-    <state width="1874" height="253" key="GridCell.Tab.0.left" timestamp="1589456219423">
-      <screen x="0" y="27" width="1920" height="985" />
+    <state width="1874" height="253" key="GridCell.Tab.0.center/0.27.1920.985@0.27.1920.985" timestamp="1589136397952" />
+    <state width="1877" height="350" key="GridCell.Tab.0.left" timestamp="1589416359932">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="350" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589416359932" />
-    <state width="1874" height="253" key="GridCell.Tab.0.left/0.27.1920.985@0.27.1920.985" timestamp="1589456219423" />
-    <state width="1874" height="253" key="GridCell.Tab.0.right" timestamp="1589456219423">
-      <screen x="0" y="27" width="1920" height="985" />
+    <state width="1874" height="253" key="GridCell.Tab.0.left/0.27.1920.985@0.27.1920.985" timestamp="1589136397952" />
+    <state width="1877" height="350" key="GridCell.Tab.0.right" timestamp="1589416359932">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="350" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589416359932" />
-    <state width="1874" height="253" key="GridCell.Tab.0.right/0.27.1920.985@0.27.1920.985" timestamp="1589456219423" />
-    <state x="6" y="75" width="1896" height="825" key="MergeDialog" timestamp="1589225343681">
+    <state width="1874" height="253" key="GridCell.Tab.0.right/0.27.1920.985@0.27.1920.985" timestamp="1589136397952" />
+    <state x="6" y="75" width="1896" height="825" key="MergeDialog" timestamp="1589490986892">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="6" y="75" key="MergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1589225343681" />
+    <state x="6" y="75" key="MergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1589490986892" />
     <state x="9" y="128" width="1896" height="825" key="MergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1589192808481" />
-    <state x="414" y="387" width="1146" height="380" key="MultipleFileMergeDialog" timestamp="1589447779884">
+    <state x="295" y="266" width="1146" height="380" key="MultipleFileMergeDialog" timestamp="1589490986907">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="295" y="266" key="MultipleFileMergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1589490986907" />
+    <state x="414" y="387" width="1146" height="380" key="MultipleFileMergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1589192809865" />
+    <state x="449" y="154" width="1022" height="737" key="SettingsEditor" timestamp="1589041555301">
       <screen x="0" y="27" width="1920" height="985" />
     </state>
-    <state x="295" y="266" key="MultipleFileMergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1589225343704" />
-    <state x="414" y="387" width="1146" height="380" key="MultipleFileMergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1589447779884" />
-    <state x="449" y="154" width="1022" height="737" key="SettingsEditor" timestamp="1589448482577">
-      <screen x="0" y="27" width="1920" height="985" />
-    </state>
-    <state x="449" y="154" width="1022" height="737" key="SettingsEditor/0.27.1920.985@0.27.1920.985" timestamp="1589448482577" />
+    <state x="449" y="154" width="1022" height="737" key="SettingsEditor/0.27.1920.985@0.27.1920.985" timestamp="1589041555301" />
     <state x="2576" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1589416020245">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2576" y="344" key="com.intellij.ide.util.TipDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589416020245" />
-    <state x="738" y="220" width="618" height="783" key="find.popup" timestamp="1589448102232">
-      <screen x="0" y="27" width="1920" height="985" />
-    </state>
-    <state x="738" y="220" width="618" height="783" key="find.popup/0.27.1920.985@0.27.1920.985" timestamp="1589448102232" />
     <state x="624" y="235" key="run.anything.popup" timestamp="1589196808748">
       <screen x="0" y="27" width="1920" height="985" />
     </state>

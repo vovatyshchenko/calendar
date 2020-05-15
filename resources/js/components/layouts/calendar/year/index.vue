@@ -37,7 +37,6 @@ export default {
       date = moment(date).format('YYYY-MM-DD');
       this.$store.commit('setDate', date);
       if (window.location.pathname != '/day') {
-        //this.$store.dispatch('set_calendar_page', '/day');
         this.$router.push('day');
       }
 
@@ -69,7 +68,6 @@ export default {
     justify-content: space-between;
   }
   .title {
-    padding-left: 30px;
     margin-bottom: 10px;
     text-transform: capitalize;
     font-weight: 500;
@@ -123,5 +121,8 @@ export default {
     margin: 0.02em;
     flex-grow: 1;
     flex-basis: 0;
+  }
+  .v-content__wrap {
+      background-color: #f5f5f5 !important;
   }
 </style>

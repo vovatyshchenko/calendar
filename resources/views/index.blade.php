@@ -5,11 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Календарь</title>
         <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix('/css/page.css') }}">
     </head>
-    <body class="p-0">
-    <div id="app">
-
-    </div>
+    <body>
+        <div id="app"></div>
     <script src="{{ mix('/js/app.js') }}"></script>
     </body>
 </html>

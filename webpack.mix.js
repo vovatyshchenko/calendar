@@ -29,3 +29,7 @@ mix.webpackConfig( webpackconfig );
 
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
+
+mix.styles([
+   'resources/sass/page.scss',
+], 'public/css/page.css');

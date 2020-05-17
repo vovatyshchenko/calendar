@@ -19,7 +19,9 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VeeValidate);
 Vue.use(Toaster, {timeout: 5000});
-Vue.component('user-block', require('./components/layouts/blocks/nav/user.vue').default);
+//header footer
+Vue.component('nav-block', require('./components/layouts/blocks/nav/index.vue').default);
+Vue.component('sidebar-block', require('./components/layouts/blocks/nav/sidebar.vue').default);
 Vue.component('footer-block', require('./components/layouts/blocks/footer/index.vue').default);
 //calrndars
 Vue.component('calendar-year', require('./components/layouts/calendar/year/index.vue').default);

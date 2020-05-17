@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Auth;
 
 class TaskSeeder extends Seeder
 {
@@ -13,7 +14,7 @@ class TaskSeeder extends Seeder
     {
         $values=[
             [   'id'=>1,
-                'user_id'=>'10',
+                'user_id'=>Auth::user()->id,
                 'parent_id'=>null,
                 'description'=>'Описание мероприятия1',
                 'name' => 'Название мероприятия1',
@@ -25,7 +26,7 @@ class TaskSeeder extends Seeder
             ],
             [   'id'=>2,
                 'parent_id'=>'1',
-                'user_id'=>'10',
+                'user_id'=>Auth::user()->id,
                 'description'=>'Описание мероприятия2',
                 'name' => 'Название мероприятия2',
                 'is_remind' => false,
@@ -37,7 +38,7 @@ class TaskSeeder extends Seeder
             [
                 'id'=>3,
                 'parent_id'=>'1',
-                'user_id'=>'10',
+                'user_id'=>Auth::user()->id,
                 'name' => 'Название мероприятия3',
                 'description'=>'Описание мероприятия2',
                 'is_remind' => true,

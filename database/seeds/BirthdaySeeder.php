@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Auth;
 
 class BirthdaySeeder extends Seeder
 {
@@ -13,7 +14,7 @@ class BirthdaySeeder extends Seeder
     {
         $values=[
             [
-                'user_id'=>'10',
+                'user_id'=>Auth::user()->id,
                 'name' => 'Название мероприятия1',
                 'is_remind' => true,
                 'is_remind_year'=>true,
@@ -21,7 +22,7 @@ class BirthdaySeeder extends Seeder
                 'date' => '2020-5-12',
             ],
             [
-                'user_id'=>'10',
+                'user_id'=>Auth::user()->id,
                 'name' => 'Название мероприятия2',
                 'is_remind' => true,
                 'is_remind_year'=>true,
@@ -29,7 +30,7 @@ class BirthdaySeeder extends Seeder
                 'date' => '2020-5-12',
             ],
             [
-                'user_id'=>'10',
+                'user_id'=>Auth::user()->id,
                 'name' => 'Название мероприятия3',
                 'is_remind' => true,
                 'is_remind_year'=>true,
@@ -37,7 +38,7 @@ class BirthdaySeeder extends Seeder
                 'date' => '2020-5-12',
             ],
             [
-                'user_id'=>'10',
+                'user_id'=>Auth::user()->id,
                 'name' => 'Название мероприятия4',
                 'is_remind' => true,
                 'is_remind_year'=>true,
@@ -45,7 +46,7 @@ class BirthdaySeeder extends Seeder
                 'date' => '2020-5-12',
             ],
             [
-                'user_id'=>'10',
+                'user_id'=>Auth::user()->id,
                 'name' => 'Название мероприятия4',
                 'is_remind' => true,
                 'is_remind_year'=>true,

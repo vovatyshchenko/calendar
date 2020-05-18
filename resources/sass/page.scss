@@ -257,7 +257,7 @@ footer a:hover{
 .social_block li:hover img{
     opacity: .8;
 }
-#side_menu li:not(.second_level-wrapper):hover a:not(.active) img {
+#side_menu li:hover a:not(.active):hover img {
     opacity: .8;
 }
 .footer_wrapper {
@@ -265,18 +265,4 @@ footer a:hover{
     background: #fff;
     padding-top: 48px;
 }
-.second_level-wrapper {
-    max-height: 68px;
-    margin-bottom: 0!important;
-    overflow: hidden;
-    transition: all .3s!important;
-    height: fit-content!important;
-}
-.second_level-wrapper a {
-    cursor: pointer;
-    max-height: 60px;
-    margin-bottom: 14px;
-}
-.second_level-open {
-    max-height: 250px;
-}
+

@@ -71,7 +71,7 @@
                     fullDate.setDate(fullDate.getDate()-1);
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear()-1);
-                    this.$store.dispatch('year_data');
+                    this.$store.dispatch('yearData');
                 }
                  else if (window.location.pathname == '/week') {
                     fullDate.setDate(fullDate.getDate()-7);
@@ -90,7 +90,7 @@
                     fullDate.setDate(fullDate.getDate()+1);
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear()+1);
-                    this.$store.dispatch('year_data');
+                    this.$store.dispatch('yearData');
                 }
                 else if (window.location.pathname == '/week') {
                     fullDate.setDate(fullDate.getDate()+7);

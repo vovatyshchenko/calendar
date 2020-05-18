@@ -25,7 +25,7 @@
             </li>
             <li class="active">
                 <a href="#">
-                    <img src="/img/ic_today.png" alt="logo">
+                    <img src="/img/ic_today_hover.png" alt="logo">
                     <span>Календарь</span>
                 </a>
             </li>
@@ -53,11 +53,9 @@
 
 <script >
     export default {
-        data: function () {
-            return {
-                sidebarOpen : false,
-            }
-        }
+        data: () => ({
+            sidebarOpen : false,
+        }),
     }
 </script>
 

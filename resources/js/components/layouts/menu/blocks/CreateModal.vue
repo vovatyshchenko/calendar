@@ -19,7 +19,7 @@
         <v-tabs-items v-model="tab">
             <v-tab-item>
                 <v-card-text>
-                    <activity-modal></activity-modal>
+                    <activity-modal :checkIsUpdate="checkIsUpdate"></activity-modal>
                 </v-card-text>
             </v-tab-item>
              <v-tab-item>
@@ -29,12 +29,12 @@
             </v-tab-item>
            <v-tab-item>
                 <v-card-text>
-                    <task-modal></task-modal>
+                    <task-modal :checkIsUpdate="checkIsUpdate"></task-modal>
                 </v-card-text>
             </v-tab-item>
             <v-tab-item>
                 <v-card-text>
-                    <bdays-modal></bdays-modal>
+                    <bdays-modal :checkIsUpdate="checkIsUpdate"></bdays-modal>
                 </v-card-text>
             </v-tab-item>
         </v-tabs-items>
@@ -46,6 +46,7 @@
 	export default {
         data: () => ({
             tab: null,
+            checkIsUpdate:false,
             items: [
                 'МЕРОПРИЯТИЕ', 'НАПОМИНАНИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',
             ],
@@ -61,6 +62,7 @@
                 this.$store.commit('changeShowModal')
             },
             getType(value) {
+                this.checkIsUpdate=true;
                  if (value == 'activity') {
                     this.tab = 0;
                 } else if (value == 'reminders') {
@@ -69,6 +71,7 @@
                     this.tab = 2;
                 } else if (value == 'birthday') {
                     this.tab = 3;
+
                 }
             }
         },

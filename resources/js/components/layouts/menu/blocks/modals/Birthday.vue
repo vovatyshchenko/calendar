@@ -1,5 +1,6 @@
 <template>
-    <form ref="createEvent" @submit.prevent="submit">
+    <form ref="createEvent"onsubmit="return false">
+        {{setValues}}
         <v-progress-linear :active="processing" indeterminate height="5" color="red darken-1"></v-progress-linear>
         <v-alert :value="error" type="warning">{{ error }}</v-alert>
         <div class="error-message" v-if="globalErrorMessasge">Заполните все обязательные поля</div>
@@ -79,7 +80,8 @@
         </v-col>
             <v-spacer></v-spacer>
             <div class="d-flex justify-content-between">
-                <v-btn type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
+                <v-btn v-if="!checkIsUpdate" @click="save" type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
+                <v-btn v-else  type="submit"  @click="update"  color="blue darken-2" dark large>Редактировать</v-btn>
                 <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
             </div>
     </form>
@@ -87,17 +89,21 @@
 
 <script>
 import validation from '../../../../../mixin/validation'
+import notification from '../../../../../mixin/eventNotifications'
 export default {
-    mixins: [validation],
+    props:['checkIsUpdate'],
+    mixins: [validation,notification],
     data: () => ({
         name:null,
         menu1: false,
-        dateStart: new Date().toISOString().substr(0, 10),
-        time: '00:00',
+        dateStart:null,
+        time: null,
         OpenTimeStart: false,
         openDataStart: false,
         allDay:false,
-        allYear:false
+        allYear:false,
+        checkUpdate:false,
+        id:false
     }),
     computed: {
         error() {
@@ -109,18 +115,20 @@ export default {
         status() {
             return this.$store.getters.getStatus;
         },
-    },
-    watch: {
-        status(value) {
-            if (value === true) {
-                this.$toaster.success('Данные успешно сохранены.');
-                this.$store.commit("setStatus", false);
-                this.$store.commit('changeShowModal');
-            }
-        }
+        statusUpdated() {
+            return this.$store.getters.getStatusUpdated;
+        },
+        setValues(){
+            this.name=this.$store.getters.getBirthday.name;
+            this.dateStart=this.$store.getters.getBirthday.date;
+            this.time=this.$store.getters.getBirthday.time;
+            this.allDay=this.$store.getters.getBirthday.allDay;
+            this.allYear=this.$store.getters.getBirthday.allYear;
+            this.id=this.$store.getters.getBirthday.id;
+        },
     },
     methods: {
-        submit () {
+        save () {
             this.$v.$touch()
             if (!this.nameErrors.length==0) {
                 this.$toaster.info('Будьте внимательны при заполнении полей.');
@@ -128,7 +136,23 @@ export default {
                 this.$store.dispatch('birthdayCreate', {
                     name: this.name,
                     time_start: this.time,
-                    date: this.dateStart,
+                    date: moment(this.dateStart).format('YYYY-MM-DD'),
+                    is_remind:this.allDay,
+                    is_remind_year:this.allYear,
+                });
+                this.clear();
+            }
+        },
+        update () {
+            this.$v.$touch()
+            if (!this.nameErrors.length==0) {
+                this.$toaster.info('Будьте внимательны при заполнении полей.');
+            } else {
+                this.$store.dispatch('birthdayUpdate', {
+                    id:this.id,
+                    name: this.name,
+                    time_start: this.time,
+                    date: moment(this.dateStart).format('YYYY-MM-DD'),
                     is_remind:this.allDay,
                     is_remind_year:this.allYear,
                 });
@@ -140,11 +164,7 @@ export default {
         },
         clear () {
             this.$v.$reset()
-            this.name = ''
-            this.time = '00:00'
-            this.dateStart = new Date().toISOString().substr(0, 10)
-            this.allDay = false
-            this.allYear = false
+            this.setValues;
         }
     },
 }

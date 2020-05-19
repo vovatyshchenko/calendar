@@ -7,7 +7,7 @@
             :nudge-width="200"
             :min-width="300"
             offset-x
-            :left="false"
+            :left="(setPosition==0)?true:false"
         >
             <template v-slot:activator="{ on }">
                <button class="event" v-on="on">{{item.name|cutText(15)}}</button>
@@ -35,11 +35,14 @@
                                 </div>
                             </div>
                         </v-dialog>
-                    <button class="create-btn" @click="changeShowModal()" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
+                    <button class="create-btn" @click="changeShowModal(item)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
                     <button class="create-btn clear" @click="menu = false"><img src="../../../../../../public/img/icon/clear.svg" alt="Clear"></button>
                 </div>
-                <div>
-                    {{item.name}}
+                <div class="container-event">
+                    <div class="text">
+                        {{item.name}}
+                    </div>
+                    {{currentDate}}
                 </div>
             </v-card>
         </v-menu>
@@ -48,12 +51,14 @@
 
 <script>
     export default {
-        props: ['item', 'index'],
+        props: ['item', 'index','date','getDate'],
         name: "CellItem",
         data() {
             return {
                 menu: false,
                 dialog: false,
+                getDay:null,
+                dateForModal:null
             }
         },
         computed: {
@@ -66,10 +71,30 @@
             statusDelete() {
                 return this.$store.getters.setStatusDelete;
             },
+            currentDate() {
+                let parseDate = this.date.split("-");
+               let dateCurrent = new Date(parseDate[0],parseDate[1]-1,parseDate[2]);
+                let months = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "ментября", "октября", "ноября","декабря"]
+                let days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+                this.getDay=dateCurrent.getDay();
+                return days[dateCurrent.getDay()]+","+parseDate[2]+' '+months[parseDate[1]-1]
+
+            },
+            setPosition()
+            {
+                return this.getDay;
+            }
         },
         methods: {
-            changeShowModal() {
+            changeShowModal(event) {
                 this.$store.commit('changeShowModal');
+                if (event.type == 'birthday') {
+                    this.$store.dispatch('getBirthday',event.id );
+                } else if (event.type == 'activity') {
+                    this.$store.dispatch('getActivity',event.id );
+                } else if (event.type == 'task') {
+                    this.$store.dispatch('getTask',event.id );
+                }
                 this.$eventBus.$emit('type', this.item.type);
                 this.menu = false;
             },
@@ -83,21 +108,34 @@
                 }
             }
         },
+        created(){
+
+        },
         watch: {
             statusDelete(value) {
                 if (value === true) {
-                    this.$toaster.success('Даннык успешно сохраненыw.');
+                    this.$toaster.success('Данные успешно удалены');
                     this.dialog = false;
                     this.menu = false;
                     this.$store.commit("setStatusDelete", false);
                 }
             }
         },
-
     }
 </script>
 
 <style scoped>
+    .container-event
+    {
+        margin: 6px 14px 0 20px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 30px;
+        /* identical to box height, or 214% */
+        color: #000000;
+    }
     .clear{
     margin-left: 10px;
     }
@@ -115,6 +153,9 @@
         box-sizing: border-box;
         border-radius: 3px;
         color: #B3B3B3;
+    }
+    .text{
+
     }
     .ok:hover,.close:hover
     {

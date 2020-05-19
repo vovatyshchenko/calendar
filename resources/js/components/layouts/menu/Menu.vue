@@ -50,6 +50,9 @@
             year:new Date().getFullYear(),
         }),
         methods: {
+            getDayRoute(value){
+                this.route = value;
+            },
             today(){
                 this.$store.commit('setDate', new Date);
                 this.$store.commit('setDatePicker', new Date);
@@ -63,7 +66,6 @@
             },
             set_route() {
                 this.$store.dispatch('set_calendar_page', this.route);
-                //this.$router.push({ path: this.$store.getters.calendar_route });
             },
             minus_date() {
                 let fullDate=this.$store.getters.menuDate;
@@ -122,10 +124,13 @@
             current_route() {
                 return this.$store.getters.calendar_route;
             },
-
         },
         created(){
             this.$store.dispatch('getHolidays', {year:this.year});
+            this.$eventBus.$on('currentRoute', this.getDayRoute);
+        },
+        beforeDestroy() {
+            this.$eventBus.$off('currentRoute');
         },
         watch: {
             current_route(value) {
@@ -135,7 +140,7 @@
             },
             year(){
                 this.$store.dispatch('getHolidays',{year:this.year});
-            }
+            },
         },
 
     }

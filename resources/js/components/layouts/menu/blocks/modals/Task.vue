@@ -41,6 +41,7 @@
                                 :value="computedDateFormattedMomentjs"
                                 readonly
                                 outlined
+                                :disabled="isRemind"
                                 append-icon="keyboard_arrow_down"
                                 v-on="on"
                             ></v-text-field>
@@ -70,6 +71,7 @@
                         v-model="timeStart"
                         readonly
                         outlined
+                        :disabled="isRemind"
                         append-icon="keyboard_arrow_down"
                         v-on="on"
                     ></v-text-field>
@@ -96,6 +98,7 @@
                             <v-text-field
                                 :value="computedDateFormattedMomentjsForEnd"
                                 outlined
+                                :disabled="isRemind"
                                 append-icon="keyboard_arrow_down"
                                 readonly
                                 v-on="on"
@@ -126,6 +129,7 @@
                         v-model="timeEnd"
                         readonly
                         outlined
+                        :disabled="isRemind"
                         append-icon="keyboard_arrow_down"
                         v-on="on"
                     ></v-text-field>

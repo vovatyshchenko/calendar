@@ -51,7 +51,8 @@ export default {
       date = moment(date).format('YYYY-MM-DD');
       this.$store.commit('setDate', date);
       if (window.location.pathname != '/day') {
-        this.$router.push('day');
+        this.$eventBus.$emit('currentRoute', '/day');
+        this.$store.commit('set_route', '/day');
       }
 
     },

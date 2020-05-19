@@ -73,7 +73,8 @@
                 // this.$store.dispatch('getEvents',{date_start:formatCurrentDate, date_end:formatCurrentDate});
 
                 if (window.location.pathname != '/day'){
-                    this.$router.push('day');
+                    this.$eventBus.$emit('currentRoute', '/day');
+                    this.$store.commit('set_route', '/day');
                 }
             },
             currentDate(date){

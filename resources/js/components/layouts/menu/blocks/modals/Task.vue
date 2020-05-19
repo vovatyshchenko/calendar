@@ -150,9 +150,9 @@
 
 <script>
     import validation from '../../../../../mixin/validation'
-    import notification from "../../../../../mixin/eventNotifications";
+    import notification from '../../../../../mixin/eventNotifications'
 export default {
-    props:['checkIsUpdate'],
+
     mixins: [validation,notification],
         data: () => ({
             name:null,
@@ -169,6 +169,10 @@ export default {
             isRemind:false
         }),
         computed: {
+            checkIsUpdate()
+            {
+                return this.$store.getters.isUpdateTask;
+            },
             error() {
                 return this.$store.getters.get_error;
             },
@@ -227,11 +231,14 @@ export default {
                 }
             },
             closeModal() {
+                this.clear();
                 this.$store.commit('changeShowModal');
             },
             clear () {
                 this.$v.$reset()
-                this.setValues;
+                this.$store.commit('setIsUpdateTask',false);
+                this.$store.commit('setTaskValuesDefoult');
+
             },
         },
 }

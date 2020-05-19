@@ -13,6 +13,9 @@ export default {
             allYear:false,
             id:null,
         },
+        isUpdateBirthday:false,
+        isUpdateActive:false,
+        isUpdateTask:false,
         activity:{
             name:null,
             dateStart:moment(new Date()).format('YYYY-MM-DD'),
@@ -30,6 +33,7 @@ export default {
             dateEnd:moment(new Date()).format('YYYY-MM-DD'),
             timeStart: '00:00',
             timeEnd: '00:00',
+            isRemind:false,
             about:null,
             id:null,
         },
@@ -39,9 +43,17 @@ export default {
         setEvents(state, payload) {
             state.events = payload;
         },
-        setStatusDelete(state, payload)
+        setIsUpdateBirthday(state, payload)
         {
-            state.statusDelete = payload;
+            state.isUpdateBirthday = payload;
+        },
+        setIsUpdateActive(state, payload)
+        {
+            state.isUpdateActive = payload;
+        },
+        setIsUpdateTask(state, payload)
+        {
+            state.isUpdateTask = payload;
         },
         setStatus(state, payload) {
             state.status = payload
@@ -60,7 +72,7 @@ export default {
         },
         setTaskValues(state,payload)
         {
-            state.task.name = payload.name
+            state.task.name = payload.name,
             state.task.dateStart= payload.date_start,
             state.task.dateEnd=payload.date_end,
             state.task.about=payload.description,
@@ -68,6 +80,18 @@ export default {
             state.task.timeEnd=payload.time_end,
             state.task.isRemind=payload.is_remind,
             state.task.id=payload.id
+        },
+        setTaskValuesDefoult(state)
+        {
+
+            state.task.name = null,
+            state.task.dateStart=moment(new Date()).format('YYYY-MM-DD'),
+            state.task.dateEnd=moment(new Date()).format('YYYY-MM-DD'),
+            state.task.about=null,
+            state.task.timeStart='00:00',
+            state.task.timeEnd='00:00',
+            state.task.isRemind=null,
+            state.task.id=null
         },
         setBirthdayValues(state,payload)
         {
@@ -78,6 +102,15 @@ export default {
             state.birthday.allYear=payload.is_remind_year,
             state.birthday.id=payload.id
         },
+        setBirthdayValuesDefoult(state,payload)
+        {
+            state.birthday.name = null,
+            state.birthday.date= moment(new Date()).format('YYYY-MM-DD'),
+            state.birthday.time='00:00',
+            state.birthday.allDay=false,
+            state.birthday.allYear=false,
+            state.birthday.id=null
+    },
         setActivityValues(state,payload)
         {
             state.activity.name = payload.name
@@ -89,6 +122,18 @@ export default {
             state.activity.timeStart=payload.time_start,
             state.activity.timeEnd=payload.time_end,
             state.activity.id=payload.id
+        },
+        setActivityValuesDefoult(state)
+        {
+            state.activity.name = null,
+            state.activity.dateStart= moment(new Date()).format('YYYY-MM-DD'),
+            state.activity.dateEnd=moment(new Date()).format('YYYY-MM-DD'),
+            state.activity.guests=null,
+            state.activity.location=null,
+            state.activity.description=null,
+            state.activity.timeStart='00:00',
+            state.activity.timeEnd='00:00',
+            state.activity.id=null
         }
     },
     actions: {
@@ -294,7 +339,10 @@ export default {
         getBirthday:(state)=>state.birthday,
         getActivity:(state)=>state.activity,
         getTask:(state)=>state.task,
+        isUpdateBirthday:(state)=>state.isUpdateBirthday,
+        isUpdateActive:(state)=>state.isUpdateActive,
         // getBirthdayDate:(state)=>state.birthday.date,
-        getStatusUpdated:state=>state.statusUpdated
+        getStatusUpdated:state=>state.statusUpdated,
+        isUpdateTask:(state)=>state.isUpdateTask
     }
 }

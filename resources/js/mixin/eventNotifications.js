@@ -5,6 +5,9 @@ export default {
 
         }
     },
+    computed:{
+
+    },
     watch: {
         status(value) {
             if (value === true) {

@@ -170,7 +170,6 @@
     import notification from '../../../../../mixin/eventNotifications'
     export default {
         mixins: [validation,notification],
-        props:['checkIsUpdate'],
         data: () => ({
             name:null,
             menu1: false,
@@ -187,6 +186,10 @@
             description:null,
         }),
         computed: {
+            checkIsUpdate()
+            {
+                return this.$store.getters.isUpdateActive;
+            },
             error() {
                 return this.$store.getters.get_error;
             },
@@ -254,11 +257,14 @@
                 }
             },
             closeModal() {
+                this.clear();
                 this.$store.commit('changeShowModal');
             },
             clear () {
                 this.$v.$reset()
-                this.setValues;
+                this.$store.commit('setIsUpdateActive',false);
+                this.$store.commit('setActivityValuesDefoult');
+
             },
         },
         mounted() {

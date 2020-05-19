@@ -91,7 +91,7 @@
 import validation from '../../../../../mixin/validation'
 import notification from '../../../../../mixin/eventNotifications'
 export default {
-    props:['checkIsUpdate'],
+
     mixins: [validation,notification],
     data: () => ({
         name:null,
@@ -106,6 +106,10 @@ export default {
         id:false
     }),
     computed: {
+        checkIsUpdate()
+        {
+            return this.$store.getters.isUpdateBirthday;
+        },
         error() {
             return this.$store.getters.get_error;
         },
@@ -125,6 +129,7 @@ export default {
             this.allDay=this.$store.getters.getBirthday.allDay;
             this.allYear=this.$store.getters.getBirthday.allYear;
             this.id=this.$store.getters.getBirthday.id;
+            console.log(this.$store.getters.getBirthday);
         },
     },
     methods: {
@@ -160,11 +165,14 @@ export default {
             }
         },
         closeModal() {
+
             this.$store.commit('changeShowModal');
+            this.clear();
         },
         clear () {
-            this.$v.$reset()
-            this.setValues;
+            this.$v.$reset();
+            this.$store.commit('setIsUpdateBirthday',false);
+            this.$store.commit('setBirthdayValuesDefoult');
         }
     },
 }

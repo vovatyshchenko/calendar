@@ -1,24 +1,6 @@
 <template>
     <div>
         <div class="Cell">
-
-            <div v-for="(item,index) in Events">
-                <cell-item v-if="index<2" :index="index" :item="item"></cell-item>
-            </div>
-            <div>
-                <div v-if="Events?Events.length>2:''" class="text-center">
-                    <v-menu top :close-on-click="closeOnClick">
-                        <template v-slot:activator="{ on }">
-                            <button class="dropdown-event" v-on="on">Еще</button>
-                        </template>
-                        <v-list>
-                            <div v-for="(item,index) in Events">
-                                <cell-item v-if="index>1" :item="item"></cell-item>
-                            </div>
-                        </v-list>
-                    </v-menu>
-                </div>
-            </div>
             <div class="d-flex flex-column">
                <span class="date">
                    <span class="number">
@@ -31,6 +13,31 @@
                        <span v-else>{{currentDate}}</span>
                    </span>
                </span>
+            </div>
+            <div v-for="(item,index) in еvents">
+                <cell-item :date="date" v-if="index<2" :index="index" :item="item"></cell-item>
+            </div>
+            <div>
+                <div v-if="еvents?displayEvents>2:''" class="text-center">
+                    <v-menu top :close-on-click="closeOnClick">
+                        <template v-slot:activator="{ on }">
+                            <button class="dropdown-event" v-on="on">Еще</button>
+                        </template>
+                        <v-list>
+                            <div class="d-flex justify-content-end">
+                                <div class="date">
+                                    {{dateForModal}}
+                                </div>
+                                <button class="delete" :close-on-click="closeOnClick">
+                                    <img src="../../../../../public/img/icon/clear.svg" alt="Close">
+                                </button>
+                              </div>
+                            <div v-for="(item,index) in еvents">
+                                <cell-item :date="date" v-if="index>1" :item="item"></cell-item>
+                            </div>
+                        </v-list>
+                    </v-menu>
+                </div>
             </div>
         </div>
     </div>
@@ -55,6 +62,7 @@
                 menu2: false,
                 message: false,
                 hints: true,
+                dateModal:null
             }
         },
         methods: {
@@ -71,6 +79,8 @@
                 let parseDate = this.dateForMonth.split("-");
                 this.dateForEvents = moment(parseDate[0] + '-' + parseDate[1] + '-' + parseDate[2]).format('YYYY-MM-DD');
                 let months = ["Декабря", "Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября"]
+                let daysAbbreviation=['ВC', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+                this.dateModal=daysAbbreviation[new Date(this.dateForEvents).getDay()]+' '+parseDate[2];
                 let dateForCalendar = "";
                 if (parseDate[2] == '1') {
                     if (parseDate[1] == 12) {
@@ -83,15 +93,31 @@
                 }
                 return dateForCalendar;
             },
-            Events() {
-                console.log(this.$store.getters.events);
+            displayEvents()
+            {
+                if(typeof(this.еvents)=='object')
+                {
+                    return Object.keys(this.еvents).length
+                }
+
+            },
+            еvents()
+            {
                 return this.$store.getters.events[this.dateForEvents];
             },
+            dateForModal()
+            {
+                return this.dateModal;
+            }
         },
     }
 </script>
 
 <style scoped>
+    .delete {
+        margin-right:9px;
+        margin-left:28px;
+    }
     .dropdown-event {
         height: 30px;
         width: 150px;

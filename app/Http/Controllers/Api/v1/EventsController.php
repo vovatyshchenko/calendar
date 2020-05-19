@@ -8,6 +8,7 @@ use App\Models\Birthday;
 use App\Models\Event;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class EventsController extends Controller
 {
@@ -28,12 +29,65 @@ class EventsController extends Controller
         {
             $birthdays[$key]->type='birthday';
         }
+        $events=[];
+        $events=$this->dataFormattingEvent(collect($activities)->groupBy('date_start'),$events);
+        $events=$this->dataFormattingEvent(collect($tasks)->groupBy('date_start'),$events);
+        $events= $this->rangeEventDays($events);
+        $events=$this->dataFormattingEvent(collect($birthdays)->groupBy('date'),$events);
 
-        $events=['activities'=>collect($activities)->groupBy('date_start'),
-            'tasks'=>collect($tasks)->groupBy('date_start'),
-            'birthdays'=>collect($birthdays)->groupBy('date')
-        ];
+        $sortedEvents=$this->sortedEvent($events);
+
+        return $sortedEvents;
+    }
+
+    public function dataFormattingEvent($event,$events)
+    {
+        foreach($event as $key=>$element)
+        {
+            $key=explode(' ',$key)[0];
+            foreach ($element as $el)
+            {
+                $events[$key]?? $events[$key]=[];
+
+                array_push($events[$key],$el);
+            }
+        }
+        return  $events;
+    }
+    public function sortedEvent($events)
+    {
+
+        foreach ($events as $key=>$event)
+        {
+            $events[$key]=collect($event)->sortBy('time_start')->values();
+        }
+        return collect($events);
+    }
+    public function rangeEventDays($events)
+    {
+
+        foreach ($events as $key=>$event)
+        {
+            foreach ($event as $elementKey=>$element )
+            {
+
+                $start  = new Carbon($element->date_start);
+                $end  = new Carbon($element->date_end);
+                $difference=$start->diffInDays($end);
+
+                for ($day=1;$day<=$difference;$day++)
+                {
+                    $date=date('Y-m-d', strtotime($element->date_start. " +". $day." day"));
+
+                    $events[$date]?? $events[$date]=[];
+
+                    array_push( $events[$date],$event[$elementKey]);
+                }
+            }
+
+        }
 
         return $events;
     }
 }
+

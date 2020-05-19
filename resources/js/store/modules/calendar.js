@@ -4,38 +4,69 @@ export default {
         days: null,
     },
     mutations: {
-        set_year(state, payload) {
+        setYear(state, payload) {
             state.data = payload;
         },
-        set_days(state, payload) {
+        setDays(state, payload) {
             state.days = payload;
         },
     },
     actions: {
-        year_data({ commit, getters }) {
+        yearData({ commit, getters }) {
             let data = [];
-            let holiday = '';
             let year = getters.menuDate.getFullYear();
+            let holiday = '';
+            let event = getters.events;
+            let objLength = Object.keys(event).length;
+
             for (let m = 0; m < 12; m++) {
               let day = moment({ year: year, month: m, day: 1 });// формируем дату на первый день каждого месяца
-              let days_in_month = day.daysInMonth(); // количество дней в месяце
+              let daysInMonth = day.daysInMonth(); // количество дней в месяце
               // готовим объект месяца
               let month = { 
                 title: day.format("MMMM"),
                 weeks: {},
               };
               // итерируем по количеству дней в месяце
-              for (let d = 0; d < days_in_month; d++) {
+              for (let d = 0; d < daysInMonth; d++) {
                 holiday = '';
-                if (getters.holidays[m + 1]) { //проверяем есть ли праздник на текущий месяц (который итерируется)
+                if (getters.holidays[m + 1]) { // проверяем есть ли праздник на текущий месяц (который итерируется)
                   if (getters.holidays[m + 1][d + 1]) { //+1 к месяцу и дню moment ведет нумерация с 0, а нам нужно с 1 так с api приходит
                     holiday = getters.holidays[m + 1][d + 1].localName;
                   }
                 }
+                // получаем и записываем наши мероприятия, напоминания, задачи, дни рождения  в календарь
+                let nameActivity = [];
+                let nameReminder = [];
+                let nameTask = [];
+                let nameBirthday = [];
+
+                if (getters.events && objLength > 0) {
+                  let currentDate = moment(year +'-'+ (m + 1) +'-'+ (d + 1)).format('YYYY-MM-DD');
+
+                  if (event[currentDate]) {
+                    for (let i = 0; i < event[currentDate].length; i++){
+
+                      if (event[currentDate][i].type == 'activity') {
+                        nameActivity.push(event[currentDate][i].name);
+                      }
+
+                      if (event[currentDate][i].type == 'reminder') {
+                        nameReminder.push(event[currentDate][i].name);
+                      }
+
+                      if (event[currentDate][i].type == 'task') {
+                        nameTask.push(event[currentDate][i].name);
+                      }
+
+                      if (event[currentDate][i].type == 'birthday') {
+                        nameBirthday.push(event[currentDate][i].name);
+                      }
+                    }
+                  }
+                }
                 let week = day.week();
-                // небольшой хак, момент считает
-                // последние дни декабря за первую неделю,
-                // но мне надо чтобы считалось за 53
+                // moment считает последние дни декабря за первую неделю, но мне надо чтобы считалось за 53
                 if (m === 11 && week === 1) {
                   week = 53
                 }
@@ -46,14 +77,16 @@ export default {
                 if (!month.weeks.hasOwnProperty(week)) {
                   month.weeks[week] = {}
                 }
-                // добавляем день, у weekday() нумерация с нуля,
-                // поэтому добавляю единицу, можно и не добавлять,
-                // но так будет удобнее
-
+                // добавляем день, у weekday() нумерация с нуля, поэтому добавляю единицу - так будет удобнее
                 month.weeks[week][day.weekday() + 1] = {
                   date: day.toDate(),
                   holiday: holiday,
-
+                  events: {
+                    activitys: nameActivity,
+                    reminders: nameReminder,
+                    tasks: nameTask,
+                    birthdays: nameBirthday,
+                  }
                 };
                 // итерируем день на единицу, moment мутирует исходное значение
                 day.add(1, 'd');
@@ -61,18 +94,18 @@ export default {
               // добавлям данные по месяцу в год
               data.push(month);
             }
-            return commit('set_year', data);
+            return commit('setYear', data);
           },
-          week_days({ commit }) { // дни недели
+          weekDays({ commit }) { // дни недели
             let days = [];
             for(let i = 1; i<=7; i++) {
               days.push(moment().isoWeekday(i).format("dd"))
             }
-            commit('set_days', days);
+            commit('setDays', days);
           },
     },
     getters: {
-        get_days: (state)=>state.days, 
-        get_year: (state)=>state.data,
+        getDays: (state)=>state.days, 
+        getYear: (state)=>state.data,
     }
   }

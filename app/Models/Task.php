@@ -16,7 +16,7 @@ class Task extends Model
     {
         return DB::table('tasks')
             ->where('date_start','>=',$dateStart)
-            ->where('user_id','=',Auth::user()->id)
+            ->where('user_id','=',/*Auth::user()->id*/10)
             ->where('date_end','<=',$dateEnd)
             ->get();
     }

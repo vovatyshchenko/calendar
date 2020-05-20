@@ -9,7 +9,7 @@
                             :class="userMenuOpen ? 'user_menu-opened' : ''">
                             <ul class="user_menu">
                                 <li>
-                                    <a href="#">Выход</a>
+                                    <b-btn @click="logout()">Выход</b-btn>
                                 </li>
                             </ul>
                         </div>
@@ -56,6 +56,12 @@
             closeMenu() {
                 this.userMenuOpen = false;
             },
+            logout()
+            {
+                axios.get('/logout');
+                axios.get('https://team1-group-project.azurewebsites.net/api/client_logout' , { headers: {Authorization: "Bearer " + 'b369f2d3f4c81bc5c602382e23272328fbded345e157307204577404f72401f97d9eb19b87b0d010'}})
+                    .then(r => location.href= r.data)
+            }
         }
     }
 </script>

@@ -1,5 +1,6 @@
 <template>
-    <form ref="createEvent"  @submit.prevent="submit">
+    <form ref="createEvent"  onsubmit="return false">
+        {{setValues}}
         <v-progress-linear :active="processing" indeterminate height="5" color="red darken-1"></v-progress-linear>
         <v-alert :value="error" type="warning">{{ error }}</v-alert>
         <div class="error-message" v-if="globalErrorMessasge">Заполните все обязательные поля</div>
@@ -71,7 +72,7 @@
             </div>
             <v-menu
                 ref="start"
-                v-model="OpenTimeStart"
+                v-model="openTimeStart"
                 :close-on-content-click="false"
                 :nudge-right="40"
                 :return-value.sync="timeStart"
@@ -92,7 +93,7 @@
                 </template>
                 <v-time-picker
                     format="24hr"
-                    v-if="OpenTimeStart"
+                    v-if="openTimeStart"
                     v-model="timeStart"
                     full-width
                     @click:minute="$refs.start.save(timeStart)"
@@ -127,7 +128,7 @@
             </div>
             <v-menu
                 ref="end"
-                v-model="OpenTimeEnd"
+                v-model="openTimeEnd"
                 :close-on-content-click="false"
                 :nudge-right="40"
                 :return-value.sync="timeEnd"
@@ -148,7 +149,7 @@
                 </template>
                 <v-time-picker
                     format="24hr"
-                    v-if="OpenTimeEnd"
+                    v-if="openTimeEnd"
                     v-model="timeEnd"
                     full-width
                     @click:minute="$refs.end.save(timeEnd)"
@@ -157,7 +158,8 @@
         </div>
             <v-spacer></v-spacer>
             <div class="d-flex justify-content-between">
-                <v-btn type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
+                <v-btn v-if="!checkIsUpdate" @click="save" type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
+                <v-btn v-else  type="submit"  @click="update"  color="blue darken-2" dark large>Редактировать</v-btn>
                 <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
             </div>
     </form>
@@ -165,24 +167,29 @@
 
 <script>
     import validation from '../../../../../mixin/validation'
+    import notification from '../../../../../mixin/eventNotifications'
     export default {
-        mixins: [validation],
+        mixins: [validation,notification],
         data: () => ({
             name:null,
             menu1: false,
-            dateStart: new Date().toISOString().substr(0, 10),
-            dateEnd: new Date().toISOString().substr(0, 10),
+            dateStart: null,
+            dateEnd: null,
             guests:null,
             location:null,
-            timeStart: '00:00',
-            timeEnd: '00:00',
-            OpenTimeStart: false,
+            timeStart:null,
+            timeEnd: null,
+            openTimeStart: false,
             openDataStart: false,
-            OpenTimeEnd: false,
+            openTimeEnd: false,
             openDataEnd: false,
             description:null,
         }),
-         computed: {
+        computed: {
+            checkIsUpdate()
+            {
+                return this.$store.getters.isUpdateActive;
+            },
             error() {
                 return this.$store.getters.get_error;
             },
@@ -192,18 +199,21 @@
             status() {
                 return this.$store.getters.getStatus;
             },
-        },
-        watch: {
-            status(value) {
-                if (value == true) {
-                    this.$toaster.success('Данные успешно сохранены.');
-                    this.$store.commit("setStatus", false);
-                    this.$store.commit('changeShowModal');
-                }
-            }
+             setValues(){
+                 this.name=this.$store.getters.getActivity.name;
+                 this.dateStart=this.$store.getters.getActivity.dateStart
+                 this.dateEnd=this.$store.getters.getActivity.dateEnd;
+                 this.guests=this.$store.getters.getActivity.guests;
+                 this.timeStart=this.$store.getters.getActivity.timeStart;
+                 this.timeEnd=this.$store.getters.getActivity.timeEnd;
+                 this.description=this.$store.getters.getActivity.description;
+                 this.location=this.$store.getters.getActivity.description;
+                 this.id=this.$store.getters.getActivity.id;
+             },
+
         },
         methods: {
-            submit () {
+            save () {
                 this.$v.$touch()
                 if (!this.nameErrors.length==0 ||
                     !this.guestsErrors.length==0||
@@ -226,20 +236,41 @@
                         this.clear()
                 }
             },
+            update () {
+                this.$v.$touch()
+                if (!this.nameErrors.length==0) {
+                    this.$toaster.info('Будьте внимательны при заполнении полей.');
+                } else {
+                    this.$store.dispatch('activityUpdate', {
+                        id:this.id,
+                        name: this.name,
+                        guests: this.guests,
+                        location:this.location,
+                        description: this.description,
+                        time_start: this.timeStart,
+                        time_end: this.timeEnd,
+                        date_end:moment(this.dateEnd).format('YYYY-MM-DD') ,
+                        date_start:moment(this.dateStart).format('YYYY-MM-DD')
+
+                    });
+                    this.clear();
+                }
+            },
             closeModal() {
+                this.clear();
                 this.$store.commit('changeShowModal');
             },
             clear () {
                 this.$v.$reset()
-                this.name = ''
-                this.guests=''
-                this.description=''
-                this.location=''
-                this.email = ''
-                this.select = null
-                this.checkbox = false
+                this.$store.commit('setIsUpdateActive',false);
+                this.$store.commit('setActivityValuesDefoult');
+
             },
         },
+        mounted() {
+            // this.guests=this.$store.getters.getTest;
+            console.log(this.guests);
+        }
     }
 </script>
 <style scoped>

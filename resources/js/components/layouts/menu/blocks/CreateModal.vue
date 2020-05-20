@@ -19,7 +19,7 @@
         <v-tabs-items v-model="tab">
             <v-tab-item>
                 <v-card-text>
-                    <activity-modal></activity-modal>
+                    <activity-modal ></activity-modal>
                 </v-card-text>
             </v-tab-item>
              <v-tab-item>
@@ -46,6 +46,9 @@
 	export default {
         data: () => ({
             tab: null,
+            checkIsUpdateActivity:false,
+            checkIsUpdateTask:false,
+            checkIsUpdateBirthday:false,
             items: [
                 'МЕРОПРИЯТИЕ', 'НАПОМИНАНИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',
             ],
@@ -61,14 +64,19 @@
                 this.$store.commit('changeShowModal')
             },
             getType(value) {
+
                  if (value == 'activity') {
                     this.tab = 0;
+                     this.$store.commit('setIsUpdateActive',true);
                 } else if (value == 'reminders') {
                     this.tab = 1;
                 } else if (value == 'task') {
                     this.tab = 2;
+                     this.$store.commit('setIsUpdateTask',true);
                 } else if (value == 'birthday') {
+                     this.$store.commit('setIsUpdateBirthday',true);
                     this.tab = 3;
+
                 }
             }
         },

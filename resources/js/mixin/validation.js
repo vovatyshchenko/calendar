@@ -15,7 +15,7 @@ export default {
         select: { required },
         location: { required },
         description: { required },
-        dateStart:{required},
+        dateStart:{required,},
         dateEnd:{required},
         checkbox: {
             checked (val) {

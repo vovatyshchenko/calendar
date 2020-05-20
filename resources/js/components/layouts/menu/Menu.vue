@@ -31,10 +31,10 @@
 
             <div class="select-calendar">
                 <select name="select" v-model="route" @click="set_route()" data-icon="mdi-arrow-left">
-                    <option value="/" :selected="'/'==selectedType?true : false">Месяц</option>
-                    <option value="/day" :selected="'/day'==selectedType?true : false">День</option>
-                    <option value="/week" :selected="'/week'==selectedType?true : false">Неделя</option>
-                    <option value="/year" :selected="'/year'==selectedType?true : false">Год</option>
+                    <option value="/">Месяц</option>
+                    <option value="/day">День</option>
+                    <option value="/week">Неделя</option>
+                    <option value="/year">Год</option>
                 </select>
             </div>
         </v-app-bar>
@@ -50,6 +50,9 @@
             year:new Date().getFullYear(),
         }),
         methods: {
+            getDayRoute(value){
+                this.route = value;
+            },
             today(){
                 this.$store.commit('setDate', new Date);
                 this.$store.commit('setDatePicker', new Date);
@@ -63,7 +66,6 @@
             },
             set_route() {
                 this.$store.dispatch('set_calendar_page', this.route);
-                //this.$router.push({ path: this.$store.getters.calendar_route });
             },
             minus_date() {
                 let fullDate=this.$store.getters.menuDate;
@@ -71,7 +73,7 @@
                     fullDate.setDate(fullDate.getDate()-1);
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear()-1);
-                    this.$store.dispatch('year_data');
+                    this.$store.dispatch('yearData');
                 }
                  else if (window.location.pathname == '/week') {
                     fullDate.setDate(fullDate.getDate()-7);
@@ -90,7 +92,7 @@
                     fullDate.setDate(fullDate.getDate()+1);
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear()+1);
-                    this.$store.dispatch('year_data');
+                    this.$store.dispatch('yearData');
                 }
                 else if (window.location.pathname == '/week') {
                     fullDate.setDate(fullDate.getDate()+7);
@@ -134,14 +136,13 @@
             current_route() {
                 return this.$store.getters.calendar_route;
             },
-            selectedType () {
-                let currentType = window.location.pathname;
-                this.$store.dispatch('set_calendar_page', currentType);
-                return currentType;
-            }
         },
         created(){
             this.$store.dispatch('getHolidays', {year:this.year});
+            this.$eventBus.$on('currentRoute', this.getDayRoute);
+        },
+        beforeDestroy() {
+            this.$eventBus.$off('currentRoute');
         },
         watch: {
             current_route(value) {
@@ -151,7 +152,7 @@
             },
             year(){
                 this.$store.dispatch('getHolidays',{year:this.year});
-            }
+            },
         },
 
     }

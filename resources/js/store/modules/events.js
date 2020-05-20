@@ -2,68 +2,146 @@ export default {
     state: {
         events: {},
         statusDelete:false,
+        status: false,
+        startDate:null,
+        endDate:null,
+        birthday:{
+            name:null,
+            date:moment(new Date()).format('YYYY-MM-DD'),
+            time:'00:00',
+            allDay:false,
+            allYear:false,
+            id:null,
+        },
+        isUpdateBirthday:false,
+        isUpdateActive:false,
+        isUpdateTask:false,
+        activity:{
+            name:null,
+            dateStart:moment(new Date()).format('YYYY-MM-DD'),
+            dateEnd:moment(new Date()).format('YYYY-MM-DD'),
+            guests:null,
+            location:null,
+            timeStart: '00:00',
+            timeEnd: '00:00',
+            description:null,
+            id:null,
+        },
+        task:{
+            name:null,
+            dateStart:moment(new Date()).format('YYYY-MM-DD'),
+            dateEnd:moment(new Date()).format('YYYY-MM-DD'),
+            timeStart: '00:00',
+            timeEnd: '00:00',
+            isRemind:false,
+            about:null,
+            id:null,
+        },
+        statusUpdated:false,
     },
     mutations: {
         setEvents(state, payload) {
             state.events = payload;
         },
-        setStatusDelete(state, payload)
+        setIsUpdateBirthday(state, payload)
         {
-            state.statusDelete = payload;
+            state.isUpdateBirthday = payload;
+        },
+        setIsUpdateActive(state, payload)
+        {
+            state.isUpdateActive = payload;
+        },
+        setIsUpdateTask(state, payload)
+        {
+            state.isUpdateTask = payload;
+        },
+        setStatus(state, payload) {
+            state.status = payload
+        },
+        setStatusUpdated(state, payload)
+        {
+            state.statusUpdated = payload;
+        },
+        setStartDate(state,payload)
+        {
+            state.startDate = payload
+        },
+        setEndDate(state,payload)
+        {
+            state.endDate = payload
+        },
+        setTaskValues(state,payload)
+        {
+            state.task.name = payload.name,
+            state.task.dateStart= payload.date_start,
+            state.task.dateEnd=payload.date_end,
+            state.task.about=payload.description,
+            state.task.timeStart=payload.time_start,
+            state.task.timeEnd=payload.time_end,
+            state.task.isRemind=payload.is_remind,
+            state.task.id=payload.id
+        },
+        setTaskValuesDefoult(state)
+        {
+
+            state.task.name = null,
+            state.task.dateStart=moment(new Date()).format('YYYY-MM-DD'),
+            state.task.dateEnd=moment(new Date()).format('YYYY-MM-DD'),
+            state.task.about=null,
+            state.task.timeStart='00:00',
+            state.task.timeEnd='00:00',
+            state.task.isRemind=null,
+            state.task.id=null
+        },
+        setBirthdayValues(state,payload)
+        {
+            state.birthday.name = payload.name
+            state.birthday.date= payload.date,
+            state.birthday.time=payload.time_start,
+            state.birthday.allDay=payload.is_remind,
+            state.birthday.allYear=payload.is_remind_year,
+            state.birthday.id=payload.id
+        },
+        setBirthdayValuesDefoult(state,payload)
+        {
+            state.birthday.name = null,
+            state.birthday.date= moment(new Date()).format('YYYY-MM-DD'),
+            state.birthday.time='00:00',
+            state.birthday.allDay=false,
+            state.birthday.allYear=false,
+            state.birthday.id=null
+    },
+        setActivityValues(state,payload)
+        {
+            state.activity.name = payload.name
+            state.activity.dateStart= payload.date_start,
+            state.activity.dateEnd=payload.date_end,
+            state.activity.guests=payload.guests,
+            state.activity.location=payload.location,
+            state.activity.description=payload.description,
+            state.activity.timeStart=payload.time_start,
+            state.activity.timeEnd=payload.time_end,
+            state.activity.id=payload.id
+        },
+        setActivityValuesDefoult(state)
+        {
+            state.activity.name = null,
+            state.activity.dateStart= moment(new Date()).format('YYYY-MM-DD'),
+            state.activity.dateEnd=moment(new Date()).format('YYYY-MM-DD'),
+            state.activity.guests=null,
+            state.activity.location=null,
+            state.activity.description=null,
+            state.activity.timeStart='00:00',
+            state.activity.timeEnd='00:00',
+            state.activity.id=null
         }
     },
     actions: {
         getEvents(context, event) {
             axios.post('/events', event)
                 .then(response => {
-                    let monthsEvents = {};
-                    _.each(response.data['birthdays'], function (value, key) {
-                        const day = moment(key).format('YYYY-MM-DD');
 
-                        _.each(value, function (val) {
-                            const birthdayKey = `birthday-${val.id}`;
-                            if (!_.has(monthsEvents, day)) {
-                                monthsEvents[day] = {
-                                    birthdayKey: val
-                                }
-                            } else {
-                                monthsEvents[day][birthdayKey] = val;
-                            }
-                        })
-                    });
-                    _.each(response.data['tasks'], function (value, key) {
-                        const day = moment(key).format('YYYY-MM-DD');
-
-                        _.each(value, function (val) {
-                            const taskKey = `task-${val.id}`;
-                            if (!_.has(monthsEvents, day)) {
-                                monthsEvents[day] = {
-                                    taskKey: val
-                                }
-                            } else {
-                                monthsEvents[day][taskKey] = val;
-                            }
-                        })
-                    });
-                    _.each(response.data['activities'], function (value, key) {
-                        const day = moment(key).format('YYYY-MM-DD');
-                        _.each(value, function (val) {
-                            const activityKey = `activity-${val.id}`;
-                            if (!_.has(monthsEvents, day)) {
-                                monthsEvents[day] = {
-                                    activityKey: val
-                                }
-                            } else {
-                                monthsEvents[day][activityKey] = val;
-                            }
-                        })
-                    });
-
-                    let sortedMonthEvents = {}
-                    _.each(monthsEvents, function (dayEvents, day) {
-                        sortedMonthEvents[day] = _.sortBy(dayEvents, ['time_start']);
-                    })
-                    context.commit('setEvents', sortedMonthEvents);
+                    context.commit('setEvents', response.data);
                     context.commit("clearError");
                     context.commit("setProcessing", false);
 
@@ -119,11 +197,152 @@ export default {
                     context.commit("setProcessing", false);
                     context.commit("setError", error);
                 })
-        }
+        },
+        getBirthday(context, id)
+        {
+            axios.get('/birthday/'+id)
+                .then(response => {
+                    context.commit('setBirthdayValues',response.data);
+                    // context.dispatch('setContactValue');
+                })
+                .catch(error => {
+
+                });
+        },
+        getActivity(context, id)
+        {
+            axios.get('/activity/'+id)
+                .then(response => {
+                    context.commit('setActivityValues',response.data);
+                })
+                .catch(error => {
+                });
+        },
+        getTask(context, id)
+        {
+            axios.get('/task/'+id)
+                .then(response => {
+                    context.commit('setTaskValues',response.data);
+                })
+                .catch(error => {
+                });
+        },
+        activityCreate ({ commit,dispatch,getters }, event){
+            commit("setProcessing", true);
+            axios.post('/create-activity',event)
+                .then(responce => {
+                    if (responce.data.message) {
+                        commit("setStatus", true);
+                        dispatch('getEvents',{date_start:getters.getStartDate,date_end:getters.getEndDate})
+                    }
+                    commit("clearError");
+                    commit("setProcessing", false);
+                })
+                .catch(error => {
+                    commit("setProcessing", false);
+                    commit("setStatus", false);
+                    commit("setError", error);
+                })
+        },
+        taskCreate ({ commit,dispatch,getters }, event){
+            commit("setProcessing", true);
+            axios.post('/create-task',event)
+                .then(responce => {
+                    if (responce.data.message) {
+                        commit("setStatus", true);
+                        dispatch('getEvents',{date_start:getters.getStartDate,date_end:getters.getEndDate})
+                    }
+                    commit("clearError");
+                    commit("setProcessing", false);
+                })
+                .catch(error => {
+                    commit("setProcessing", false);
+                    commit("setError", error);
+                })
+        },
+        birthdayCreate ({ commit,dispatch,getters}, birthday){
+            commit("setProcessing", true);
+            axios.post('/create-birthday',birthday)
+                .then(responce => {
+                    if (responce.data.message) {
+                        commit("setStatus", true);
+                        dispatch('getEvents',{date_start:getters.getStartDate,date_end:getters.getEndDate})
+                    }
+                    commit("clearError");
+                    commit("setProcessing", false);
+                })
+                .catch(error => {
+                    commit("setProcessing", false);
+                    commit("setStatus", false);
+                    commit("setError", error);
+                })
+        },
+        birthdayUpdate ({ commit,dispatch,getters}, birthday){
+            commit("setProcessing", true);
+            axios.put('/update-birthday',birthday)
+                .then(responce => {
+                    if (responce.data.message) {
+                        commit("setStatusUpdated", true);
+                        dispatch('getEvents',{date_start:getters.getStartDate,date_end:getters.getEndDate})
+                    }
+                    commit("clearError");
+                    commit("setProcessing", false);
+                })
+                .catch(error => {
+                    commit("setProcessing", false);
+                    commit("setStatusUpdated", false);
+                    commit("setError", error);
+                })
+        },
+        activityUpdate ({ commit,dispatch,getters}, activity){
+            commit("setProcessing", true);
+            axios.put('/update-activity',activity)
+                .then(responce => {
+                    if (responce.data.message) {
+                        commit("setStatusUpdated", true);
+                        dispatch('getEvents',{date_start:getters.getStartDate,date_end:getters.getEndDate})
+                    }
+                    commit("clearError");
+                    commit("setProcessing", false);
+                })
+                .catch(error => {
+                    commit("setProcessing", false);
+                    commit("setStatusUpdated", false);
+                    commit("setError", error);
+                })
+        },
+        taskUpdate ({ commit,dispatch,getters}, task){
+            commit("setProcessing", true);
+            axios.put('/update-task',task)
+                .then(responce => {
+                    if (responce.data.message) {
+                        commit("setStatusUpdated", true);
+                        dispatch('getEvents',{date_start:getters.getStartDate,date_end:getters.getEndDate})
+                    }
+                    commit("clearError");
+                    commit("setProcessing", false);
+                })
+                .catch(error => {
+                    commit("setProcessing", false);
+                    commit("setStatusUpdated", false);
+                    commit("setError", error);
+                })
+        },
     },
     getters: {
         events: state => state.events,
         type: state => state.type,
-        setStatusDelete:state=>state.statusDelete
+        setStatusDelete:state=>state.statusDelete,
+        getStatus: (state)=>state.status,
+        getStartDate: (state)=>state.startDate,
+        getEndDate: (state)=>state.endDate,
+        getBirthday:(state)=>state.birthday,
+        getActivity:(state)=>state.activity,
+        getTask:(state)=>state.task,
+        isUpdateBirthday:(state)=>state.isUpdateBirthday,
+        isUpdateActive:(state)=>state.isUpdateActive,
+        // getBirthdayDate:(state)=>state.birthday.date,
+        getStatusUpdated:state=>state.statusUpdated,
+        isUpdateTask:(state)=>state.isUpdateTask
     }
 }

@@ -10,7 +10,11 @@
         </div>
         <div class="week" v-for="week in month.weeks">
           <div class="day" v-for="day in 7">
-            <span :class="haveHolliday(week[day].holiday)?'holiday':'days'" v-if="week[day]" @dblclick="showHoliday(week[day].date)">{{ week[day].date.getDate() }}</span>
+            <span :class="(haveHolliday(week[day].holiday) || haveEvents(week[day].events))?'holiday':'days'"
+              v-if="week[day]"
+              @dblclick="showHoliday(week[day].date)">
+              {{ week[day].date.getDate() }}
+            </span>
           </div>
         </div>
       </div>
@@ -22,8 +26,8 @@
 export default {
   data: () => ({ }),
   created() {
-    this.$store.dispatch('week_days');
-    this.$store.dispatch('year_data', this.year);
+    this.$store.dispatch('weekDays');
+    this.$store.dispatch('yearData', this.year);
   },
   methods: {
     haveHolliday(value) {
@@ -33,24 +37,32 @@ export default {
         return false;
       }
     },
+    haveEvents(value) {
+      if (value.activitys.length !== 0 || 
+        value.reminders.length !== 0 || 
+        value.tasks.length !== 0 || 
+        value.birthdays.length !== 0  ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     showHoliday(date) {
       date = moment(date).format('YYYY-MM-DD');
       this.$store.commit('setDate', date);
       if (window.location.pathname != '/day') {
-        this.$router.push('day');
+        this.$eventBus.$emit('currentRoute', '/day');
+        this.$store.commit('set_route', '/day');
       }
 
     },
   },
   computed: {
     data() {
-      return this.$store.getters.get_year;
+      return this.$store.getters.getYear;
     },
     days() {
-      return this.$store.getters.get_days;
-    },
-    year_holidays() {
-      return this.$store.getters.year_holidays;
+      return this.$store.getters.getDays;
     },
   },
 }

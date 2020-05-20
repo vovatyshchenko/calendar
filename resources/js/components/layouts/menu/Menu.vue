@@ -31,10 +31,10 @@
 
             <div class="select-calendar">
                 <select name="select" v-model="route" @click="set_route()" data-icon="mdi-arrow-left">
-                    <option value="/">Месяц</option>
-                    <option value="/day">День</option>
-                    <option value="/week">Неделя</option>
-                    <option value="/year">Год</option>
+                    <option value="/" :selected="'/'==selectedType?true : false">Месяц</option>
+                    <option value="/day" :selected="'/day'==selectedType?true : false">День</option>
+                    <option value="/week" :selected="'/week'==selectedType?true : false">Неделя</option>
+                    <option value="/year" :selected="'/year'==selectedType?true : false">Год</option>
                 </select>
             </div>
         </v-app-bar>
@@ -104,13 +104,25 @@
                 this.year=this.$store.getters.year;
             },
             display_date() {
+                let months=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
+
                 if (window.location.pathname == '/day') {
                     return this.$store.getters.menuDate.getDate()+'.'+(this.$store.getters.menuDate.getMonth()+1)+'.'+this.$store.getters.menuDate.getFullYear();
                 }
                 if (window.location.pathname == '/year') {
                     return this.$store.getters.menuDate.getFullYear();
                 }
-                let months=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
+                if (window.location.pathname == '/week') {
+                    let fullDate=moment(this.$store.getters.menuDate);
+                    let startWeek = fullDate.startOf('week').format('M');
+                    let endWeek = fullDate.endOf('week').format('M');
+
+                    if (startWeek!=endWeek) {
+                        return months[startWeek-1]+' - '+months[endWeek-1]+' '+this.$store.getters.menuDate.getFullYear();
+                    } else {
+                        return months[startWeek-1]+' '+this.$store.getters.menuDate.getFullYear();
+                    }
+                }
                 return months[this.$store.getters.menuDate.getMonth()]+' '+this.$store.getters.menuDate.getFullYear();
             },
             set_date() {
@@ -122,7 +134,11 @@
             current_route() {
                 return this.$store.getters.calendar_route;
             },
-
+            selectedType () {
+                let currentType = window.location.pathname;
+                this.$store.dispatch('set_calendar_page', currentType);
+                return currentType;
+            }
         },
         created(){
             this.$store.dispatch('getHolidays', {year:this.year});

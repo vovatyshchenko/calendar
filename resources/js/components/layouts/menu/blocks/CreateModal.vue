@@ -88,6 +88,9 @@
 	}
 </script>
 <style type="scss">
+    .delimiter {
+        margin-bottom: 17px;
+    }
     .error-message{
         font-family: Roboto;
         font-style: normal;

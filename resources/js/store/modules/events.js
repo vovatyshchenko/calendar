@@ -40,6 +40,10 @@ export default {
         statusUpdated:false,
     },
     mutations: {
+        setStatusDelete(state,payload)
+        {
+            state.statusDelete = payload;
+        },
         setEvents(state, payload) {
             state.events = payload;
         },

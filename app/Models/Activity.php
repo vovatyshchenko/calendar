@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class Activity extends Model
 {
     protected $fillable = [
-        'name', 'guests', 'location','description','user_id','time_start','time_end','date_start','date_end','parent_id'
+        'name', 'guests', 'location','description','user_id','time_start','time_end','date_start','date_end'
     ];
     public function user(){
 

@@ -15,7 +15,6 @@ export default {
             if (value === true) {
                 this.$toaster.success('Данные успешно сохранены.');
                 this.$store.commit('changeShowModal');
-
                 this.$store.commit("setStatus", false);
 
             }
@@ -23,8 +22,8 @@ export default {
         statusUpdated(value) {
             if (value === true) {
                 this.$toaster.success('Данные успешно изменены');
-                this.$store.commit('changeShowModal');
                 this.$store.commit("setStatusUpdated", false);
+                this.$store.commit('changeShowModal');
             }
         },
     }

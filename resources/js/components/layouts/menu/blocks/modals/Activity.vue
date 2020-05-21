@@ -269,6 +269,7 @@
                 this.timeEnd = '00:00',
                 this.description = null,
                 this.id = null;
+                this.$store.commit('setIsUpdateActive',false);
             },
         },
     }

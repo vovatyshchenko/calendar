@@ -2,9 +2,9 @@
     <form ref="createEvent"  onsubmit="return false">
         {{setValues}}
         <v-progress-linear :active="processing" indeterminate height="5" color="red darken-1"></v-progress-linear>
+        <div class="delimiter"></div>
         <v-alert :value="error" type="warning">{{ error }}</v-alert>
         <div class="error-message" v-if="globalErrorMessasge">Заполните все обязательные поля</div>
-        <label class="title__input_modal">Название*</label>
         <v-text-field
             v-model="name"
             :error-messages="nameErrors"
@@ -14,7 +14,6 @@
             @input="$v.name.$touch()"
             @blur="$v.name.$touch()"
         ></v-text-field>
-        <label class="title__input_modal">Гости</label>
         <v-text-field
             v-model="guests"
             :error-messages="guestsErrors"
@@ -24,7 +23,6 @@
             @input="$v.guests.$touch()"
             @blur="$v.guests.$touch()"
         ></v-text-field>
-        <label class="title__input_modal">Место проведения</label>
         <v-text-field
             v-model="location"
             :error-messages="locationErrors"
@@ -34,7 +32,6 @@
             @input="$v.location.$touch()"
             @blur="$v.location.$touch()"
         ></v-text-field>
-        <label class="title__input_modal">Описаниe</label>
         <v-text-field
             v-model="description"
             :error-messages="descriptionErrors"

@@ -57,7 +57,8 @@
                 this.$store.commit('setDate', new Date);
                 this.$store.commit('setDatePicker', new Date);
                 if (window.location.pathname != '/day'){
-                    this.$router.push('day');
+                    this.$eventBus.$emit('currentRoute', '/day');
+                    this.$store.commit('set_route', '/day');
                 }
             },
             change_drawer() {

@@ -1,5 +1,5 @@
 <template>
-    <form ref="createEvent"onsubmit="return false">
+    <form ref="createEvent" onsubmit="return false">
         {{setValues}}
         <v-progress-linear :active="processing" indeterminate height="5" color="red darken-1"></v-progress-linear>
         <div class="delimiter"></div>
@@ -79,104 +79,107 @@
             <span class="label">Каждый год</span>
             <v-checkbox v-model="allYear"></v-checkbox>
         </v-col>
-            <v-spacer></v-spacer>
-            <div class="d-flex justify-content-between">
-                <v-btn v-if="!checkIsUpdate" @click="save" type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
-                <v-btn v-else  type="submit"  @click="update"  color="blue darken-2" dark large>Редактировать</v-btn>
-                <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
-            </div>
+        <v-spacer></v-spacer>
+        <div class="d-flex justify-content-between">
+            <v-btn v-if="!checkIsUpdate" @click="save" type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
+            <v-btn v-else type="submit" @click="update" color="blue darken-2" dark large>Редактировать</v-btn>
+            <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
+        </div>
     </form>
 </template>
 
 <script>
-import validation from '../../../../../mixin/validation'
-import notification from '../../../../../mixin/eventNotifications'
-export default {
+    import validation from '../../../../../mixin/validation'
+    import notification from '../../../../../mixin/eventNotifications'
 
-    mixins: [validation,notification],
-    data: () => ({
-        name:null,
-        menu1: false,
-        dateStart:null,
-        time: null,
-        OpenTimeStart: false,
-        openDataStart: false,
-        allDay:false,
-        allYear:false,
-        checkUpdate:false,
-        id:false
-    }),
-    computed: {
-        checkIsUpdate()
-        {
-            return this.$store.getters.isUpdateBirthday;
+    export default {
+
+        mixins: [validation, notification],
+        data: () => ({
+            OpenTimeStart: false,
+            openDataStart: false,
+            name: null,
+            date: moment(new Date()).format('YYYY-MM-DD'),
+            time: '00:00',
+            allDay: false,
+            allYear: false,
+            id: null,
+        }),
+        computed: {
+            checkIsUpdate() {
+                return this.$store.getters.isUpdateBirthday;
+            },
+            error() {
+                return this.$store.getters.get_error;
+            },
+            processing() {
+                return this.$store.getters.get_processing;
+            },
+            status() {
+                return this.$store.getters.getStatus;
+            },
+            statusUpdated() {
+                return this.$store.getters.getStatusUpdated;
+            },
+            setValues() {
+                this.name = this.$store.getters.getBirthday.name;
+                this.dateStart = this.$store.getters.getBirthday.date;
+                this.time = this.$store.getters.getBirthday.time;
+                this.allDay = this.$store.getters.getBirthday.allDay;
+                this.allYear = this.$store.getters.getBirthday.allYear;
+                this.id = this.$store.getters.getBirthday.id;
+                console.log(this.$store.getters.getBirthday);
+            },
         },
-        error() {
-            return this.$store.getters.get_error;
-        },
-        processing() {
-            return this.$store.getters.get_processing;
-        },
-        status() {
-            return this.$store.getters.getStatus;
-        },
-        statusUpdated() {
-            return this.$store.getters.getStatusUpdated;
-        },
-        setValues(){
-            this.name=this.$store.getters.getBirthday.name;
-            this.dateStart=this.$store.getters.getBirthday.date;
-            this.time=this.$store.getters.getBirthday.time;
-            this.allDay=this.$store.getters.getBirthday.allDay;
-            this.allYear=this.$store.getters.getBirthday.allYear;
-            this.id=this.$store.getters.getBirthday.id;
-            console.log(this.$store.getters.getBirthday);
-        },
-    },
-    methods: {
-        save () {
-            this.$v.$touch()
-            if (!this.nameErrors.length==0) {
-                this.$toaster.info('Будьте внимательны при заполнении полей.');
-            } else {
-                this.$store.dispatch('birthdayCreate', {
-                    name: this.name,
-                    time_start: this.time,
-                    date: moment(this.dateStart).format('YYYY-MM-DD'),
-                    is_remind:this.allDay,
-                    is_remind_year:this.allYear,
-                });
+        methods: {
+            save() {
+                this.$v.$touch()
+                if (!this.nameErrors.length == 0) {
+                    this.$toaster.info('Будьте внимательны при заполнении полей.');
+                } else {
+                    this.$store.dispatch('birthdayCreate', {
+                        name: this.name,
+                        time_start: this.time,
+                        date: moment(this.dateStart).format('YYYY-MM-DD'),
+                        is_remind: this.allDay,
+                        is_remind_year: this.allYear,
+                    });
+                    this.clear();
+                }
+            },
+            update() {
+                this.$v.$touch()
+                if (!this.nameErrors.length == 0) {
+                    this.$toaster.info('Будьте внимательны при заполнении полей.');
+                } else {
+                    this.$store.dispatch('birthdayUpdate', {
+                        id: this.id,
+                        name: this.name,
+                        time_start: this.time,
+                        date: moment(this.dateStart).format('YYYY-MM-DD'),
+                        is_remind: this.allDay,
+                        is_remind_year: this.allYear,
+                    });
+                    this.clear();
+                }
+            },
+            closeModal() {
+
+                this.$store.commit('changeShowModal');
                 this.clear();
+            },
+            clear() {
+                this.$v.$reset();
+                this.$store.commit('setIsUpdateBirthday', false);
+                this.name = null,
+                this.date = moment(new Date()).format('YYYY-MM-DD'),
+                this.time = '00:00',
+                this.allDay = false,
+                this.allYear = false,
+                this.id = null
             }
         },
-        update () {
-            this.$v.$touch()
-            if (!this.nameErrors.length==0) {
-                this.$toaster.info('Будьте внимательны при заполнении полей.');
-            } else {
-                this.$store.dispatch('birthdayUpdate', {
-                    id:this.id,
-                    name: this.name,
-                    time_start: this.time,
-                    date: moment(this.dateStart).format('YYYY-MM-DD'),
-                    is_remind:this.allDay,
-                    is_remind_year:this.allYear,
-                });
-                this.clear();
-            }
-        },
-        closeModal() {
-
-            this.$store.commit('changeShowModal');
-            this.clear();
-        },
-        clear () {
-            this.$v.$reset();
-            this.$store.commit('setIsUpdateBirthday',false);
-            this.$store.commit('setBirthdayValuesDefoult');
-        }
-    },
-}
+    }
 
 
 </script>

@@ -76,7 +76,6 @@
                 } else if (value == 'birthday') {
                      this.$store.commit('setIsUpdateBirthday',true);
                     this.tab = 3;
-
                 }
             }
         },

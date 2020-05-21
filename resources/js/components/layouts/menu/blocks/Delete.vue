@@ -27,20 +27,20 @@
         props:['item'],
         data() {
             return {
-                menu: false,
                 dialog: false,
-                getDay:null,
-                dateForModal:null
             }
         },
         methods:{
             deleteEvent(event) {
                 if (event.type == 'birthday') {
                     this.$store.dispatch('deleteBirthdays', {event: event})
+                    this.dialog=false;
                 } else if (event.type == 'activity') {
                     this.$store.dispatch('deleteActivity', {event: event})
+                    this.dialog=false;
                 } else if (event.type == 'task') {
                     this.$store.dispatch('deleteTask', {event: event})
+                    this.dialog=false;
                 }
             }
         },

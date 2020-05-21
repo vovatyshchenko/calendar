@@ -207,7 +207,7 @@
                  this.location=this.$store.getters.getActivity.description;
                  this.id=this.$store.getters.getActivity.id;
              },
-
+            
         },
         methods: {
             save () {

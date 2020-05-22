@@ -7,7 +7,7 @@ import Home from '../components/layouts/Home';
 import Year from '../components/layouts/Year';
 import Day from '../components/layouts/Day';
 import Week from '../components/layouts/Week';
-
+import ResultSearch from '../components/layouts/menu/blocks/ResultSearch';
 const routes = [
     {
         component: Home,
@@ -28,7 +28,12 @@ const routes = [
         component: Week,
         name: 'calendar-week',
         path: '/week'
-    }
+    },
+    {
+        component: ResultSearch,
+        name: 'search-result',
+        path: '/search-result'
+    },
 
 ];
 

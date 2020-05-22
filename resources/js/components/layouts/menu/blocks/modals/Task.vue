@@ -2,6 +2,7 @@
     <form ref="createEvent"  onsubmit="return false">
         {{setValues}}
         <v-progress-linear :active="processing" indeterminate height="5" color="red darken-1"></v-progress-linear>
+        <div class="delimiter"></div>
         <v-alert :value="error" type="warning">{{ error }}</v-alert>
         <div class="error-message" v-if="globalErrorMessasge">Заполните все обязательные поля</div>
         <label class="title__input_modal">Название*</label>
@@ -10,11 +11,9 @@
             :error-messages="nameErrors"
             outlined
             dense
-            label="Название*"
             @input="$v.name.$touch()"
             @blur="$v.name.$touch()"
         ></v-text-field>
-        <label class="title__input_modal">Описание*</label>
         <v-textarea
             v-model="about"
             :error-messages="nameErrors"
@@ -42,7 +41,7 @@
                                 :value="computedDateFormattedMomentjs"
                                 readonly
                                 outlined
-                                :disabled="isRemind"
+
                                 append-icon="keyboard_arrow_down"
                                 v-on="on"
                             ></v-text-field>
@@ -57,7 +56,7 @@
             </div>
             <v-menu
                 ref="start"
-                v-model="OpenTimeStart"
+                v-model="openTimeStart"
                 :close-on-content-click="false"
                 :nudge-right="40"
                 :return-value.sync="timeStart"
@@ -67,18 +66,17 @@
                 min-width="290px">
                 <template v-slot:activator="{ on }">
                     <v-text-field
-                        class="eer"
+
                         v-model="timeStart"
                         readonly
                         outlined
-                        :disabled="isRemind"
                         append-icon="keyboard_arrow_down"
                         v-on="on"
                     ></v-text-field>
                 </template>
                 <v-time-picker
                     format="24hr"
-                    v-if="OpenTimeStart"
+                    v-if="openTimeStart"
                     v-model="timeStart"
                     full-width
                     @click:minute="$refs.start.save(timeStart)"
@@ -98,7 +96,7 @@
                             <v-text-field
                                 :value="computedDateFormattedMomentjsForEnd"
                                 outlined
-                                :disabled="isRemind"
+
                                 append-icon="keyboard_arrow_down"
                                 readonly
                                 v-on="on"
@@ -113,8 +111,7 @@
                 </v-flex>
             </div>
             <v-menu
-                ref="end"
-                v-model="OpenTimeEnd"
+                v-model="openTimeEnd"
                 :close-on-content-click="false"
                 :nudge-right="40"
                 :return-value.sync="timeEnd"
@@ -129,14 +126,13 @@
                         v-model="timeEnd"
                         readonly
                         outlined
-                        :disabled="isRemind"
                         append-icon="keyboard_arrow_down"
                         v-on="on"
                     ></v-text-field>
                 </template>
                 <v-time-picker
                     format="24hr"
-                    v-if="OpenTimeEnd"
+                    v-if="openTimeEnd"
                     v-model="timeEnd"
                     full-width
                     @click:minute="$refs.end.save(timeEnd)"
@@ -159,18 +155,19 @@ export default {
 
     mixins: [validation,notification],
         data: () => ({
-            name:null,
             menu1: false,
-            dateStart: null,
-            dateEnd: null,
-            timeStart: null,
-            timeEnd: null,
-            OpenTimeStart: false,
-            openDataStart: false,
-            OpenTimeEnd: false,
-            openDataEnd: false,
+            name:null,
+            dateStart:moment(new Date()).format('YYYY-MM-DD'),
+            dateEnd:moment(new Date()).format('YYYY-MM-DD'),
+            timeStart: '00:00',
+            timeEnd: '00:00',
+            isRemind:false,
             about:null,
-            isRemind:false
+            id:null,
+            openTimeStart: false,
+            openDataStart: false,
+            openTimeEnd: false,
+            openDataEnd: false,
         }),
         computed: {
             checkIsUpdate()
@@ -187,6 +184,7 @@ export default {
                 return this.$store.getters.getStatus;
             },
             setValues(){
+
                 this.name=this.$store.getters.getTask.name;
                 this.dateStart=this.$store.getters.getTask.dateStart
                 this.dateEnd=this.$store.getters.getTask.dateEnd;
@@ -240,8 +238,15 @@ export default {
             },
             clear () {
                 this.$v.$reset()
+                this.name=null,
+                this.dateStart=moment(new Date()).format('YYYY-MM-DD'),
+                this.dateEnd=moment(new Date()).format('YYYY-MM-DD'),
+                this.timeStart= '00:00',
+                this.timeEnd= '00:00',
+                this.isRemind=false,
+                this.about=null,
+                this.id=null,
                 this.$store.commit('setIsUpdateTask',false);
-                this.$store.commit('setTaskValuesDefoult');
 
             },
         },

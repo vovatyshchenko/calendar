@@ -40,6 +40,10 @@ export default {
         statusUpdated:false,
     },
     mutations: {
+        setStatusDelete(state,payload)
+        {
+            state.statusDelete = payload;
+        },
         setEvents(state, payload) {
             state.events = payload;
         },
@@ -81,36 +85,15 @@ export default {
             state.task.isRemind=payload.is_remind,
             state.task.id=payload.id
         },
-        setTaskValuesDefoult(state)
-        {
-
-            state.task.name = null,
-            state.task.dateStart=moment(new Date()).format('YYYY-MM-DD'),
-            state.task.dateEnd=moment(new Date()).format('YYYY-MM-DD'),
-            state.task.about=null,
-            state.task.timeStart='00:00',
-            state.task.timeEnd='00:00',
-            state.task.isRemind=null,
-            state.task.id=null
-        },
         setBirthdayValues(state,payload)
         {
-            state.birthday.name = payload.name
+            state.birthday.name= payload.name,
             state.birthday.date= payload.date,
             state.birthday.time=payload.time_start,
             state.birthday.allDay=payload.is_remind,
             state.birthday.allYear=payload.is_remind_year,
             state.birthday.id=payload.id
         },
-        setBirthdayValuesDefoult(state,payload)
-        {
-            state.birthday.name = null,
-            state.birthday.date= moment(new Date()).format('YYYY-MM-DD'),
-            state.birthday.time='00:00',
-            state.birthday.allDay=false,
-            state.birthday.allYear=false,
-            state.birthday.id=null
-    },
         setActivityValues(state,payload)
         {
             state.activity.name = payload.name
@@ -123,18 +106,6 @@ export default {
             state.activity.timeEnd=payload.time_end,
             state.activity.id=payload.id
         },
-        setActivityValuesDefoult(state)
-        {
-            state.activity.name = null,
-            state.activity.dateStart= moment(new Date()).format('YYYY-MM-DD'),
-            state.activity.dateEnd=moment(new Date()).format('YYYY-MM-DD'),
-            state.activity.guests=null,
-            state.activity.location=null,
-            state.activity.description=null,
-            state.activity.timeStart='00:00',
-            state.activity.timeEnd='00:00',
-            state.activity.id=null
-        }
     },
     actions: {
         getEvents(context, event) {
@@ -200,6 +171,7 @@ export default {
         },
         getBirthday(context, id)
         {
+            context.commit('setBirthdayValues',{});
             axios.get('/birthday/'+id)
                 .then(response => {
                     context.commit('setBirthdayValues',response.data);
@@ -211,6 +183,7 @@ export default {
         },
         getActivity(context, id)
         {
+            context.commit('setActivityValues',{});
             axios.get('/activity/'+id)
                 .then(response => {
                     context.commit('setActivityValues',response.data);
@@ -219,7 +192,7 @@ export default {
                 });
         },
         getTask(context, id)
-        {
+        {context.commit('setTaskValues',{});
             axios.get('/task/'+id)
                 .then(response => {
                     context.commit('setTaskValues',response.data);

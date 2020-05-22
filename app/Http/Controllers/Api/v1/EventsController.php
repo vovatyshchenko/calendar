@@ -9,11 +9,14 @@ use App\Models\Event;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EventsController extends Controller
 {
     public function getEvents(Request $request)
     {
+        $workWithEvents=new Event();
         $tasks =(new Task())->getTasks($request->only('date_start'),$request->only('date_end'));
         foreach($tasks as $key=>$task)
         {
@@ -30,64 +33,23 @@ class EventsController extends Controller
             $birthdays[$key]->type='birthday';
         }
         $events=[];
-        $events=$this->dataFormattingEvent(collect($activities)->groupBy('date_start'),$events);
-        $events=$this->dataFormattingEvent(collect($tasks)->groupBy('date_start'),$events);
-        $events= $this->rangeEventDays($events);
-        $events=$this->dataFormattingEvent(collect($birthdays)->groupBy('date'),$events);
+        $events=$workWithEvents->dataFormattingEvent(collect($activities)->groupBy('date_start'),$events);
+        $events=$workWithEvents->dataFormattingEvent(collect($tasks)->groupBy('date_start'),$events);
+        $events= $workWithEvents->rangeEventDays($events);
+        $events=$workWithEvents->dataFormattingEvent(collect($birthdays)->groupBy('date'),$events);
 
-        $sortedEvents=$this->sortedEvent($events);
+        $sortedEvents=$workWithEvents->sortedEvent($events);
 
-        return $sortedEvents;
+        return response()->json($sortedEvents, 200);
     }
-
-    public function dataFormattingEvent($event,$events)
+    public function search(Request $request)
     {
-        foreach($event as $key=>$element)
-        {
-            $key=explode(' ',$key)[0];
-            foreach ($element as $el)
-            {
-                $events[$key]?? $events[$key]=[];
+        $events=$request->only(['search_area','date_start','date_end']);
+        $events['description']=(new Event())->clear($request->only(['description']));
 
-                array_push($events[$key],$el);
-            }
-        }
-        return  $events;
+       return response()->json( (new Event())->searchEvents($events), 200);
+
     }
-    public function sortedEvent($events)
-    {
 
-        foreach ($events as $key=>$event)
-        {
-            $events[$key]=collect($event)->sortBy('time_start')->values();
-        }
-        return collect($events);
-    }
-    public function rangeEventDays($events)
-    {
-
-        foreach ($events as $key=>$event)
-        {
-            foreach ($event as $elementKey=>$element )
-            {
-
-                $start  = new Carbon($element->date_start);
-                $end  = new Carbon($element->date_end);
-                $difference=$start->diffInDays($end);
-
-                for ($day=1;$day<=$difference;$day++)
-                {
-                    $date=date('Y-m-d', strtotime($element->date_start. " +". $day." day"));
-
-                    $events[$date]?? $events[$date]=[];
-
-                    array_push( $events[$date],$event[$elementKey]);
-                }
-            }
-
-        }
-
-        return $events;
-    }
 }
 

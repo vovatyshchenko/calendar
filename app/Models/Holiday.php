@@ -70,4 +70,5 @@ class Holiday extends Model
         curl_close($curl);
         return $this->jsonEncode($data);
     }
+
 }

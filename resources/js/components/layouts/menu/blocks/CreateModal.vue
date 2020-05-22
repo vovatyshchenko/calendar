@@ -76,7 +76,6 @@
                 } else if (value == 'birthday') {
                      this.$store.commit('setIsUpdateBirthday',true);
                     this.tab = 3;
-
                 }
             }
         },
@@ -88,6 +87,9 @@
 	}
 </script>
 <style type="scss">
+    .delimiter {
+        margin-bottom: 17px;
+    }
     .error-message{
         font-family: Roboto;
         font-style: normal;

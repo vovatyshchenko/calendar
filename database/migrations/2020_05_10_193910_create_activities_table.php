@@ -19,7 +19,6 @@ class CreateActivitiesTable extends Migration
             $table->string('guests')->nullable();
             $table->string('location')->nullable();
             $table->string('description');
-            $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->string('time_start',10);
             $table->string('time_end',10);

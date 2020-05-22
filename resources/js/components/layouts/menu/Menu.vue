@@ -31,9 +31,9 @@
 
             <div class="select-calendar">
                 <select name="select" v-model="route" @click="set_route()" data-icon="mdi-arrow-left">
-                    <option value="/">Месяц</option>
                     <option value="/day">День</option>
                     <option value="/week">Неделя</option>
+                    <option value="/">Месяц</option>
                     <option value="/year">Год</option>
                 </select>
             </div>
@@ -58,6 +58,8 @@
                 this.$store.commit('setDatePicker', new Date);
                 if (window.location.pathname != '/day'){
                     this.$router.push('day');
+                    this.$eventBus.$emit('currentRoute', '/day');
+                    this.$store.commit('set_route', '/day');
                 }
             },
             change_drawer() {

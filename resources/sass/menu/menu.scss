@@ -25,7 +25,9 @@
 .menu-today-link:active,
 .menu-today-link:focus,
 .arrows-block button:active,
-.arrows-block button:focus{
+.arrows-block button:focus,
+.select-calendar select:active,
+.select-calendar select:focus{
     outline: none;
 }
 .menu-today-block span {
@@ -102,4 +104,10 @@
     border: 2px solid #F5F5F5;
     box-sizing: border-box;
     border-radius: 4px;
+    padding-left: 25px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 30px;
+    text-align: center;
+    color: #808080
 }

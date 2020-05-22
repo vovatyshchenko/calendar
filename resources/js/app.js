@@ -46,6 +46,7 @@ Vue.component('calendar-week', require('./components/layouts/calendar/week/WeekI
 Vue.component('cell-week', require('./components/layouts/сell-сalendar/CellWeek').default);
 Vue.component('cell-year',require('./components/layouts/сell-сalendar/CellYear').default);
 Vue.component('hour-block',require('./components/layouts/сell-сalendar/blocks/Hour').default);
+Vue.component('additional-events',require('./components/layouts/сell-сalendar/blocks/AdditionalEvents').default);
 Vue.component('ValidationProvider', ValidationProvider);
 
 

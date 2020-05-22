@@ -1,5 +1,5 @@
 <template>
-    <form ref="createEvent" onsubmit="return false">
+    <form  onsubmit="return false">
         {{setValues}}
         <v-progress-linear :active="processing" indeterminate height="5" color="red darken-1"></v-progress-linear>
         <div class="delimiter"></div>
@@ -99,7 +99,7 @@
             OpenTimeStart: false,
             openDataStart: false,
             name: null,
-            date: moment(new Date()).format('YYYY-MM-DD'),
+            dateStart: moment(new Date()).format('YYYY-MM-DD'),
             time: '00:00',
             allDay: false,
             allYear: false,
@@ -122,7 +122,7 @@
                 return this.$store.getters.getStatusUpdated;
             },
             setValues() {
-                this.name = this.$store.getters.getBirthday.name;
+                this.name=this.$store.getters.getBirthday.name;
                 this.dateStart = this.$store.getters.getBirthday.date;
                 this.time = this.$store.getters.getBirthday.time;
                 this.allDay = this.$store.getters.getBirthday.allDay;
@@ -179,6 +179,9 @@
                 this.id = null
             }
         },
+        watch:{
+
+        }
     }
 
 

@@ -1,7 +1,8 @@
 export default {
     state: {
         isSearched:false,
-        searchEvent:[]
+        searchEvent:[],
+        lastSearched:[]
     },
     mutations: {
         setStatusSearched(state,payload)

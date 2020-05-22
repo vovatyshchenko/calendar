@@ -1,5 +1,5 @@
 <template>
-    <v-menu bottom :offset-y="offset" :close-on-content-click=false :close-on-click="closeOnClick">
+    <v-menu  bottom :offset-y="offset" :close-on-content-click=false :close-on-click="closeOnClick">
         <template v-slot:activator="{ on }">
             <button class="dropdown-event menu-search" @click="clearSearch=true" v-on="on">Поиск</button>
         </template>
@@ -132,6 +132,7 @@
             clearSearch(value) {
                 if (value == true) {
                     this.searchEvents = null;
+                    this.$store.commit('setStatusSearched',false)
                 }
                 this.clearSearch = false;
             },

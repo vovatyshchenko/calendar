@@ -87,7 +87,7 @@ export default {
         },
         setBirthdayValues(state,payload)
         {
-            state.birthday.name = payload.name
+            state.birthday.name= payload.name,
             state.birthday.date= payload.date,
             state.birthday.time=payload.time_start,
             state.birthday.allDay=payload.is_remind,
@@ -127,7 +127,6 @@ export default {
                 .then(response => {
                     if (response.data.message) {
                         context.commit("setStatusDelete", true);
-
                         context.dispatch('getEvents',{date_start:context.getters.getStartDate,date_end:context.getters.getEndDate})
                     }
                     context.commit("clearError");
@@ -172,6 +171,7 @@ export default {
         },
         getBirthday(context, id)
         {
+            context.commit('setBirthdayValues',{});
             axios.get('/birthday/'+id)
                 .then(response => {
                     context.commit('setBirthdayValues',response.data);
@@ -183,6 +183,7 @@ export default {
         },
         getActivity(context, id)
         {
+            context.commit('setActivityValues',{});
             axios.get('/activity/'+id)
                 .then(response => {
                     context.commit('setActivityValues',response.data);
@@ -191,7 +192,7 @@ export default {
                 });
         },
         getTask(context, id)
-        {
+        {context.commit('setTaskValues',{});
             axios.get('/task/'+id)
                 .then(response => {
                     context.commit('setTaskValues',response.data);

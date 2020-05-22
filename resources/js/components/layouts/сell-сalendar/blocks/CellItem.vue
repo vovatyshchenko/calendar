@@ -18,7 +18,7 @@
                         <img src="../../../../../../public/img/icon/email.svg" alt="Email">
                     </button>
                     <delete :item="item"></delete>
-                    <button class="create-btn" @click="changeShowModal(item)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
+                    <button class="create-btn" @click="edit(item)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
                     <button class="create-btn clear" @click="menu = false"><img src="../../../../../../public/img/icon/clear.svg" alt="Clear"></button>
                 </div>
                 <div class="container-event">
@@ -68,7 +68,7 @@
             }
         },
         methods: {
-            changeShowModal(event) {
+            edit(event) {
                 this.$store.commit('changeShowModal');
                 if (event.type == 'birthday') {
                     this.$store.dispatch('getBirthday',event.id );
@@ -77,7 +77,7 @@
                 } else if (event.type == 'task') {
                     this.$store.dispatch('getTask',event.id );
                 }
-                this.$eventBus.$emit('type', this.item.type);
+                this.$eventBus.$emit('type', event.type);
                 this.menu = false;
             },
 

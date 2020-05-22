@@ -89,8 +89,8 @@
             statusDelete(value) {
                 if (value === true) {
                     this.$toaster.success('Данные успешно удалены');
-                    this.menu = false;
                     this.$store.commit("setStatusDelete", false);
+                    this.menu = false;
                 }
             }
         },

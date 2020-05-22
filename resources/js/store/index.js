@@ -21,8 +21,7 @@ export default new Vuex.Store({
         ChangeCalendarType,
         CreateModal,
         Events,
-        TypeColors
-        Events,
+        TypeColors,
         Search
     }
 });

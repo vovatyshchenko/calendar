@@ -17,9 +17,9 @@
                     <button class="delete" @click.stop="dialog = true">
                         <img src="../../../../../../public/img/icon/email.svg" alt="Email">
                     </button>
-                    <delete :item="item"></delete>
+                    <delete @close="close($event)" :item="item"></delete>
                     <button class="create-btn" @click="edit(item)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
-                    <button class="create-btn clear" @click="menu = false"><img src="../../../../../../public/img/icon/clear.svg" alt="Clear"></button>
+                    <button class="create-btn clear" @click="close()"><img src="../../../../../../public/img/icon/clear.svg" alt="Clear"></button>
                 </div>
                 <div class="container-event">
                     <div class="text">
@@ -65,7 +65,9 @@
             setPosition()
             {
                 return this.getDay;
-            }
+            },
+
+
         },
         methods: {
             edit(event) {
@@ -80,7 +82,10 @@
                 this.$eventBus.$emit('type', event.type);
                 this.menu = false;
             },
-
+            close(event=null)
+            {
+                return  this.menu=event;
+            }
         },
         created(){
 
@@ -90,7 +95,7 @@
                 if (value === true) {
                     this.$toaster.success('Данные успешно удалены');
                     this.$store.commit("setStatusDelete", false);
-                    this.menu = false;
+
                 }
             }
         },

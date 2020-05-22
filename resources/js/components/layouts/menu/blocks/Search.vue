@@ -1,5 +1,5 @@
 <template>
-    <v-menu  bottom :offset-y="offset" :close-on-content-click=false :close-on-click="closeOnClick">
+    <v-menu v-model="searchDialog" bottom :offset-y="offset" :close-on-content-click=false :close-on-click="closeOnClick">
         <template v-slot:activator="{ on }">
             <button class="dropdown-event menu-search" @click="clearSearch=true" v-on="on">Поиск</button>
         </template>
@@ -83,7 +83,7 @@
                         </div>
                     </div>
                     <div class="search-btn d-flex justify-content-between">
-                        <button  type="submit" color="blue darken-2" dark large>Сброс</button>
+                        <button @click="searchDialog=false" type="" color="blue darken-2" dark large>Сброс</button>
                         <button @click="search" color="blue darken-2">Поиск</button>
                     </div>
                 </div>
@@ -98,6 +98,7 @@
         mixins: [validation],
         data() {
             return {
+                searchDialog:false,
                 clearSearch: false,
                 closeOnClick: true,
                 offset: true,
@@ -123,6 +124,7 @@
                             date_end:moment(this.dateEnd).format('YYYY-MM-DD'),
                         }
                     );
+                    this.searchDialog=false;
             }
                     // });
                     // this.clear();

@@ -31,15 +31,22 @@
             }
         },
         methods:{
+            isDeleted(){
+                this.$emit('close', false);
+            },
             deleteEvent(event) {
                 if (event.type == 'birthday') {
                     this.$store.dispatch('deleteBirthdays', {event: event})
+                    this.isDeleted();
                     this.dialog=false;
+
                 } else if (event.type == 'activity') {
                     this.$store.dispatch('deleteActivity', {event: event})
+                    this.isDeleted();
                     this.dialog=false;
                 } else if (event.type == 'task') {
                     this.$store.dispatch('deleteTask', {event: event})
+                    this.isDeleted();
                     this.dialog=false;
                 }
             }

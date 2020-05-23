@@ -28,7 +28,6 @@
                                 :value="computedDateFormattedMomentjs"
                                 readonly
                                 outlined
-                                :disabled="allDay"
                                 append-icon="keyboard_arrow_down"
                                 v-on="on"
                             ></v-text-field>
@@ -58,7 +57,6 @@
                         v-model="time"
                         readonly
                         outlined
-                        :disabled="allDay"
                         append-icon="keyboard_arrow_down"
                         v-on="on"
                     ></v-text-field>

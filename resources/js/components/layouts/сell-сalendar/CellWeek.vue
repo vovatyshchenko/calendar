@@ -38,7 +38,7 @@
                 let hourEvents = [];
                 let n = 0;
                     for (let i = 0; i < obj.length; i++) {
-                        if (obj[i].type == 'activity' || (obj[i].type == 'task') || obj[i].type == 'reminder') {
+                        if (obj[i].type == 'activity' || (obj[i].type == 'task')) {
                             let dateStart = moment(obj[i].date_start);
                             let dateEnd = moment(obj[i].date_end);
                             let dateDiff = dateEnd.diff(dateStart, 'days');
@@ -56,14 +56,16 @@
                     }
                     for(let i = 0; i < objCurrentData.length; i++){
                         for(let j = i + 1; j < objCurrentData.length; j++){
-                            if(objCurrentData[i].created_at == objCurrentData[j].created_at){
-                                objCurrentData.splice(j--, 1);
+                            if (objCurrentData[i].type != 'birthday'){
+                                if(objCurrentData[i].created_at == objCurrentData[j].created_at){
+                                    objCurrentData.splice(j--, 1);
+                                }
                             }
                         }
                     }
                     if (objCurrentData.length > 0) {
                         for (let i = 0; i < objCurrentData.length; i++) {
-                            if (objCurrentData[i].type == 'task' || objCurrentData[i].type == 'activity' || objCurrentData[i].type == 'birthday') {
+                            if (objCurrentData[i].type == 'task' || objCurrentData[i].type == 'activity') {
                                 let parseStart = objCurrentData[i].time_start.split(":");
                                 let parseEnd = objCurrentData[i].time_end.split(":");
                                 let hourStart = +parseStart[0];
@@ -79,10 +81,12 @@
                                     hourEvents[n].time_length = (hourEnd-hourStart);
                                     n++;
                                 }
+                            } else {
+                                if (count == 1) {
+                                    hourEvents.push(objCurrentData[i]);
+                                    hourEvents[n].time_length = 0;
+                                }
                             }
-                        }
-                        if (hourEvents.length > 0) {
-                            console.log(hourEvents);
                         }
                     }
                 return hourEvents;

@@ -19,7 +19,8 @@ class Activity extends Model
     public function getActivities($dateStart,$dateEnd)
     {
         return DB::table('activities')
-            ->where('date_start','>=',$dateStart)
+            ->where('date_start','<',$dateEnd)
+            ->where('date_end','>',$dateStart)
             ->where('user_id','=',Auth::user()->id)
             ->get();
     }

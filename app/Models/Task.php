@@ -15,9 +15,9 @@ class Task extends Model
     public function getTasks($dateStart,$dateEnd)
     {
         return DB::table('tasks')
-            ->where('date_start','>=',$dateStart)
+            ->where('date_start','<',$dateEnd)
+            ->where('date_end','>',$dateStart)
             ->where('user_id','=',Auth::user()->id)
-            ->where('date_end','<=',$dateEnd)
             ->get();
     }
     public function searchTask($data)

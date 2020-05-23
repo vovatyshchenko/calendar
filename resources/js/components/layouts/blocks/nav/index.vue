@@ -59,8 +59,8 @@
             logout()
             {
                 axios.get('/logout');
-                axios.get('https://team1-group-project.azurewebsites.net/api/client_logout' , { headers: {Authorization: "Bearer " + 'b369f2d3f4c81bc5c602382e23272328fbded345e157307204577404f72401f97d9eb19b87b0d010'}})
-                    .then(r => location.href= r.data)
+                axios.get('https://team1-group-project.azurewebsites.net/api/client_logout' , { headers: {Authorization: "Bearer "+'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI2IiwianRpIjoiOGVmYmE2NDBmNTY5MTdkMTkxMmQzNzM5NTNiNzQ1MzIxMWZhNzA1MDYxNGUxNTc3NjlhYWFiNDBiMmQxMGYxZDBiMTg0OGE0YjZmZjNhMDkiLCJpYXQiOjE1OTAyMzc4ODMsIm5iZiI6MTU5MDIzNzg4MywiZXhwIjoxNjIxNzczODgzLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.bZEl04ofzzf4ovv47l5X57jFz5SdwGk-o2AFKQFGAKqKxkXW1-LU9xjvF0xBxk_rkahzS3_RWUzYxybnMh7AWvPqnQoQZuO5yaPbK0nQ_-fw8kFUuUFPbfm4JTSsgbSs7-UXrj2fwmc9iSH2rBhokyMNMsDAtAaqCP_-2PWqGVR2fUWCPBckUM6xJPslmCiGoaLJU5YBaXIdaIL9w2Q2KIoL94AT9IjzHNfFcBKD7Lop-qvwf9zRRAUDu4YfZTBjesIVbY5VEyz_iZCYZut5qsr4FqPCf34nceDdMWwZvWCgcJYLyTQ6RbWR7EOuBdX5JGogoJ5eVYlmWQB4xnAFqZl6a2No0w1Ifwg7HSOuYqP9JQnrpGN2ArO8yhEle8sQHbGSY7WLI4UK7erEdIHXgBGns8it37eL1PtM79kaxZiXxSE0yBpCmMA89PFKtUUb-lyOlMmA4LKERLpe8OFGFoPwWFz4uf4w21Y9EtlK6EkFYeXX6j5h6FhiYIcRszbrgURxFNw10t_s4EBKMWvXWMlDFQGMhuUWrZwCObdxeRmdiURLsyZuukq-n4N43K9uiq37zLfnIsAQ1OlLzL95YmRMqm5Q3sMBdmASgOnNMRu1pUhKDO0Iw8hoycZ4knKqlVIrkWzKrbeNaMOWhTgf6QSBkUzw7auFd4nV6wotHHA'}})
+                    .then(r => location.href= '/')
             }
         }
     }

@@ -26,7 +26,7 @@ export default {
     },
     actions:{
         searchEvents(context, event) {
-            // context.commit('')
+            context.commit('setLastRequestSearched',event);
             axios.post('/search', event)
                 .then(response => {
                     context.commit('setStatusSearched', true);

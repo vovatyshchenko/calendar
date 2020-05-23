@@ -1,14 +1,14 @@
 <template>
     <div>
         <button class="delete" @click.stop="dialog = true">
-            <img src="../../../../../../public/img/icon/delete.svg" alt="Delete">
+            <img src="../../../../../../../public/img/icon/delete.svg" alt="Delete">
         </button>
         <v-dialog
             v-model="dialog"
             hide-overlay
             width="540">
             <div class="delete-info">
-                <button class="close-modal-x"  @click="dialog=false"><img src="../../../../../../public/img/icon/close.svg" alt="Close"></button>
+                <button class="close-modal-x"  @click="dialog=false"><img src="../../../../../../../public/img/icon/close.svg" alt="Close"></button>
                 <div class="text-modal">
                     Вы подтверждаете удаление?
                 </div>

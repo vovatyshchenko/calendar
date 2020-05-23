@@ -5,7 +5,7 @@
             <div class="week-time hour-block" v-for="n in 24"><span>{{n}}:00</span></div>
         </div>
         <div class="week-col" v-for="(date) in dateOfWeek">
-            <cell-week :date="date" :events="currentObj(events)"></cell-week>
+            <cell-week :date="date" :events="events"></cell-week>
         </div>
     </div>
 </template>

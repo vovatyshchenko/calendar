@@ -62,13 +62,13 @@
                     currentWeek.push(year+"-"+month+"-"+day)
                     this.$store.commit('setCurrentWeek',currentWeek);
                 }
-
+                this.$store.dispatch('getEvents',{date_start:moment(currentWeek[0]).format('YYYY-MM-DD'),date_end:moment(currentWeek[6]).format('YYYY-MM-DD')});
+                this.$store.commit('setStartDate',moment(currentWeek[0]).format('YYYY-MM-DD'));
+                this.$store.commit('setEndDate',moment(currentWeek[6]).format('YYYY-MM-DD'));
+                this.events = this.$store.getters.events;
                 return currentWeek;
             },
         },
-        created() {
-            return this.events = this.$store.getters.events;
-        }
     }
 </script>
 

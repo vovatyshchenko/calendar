@@ -30,6 +30,7 @@
                         currentObj.push(obj[key][i]);
                     }
                 });
+                console.log(currentObj);
                 return currentObj;
            }
         },

@@ -15,8 +15,8 @@ class Task extends Model
     public function getTasks($dateStart,$dateEnd)
     {
         return DB::table('tasks')
-            ->where('date_start','<',$dateEnd)
-            ->where('date_end','>',$dateStart)
+            ->where('date_start','<=',$dateEnd)
+            ->where('date_end','>=',$dateStart)
             ->where('user_id','=',Auth::user()->id)
             ->get();
     }
@@ -31,8 +31,8 @@ class Task extends Model
                         ->orWhere('description', 'like', '%' . $value . '%');
                 })
                 ->where('user_id', '=', Auth::user()->id)
-                ->where('date_start', '>=', $data['date_start'])
-                ->where('date_end', '<=', $data['date_end'])
+                ->where('date_start','<=',$data['date_end'])
+                ->where('date_end','>=',$data['date_start'])
                 ->get()
                 ->toArray();
             if (count($search) != 0) {

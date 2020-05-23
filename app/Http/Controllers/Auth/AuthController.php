@@ -27,6 +27,7 @@ class AuthController extends Controller
         $access_token = Auth::user()->token;
 
         $this->guard()->logout();
+
         $request->session()->invalidate();
 
         $http = new Client;

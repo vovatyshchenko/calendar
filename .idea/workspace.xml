@@ -29,7 +29,9 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -43,6 +45,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
@@ -241,12 +244,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2610" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1589392319845">
@@ -261,25 +265,25 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1588252943713" />
-    <state width="1874" height="253" key="GridCell.Tab.0.bottom" timestamp="1589565329083">
-      <screen x="0" y="27" width="1920" height="985" />
+    <state width="1877" height="189" key="GridCell.Tab.0.bottom" timestamp="1590269994894">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="350" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589416359932" />
+    <state width="1877" height="189" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590269994894" />
     <state width="1874" height="253" key="GridCell.Tab.0.bottom/0.27.1920.985@0.27.1920.985" timestamp="1589565329083" />
-    <state width="1874" height="253" key="GridCell.Tab.0.center" timestamp="1589565329082">
-      <screen x="0" y="27" width="1920" height="985" />
+    <state width="1877" height="189" key="GridCell.Tab.0.center" timestamp="1590269994894">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="350" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589416359932" />
+    <state width="1877" height="189" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590269994894" />
     <state width="1874" height="253" key="GridCell.Tab.0.center/0.27.1920.985@0.27.1920.985" timestamp="1589565329082" />
-    <state width="1874" height="253" key="GridCell.Tab.0.left" timestamp="1589565329082">
-      <screen x="0" y="27" width="1920" height="985" />
+    <state width="1877" height="189" key="GridCell.Tab.0.left" timestamp="1590269994893">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="350" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589416359932" />
+    <state width="1877" height="189" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590269994893" />
     <state width="1874" height="253" key="GridCell.Tab.0.left/0.27.1920.985@0.27.1920.985" timestamp="1589565329082" />
-    <state width="1874" height="253" key="GridCell.Tab.0.right" timestamp="1589565329082">
-      <screen x="0" y="27" width="1920" height="985" />
+    <state width="1877" height="189" key="GridCell.Tab.0.right" timestamp="1590269994894">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="350" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589416359932" />
+    <state width="1877" height="189" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590269994894" />
     <state width="1874" height="253" key="GridCell.Tab.0.right/0.27.1920.985@0.27.1920.985" timestamp="1589565329082" />
     <state x="6" y="75" width="1896" height="825" key="MergeDialog" timestamp="1590264213981">
       <screen x="0" y="0" width="1366" height="728" />

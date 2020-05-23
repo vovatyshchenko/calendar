@@ -40,5 +40,5 @@ Route::put('/update-task', ('Api\v1\TaskController@update'));
 Route::post('/search', ('Api\v1\EventsController@search'));
 
 Route::view('/{any}', 'index')->where('any', '.*');
-Route::middleware('auth')->get('/logout', 'Auth\AuthController@logout');
+    Route::middleware('auth')->post('/logout', 'Auth\LogoutController@logout');
 

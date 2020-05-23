@@ -18,11 +18,13 @@
     import holiday from '../../../mixin/holiday'
 
     export default {
-        props: ['date', 'events'],
+        props: ['date','events'],
         mixins: [holiday],
         data() {
             return {
                 days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+                testEvents:[]
+
             }
         },
         computed: {
@@ -30,6 +32,15 @@
                 let parseDate = this.date.split("-");
                 let dayNumber = new Date(parseDate[0], parseDate[1] - 1, parseDate[2]).getDay();
                 return this.days[dayNumber] + ', ' + parseDate[2];
+            },
+            test()
+            {
+                let events=[];
+                for (let n=0;n<=24;n++)
+                {
+                  events.push(this.getEvent(this.events,this.date,n));
+                }
+                return events;
             },
         },
         methods: {
@@ -91,6 +102,10 @@
                     }
                 return hourEvents;
             }
+        },
+        mounted()
+        {
+
         }
     }
 </script>

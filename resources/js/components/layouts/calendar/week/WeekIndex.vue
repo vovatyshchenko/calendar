@@ -62,6 +62,7 @@
                     currentWeek.push(year+"-"+month+"-"+day)
                     this.$store.commit('setCurrentWeek',currentWeek);
                 }
+
                 return currentWeek;
             },
         },

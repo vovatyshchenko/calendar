@@ -19,4 +19,26 @@ class Birthday extends Model
             ->where('user_id','=',Auth::user()->id)
             ->get();
     }
+    public function searchBirthday($data)
+    {
+        $result=[];
+        foreach ($data['description'] as $value) {
+
+            $search = DB::table('birthdays')
+                ->where('user_id', '=', Auth::user()->id)
+                ->where('date', '>=', $data['date_start'])
+                ->where('date', '<=', $data['date_end'])
+                ->where('name', 'LIKE', '%' . $value . '%')
+                ->get(['name','time_start','date as date_start'])
+                ->toArray();
+            if (count($search) != 0) {
+                foreach ($search as $key=>$element)
+                {
+                   $search[$key]->type='birthday';
+                }
+                array_push($result,$search);
+            }
+        }
+        return $result;
+    }
 }

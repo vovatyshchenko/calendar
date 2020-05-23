@@ -1,5 +1,5 @@
 <template>
-    <form ref="createEvent"  onsubmit="return false">
+    <form ref="createEvent" onsubmit="return false">
         {{setValues}}
         <v-progress-linear :active="processing" indeterminate height="5" color="red darken-1"></v-progress-linear>
         <div class="delimiter"></div>
@@ -153,38 +153,39 @@
                 ></v-time-picker>
             </v-menu>
         </div>
-            <v-spacer></v-spacer>
-            <div class="d-flex justify-content-between">
-                <v-btn v-if="!checkIsUpdate" @click="save" type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
-                <v-btn v-else  type="submit"  @click="update"  color="blue darken-2" dark large>Редактировать</v-btn>
-                <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
-            </div>
+        <v-spacer></v-spacer>
+        <div class="d-flex justify-content-between">
+            <v-btn v-if="!checkIsUpdate" @click="save" type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
+            <v-btn v-else type="submit" @click="update" color="blue darken-2" dark large>Редактировать</v-btn>
+            <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
+        </div>
     </form>
 </template>
 
 <script>
     import validation from '../../../../../mixin/validation'
     import notification from '../../../../../mixin/eventNotifications'
+
     export default {
-        mixins: [validation,notification],
+        mixins: [validation, notification],
         data: () => ({
-            name:null,
-            menu1: false,
-            dateStart: null,
-            dateEnd: null,
-            guests:null,
-            location:null,
-            timeStart:null,
-            timeEnd: null,
+            name: null,
+            dateStart: moment(new Date()).format('YYYY-MM-DD'),
+            dateEnd: moment(new Date()).format('YYYY-MM-DD'),
+            guests: null,
+            location: null,
+            timeStart: '00:00',
+            timeEnd: '00:00',
+            description: null,
+            id: null,
             openTimeStart: false,
             openDataStart: false,
             openTimeEnd: false,
             openDataEnd: false,
-            description:null,
+            description: null,
         }),
         computed: {
-            checkIsUpdate()
-            {
+            checkIsUpdate() {
                 return this.$store.getters.isUpdateActive;
             },
             error() {
@@ -196,31 +197,31 @@
             status() {
                 return this.$store.getters.getStatus;
             },
-             setValues(){
-                 this.name=this.$store.getters.getActivity.name;
-                 this.dateStart=this.$store.getters.getActivity.dateStart
-                 this.dateEnd=this.$store.getters.getActivity.dateEnd;
-                 this.guests=this.$store.getters.getActivity.guests;
-                 this.timeStart=this.$store.getters.getActivity.timeStart;
-                 this.timeEnd=this.$store.getters.getActivity.timeEnd;
-                 this.description=this.$store.getters.getActivity.description;
-                 this.location=this.$store.getters.getActivity.description;
-                 this.id=this.$store.getters.getActivity.id;
-             },
+            setValues() {
+                this.name = this.$store.getters.getActivity.name;
+                this.dateStart = this.$store.getters.getActivity.dateStart
+                this.dateEnd = this.$store.getters.getActivity.dateEnd;
+                this.guests = this.$store.getters.getActivity.guests;
+                this.timeStart = this.$store.getters.getActivity.timeStart;
+                this.timeEnd = this.$store.getters.getActivity.timeEnd;
+                this.description = this.$store.getters.getActivity.description;
+                this.location = this.$store.getters.getActivity.description;
+                this.id = this.$store.getters.getActivity.id;
+            },
 
         },
         methods: {
-            save () {
+            save() {
                 this.$v.$touch()
-                if (!this.nameErrors.length==0 ||
-                    !this.guestsErrors.length==0||
-                    !this.locationErrors.length==0||
-                    !this.descriptionErrors.length==0
+                if (!this.nameErrors.length == 0 ||
+                    !this.guestsErrors.length == 0 ||
+                    !this.locationErrors.length == 0 ||
+                    !this.descriptionErrors.length == 0
                 ) {
                     this.$toaster.info('Будьте внимательны при заполнении полей.')
                 } else {
 
-                    this.$store.dispatch('activityCreate',{
+                    this.$store.dispatch('activityCreate', {
                         name: this.name,
                         guests: this.guests,
                         location: this.location,
@@ -228,26 +229,26 @@
                         time_start: this.timeStart,
                         time_end: this.timeEnd,
                         date_end: this.dateEnd,
-                        date_start:this.dateStart
-                        });
-                        this.clear()
+                        date_start: this.dateStart
+                    });
+                    this.clear()
                 }
             },
-            update () {
+            update() {
                 this.$v.$touch()
-                if (!this.nameErrors.length==0) {
+                if (!this.nameErrors.length == 0) {
                     this.$toaster.info('Будьте внимательны при заполнении полей.');
                 } else {
                     this.$store.dispatch('activityUpdate', {
-                        id:this.id,
+                        id: this.id,
                         name: this.name,
                         guests: this.guests,
-                        location:this.location,
+                        location: this.location,
                         description: this.description,
                         time_start: this.timeStart,
                         time_end: this.timeEnd,
-                        date_end:moment(this.dateEnd).format('YYYY-MM-DD') ,
-                        date_start:moment(this.dateStart).format('YYYY-MM-DD')
+                        date_end: moment(this.dateEnd).format('YYYY-MM-DD'),
+                        date_start: moment(this.dateStart).format('YYYY-MM-DD')
 
                     });
                     this.clear();
@@ -257,17 +258,20 @@
                 this.clear();
                 this.$store.commit('changeShowModal');
             },
-            clear () {
+            clear() {
                 this.$v.$reset()
+                this.name = null,
+                this.dateStart = moment(new Date()).format('YYYY-MM-DD'),
+                this.dateEnd = moment(new Date()).format('YYYY-MM-DD'),
+                this.guests = null,
+                this.location = null,
+                this.timeStart = '00:00',
+                this.timeEnd = '00:00',
+                this.description = null,
+                this.id = null;
                 this.$store.commit('setIsUpdateActive',false);
-                this.$store.commit('setActivityValuesDefoult');
-
             },
         },
-        mounted() {
-            // this.guests=this.$store.getters.getTest;
-            console.log(this.guests);
-        }
     }
 </script>
 <style scoped>

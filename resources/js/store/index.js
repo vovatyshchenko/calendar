@@ -8,6 +8,8 @@ import Holidays from './modules/holidays';
 import ChangeCalendarType from './modules/changeCalendarType';
 import CreateModal from './modules/createModal';
 import Events from './modules/events';
+import TypeColors from './modules/typeColors';
+import Search from './modules/search';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -18,6 +20,8 @@ export default new Vuex.Store({
         Calendar,
         ChangeCalendarType,
         CreateModal,
-        Events
+        Events,
+        TypeColors,
+        Search
     }
 });

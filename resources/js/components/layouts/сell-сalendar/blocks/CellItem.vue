@@ -17,26 +17,9 @@
                     <button class="delete" @click.stop="dialog = true">
                         <img src="../../../../../../public/img/icon/email.svg" alt="Email">
                     </button>
-                        <button class="delete" @click.stop="dialog = true">
-                            <img src="../../../../../../public/img/icon/delete.svg" alt="Delete">
-                        </button>
-                        <v-dialog
-                            v-model="dialog"
-                            hide-overlay
-                            width="540">
-                            <div class="delete-info">
-                                <button class="close-modal-x"  @click="dialog=false"><img src="../../../../../../public/img/icon/close.svg" alt="Close"></button>
-                                <div class="text-modal">
-                                    Вы подтверждаете удаление?
-                                </div>
-                                <div class="d-flex justify-content-around">
-                                    <button class="ok" @click="deleteEvent(item)">Да</button>
-                                    <button class="close" @click="dialog=false">Нет</button>
-                                </div>
-                            </div>
-                        </v-dialog>
-                    <button class="create-btn" @click="changeShowModal(item)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
-                    <button class="create-btn clear" @click="menu = false"><img src="../../../../../../public/img/icon/clear.svg" alt="Clear"></button>
+                    <delete @close="close($event)" :item="item"></delete>
+                    <button class="create-btn" @click="edit(item)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
+                    <button class="create-btn clear" @click="close()"><img src="../../../../../../public/img/icon/clear.svg" alt="Clear"></button>
                 </div>
                 <div class="container-event">
                     <div class="text">
@@ -56,7 +39,6 @@
         data() {
             return {
                 menu: false,
-                dialog: false,
                 getDay:null,
                 dateForModal:null
             }
@@ -83,10 +65,12 @@
             setPosition()
             {
                 return this.getDay;
-            }
+            },
+
+
         },
         methods: {
-            changeShowModal(event) {
+            edit(event) {
                 this.$store.commit('changeShowModal');
                 if (event.type == 'birthday') {
                     this.$store.dispatch('getBirthday',event.id );
@@ -95,17 +79,12 @@
                 } else if (event.type == 'task') {
                     this.$store.dispatch('getTask',event.id );
                 }
-                this.$eventBus.$emit('type', this.item.type);
+                this.$eventBus.$emit('type', event.type);
                 this.menu = false;
             },
-            deleteEvent(event) {
-                if (event.type == 'birthday') {
-                    this.$store.dispatch('deleteBirthdays', {event: event})
-                } else if (event.type == 'activity') {
-                    this.$store.dispatch('deleteActivity', {event: event})
-                } else if (event.type == 'task') {
-                    this.$store.dispatch('deleteTask', {event: event})
-                }
+            close(event=null)
+            {
+                return  this.menu=event;
             }
         },
         created(){
@@ -115,9 +94,8 @@
             statusDelete(value) {
                 if (value === true) {
                     this.$toaster.success('Данные успешно удалены');
-                    this.dialog = false;
-                    this.menu = false;
                     this.$store.commit("setStatusDelete", false);
+
                 }
             }
         },
@@ -133,56 +111,15 @@
         font-weight: bold;
         font-size: 14px;
         line-height: 30px;
-        /* identical to box height, or 214% */
+
         color: #000000;
     }
     .clear{
     margin-left: 10px;
     }
-    .ok,.close{
-        width: 120px;
-        height: 50px;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: 900;
-        font-size: 12px;
-        line-height: 50px;
-        text-align: center;
-        text-transform: uppercase;
-        border: 2px solid #F5F5F5;
-        box-sizing: border-box;
-        border-radius: 3px;
-        color: #B3B3B3;
-    }
+
     .text{
 
-    }
-    .ok:hover,.close:hover
-    {
-        background: #1875F0;
-        color: #FFFFFF;
-    }
-    .delete-info{
-        height: 214px;
-        display: flex;
-        flex-direction: column;
-    }
-    .text-modal{
-        padding-top: 33px;
-        margin-bottom: 60px;
-        text-align: center;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 30px;
-        text-align: center;
-        color: #666666;
-    }
-    .close-modal-x{
-        display: flex;
-        width: 30px;
-        align-self: flex-end;
     }
     .event
     {

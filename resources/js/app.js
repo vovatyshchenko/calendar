@@ -4,6 +4,7 @@ import App from './components/App';
 import Vuetify from '../plugins/vuetify';
 import router from './router';
 import store from './store';
+import filter from './filter/index';
 import VeeValidate from 'vee-validate';
 
 import Toaster from 'v-toaster'
@@ -46,14 +47,14 @@ Vue.component('calendar-week', require('./components/layouts/calendar/week/WeekI
 Vue.component('cell-week', require('./components/layouts/сell-сalendar/CellWeek').default);
 Vue.component('cell-year',require('./components/layouts/сell-сalendar/CellYear').default);
 Vue.component('hour-block',require('./components/layouts/сell-сalendar/blocks/Hour').default);
+Vue.component('additional-events',require('./components/layouts/сell-сalendar/blocks/AdditionalEvents').default);
+Vue.component('search',require('./components/layouts/menu/blocks/Search').default);
+Vue.component('search-result',require('./components/layouts/menu/blocks/ResultSearch').default);
+Vue.component('delete',require('./components/layouts/menu/blocks/Delete').default);
 Vue.component('ValidationProvider', ValidationProvider);
+import VueFilterDateParse from '@vuejs-community/vue-filter-date-parse';
 
-
-Vue.filter('cutText', function (value, symbolsCount){
-    return value.length > symbolsCount
-        ? value.slice(0, symbolsCount - 3) + '...'
-        : value;
-})
+Vue.use(VueFilterDateParse);
 
 //eventBus
 Vue.prototype.$eventBus = new Vue();
@@ -63,6 +64,7 @@ const app = new Vue({
     vuetify: Vuetify,
     router,
     store,
+    filter,
     render: h => h(App)
 });
 

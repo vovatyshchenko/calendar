@@ -76,27 +76,29 @@ class AuthController extends Controller
             curl_close($ch);
 
             $response = json_decode($result, true);
-
+            $userData['email'] = $response['email'];
+            $userData['surname'] = $response['surname'];
+            $userData['name'] = $response['name'];
+            $userData['patronymic'] = $response['middle_name'];
+            $userData['token'] = $access->access_token;
             $user = User::where('email',$response['email'])->first();
             if($user){
-                $user->update([
-                    'email' => $user->email,
-                    'name' => $user->name,
-                    'password' => $user->password,
-                    'token' => $access_token
-                ]);
 
+                User::where('email',$response['email'])->update($userData);
+                $user = User::where('email',$response['email'])->first();
                 Auth::login($user);
             }
-            else {
-                $user = User::firstOrCreate([
+            else{
+                $user = User::firstOrCreate(
+                    [
                         'email' => $response['email'],
+                        'token' => $access->access_token,
+                        'surname' => $response['surname'],
                         'name' => $response['name'],
-                        'password' => Hash::make('gfhjkm'),
-                        'token' => $access_token
+                        'patronymic' => $request['middle_name']
                     ]
-                );
 
+                );
                 Auth::login($user);
             }
 

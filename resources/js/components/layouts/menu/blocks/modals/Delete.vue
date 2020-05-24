@@ -13,7 +13,7 @@
                     Вы подтверждаете удаление?
                 </div>
                 <div class="d-flex justify-content-around">
-                    <button class="ok" @click="deleteEvent(item)">Да</button>
+                    <button class="ok" @click="deleteEvent(event)">Да</button>
                     <button class="close" @click="dialog=false">Нет</button>
                 </div>
             </div>
@@ -24,7 +24,7 @@
 <script>
     export default {
         name: "Delete",
-        props:['item'],
+        props:['event'],
         data() {
             return {
                 dialog: false,
@@ -50,6 +50,9 @@
                     this.dialog=false;
                 }
             }
+        },
+        computed:{
+
         },
     }
 </script>

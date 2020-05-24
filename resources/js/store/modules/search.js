@@ -42,5 +42,6 @@ export default {
         isSearched:state=>state.isSearched,
         searchActive:state=>state.searchActive,
         searchEvent:state=>state.searchEvent,
+        lastRequestSearched:state=>state.lastRequestSearched
     }
 }

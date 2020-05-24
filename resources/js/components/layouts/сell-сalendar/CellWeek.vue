@@ -7,9 +7,8 @@
             </div>
         </div>
         <table>
-            {{events}}
             <tr class="week-events hour-block" v-for="n in 24">
-                <td class="event-block" v-for="(event, index) in getEvent(events, date, n)" :key="index" :rowspan="event.time_length">{{ event.name }}</td>
+                <td class="event-block" v-for="(event, index) in getEvent(events, date, n)" :key="index" :rowspan="event.time_length">{{ event.name }}</td> 
             </tr>
         </table>
     </div>
@@ -34,15 +33,13 @@
                 let dayNumber = new Date(parseDate[0], parseDate[1] - 1, parseDate[2]).getDay();
                 return this.days[dayNumber] + ', ' + parseDate[2];
             },
-            test()
-            {
+            /*test(){
                 let events=[];
-                for (let n=0;n<=24;n++)
-                {
+                for (let n = 0;n <= 24;n++){
                   events.push(this.getEvent(this.events,this.date,n));
                 }
                 return events;
-            },
+            },*/
         },
         methods: {
             getEvent(obj, date, count) {
@@ -64,15 +61,6 @@
                         if (obj[i].type == 'birthday') {
                             if (moment(obj[i].date).isSame(date)) {
                                 objCurrentData.push(obj[i]);
-                            }
-                        }
-                    }
-                    for (let i = 0; i < objCurrentData.length; i++) {
-                        for (let j = i + 1; j < objCurrentData.length; j++) {
-                            if (objCurrentData[i].type != 'birthday') {
-                                if (objCurrentData[i].created_at == objCurrentData[j].created_at) {
-                                    objCurrentData.splice(j--, 1);
-                                }
                             }
                         }
                     }
@@ -106,10 +94,6 @@
                 return hourEvents;
             }
         },
-        mounted()
-        {
-
-        }
     }
 </script>
 

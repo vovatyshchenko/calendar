@@ -5,7 +5,6 @@
             <div class="week-time hour-block" v-for="n in 24"><span>{{n}}:00</span></div>
         </div>
         <div class="week-col" v-for="(date) in dateOfWeek">
-            {{date}}
             <cell-week :date="date" :events="events[date]"></cell-week>
         </div>
     </div>
@@ -21,21 +20,8 @@
                 dayNumber:[],
             }
         },
-        methods:{
-           currentObj(obj) {
-               let currentObj = [];
-                Object.keys(obj).forEach(key => {
-                    for (let i = 0; i < obj[key].length; i++) {
-                        currentObj.push(obj[key][i]);
-                    }
-                });
-                console.log(currentObj);
-                return currentObj;
-           }
-        },
         computed:{
             events(){
-                console.log();
               return this.$store.getters.events;
             },
             dateOfWeek() {

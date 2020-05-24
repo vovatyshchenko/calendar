@@ -17,7 +17,7 @@
                     <button class="delete" @click.stop="dialog = true">
                         <img src="../../../../../../public/img/icon/email.svg" alt="Email">
                     </button>
-                    <delete @close="close($event)" :item="item"></delete>
+                    <delete @close="close($event)" :event="item"></delete>
                     <button class="create-btn" @click="edit(item)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
                     <button class="create-btn clear" @click="close()"><img src="../../../../../../public/img/icon/clear.svg" alt="Clear"></button>
                 </div>
@@ -33,7 +33,9 @@
 </template>
 
 <script>
+    import notification from '../../../../mixin/eventNotifications'
     export default {
+        mixins: [notification],
         props: ['item', 'index','date','getDate'],
         name: "CellItem",
         data() {
@@ -50,9 +52,7 @@
             processing() {
                 return this.$store.getters.get_processing;
             },
-            statusDelete() {
-                return this.$store.getters.setStatusDelete;
-            },
+
             currentDate() {
                 let parseDate = this.date.split("-");
                let dateCurrent = new Date(parseDate[0],parseDate[1]-1,parseDate[2]);
@@ -66,8 +66,6 @@
             {
                 return this.getDay;
             },
-
-
         },
         methods: {
             edit(event) {
@@ -91,13 +89,7 @@
 
         },
         watch: {
-            statusDelete(value) {
-                if (value === true) {
-                    this.$toaster.success('Данные успешно удалены');
-                    this.$store.commit("setStatusDelete", false);
 
-                }
-            }
         },
     }
 </script>

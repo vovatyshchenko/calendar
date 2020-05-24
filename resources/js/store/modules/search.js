@@ -22,6 +22,7 @@ export default {
         setLastRequestSearched(state,payload)
         {
             state.lastRequestSearched = payload;
+            console.log(state.lastRequestSearched);
         }
     },
     actions:{
@@ -42,5 +43,6 @@ export default {
         isSearched:state=>state.isSearched,
         searchActive:state=>state.searchActive,
         searchEvent:state=>state.searchEvent,
+        lastRequestSearched:state=>state.lastRequestSearched
     }
 }

@@ -7,8 +7,8 @@
             </div>
         </div>
         <table>
-            <tr class="week-events hour-block" v-for="n in 24">
-                <td class="event-block" v-for="(event, index) in getEvent(events, date, n)" :key="index" :rowspan="event.time_length">{{ event.name }}</td> 
+            <tr v-for="n in 24">
+                <td class="event-block" v-for="(event, index) in getEvent(events, date, n)" :key="index" :rowspan="event.time_length">{{ event.time_length }}</td>
             </tr>
         </table>
     </div>

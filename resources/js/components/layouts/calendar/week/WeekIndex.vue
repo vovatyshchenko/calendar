@@ -1,11 +1,13 @@
 <template>
-    <div class="calendar-week" align="center">
-        <div class="week-info">
-            <div class="week-time-header week-header"><span>День</span></div>
-            <div class="week-time hour-block" v-for="n in 24"><span>{{n}}:00</span></div>
-        </div>
-        <div class="week-col" v-for="(date) in dateOfWeek">
-            <cell-week :date="date" :events="events[date]"></cell-week>
+    <div>
+        <div class="calendar-week" align="center">
+            <div class="week-info">
+                <div class="week-time-header week-header"><span>День</span></div>
+                <div class="week-time hour-block" v-for="n in 24"><span>{{n}}:00</span></div>
+            </div>
+            <div class="week-col" v-for="(date) in dateOfWeek">
+                <cell-week :date="date" :events="events[date]"></cell-week>
+            </div>
         </div>
     </div>
 </template>

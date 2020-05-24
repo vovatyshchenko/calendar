@@ -8,7 +8,10 @@ export default {
     computed:{
        statusUpdated(){
             return this.$store.getters.getStatusUpdated;
-        }
+        },
+        statusDelete() {
+            return this.$store.getters.setStatusDelete;
+        },
     },
     watch: {
         status(value) {
@@ -26,5 +29,12 @@ export default {
                 this.$store.commit('changeShowModal');
             }
         },
+        statusDelete(value) {
+            if (value === true) {
+                this.$toaster.success('Данные успешно удалены');
+                this.$store.commit("setStatusDelete", false);
+
+            }
+        }
     }
 }

@@ -146,6 +146,7 @@
                     if (window.location.pathname != '/search-result') {
                         this.$router.push('search-result');
                     }
+                    this.$store.commit('setStatusSearched',false);
                 }
             },
         },

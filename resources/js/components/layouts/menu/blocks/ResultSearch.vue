@@ -51,6 +51,17 @@
             },
 
         },
+        created()
+        {
+            this.$store.commit('setSearchActive', true);
+
+            console.log(this.$store.getters.searchActive)
+        },
+        destroyed() {
+            this.$store.commit('setSearchActive', false);
+
+            console.log(this.$store.getters.searchActive)
+        }
     }
 </script>
 

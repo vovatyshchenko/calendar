@@ -19,7 +19,8 @@ class Activity extends Model
     public function getActivities($dateStart,$dateEnd)
     {
         return DB::table('activities')
-            ->where('date_start','>=',$dateStart)
+            ->where('date_start','<=',$dateEnd)
+            ->where('date_end','>=',$dateStart)
             ->where('user_id','=',Auth::user()->id)
             ->get();
     }
@@ -34,8 +35,8 @@ class Activity extends Model
                         ->orWhere('description', 'like', '%' . $value . '%');
                 })
                 ->where('user_id', '=', Auth::user()->id)
-                ->where('date_start', '>=', $data['date_start'])
-                ->where('date_end', '<=', $data['date_end'])
+                ->where('date_start','<=',$data['date_end'])
+                ->where('date_end','>=',$data['date_start'])
                 ->get()
                 ->toArray();
             if (count($search) != 0) {

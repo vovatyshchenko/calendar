@@ -76,6 +76,8 @@
                     fullDate.setDate(fullDate.getDate() - 7);
                 } else {
                     fullDate.setMonth(fullDate.getMonth() - 1);
+                    this.$store.commit('setEvents', {});
+
                 }
                 this.$store.commit('setDate', fullDate);
                 this.$store.commit('setCurrentYear', fullDate);
@@ -93,6 +95,7 @@
                     fullDate.setDate(fullDate.getDate() + 7);
                 } else {
                     fullDate.setMonth(fullDate.getMonth() + 1);
+                    this.$store.commit('setEvents', {});
                 }
                 this.$store.commit('setDate', fullDate);
 

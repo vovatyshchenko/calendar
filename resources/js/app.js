@@ -34,7 +34,7 @@ Vue.component('menu-calendar', require('./components/layouts/menu/Menu').default
 Vue.component('sidebar-calendar', require('./components/layouts/menu/Sidebar').default);
 Vue.component('type-list', require('./components/layouts/menu/blocks/TypeList').default);
 Vue.component('mini-calendar', require('./components/layouts/menu/blocks/MiniCalendar').default);
-Vue.component('create-modal', require('./components/layouts/menu/blocks/CreateModal').default);
+Vue.component('create-modal', require('./components/layouts/menu/blocks/modals/CreateModal').default);
 //modal
 Vue.component('activity-modal', require('./components/layouts/menu/blocks/modals/Activity').default);
 Vue.component('bdays-modal', require('./components/layouts/menu/blocks/modals/Birthday').default);
@@ -50,10 +50,9 @@ Vue.component('hour-block',require('./components/layouts/сell-сalendar/blocks/
 Vue.component('additional-events',require('./components/layouts/сell-сalendar/blocks/AdditionalEvents').default);
 Vue.component('search',require('./components/layouts/menu/blocks/Search').default);
 Vue.component('search-result',require('./components/layouts/menu/blocks/ResultSearch').default);
-Vue.component('delete',require('./components/layouts/menu/blocks/Delete').default);
+Vue.component('delete',require('./components/layouts/menu/blocks/modals/Delete').default);
 Vue.component('ValidationProvider', ValidationProvider);
 import VueFilterDateParse from '@vuejs-community/vue-filter-date-parse';
-
 Vue.use(VueFilterDateParse);
 
 //eventBus

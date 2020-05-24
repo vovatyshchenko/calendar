@@ -22,7 +22,24 @@ class AuthController extends Controller
         ]);
         return redirect(env('AUTORIZATION_URL').$query);
     }
+    public function logout(Request $request)
+    {
+        $access_token = Auth::user()->token;
 
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $http = new Client;
+        $response = $http->request('GET', config('client_auth.server_uri').'/api/client_logout', [
+            'headers' => [
+                'Authorization' => 'Bearer '.$access_token,
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        return redirect(config('client_auth.server_uri').'/api/client_logout');
+    }
     protected function callback(Request $request)
     {
         //заюзать use GuzzleHttp\Client;
@@ -60,17 +77,28 @@ class AuthController extends Controller
 
             $response = json_decode($result, true);
 
+            $user = User::where('email',$response['email'])->first();
+            if($user){
+                $user->update([
+                    'email' => $user->email,
+                    'name' => $user->name,
+                    'password' => $user->password,
+                    'token' => $access_token
+                ]);
 
-            $user = User::firstOrCreate(
-                ['email' => $response['email']],
-                ['name'=> $response['name'],
-                    'password' => Hash::make('afrtw'), 'token' => $access->access_token]
+                Auth::login($user);
+            }
+            else {
+                $user = User::firstOrCreate([
+                        'email' => $response['email'],
+                        'name' => $response['name'],
+                        'password' => Hash::make('gfhjkm'),
+                        'token' => $access_token
+                    ]
+                );
 
-            );
-
-
-            $Rres = Auth::login($user);
-
+                Auth::login($user);
+            }
 
             return response()->redirectTo(RouteServiceProvider::HOME);
         }

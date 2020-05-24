@@ -1,14 +1,14 @@
 <template>
     <div>
         <button class="delete" @click.stop="dialog = true">
-            <img src="../../../../../../public/img/icon/delete.svg" alt="Delete">
+            <img src="../../../../../../../public/img/icon/delete.svg" alt="Delete">
         </button>
         <v-dialog
             v-model="dialog"
             hide-overlay
             width="540">
             <div class="delete-info">
-                <button class="close-modal-x"  @click="dialog=false"><img src="../../../../../../public/img/icon/close.svg" alt="Close"></button>
+                <button class="close-modal-x"  @click="dialog=false"><img src="../../../../../../../public/img/icon/close.svg" alt="Close"></button>
                 <div class="text-modal">
                     Вы подтверждаете удаление?
                 </div>
@@ -31,15 +31,22 @@
             }
         },
         methods:{
+            isDeleted(){
+                this.$emit('close', false);
+            },
             deleteEvent(event) {
                 if (event.type == 'birthday') {
                     this.$store.dispatch('deleteBirthdays', {event: event})
+                    this.isDeleted();
                     this.dialog=false;
+
                 } else if (event.type == 'activity') {
                     this.$store.dispatch('deleteActivity', {event: event})
+                    this.isDeleted();
                     this.dialog=false;
                 } else if (event.type == 'task') {
                     this.$store.dispatch('deleteTask', {event: event})
+                    this.isDeleted();
                     this.dialog=false;
                 }
             }

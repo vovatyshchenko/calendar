@@ -19,7 +19,7 @@
                     </button>
                     <delete :item="item"></delete>
                     <button class="create-btn" @click="edit(item)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
-                    <button class="create-btn clear" @click="menu = false"><img src="../../../../../../public/img/icon/clear.svg" alt="Clear"></button>
+                    <button class="create-btn clear close-modal" @click="menu = false"><img src="../../../../../../public/img/icon/clear.svg" alt="Clear"></button>
                 </div>
                 <div class="container-event">
                     <div class="text">
@@ -44,6 +44,7 @@
             }
         },
         computed: {
+
             error() {
                 return this.$store.getters.get_error;
             },
@@ -89,7 +90,6 @@
             statusDelete(value) {
                 if (value === true) {
                     this.$toaster.success('Данные успешно удалены');
-                    this.menu = false;
                     this.$store.commit("setStatusDelete", false);
                 }
             }

@@ -29,7 +29,7 @@ export default {
         setCurrentWeek(state,date)
         {
             state.currentWeek=date;
-        }
+        },
     },
     actions: {
 
@@ -52,6 +52,6 @@ export default {
         },
         week(state){
             return state.currentWeek;
-        }
+        },
     }
 }

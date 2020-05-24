@@ -7,6 +7,7 @@
             </div>
         </div>
         <table>
+            {{events}}
             <tr class="week-events hour-block" v-for="n in 24">
                 <td class="event-block" v-for="(event, index) in getEvent(events, date, n)" :key="index" :rowspan="event.time_length">{{ event.name }}</td>
             </tr>
@@ -48,6 +49,7 @@
                 let objCurrentData = [];
                 let hourEvents = [];
                 let n = 0;
+                if(obj) {
                     for (let i = 0; i < obj.length; i++) {
                         if (obj[i].type == 'activity' || (obj[i].type == 'task')) {
                             let dateStart = moment(obj[i].date_start);
@@ -65,10 +67,10 @@
                             }
                         }
                     }
-                    for(let i = 0; i < objCurrentData.length; i++){
-                        for(let j = i + 1; j < objCurrentData.length; j++){
-                            if (objCurrentData[i].type != 'birthday'){
-                                if(objCurrentData[i].created_at == objCurrentData[j].created_at){
+                    for (let i = 0; i < objCurrentData.length; i++) {
+                        for (let j = i + 1; j < objCurrentData.length; j++) {
+                            if (objCurrentData[i].type != 'birthday') {
+                                if (objCurrentData[i].created_at == objCurrentData[j].created_at) {
                                     objCurrentData.splice(j--, 1);
                                 }
                             }
@@ -89,7 +91,7 @@
 
                                 if (hourStart == count - 1) {
                                     hourEvents.push(objCurrentData[i]);
-                                    hourEvents[n].time_length = (hourEnd-hourStart);
+                                    hourEvents[n].time_length = (hourEnd - hourStart);
                                     n++;
                                 }
                             } else {
@@ -100,6 +102,7 @@
                             }
                         }
                     }
+                }
                 return hourEvents;
             }
         },

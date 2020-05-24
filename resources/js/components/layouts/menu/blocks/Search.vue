@@ -11,6 +11,9 @@
                         <div class="search-group">
                             <v-select
                                 v-model="searchEvents"
+                                @change="$v.searchEvents.$touch()"
+                                @blur="$v.searchEvents.$touch()"
+                                :error-messages="searchEventsErrors"
                                 :items="items"
                                 :clearable="true"
                                 placeholder="Выберите область поиска"
@@ -29,7 +32,15 @@
                     <div class="text-search">
                         <div class="title-search">Что</div>
                         <div class="search-group">
-                            <input  class="form-control" v-model="description" placeholder="Ключевые слова, относящиеся к задачи" type="text">
+                            <v-text-field
+                                v-model="description"
+                                :error-messages="descriptionErrors"
+                                outlined
+                                dense
+                                placeholder="Ведите ключевые слова для поиска"
+                                @input="$v.description.$touch()"
+                                @blur="$v.description.$touch()"
+                            ></v-text-field>
                         </div>
                     </div>
                     <div class="date-search">
@@ -102,7 +113,7 @@
                 clearSearch: false,
                 closeOnClick: true,
                 offset: true,
-                description:false,
+                description:null,
                 items: ['Дни рождения', 'Задачи', 'Мероприятия', 'Напоминания'],
                 searchEvents: null,
                 openDataStart:false ,
@@ -113,20 +124,31 @@
         },
         methods:{
             search () {
+                this.$v.$touch()
+                if (
+                    !this.descriptionErrors.length == 0
+                    || !this.searchEventsErrors.length==0
+                )
+                {
+                    this.$toaster.info('Будьте внимательны при заполнении полей.')
+                }
+                else {
                     this.$store.dispatch('searchEvents', {
-                            search_area:this.searchEvents,
+                            search_area: this.searchEvents,
                             description: this.description,
-                            date_start:moment(this.dateStart).format('YYYY-MM-DD'),
-                            date_end:moment(this.dateEnd).format('YYYY-MM-DD'),
+                            date_start: moment(this.dateStart).format('YYYY-MM-DD'),
+                            date_end: moment(this.dateEnd).format('YYYY-MM-DD'),
                         }
                     );
-                    this.searchDialog=false;
+                    this.searchDialog = false;
+                }
             },
         },
         watch: {
             clearSearch(value) {
                 if (value == true) {
                     this.searchEvents = null;
+                    this.description=null;
 
                 }
                 this.clearSearch = false;

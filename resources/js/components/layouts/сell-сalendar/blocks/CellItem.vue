@@ -33,6 +33,7 @@
 </template>
 
 <script>
+
     import notification from '../../../../mixin/eventNotifications'
     export default {
         mixins: [notification],

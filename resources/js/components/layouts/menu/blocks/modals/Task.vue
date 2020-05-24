@@ -1,5 +1,5 @@
 <template>
-    <form ref="createEvent"  onsubmit="return false">
+    <form ref="createEvent" onsubmit="return false">
         {{setValues}}
         <v-progress-linear :active="processing" indeterminate height="5" color="red darken-1"></v-progress-linear>
         <div class="delimiter"></div>
@@ -23,7 +23,7 @@
             dense
             label="Описание*"
         ></v-textarea>
-         <v-col class="d-flex align-items-center">
+        <v-col class="d-flex align-items-center">
             <span>Весь день</span>
             <v-checkbox v-model="isRemind"></v-checkbox>
         </v-col>
@@ -111,6 +111,7 @@
                 </v-flex>
             </div>
             <v-menu
+                ref="end"
                 v-model="openTimeEnd"
                 :close-on-content-click="false"
                 :nudge-right="40"
@@ -139,39 +140,39 @@
                 ></v-time-picker>
             </v-menu>
         </div>
-            <v-spacer></v-spacer>
-           <div class="d-flex justify-content-between">
-               <v-btn v-if="!checkIsUpdate" @click="save" type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
-               <v-btn v-else  type="submit"  @click="update"  color="blue darken-2" dark large>Редактировать</v-btn>
-                <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
-            </div>
+        <v-spacer></v-spacer>
+        <div class="d-flex justify-content-between">
+            <v-btn v-if="!checkIsUpdate" @click="save" type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
+            <v-btn v-else type="submit" @click="update" color="blue darken-2" dark large>Редактировать</v-btn>
+            <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
+        </div>
     </form>
 </template>
 
 <script>
     import validation from '../../../../../mixin/validation'
     import notification from '../../../../../mixin/eventNotifications'
-export default {
 
-    mixins: [validation,notification],
+    export default {
+
+        mixins: [validation, notification],
         data: () => ({
             menu1: false,
-            name:null,
-            dateStart:moment(new Date()).format('YYYY-MM-DD'),
-            dateEnd:moment(new Date()).format('YYYY-MM-DD'),
+            name: null,
+            dateStart: moment(new Date()).format('YYYY-MM-DD'),
+            dateEnd: moment(new Date()).format('YYYY-MM-DD'),
             timeStart: '00:00',
             timeEnd: '00:00',
-            isRemind:false,
-            about:null,
-            id:null,
+            isRemind: false,
+            about: null,
+            id: null,
             openTimeStart: false,
             openDataStart: false,
             openTimeEnd: false,
             openDataEnd: false,
         }),
         computed: {
-            checkIsUpdate()
-            {
+            checkIsUpdate() {
                 return this.$store.getters.isUpdateTask;
             },
             error() {
@@ -183,50 +184,55 @@ export default {
             status() {
                 return this.$store.getters.getStatus;
             },
-            setValues(){
+            setValues() {
 
-                this.name=this.$store.getters.getTask.name;
-                this.dateStart=this.$store.getters.getTask.dateStart
-                this.dateEnd=this.$store.getters.getTask.dateEnd;
-                this.timeStart=this.$store.getters.getTask.timeStart;
-                this.timeEnd=this.$store.getters.getTask.timeEnd;
-                this.about=this.$store.getters.getTask.about;
-                this.isRemind=this.$store.getters.getTask.isRemind;
-                this.id=this.$store.getters.getTask.id;
+                this.name = this.$store.getters.getTask.name;
+                this.dateStart = this.$store.getters.getTask.dateStart
+                this.dateEnd = this.$store.getters.getTask.dateEnd;
+                this.timeStart = this.$store.getters.getTask.timeStart;
+                this.timeEnd = this.$store.getters.getTask.timeEnd;
+                this.about = this.$store.getters.getTask.about;
+                this.isRemind = this.$store.getters.getTask.isRemind;
+                this.id = this.$store.getters.getTask.id;
             },
         },
         methods: {
-            save () {
+            save() {
                 this.$v.$touch()
-                if (!this.nameErrors.length==0) {
+                if (!this.nameErrors.length == 0) {
                     this.$toaster.info('Будьте внимательны при заполнении полей.')
-                } else {
-                    this.$store.dispatch('taskCreate',{
+                } else if (this.timeStart == this.timeEnd || this.timeStart > this.timeEnd) {
+                    this.$toaster.info('Мероприятие не может длится 0 минут,и время начала не может быть больше время окончания')
+                }
+                else {
+                    this.$store.dispatch('taskCreate', {
                         name: this.name,
                         description: this.about,
                         time_start: this.timeStart,
                         time_end: this.timeEnd,
-                        date_start:this.dateStart,
+                        date_start: this.dateStart,
                         date_end: this.dateEnd,
-                        is_remind:this.isRemind,
+                        is_remind: this.isRemind,
                     });
                     this.clear()
                 }
             },
-            update () {
+            update() {
                 this.$v.$touch()
-                if (!this.nameErrors.length==0) {
+                if (!this.nameErrors.length == 0) {
                     this.$toaster.info('Будьте внимательны при заполнении полей.');
+                } else if (this.timeStart == this.timeEnd || this.timeStart > this.timeEnd) {
+                    this.$toaster.info('Мероприятие не может длится 0 минут,и время начала не может быть больше время окончания')
                 } else {
                     this.$store.dispatch('taskUpdate', {
-                        id:this.id,
+                        id: this.id,
                         name: this.name,
                         description: this.about,
                         time_start: this.timeStart,
                         time_end: this.timeEnd,
-                        is_remind:this.isRemind,
-                        date_end:moment(this.dateEnd).format('YYYY-MM-DD') ,
-                        date_start:moment(this.dateStart).format('YYYY-MM-DD')
+                        is_remind: this.isRemind,
+                        date_end: moment(this.dateEnd).format('YYYY-MM-DD'),
+                        date_start: moment(this.dateStart).format('YYYY-MM-DD')
 
                     });
                     this.clear();
@@ -236,21 +242,21 @@ export default {
                 this.clear();
                 this.$store.commit('changeShowModal');
             },
-            clear () {
+            clear() {
                 this.$v.$reset()
-                this.name=null,
-                this.dateStart=moment(new Date()).format('YYYY-MM-DD'),
-                this.dateEnd=moment(new Date()).format('YYYY-MM-DD'),
-                this.timeStart= '00:00',
-                this.timeEnd= '00:00',
-                this.isRemind=false,
-                this.about=null,
-                this.id=null,
-                this.$store.commit('setIsUpdateTask',false);
+                this.name = null,
+                    this.dateStart = moment(new Date()).format('YYYY-MM-DD'),
+                    this.dateEnd = moment(new Date()).format('YYYY-MM-DD'),
+                    this.timeStart = '00:00',
+                    this.timeEnd = '00:00',
+                    this.isRemind = false,
+                    this.about = null,
+                    this.id = null,
+                    this.$store.commit('setIsUpdateTask', false);
 
             },
         },
-}
+    }
 </script>
 
 <style>

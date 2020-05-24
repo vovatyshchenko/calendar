@@ -3,8 +3,6 @@
         <div class="header d-flex">
             <div class="date d-flex">дата</div>
             <div class="time d-flex">время</div>
-
-
         </div>
         <div class="pin-search d-flex flex-column">
             <v-menu bottom :offset-y="true" :close-on-click="true" :close-on-content-click=false

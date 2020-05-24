@@ -12,7 +12,7 @@ export default {
         name: { required},
         guests: {required},
         email: { required, email },
-        select: { required },
+        searchEvents: { required },
         location: { required },
         description: { required },
         dateStart:{required,},
@@ -40,12 +40,6 @@ export default {
             const errors = []
             if (!this.$v.checkbox.$dirty) return errors
             !this.$v.checkbox.checked && errors.push('You must agree to continue!')
-            return errors
-        },
-        selectErrors () {
-            const errors = []
-            if (!this.$v.select.$dirty) return errors
-            !this.$v.select.required && errors.push('Item is required')
             return errors
         },
         dateStartErrors () {
@@ -83,6 +77,12 @@ export default {
             const errors = []
             if (!this.$v.description.$dirty) return errors
             !this.$v.description.required && errors.push(' ')
+            return errors
+        },
+        searchEventsErrors () {
+            const errors = []
+            if (!this.$v.searchEvents.$dirty) return errors
+            !this.$v.searchEvents.required && errors.push(' ')
             return errors
         },
         globalErrorMessasge(){

@@ -212,15 +212,31 @@
         },
         methods: {
             save() {
+                if(this.timeStart>this.timeEnd)
+                {
+                    console.log('d111');
+                }
+                else if(this.timeStart>this.timeEnd)
+                {     console.log('d22');
+
+                }
+                else{
+                    console.log(';24424');
+                }
                 this.$v.$touch()
                 if (!this.nameErrors.length == 0 ||
                     !this.guestsErrors.length == 0 ||
                     !this.locationErrors.length == 0 ||
-                    !this.descriptionErrors.length == 0
-                ) {
+                    !this.descriptionErrors.length == 0)
+                {
                     this.$toaster.info('Будьте внимательны при заполнении полей.')
-                } else {
-
+                }
+                else if(this.timeStart == this.timeEnd||this.timeStart> this.timeEnd)
+                {
+                    this.$toaster.info('Мероприятие не может длится 0 минут,и время начала не может быть больше время окончания')
+                }
+                else
+                {
                     this.$store.dispatch('activityCreate', {
                         name: this.name,
                         guests: this.guests,
@@ -238,7 +254,12 @@
                 this.$v.$touch()
                 if (!this.nameErrors.length == 0) {
                     this.$toaster.info('Будьте внимательны при заполнении полей.');
-                } else {
+                }
+                else if(this.timeStart == this.timeEnd||this.timeStart> this.timeEnd)
+                {
+                    this.$toaster.info('Мероприятие не может длится 0 минут,и время начала не может быть больше время окончания')
+                }
+                else {
                     this.$store.dispatch('activityUpdate', {
                         id: this.id,
                         name: this.name,

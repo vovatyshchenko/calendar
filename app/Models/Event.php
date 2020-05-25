@@ -16,12 +16,13 @@ class Event extends Model
 
     public function dataFormattingEvent($event, $events)
     {
+
         foreach ($event as $key => $element) {
             $key = explode(' ', $key)[0];
-            foreach ($element as $el) {
-                $events[$key] ?? $events[$key] = [];
-
-                array_push($events[$key], $el);
+            $parseKeyDate=explode('-',$key);
+            foreach ($element as $elementData) {
+                $events[$parseKeyDate[1].'-'.$parseKeyDate[2]] ?? $events[$parseKeyDate[1].'-'.$parseKeyDate[2]] = [];
+                array_push($events[$parseKeyDate[1].'-'.$parseKeyDate[2]], $elementData);
             }
         }
         return $events;
@@ -41,17 +42,16 @@ class Event extends Model
 
         foreach ($events as $key => $event) {
             foreach ($event as $elementKey => $element) {
-
                 $start = new Carbon($element->date_start);
                 $end = new Carbon($element->date_end);
                 $difference = $start->diffInDays($end);
 
                 for ($day = 1; $day <= $difference; $day++) {
                     $date = date('Y-m-d', strtotime($element->date_start . " +" . $day . " day"));
+                    $dateParse=explode('-',$date);
+                    $events[$dateParse[1].'-'.$dateParse[2]] ?? $events[$dateParse[1].'-'.$dateParse[2]] = [];
 
-                    $events[$date] ?? $events[$date] = [];
-
-                    array_push($events[$date], $event[$elementKey]);
+                    array_push($events[$dateParse[1].'-'.$dateParse[2]], $event[$elementKey]);
                 }
             }
 

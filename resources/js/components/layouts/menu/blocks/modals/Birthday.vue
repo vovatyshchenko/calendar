@@ -72,7 +72,7 @@
             </v-menu>
         </div>
         <v-col class="d-flex align-items-center">
-            <span class="label">Весь день</span>
+            <span class="label">Напомнить</span>
             <v-checkbox v-model="allDay"></v-checkbox>
         </v-col>
         <v-col class="d-flex align-items-center">

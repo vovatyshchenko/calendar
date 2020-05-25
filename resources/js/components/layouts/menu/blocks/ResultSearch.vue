@@ -3,8 +3,6 @@
         <div class="header d-flex">
             <div class="date d-flex">дата</div>
             <div class="time d-flex">время</div>
-
-
         </div>
         <div class="pin-search d-flex flex-column">
             <v-menu bottom :offset-y="true" :close-on-click="true" :close-on-content-click=false
@@ -28,9 +26,9 @@
                                 |dateFormat('DD.MM.YYYY')}} {{event.time_end}}
                             </div>
                         </div>
-                        <div class="right-content-search">
+                        <div class="right-content-search d-flex">
                             <delete @close="deleteEvent(searchEvent,index)" :event="event"></delete>
-                            <button class="create-btn" @click="edit(event)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
+                            <button class="edit-btn" @click="edit(event)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
                         </div>
                     </div>
                 </v-list>
@@ -75,12 +73,10 @@
         created() {
             this.$store.commit('setSearchActive', true);
 
-            console.log(this.$store.getters.searchActive)
         },
         destroyed() {
             this.$store.commit('setSearchActive', false);
 
-            console.log(this.$store.getters.searchActive)
         }
     }
 </script>
@@ -113,7 +109,10 @@
         line-height: 60px;
         color: #2675B5;
     }
-
+    .edit-btn{
+        width: 21px;
+        height: 26px;
+    }
     .date-pin {
         padding-top: 20px;
     }
@@ -137,6 +136,11 @@
         display: flex;
         width: 90%;
         flex-direction: column;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 60px;
     }
 
     .right-content-search {

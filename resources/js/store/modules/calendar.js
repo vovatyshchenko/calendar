@@ -12,9 +12,14 @@ export default {
         },
     },
     actions: {
-        yearData({ commit, getters }) {
-            let data = [];
+        yearData({ commit, getters, dispatch }) {
             let year = getters.menuDate.getFullYear();
+
+            //dispatch('getEvents',{date_start:moment({ year: year, month: 0, day: 1 }).format('YYYY-MM-DD'),date_end:moment({ year: year, month: 11, day: 31 }).format('YYYY-MM-DD')});
+            //commit('setStartDate',moment({ year: year, month: 0, day: 1 }).format('YYYY-MM-DD'));
+            //commit('setEndDate',moment({ year: year, month: 11, day: 31 }).format('YYYY-MM-DD'));
+
+            let data = [];
             let holiday = '';
             let event = getters.events;
             let objLength = Object.keys(event).length;

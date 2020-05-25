@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Search\SearchRequest;
 use App\Models\Activity;
 use App\Models\Birthday;
 use App\Models\Event;
@@ -42,8 +43,9 @@ class EventsController extends Controller
 
         return response()->json($sortedEvents, 200);
     }
-    public function search(Request $request)
+    public function search(SearchRequest $request)
     {
+
         $events=$request->only(['search_area','date_start','date_end']);
         $events['description']=(new Event())->clear($request->only(['description']));
 

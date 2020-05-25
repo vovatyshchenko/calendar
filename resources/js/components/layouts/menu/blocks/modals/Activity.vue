@@ -14,15 +14,21 @@
             @input="$v.name.$touch()"
             @blur="$v.name.$touch()"
         ></v-text-field>
-        <v-text-field
-            v-model="guests"
-            :error-messages="guestsErrors"
-            outlined
-            dense
-            label="Гости"
-            @input="$v.guests.$touch()"
-            @blur="$v.guests.$touch()"
-        ></v-text-field>
+        <div class="position-relative">
+                <v-text-field
+                    v-model="guests"
+                    :error-messages="guestsErrors"
+                    @input="$v.guests.$touch()"
+                    @blur="$v.guests.$touch()"
+                    append-icon="info"
+                    label="Гости"
+                    outlined
+                    dense
+                    @click:append="show = !show">
+                </v-text-field>
+            <span class="position-absolute info-email" v-if="show">разделяйте введеные почты с помощью знака ";"</span>
+        </div>
+
         <v-text-field
             v-model="location"
             :error-messages="locationErrors"
@@ -178,6 +184,7 @@
             timeEnd: '00:00',
             description: null,
             id: null,
+            show:false,
             openTimeStart: false,
             openDataStart: false,
             openTimeEnd: false,
@@ -205,7 +212,7 @@
                 this.timeStart = this.$store.getters.getActivity.timeStart;
                 this.timeEnd = this.$store.getters.getActivity.timeEnd;
                 this.description = this.$store.getters.getActivity.description;
-                this.location = this.$store.getters.getActivity.description;
+                this.location = this.$store.getters.getActivity.location;
                 this.id = this.$store.getters.getActivity.id;
             },
 
@@ -216,11 +223,16 @@
                 if (!this.nameErrors.length == 0 ||
                     !this.guestsErrors.length == 0 ||
                     !this.locationErrors.length == 0 ||
-                    !this.descriptionErrors.length == 0
-                ) {
+                    !this.descriptionErrors.length == 0)
+                {
                     this.$toaster.info('Будьте внимательны при заполнении полей.')
-                } else {
-
+                }
+                else if(this.timeStart == this.timeEnd||this.timeStart> this.timeEnd)
+                {
+                    this.$toaster.info('Мероприятие не может длится 0 минут,и время начала не может быть больше время окончания')
+                }
+                else
+                {
                     this.$store.dispatch('activityCreate', {
                         name: this.name,
                         guests: this.guests,
@@ -238,7 +250,12 @@
                 this.$v.$touch()
                 if (!this.nameErrors.length == 0) {
                     this.$toaster.info('Будьте внимательны при заполнении полей.');
-                } else {
+                }
+                else if(this.timeStart == this.timeEnd||this.timeStart> this.timeEnd)
+                {
+                    this.$toaster.info('Мероприятие не может длится 0 минут,и время начала не может быть больше время окончания')
+                }
+                else {
                     this.$store.dispatch('activityUpdate', {
                         id: this.id,
                         name: this.name,
@@ -275,5 +292,8 @@
     }
 </script>
 <style scoped>
-
+.info-email{
+    background: #4c110f;
+    color: #ffffff;
+}
 </style>

@@ -4,13 +4,16 @@
             <button class="dropdown-event menu-search" @click="clearSearch=true" v-on="on">Поиск</button>
         </template>
         <v-list>
-            <form  onsubmit="return false">
+            <form onsubmit="return false">
                 <div class="d-flex search">
                     <div class="select-event">
                         <div class="title-search">Область поиска*</div>
                         <div class="search-group">
                             <v-select
                                 v-model="searchEvents"
+                                @change="$v.searchEvents.$touch()"
+                                @blur="$v.searchEvents.$touch()"
+                                :error-messages="searchEventsErrors"
                                 :items="items"
                                 :clearable="true"
                                 placeholder="Выберите область поиска"
@@ -29,7 +32,15 @@
                     <div class="text-search">
                         <div class="title-search">Что</div>
                         <div class="search-group">
-                            <input  class="form-control" v-model="description" placeholder="Ключевые слова, относящиеся к задачи" type="text">
+                            <v-text-field
+                                v-model="description"
+                                :error-messages="descriptionErrors"
+                                outlined
+                                dense
+                                placeholder="Ведите ключевые слова для поиска"
+                                @input="$v.description.$touch()"
+                                @blur="$v.description.$touch()"
+                            ></v-text-field>
                         </div>
                     </div>
                     <div class="date-search">
@@ -83,7 +94,7 @@
                         </div>
                     </div>
                     <div class="search-btn d-flex justify-content-between">
-                        <button @click="searchDialog=false" type="" color="blue darken-2" dark large>Сброс</button>
+                        <button @click="discard" type="" color="blue darken-2" dark large>Сброс</button>
                         <button @click="search" color="blue darken-2">Поиск</button>
                     </div>
                 </div>
@@ -94,39 +105,58 @@
 
 <script>
     import validation from '../../../../mixin/validation'
+
     export default {
         mixins: [validation],
         data() {
             return {
-                searchDialog:false,
+                searchDialog: false,
                 clearSearch: false,
                 closeOnClick: true,
                 offset: true,
-                description:false,
+                description: null,
                 items: ['Дни рождения', 'Задачи', 'Мероприятия', 'Напоминания'],
                 searchEvents: null,
-                openDataStart:false ,
+                openDataStart: false,
                 openDataEnd: false,
                 dateStart: moment(new Date()).format('YYYY-MM-DD'),
                 dateEnd: moment(new Date()).format('YYYY-MM-DD'),
             }
         },
-        methods:{
-            search () {
+        methods: {
+            discard() {
+                this.$v.$reset();
+                this.searchEvents = null;
+                this.description = null;
+            },
+            search() {
+                this.$v.$touch()
+                if (
+                    !this.descriptionErrors.length == 0
+                    || !this.searchEventsErrors.length == 0
+                ) {
+                    this.$toaster.info('Будьте внимательны при заполнении полей.')
+                } else {
                     this.$store.dispatch('searchEvents', {
-                            search_area:this.searchEvents,
+                            search_area: this.searchEvents,
                             description: this.description,
-                            date_start:moment(this.dateStart).format('YYYY-MM-DD'),
-                            date_end:moment(this.dateEnd).format('YYYY-MM-DD'),
+                            date_start: moment(this.dateStart).format('YYYY-MM-DD'),
+                            date_end: moment(this.dateEnd).format('YYYY-MM-DD'),
                         }
                     );
-                    this.searchDialog=false;
+
+                    this.searchEvents = null;
+                    this.description = null;
+                    this.searchDialog = false;
+                }
             },
         },
         watch: {
             clearSearch(value) {
                 if (value == true) {
+                    this.$v.$reset();
                     this.searchEvents = null;
+                    this.description = null;
 
                 }
                 this.clearSearch = false;
@@ -136,7 +166,7 @@
 </script>
 
 <style scoped>
-    .search-btn button{
+    .search-btn button {
         width: 120px;
         height: 50px;
         font-family: Roboto;
@@ -151,11 +181,12 @@
         border-radius: 3px;
         color: #B3B3B3;
     }
-    .search-btn button:hover
-    {
+
+    .search-btn button:hover {
         background: #1875F0;
         color: #FFFFFF;
     }
+
     .title-search {
         display: flex;
         width: 30%;
@@ -166,10 +197,12 @@
         line-height: 50px;
         color: #000000;
     }
-    .search-btn{
+
+    .search-btn {
         width: 290px;
-        margin:0 auto;
+        margin: 0 auto;
     }
+
     .search-group {
         display: flex;
         width: 97%;
@@ -183,14 +216,16 @@
         flex-direction: column;
     }
 
-    .select-event,.text-search,.date-search {
+    .select-event, .text-search, .date-search {
         display: flex;
         width: 100%;
     }
+
     .v-text-field {
         padding-top: 4px;
         margin-top: 0;
     }
+
     .menu-search {
 
         width: 550px;

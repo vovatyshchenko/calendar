@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Activity\StoreRequest;
 use App\Http\Requests\Activity\UpdateRequest;
+use App\Jobs\SendEmail;
 use App\Models\Activity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ActivityController extends Controller
 {
@@ -16,9 +18,20 @@ class ActivityController extends Controller
     {
         return strip_tags(trim($data));
     }
-
+    public function test()
+    {
+        $date=Carbon::now()->format('Y-m-d');
+        dd($date);
+       return DB::table('activities')
+         ->join('users','users.id',"=",'activities.user_id')
+        ->where('date','=',$date)
+        ->where('is_remind','=',1)
+        ->get();
+    }
     public function store(StoreRequest $request)
     {
+//        $emailJob = (new SendEmail())->delay(Carbon::now()->addMinutes(5));
+//        dispatch($emailJob);
         $user_id = Auth::user()->id;
         $request['user_id'] = $user_id;
         Activity::create($request->all());
@@ -41,6 +54,7 @@ class ActivityController extends Controller
     {
 
         $data = $request->only(['name','guests','location','description','time_start','time_end','date_start','date_end']);
+
         Activity::where('user_id',auth()->user()->id)->where('id',$request->only('id'))->update($data);
 
         return response(['message' => true], 200);

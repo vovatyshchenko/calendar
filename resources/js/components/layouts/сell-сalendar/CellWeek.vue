@@ -7,8 +7,14 @@
             </div>
         </div>
         <table>
-            <tr v-for="n in 24">
-                <td class="event-block" v-for="(event, index) in getEvent(events, date, n)" :key="index" :rowspan="event.time_length">{{ event.time_length }}</td>
+            <tr class="week-events hour-block" v-for="n in 24">
+                <td class="event-block" v-for="(event, index) in getEvent(events, date, n)" :key="index" :rowspan="event.time_length">
+                    <div class="d-flex justify-content-end">
+                        <button class="create-btn" @click="edit(event)" v-ripple><img src="../../../../../public/img/icon/create.svg" alt="Edit"></button>
+                        <delete :event="event"></delete>
+                    </div>
+                    {{ event.name }}
+                </td>
             </tr>
         </table>
     </div>
@@ -16,10 +22,11 @@
 
 <script>
     import holiday from '../../../mixin/holiday'
+    import notification from '../../../mixin/eventNotifications'
 
     export default {
         props: ['date','events'],
-        mixins: [holiday],
+        mixins: [holiday, notification],
         data() {
             return {
                 days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
@@ -92,7 +99,19 @@
                     }
                 }
                 return hourEvents;
-            }
+            },
+            edit(event) {
+                this.$store.commit('changeShowModal');
+                    if (event.type == 'birthday') {
+                        this.$store.dispatch('getBirthday',event.id );
+                    } else if (event.type == 'activity') {
+                        this.$store.dispatch('getActivity',event.id );
+                    } else if (event.type == 'task') {
+                        this.$store.dispatch('getTask',event.id );
+                    }
+                this.$eventBus.$emit('type', event.type);
+                this.menu = false;
+            },
         },
     }
 </script>

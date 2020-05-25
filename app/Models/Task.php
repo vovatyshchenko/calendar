@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 class Task extends Model
 {
     protected $fillable = [
-
         'name','description','user_id','time_start','time_end','date_start','date_end','parent_id'
     ];
     public function getTasks($dateStart,$dateEnd)

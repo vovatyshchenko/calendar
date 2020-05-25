@@ -1,17 +1,18 @@
 <template>
     <div class="calendar-day">
+        {{getEvents}}
         <span
             class="day-holiday"
-            v-if="holidayTextEventForDay!=null && typeEvent[3]"
-            :style="{'background-color': getColor[3]}"
+            v-if="holidayTextEventForDay!=null && typeColors[3].active"
+            :style="{'background-color': typeColors[3].color}"
         >{{holidayTextEventForDay}}</span>
 
         <div v-if="!dayEvents" class="no-day-events">
             <span>На данный день не заплонировано событий!</span>
         </div>
 
-        <div v-if="dayEvents && typeEvent[0]">
-            <div class="day-birthdays" :style="{'border-color': getColor[0], 'color': getColor[0]}">
+        <div v-if="dayEvents && typeColors[0].active">
+            <div class="day-birthdays" :style="{'border-color': typeColors[0].color, 'color': typeColors[0].color}">
             <span v-for="(birthday, index) in getBirthdays">
                 <span v-if="index==0">{{birthday}}</span>
                 <span class="birthday-name">{{birthday.name}}</span>
@@ -28,10 +29,8 @@
                 <td class="day-event" :style="{'background-color': event.color}" v-for="event in showEvents(n)" :rowspan="event.time_length">
                     <div>
                         <div align="right">
-                            <button class="create-btn" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
-                            <button class="delete" v-ripple>
-                                <img src="../../../../../../public/img/icon/delete.svg" alt="Delete">
-                            </button>
+                            <button class="create-btn" @click="edit(event)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
+                            <delete :event="event"></delete>
                         </div>
                         <span>{{event.time_start}}-{{event.time_end}} {{event.name}}</span>
                     </div>
@@ -45,8 +44,9 @@
 </template>
 <script>
     import holiday from '../../../../mixin/holiday'
+    import notification from '../../../../mixin/eventNotifications'
     export default {
-        mixins: [holiday],
+        mixins: [holiday, notification],
         data: () => ({
             fullDate: 0,
             events: 0,
@@ -54,6 +54,18 @@
             additionalEvents: 0
         }),
         methods: {
+            edit(event) {
+                this.$store.commit('changeShowModal');
+                if (event.type == 'birthday') {
+                    this.$store.dispatch('getBirthday',event.id );
+                } else if (event.type == 'activity') {
+                    this.$store.dispatch('getActivity',event.id );
+                } else if (event.type == 'task') {
+                    this.$store.dispatch('getTask',event.id );
+                }
+                this.$eventBus.$emit('type', event.type);
+                this.menu = false;
+            },
             showEvents(count) {
                 let hourEvents = [];
                 let n = 0;
@@ -97,16 +109,24 @@
             }
         },
         computed: {
-            getColor() {
-                let typeColors = [];
-                let type = this.$store.getters.typeColors;
-                for (let i=0; i<type.length; i++) {
-                    typeColors[i] = this.$store.getters.colors[type[i]];
-                }
-                return typeColors;
+            getEvents() {
+                let currentDate = this.$store.getters.menuDate;
+                let formatCurrentDate = moment(currentDate.getFullYear()+'-'+(currentDate.getMonth()+1)+'-'+currentDate.getDate()).format('YYYY-MM-DD');
+
+                this.$store.dispatch('getEvents',{date_start:formatCurrentDate, date_end:formatCurrentDate});
+                this.$store.commit('setStartDate',formatCurrentDate);
+                this.$store.commit('setEndDate',formatCurrentDate);
             },
-            typeEvent() {
-                return this.$store.getters.typeEvent;
+            typeColors() {
+                let typeColors = [];
+                for (let i=0; i<this.$store.getters.typeColors.length; i++)
+                {
+                    typeColors[i] = {};
+                    typeColors[i].active = this.$store.getters.typeColors[i].active;
+                    typeColors[i].color = this.$store.getters.colors[this.$store.getters.typeColors[i].color];
+                }
+                console.log(typeColors);
+                return typeColors;
             },
             getBirthdays() {
                 let currentBirthdays = [];
@@ -129,9 +149,6 @@
             dayEvents () {
                 let currentDate = this.$store.getters.menuDate;
                 let formatCurrentDate = moment(currentDate.getFullYear()+'-'+(currentDate.getMonth()+1)+'-'+currentDate.getDate()).format('YYYY-MM-DD');
-                this.$store.dispatch('getEvents',{date_start:formatCurrentDate, date_end:formatCurrentDate});
-                this.$store.commit('setStartDate',formatCurrentDate);
-                this.$store.commit('setEndDate',formatCurrentDate);
 
                 this.events = this.$store.getters.events[formatCurrentDate];
                 this.displayEvents=[];
@@ -148,13 +165,13 @@
                     }
                     for (let masCount=0; masCount<24; masCount++) {
                         for (let i = 0; i < this.events.length; i++) {
-                            if ((this.events[i].type == 'task' && this.$store.getters.typeEvent[1]) || (this.events[i].type == 'activity' && this.$store.getters.typeEvent[2])) {
+                            if ((this.events[i].type == 'task' && this.$store.getters.typeColors[1].active) || (this.events[i].type == 'activity' && this.$store.getters.typeColors[2].active)) {
                                 let parseStart = this.events[i].time_start.split(":");
                                 let hourStart = +parseStart[0];
                                 if (masCount==hourStart) {
                                     let parseEnd = this.events[i].time_end.split(":");
                                     let hourEnd = 0;
-                                    if (+parseEnd[1]>0) {
+                                    if (+parseEnd[1]>0 || parseEnd[0]==parseStart[0]) {
                                         hourEnd = +parseEnd[0]+1;
                                     } else {
                                         hourEnd = +parseEnd[0];
@@ -173,9 +190,9 @@
                                             this.displayEvents[countDisplay].hour_start=hourStart;
 
                                             if (this.events[i].type == 'task') {
-                                                this.displayEvents[countDisplay].color=this.$store.getters.colors[this.$store.getters.typeColors[1]];
+                                                this.displayEvents[countDisplay].color=this.$store.getters.colors[this.$store.getters.typeColors[1].color];
                                             } else {
-                                                this.displayEvents[countDisplay].color=this.$store.getters.colors[this.$store.getters.typeColors[2]];
+                                                this.displayEvents[countDisplay].color=this.$store.getters.colors[this.$store.getters.typeColors[2].color];
                                             }
                                             countDisplay++;
                                             break;
@@ -185,9 +202,9 @@
                                         this.additionalEvents[countAdditional]=this.events[i];
                                         this.additionalEvents[countAdditional].hour_start=hourStart;
                                         if (this.events[i].type == 'task') {
-                                            this.additionalEvents[countAdditional].color=this.$store.getters.colors[this.$store.getters.typeColors[1]];
+                                            this.additionalEvents[countAdditional].color=this.$store.getters.colors[this.$store.getters.typeColors[1].color];
                                         } else {
-                                            this.additionalEvents[countAdditional].color=this.$store.getters.colors[this.$store.getters.typeColors[2]];
+                                            this.additionalEvents[countAdditional].color=this.$store.getters.colors[this.$store.getters.typeColors[2].color];
                                         }
                                         countAdditional++;
                                     }
@@ -195,8 +212,7 @@
                             }
                         }
                     }
-                    console.log(this.displayEvents);
-                    console.log(this.additionalEvents);
+                    console.log(1);
                     return true;
                 }
             },

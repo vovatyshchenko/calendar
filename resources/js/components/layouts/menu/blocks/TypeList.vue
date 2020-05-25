@@ -1,20 +1,10 @@
 <template>
     <div class="row">
         <div class="col-12 d-flex flex-column align-items-center">
-            <!--            <button @click="show=!show" class="btn">Мои календари</button>-->
-            <!--            <div @click="showColorPicker(index)" v-if="show" v-for="(item, index) in items" class="btn sub">-->
-            <!--                <input type="checkbox" class="check" :checked="typeEvent[index]" @click="setShowType(index)">{{ item }}-->
-            <!--            </div>-->
-            <!--            <div v-if="showColor[index]" class="color">Показывать только этот<hr>-->
-            <!--                <div class="color__picker d-flex flex-wrap justify-content-center px-2 pb-2">-->
-            <!--                    <div @click="changeActiveColor(index)" :class="[{active: color.active}, color.class, colorItemPicker]" v-for="(color, index) in colors"></div>-->
-            <!--                </div>-->
-            <!--            </div>-->
-
             <button @click="show=!show" class="btn">Мои календари</button>
             <div v-if="show" v-for="(item, index) in items" class="d-flex flex-column align-items-center type-list">
                 <div @click="showColorPicker(index)" class="btn sub d-flex">
-                    <input type="checkbox" class="check" :checked="typeEvent[index]" @click.stop="setShowType(index)">
+                    <input type="checkbox" class="check" :checked="typeEvent[index].active" @click.stop="setShowType(index)">
                     <span>{{ item }}</span>
                 </div>
                 <div v-if="activePicker==index && colorPicker[activePicker]" class="color">
@@ -50,11 +40,10 @@
             show: false,
             showColor: [false, false, false, false],
             activePicker: null
-
         }),
         computed: {
             typeEvent() {
-                return this.$store.getters.typeEvent;
+                return this.$store.getters.typeColors;
             },
             colorPicker() {
                 return this.showColor;
@@ -82,8 +71,8 @@
                         this.$set(this.typeColors[type][i], 'active', true);
                     }
                 }
-                this.$store.commit('changeTypeColors', [type, index]);
-                console.log(this.typeColors[type]);
+                this.$store.commit('changeTypeColors', {'type':type, 'number':index});
+                console.log(this.$store.getters.typeColors);
             },
         },
         created() {
@@ -95,7 +84,7 @@
                 for (let colorIndex=0; colorIndex<this.$store.getters.colors.length; colorIndex++) {
                     colors[colorIndex]={};
                     colors[colorIndex].value = this.$store.getters.colors[colorIndex];
-                    if (colorIndex==type[i]) {
+                    if (colorIndex==type[i].color) {
                         colors[colorIndex].active = false;
                     } else {
                         colors[colorIndex].active = true;

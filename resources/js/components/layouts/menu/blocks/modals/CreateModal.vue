@@ -64,7 +64,6 @@
                 this.$store.commit('changeShowModal')
             },
             getType(value) {
-
                  if (value == 'activity') {
                     this.tab = 0;
                      this.$store.commit('setIsUpdateActive',true);
@@ -77,7 +76,7 @@
                      this.$store.commit('setIsUpdateBirthday',true);
                     this.tab = 3;
                 }
-            }
+            },
         },
         computed: {
             showModal() {

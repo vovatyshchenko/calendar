@@ -49,7 +49,7 @@
                     eventWeek.push(month+"-"+day);
                     this.$store.commit('setCurrentWeek',currentWeek);
                 }
-                this.$store.dispatch('getEvents',{date_start:moment(currentWeek[0]).format('YYY-MM-DD'),date_end:moment(currentWeek[6]).format('YYYY-MM-DD')});
+                this.$store.dispatch('getEvents',{date_start:moment(eventWeek[0]).format('YYY-MM-DD'),date_end:moment(eventWeek[6]).format('YYYY-MM-DD')});
                 this.$store.commit('setStartDate',moment(currentWeek[0]).format('YYYY-MM-DD'));
                 this.$store.commit('setEndDate',moment(currentWeek[6]).format('YYYY-MM-DD'));
 

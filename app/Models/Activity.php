@@ -47,6 +47,20 @@ class Activity extends Model
                 array_push($result,$search);
             }
         }
+
         return $result;
+    }
+
+    public function isValidEmail($emails)
+    {
+        foreach (explode(';',$emails['guests']) as $email)
+        {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)&&$email) {
+
+                return false;
+            }
+        }
+
+        return true;
     }
 }

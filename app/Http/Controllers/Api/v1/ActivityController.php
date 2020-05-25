@@ -32,6 +32,7 @@ class ActivityController extends Controller
     {
 //        $emailJob = (new SendEmail())->delay(Carbon::now()->addMinutes(5));
 //        dispatch($emailJob);
+        SendEmail::dispatch();
         $user_id = Auth::user()->id;
         $request['user_id'] = $user_id;
         Activity::create($request->all());

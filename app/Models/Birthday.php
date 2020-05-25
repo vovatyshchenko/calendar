@@ -43,9 +43,10 @@ class Birthday extends Model
         $difference = $start->diffInDays($end);
 
         for ($day = 0; $day <= $difference; $day++) {
-            $day=date('d', strtotime($start . " +" . $day . " day"));
-            array_push($dayRange, $day);
+            $dayForRange=date('d', strtotime($start . " +" . $day . " day"));
+            array_push($dayRange, $dayForRange);
         }
+
         $monthStart = date('m', strtotime($data['date_start']));
         $monthEnd=date('m', strtotime($data['date_end']));
         foreach ($data['description'] as $value) {

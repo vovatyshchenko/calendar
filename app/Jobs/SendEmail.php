@@ -21,7 +21,7 @@ class SendEmail implements ShouldQueue
      */
     public function __construct()
     {
-        //
+
     }
 
     /**
@@ -31,9 +31,13 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
+            for ($i=0;$i<10;$i++)
+            {
 
-            Mail::to('maksimserbinin9119@gmail.com')
-                ->send(new Message('$emailMessage', '$subject', '$sender'));
+                Mail::to('maksimserbinin9119@gmail.com')
+                    ->send(new Message('$emailMessage', '$subject'));
+            }
+
 
 
     }

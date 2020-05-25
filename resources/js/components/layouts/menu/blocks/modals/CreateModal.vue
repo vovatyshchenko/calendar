@@ -55,7 +55,6 @@
         }),
         created() {
             this.$eventBus.$on('type', this.getType);
-            this.$eventBus.$on('type', this.setType);
         },
         beforeDestroy() {
             this.$eventBus.$off('type');
@@ -76,11 +75,6 @@
                 } else if (value == 'birthday') {
                      this.$store.commit('setIsUpdateBirthday',true);
                     this.tab = 3;
-                }
-            },
-            setType(value) {
-                if (value) {
-                    this.tab = null;
                 }
             },
         },

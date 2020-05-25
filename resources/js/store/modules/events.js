@@ -282,7 +282,7 @@ export default {
                 .catch(error => {
                     commit("setProcessing", false);
                     commit("setStatusUpdated", false);
-                    commit("setError", error);
+                    commit("setError", error.response.data.message);
                 })
         },
         taskUpdate({commit, dispatch, getters}, task) {

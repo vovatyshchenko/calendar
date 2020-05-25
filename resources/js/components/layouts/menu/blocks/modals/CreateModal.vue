@@ -55,6 +55,7 @@
         }),
         created() {
             this.$eventBus.$on('type', this.getType);
+            this.$eventBus.$on('type', this.setType);
         },
         beforeDestroy() {
             this.$eventBus.$off('type');
@@ -64,7 +65,6 @@
                 this.$store.commit('changeShowModal')
             },
             getType(value) {
-
                  if (value == 'activity') {
                     this.tab = 0;
                      this.$store.commit('setIsUpdateActive',true);
@@ -77,7 +77,12 @@
                      this.$store.commit('setIsUpdateBirthday',true);
                     this.tab = 3;
                 }
-            }
+            },
+            setType(value) {
+                if (value) {
+                    this.tab = null;
+                }
+            },
         },
         computed: {
             showModal() {

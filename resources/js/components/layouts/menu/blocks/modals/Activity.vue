@@ -268,6 +268,7 @@
                         date_start: moment(this.dateStart).format('YYYY-MM-DD')
 
                     });
+                    this.$eventBus.$emit('setType', true);
                     this.clear();
                 }
             },

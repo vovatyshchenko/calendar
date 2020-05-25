@@ -30,12 +30,22 @@ class ActivityController extends Controller
     }
     public function store(StoreRequest $request)
     {
-//        $emailJob = (new SendEmail())->delay(Carbon::now()->addMinutes(5));
-//        dispatch($emailJob);
+        $emails=$request->only('guests');
+
+
+        if(!(new Activity())->isValidEmail($emails))
+        {
+            return response(['message' => 'Введенный email некорректно введён'], 422);
+        }
+
         $user_id = Auth::user()->id;
         $request['user_id'] = $user_id;
-        Activity::create($request->all());
+        $activity=Activity::create($request->all());
+
+       SendEmail::dispatch($activity);
+
         return response(['message' => true], 200);
+
     }
 
     public function show($id)
@@ -45,17 +55,24 @@ class ActivityController extends Controller
             ->first();
         if (!$activity) {
 
-            return response('error', 403);
+            return response(['message' => 'Пользователя нет'], 422);
         }
 
         return response()->json($activity);
     }
     public function update(UpdateRequest $request)
     {
-
         $data = $request->only(['name','guests','location','description','time_start','time_end','date_start','date_end']);
+        $emails=$request->only('guests');
 
+        if(!(new Activity())->isValidEmail($emails))
+        {
+            return response(['message' => 'Введенный email некорректно введён'], 422);
+        }
         Activity::where('user_id',auth()->user()->id)->where('id',$request->only('id'))->update($data);
+        $activity= Activity::where('user_id',auth()->user()->id)->where('id',$request->only('id'))->first();
+
+        SendEmail::dispatch($activity);
 
         return response(['message' => true], 200);
 
@@ -66,6 +83,7 @@ class ActivityController extends Controller
         Activity::where('id', '=', $request->only('id'))
             ->where('user_id', '=', $user_id)
             ->delete();
+
         return response(['message' => true], 200);
 
     }

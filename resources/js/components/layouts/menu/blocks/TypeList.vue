@@ -13,10 +13,10 @@
                     </div>
                     <div class="color__picker d-flex flex-wrap justify-content-center px-2 pb-2">
                         <div
-                            @click="changeActiveColor(id, index)"
-                            :class="[{active: true}, colorItemPicker]"
-                            :style="{'background-color': color.value}"
-                            v-for="(color, id) in typeColors[index]">
+                            @click="changeActiveColor(idColor, index)"
+                            :class="[{active: !(idColor==typeEvent[index].color)}, colorItemPicker]"
+                            :style="{'background-color': color}"
+                            v-for="(color, idColor) in colors">
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,6 @@
                 'Праздники Украины',
             ],
             colors: [],
-            typeColors: [],
             colorItemPicker: 'color__picker__item',
             show: false,
             showColor: [false, false, false, false],
@@ -62,37 +61,16 @@
             },
             setShowType(index){
                 this.$store.commit('changeTypeEvent', index);
+                this.$store.dispatch('updateTypeColors');
             },
             changeActiveColor(index, type) {
-                for (let i = 0; i<this.typeColors[type].length; i++) {
-                    if (i==index) {
-                        this.$set(this.typeColors[type][i], 'active', false);
-                    } else {
-                        this.$set(this.typeColors[type][i], 'active', true);
-                    }
-                }
                 this.$store.commit('changeTypeColors', {'type':type, 'number':index});
-                console.log(this.$store.getters.typeColors);
+                this.$store.dispatch('updateTypeColors');
             },
         },
         created() {
-            let colors = [];
-            let type = this.$store.getters.typeColors;
-            this.typeColors = [];
-
-            for (let i=0; i<this.$store.getters.typeColors.length; i++) {
-                for (let colorIndex=0; colorIndex<this.$store.getters.colors.length; colorIndex++) {
-                    colors[colorIndex]={};
-                    colors[colorIndex].value = this.$store.getters.colors[colorIndex];
-                    if (colorIndex==type[i].color) {
-                        colors[colorIndex].active = false;
-                    } else {
-                        colors[colorIndex].active = true;
-                    }
-                }
-                this.typeColors[i] = colors;
-            }
-        }
+            this.colors = this.$store.getters.colors;
+        },
     }
 </script>
 

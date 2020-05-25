@@ -20,14 +20,14 @@ class CreateTypeColorsTable extends Migration
             $table->boolean('tasks_active');
             $table->boolean('activities_active');
             $table->boolean('holidays_active');
-            $table->string('birthdays_color',10);
-            $table->string('tasks_color',10);
-            $table->string('activities_color',10);
-            $table->string('holidays_color',10);
+            $table->unsignedInteger('birthdays_color');
+            $table->unsignedInteger('tasks_color');
+            $table->unsignedInteger('activities_color');
+            $table->unsignedInteger('holidays_color');
             $table->timestamps();
         });
 
-        Schema::table('activities', function (Blueprint $table) {
+        Schema::table('type_colors', function (Blueprint $table) {
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

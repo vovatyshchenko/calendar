@@ -148,7 +148,7 @@
             },
             dayEvents () {
                 let currentDate = this.$store.getters.menuDate;
-                let formatCurrentDate = moment(currentDate.getFullYear()+'-'+(currentDate.getMonth()+1)+'-'+currentDate.getDate()).format('YYYY-MM-DD');
+                let formatCurrentDate = moment((currentDate.getMonth()+1)+'-'+currentDate.getDate()).format('MM-DD');
 
                 this.events = this.$store.getters.events[formatCurrentDate];
                 this.displayEvents=[];
@@ -212,7 +212,6 @@
                             }
                         }
                     }
-                    console.log(1);
                     return true;
                 }
             },

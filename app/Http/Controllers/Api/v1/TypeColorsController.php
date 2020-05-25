@@ -15,13 +15,12 @@ class TypeColorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        $typeColor = TypeColor::where('id',$id)
-            ->where('user_id', auth()->user()->id)
+        $typeColors = TypeColor::where('user_id', auth()->user()->id)
             ->first();
 
-        return response()->json($typeColor);
+        return response()->json($typeColors);
     }
 
     /**
@@ -31,11 +30,11 @@ class TypeColorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $typeColor = TypeColor::findOrFail($id);
-        $typeColor->update($request->all());
+        $data = $request->only(['birthdays_active', 'tasks_active', 'activities_active', 'holidays_active', 'birthdays_color', 'tasks_color', 'activities_color', 'holidays_color']);
+        TypeColor::where('user_id',auth()->user()->id)->update($request->all());
 
-        return $typeColor;
+        return response(['message' => true], 200);
     }
 }

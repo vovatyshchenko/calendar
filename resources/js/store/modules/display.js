@@ -5,6 +5,7 @@ export default {
         displayDate: new Date(),
         datepicker: new Date(),
         year:new Date().getFullYear(),
+
         currentWeek:[]
     },
     mutations: {
@@ -29,7 +30,6 @@ export default {
         {
             state.currentWeek=date;
         }
-
     },
     actions: {
 

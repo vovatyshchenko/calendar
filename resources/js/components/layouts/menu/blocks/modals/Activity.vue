@@ -1,9 +1,10 @@
 <template>
-    <form ref="createEvent"  @submit.prevent="submit">
+    <form ref="createEvent" onsubmit="return false">
+        {{setValues}}
         <v-progress-linear :active="processing" indeterminate height="5" color="red darken-1"></v-progress-linear>
+        <div class="delimiter"></div>
         <v-alert :value="error" type="warning">{{ error }}</v-alert>
         <div class="error-message" v-if="globalErrorMessasge">Заполните все обязательные поля</div>
-        <label class="title__input_modal">Название*</label>
         <v-text-field
             v-model="name"
             :error-messages="nameErrors"
@@ -13,17 +14,21 @@
             @input="$v.name.$touch()"
             @blur="$v.name.$touch()"
         ></v-text-field>
-        <label class="title__input_modal">Гости</label>
-        <v-text-field
-            v-model="guests"
-            :error-messages="guestsErrors"
-            outlined
-            dense
-            label="Гости"
-            @input="$v.guests.$touch()"
-            @blur="$v.guests.$touch()"
-        ></v-text-field>
-        <label class="title__input_modal">Место проведения</label>
+        <div class="position-relative">
+                <v-text-field
+                    v-model="guests"
+                    :error-messages="guestsErrors"
+                    @input="$v.guests.$touch()"
+                    @blur="$v.guests.$touch()"
+                    append-icon="info"
+                    label="Гости"
+                    outlined
+                    dense
+                    @click:append="show = !show">
+                </v-text-field>
+            <span class="position-absolute info-email" v-if="show">разделяйте введеные почты с помощью знака ";"</span>
+        </div>
+
         <v-text-field
             v-model="location"
             :error-messages="locationErrors"
@@ -33,7 +38,6 @@
             @input="$v.location.$touch()"
             @blur="$v.location.$touch()"
         ></v-text-field>
-        <label class="title__input_modal">Описаниe</label>
         <v-text-field
             v-model="description"
             :error-messages="descriptionErrors"
@@ -71,7 +75,7 @@
             </div>
             <v-menu
                 ref="start"
-                v-model="OpenTimeStart"
+                v-model="openTimeStart"
                 :close-on-content-click="false"
                 :nudge-right="40"
                 :return-value.sync="timeStart"
@@ -92,7 +96,7 @@
                 </template>
                 <v-time-picker
                     format="24hr"
-                    v-if="OpenTimeStart"
+                    v-if="openTimeStart"
                     v-model="timeStart"
                     full-width
                     @click:minute="$refs.start.save(timeStart)"
@@ -127,7 +131,7 @@
             </div>
             <v-menu
                 ref="end"
-                v-model="OpenTimeEnd"
+                v-model="openTimeEnd"
                 :close-on-content-click="false"
                 :nudge-right="40"
                 :return-value.sync="timeEnd"
@@ -148,41 +152,49 @@
                 </template>
                 <v-time-picker
                     format="24hr"
-                    v-if="OpenTimeEnd"
+                    v-if="openTimeEnd"
                     v-model="timeEnd"
                     full-width
                     @click:minute="$refs.end.save(timeEnd)"
                 ></v-time-picker>
             </v-menu>
         </div>
-            <v-spacer></v-spacer>
-            <div class="d-flex justify-content-between">
-                <v-btn type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
-                <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
-            </div>
+        <v-spacer></v-spacer>
+        <div class="d-flex justify-content-between">
+            <v-btn v-if="!checkIsUpdate" @click="save" type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
+            <v-btn v-else type="submit" @click="update" color="blue darken-2" dark large>Редактировать</v-btn>
+            <v-btn color="blue darken-2" dark large @click="closeModal()">Отмена</v-btn>
+        </div>
     </form>
 </template>
 
 <script>
     import validation from '../../../../../mixin/validation'
+    import notification from '../../../../../mixin/eventNotifications'
+
     export default {
-        mixins: [validation],
+        mixins: [validation, notification],
         data: () => ({
-            name:null,
-            menu1: false,
-            dateStart: new Date().toISOString().substr(0, 10),
-            dateEnd: new Date().toISOString().substr(0, 10),
-            guests:null,
-            location:null,
+            name: null,
+            dateStart: moment(new Date()).format('YYYY-MM-DD'),
+            dateEnd: moment(new Date()).format('YYYY-MM-DD'),
+            guests: null,
+            location: null,
             timeStart: '00:00',
             timeEnd: '00:00',
-            OpenTimeStart: false,
+            description: null,
+            id: null,
+            show:false,
+            openTimeStart: false,
             openDataStart: false,
-            OpenTimeEnd: false,
+            openTimeEnd: false,
             openDataEnd: false,
-            description:null,
+            description: null,
         }),
-         computed: {
+        computed: {
+            checkIsUpdate() {
+                return this.$store.getters.isUpdateActive;
+            },
             error() {
                 return this.$store.getters.get_error;
             },
@@ -192,29 +204,36 @@
             status() {
                 return this.$store.getters.getStatus;
             },
-        },
-        watch: {
-            status(value) {
-                if (value === true) {
-                    this.$toaster.success('Даннык успешно сохранены.');
-                    this.$store.commit("setStatus", false);
-                    this.$store.commit('changeShowModal');
+            setValues() {
+                this.name = this.$store.getters.getActivity.name;
+                this.dateStart = this.$store.getters.getActivity.dateStart
+                this.dateEnd = this.$store.getters.getActivity.dateEnd;
+                this.guests = this.$store.getters.getActivity.guests;
+                this.timeStart = this.$store.getters.getActivity.timeStart;
+                this.timeEnd = this.$store.getters.getActivity.timeEnd;
+                this.description = this.$store.getters.getActivity.description;
+                this.location = this.$store.getters.getActivity.location;
+                this.id = this.$store.getters.getActivity.id;
+            },
 
-                }
-            }
         },
         methods: {
-            submit () {
+            save() {
                 this.$v.$touch()
-                if (!this.nameErrors.length==0 ||
-                    !this.guestsErrors.length==0||
-                    !this.locationErrors.length==0||
-                    !this.descriptionErrors.length==0
-                ) {
+                if (!this.nameErrors.length == 0 ||
+                    !this.guestsErrors.length == 0 ||
+                    !this.locationErrors.length == 0 ||
+                    !this.descriptionErrors.length == 0)
+                {
                     this.$toaster.info('Будьте внимательны при заполнении полей.')
-                } else {
-
-                    this.$store.dispatch('activityCreate',{
+                }
+                else if(this.timeStart == this.timeEnd||this.timeStart> this.timeEnd)
+                {
+                    this.$toaster.info('Мероприятие не может длится 0 минут,и время начала не может быть больше время окончания')
+                }
+                else
+                {
+                    this.$store.dispatch('activityCreate', {
                         name: this.name,
                         guests: this.guests,
                         location: this.location,
@@ -222,27 +241,59 @@
                         time_start: this.timeStart,
                         time_end: this.timeEnd,
                         date_end: this.dateEnd,
-                        date_start:this.dateStart
-                        });
-                        this.clear()
+                        date_start: this.dateStart
+                    });
+                    this.clear()
+                }
+            },
+            update() {
+                this.$v.$touch()
+                if (!this.nameErrors.length == 0) {
+                    this.$toaster.info('Будьте внимательны при заполнении полей.');
+                }
+                else if(this.timeStart == this.timeEnd||this.timeStart> this.timeEnd)
+                {
+                    this.$toaster.info('Мероприятие не может длится 0 минут,и время начала не может быть больше время окончания')
+                }
+                else {
+                    this.$store.dispatch('activityUpdate', {
+                        id: this.id,
+                        name: this.name,
+                        guests: this.guests,
+                        location: this.location,
+                        description: this.description,
+                        time_start: this.timeStart,
+                        time_end: this.timeEnd,
+                        date_end: moment(this.dateEnd).format('YYYY-MM-DD'),
+                        date_start: moment(this.dateStart).format('YYYY-MM-DD')
+
+                    });
+                    this.clear();
                 }
             },
             closeModal() {
+                this.clear();
                 this.$store.commit('changeShowModal');
             },
-            clear () {
+            clear() {
                 this.$v.$reset()
-                this.name = ''
-                this.guests=''
-                this.description=''
-                this.location=''
-                this.email = ''
-                this.select = null
-                this.checkbox = false
+                this.name = null,
+                this.dateStart = moment(new Date()).format('YYYY-MM-DD'),
+                this.dateEnd = moment(new Date()).format('YYYY-MM-DD'),
+                this.guests = null,
+                this.location = null,
+                this.timeStart = '00:00',
+                this.timeEnd = '00:00',
+                this.description = null,
+                this.id = null;
+                this.$store.commit('setIsUpdateActive',false);
             },
         },
     }
 </script>
 <style scoped>
-    
+.info-email{
+    background: #4c110f;
+    color: #ffffff;
+}
 </style>

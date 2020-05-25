@@ -1,3 +1,13 @@
+table {
+    width: 100%;
+}
+table tr {
+    height: 60px;
+}
+table tr td {
+    width: 100%;
+    vertical-align: top;
+}
 .calendar-week {
     width: 100%;
     max-width: 1100px;
@@ -5,16 +15,13 @@
     display: flex;
 }
 .week-info {
-    display: flex;
-    flex-direction: column;
     width: 100%;
     max-width: 60px;
 }
 .week-col {
-    display: flex;
-    flex-direction: column;
     width: 100%;
     max-width: 150px;
+    border-left: 2px solid #F5F5F5;
 }
 .week-header {
     min-height: 178px;
@@ -32,7 +39,6 @@
     color: #808080;
 }
 .week-event-header {
-    border-left: 2px solid #F5F5F5;
     border-bottom: 2px solid #F5F5F5;
     font-style: normal;
     font-weight: 900;
@@ -55,12 +61,17 @@
     justify-content: flex-end;
 }
 .week-events {
-    display: flex;
-    border-left: 2px solid #F5F5F5;
-    border-bottom: 2px solid #F5F5F5;;
+    //display: flex;
+    //border-left: 2px solid #F5F5F5;
+    //border-bottom: 2px solid #F5F5F5;;
+}
+.event-block{
+    background: #E0F7D7;
+    border-left: 2px solid #63DA38;
+    color: #008947;
+    font-weight: bold;
 }
 .event{
-
     display: block;
     font-size: 10px;
     line-height: 22px;

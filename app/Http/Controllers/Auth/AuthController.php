@@ -22,9 +22,27 @@ class AuthController extends Controller
         ]);
         return redirect(env('AUTORIZATION_URL').$query);
     }
+    public function logout(Request $request)
+    {
+        $access_token = Auth::user()->token;
 
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $http = new Client;
+        $response = $http->request('GET', config('client_auth.server_uri').'/api/client_logout', [
+            'headers' => [
+                'Authorization' => 'Bearer '.$access_token,
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        return redirect(config('client_auth.server_uri').'/api/client_logout');
+    }
     protected function callback(Request $request)
     {
+     
         //заюзать use GuzzleHttp\Client;
         $http = new Client;
 
@@ -59,18 +77,31 @@ class AuthController extends Controller
             curl_close($ch);
 
             $response = json_decode($result, true);
+            $userData['email'] = $response['email'];
+            $userData['surname'] = $response['surname'];
+            $userData['name'] = $response['name'];
+            $userData['patronymic'] = $response['middle_name'];
+            $userData['token'] = $access->access_token;
+            $user = User::where('email',$response['email'])->first();
+            if($user){
 
+                User::where('email',$response['email'])->update($userData);
+                $user = User::where('email',$response['email'])->first();
+                Auth::login($user);
+            }
+            else{
+                $user = User::firstOrCreate(
+                    [
+                        'email' => $response['email'],
+                        'token' => $access->access_token,
+                        'surname' => $response['surname'],
+                        'name' => $response['name'],
+                        'patronymic' => $request['middle_name']
+                    ]
 
-            $user = User::firstOrCreate(
-                ['email' => $response['email']],
-                ['name'=> $response['name'],
-                    'password' => Hash::make('afrtw'), 'token' => $access->access_token]
-
-            );
-
-
-            $Rres = Auth::login($user);
-
+                );
+                Auth::login($user);
+            }
 
             return response()->redirectTo(RouteServiceProvider::HOME);
         }

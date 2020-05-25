@@ -1,12 +1,12 @@
 <template>
     <div class="day-event">
-        <span>text</span>
+        text
     </div>
 </template>
 
 <script>
     export default {
-
+        props:['event'],
     }
 </script>
 

@@ -25,10 +25,7 @@
             <div class="menu-date-info">
                 <span class="menu-date">{{display_date()}}</span>
             </div>
-            <div class="menu-search">
-                Поиск
-            </div>
-
+            <search></search>
             <div class="select-calendar">
                 <select name="select" v-model="route" @click="set_route()" data-icon="mdi-arrow-left">
                     <option value="/">Месяц</option>
@@ -47,98 +44,114 @@
             drawer: false,
             menuDate: 0,
             route: window.location.pathname,
-            year:new Date().getFullYear(),
+            year: new Date().getFullYear(),
         }),
         methods: {
-            today(){
+            getDayRoute(value) {
+                this.route = value;
+            },
+            today() {
                 this.$store.commit('setDate', new Date);
                 this.$store.commit('setDatePicker', new Date);
                 if (window.location.pathname != '/day'){
-                    this.$router.push('day');
+                    this.$eventBus.$emit('currentRoute', '/day');
+                    this.$store.commit('set_route', '/day');
                 }
             },
             change_drawer() {
                 this.$store.commit('changeDrawer');
-                this.drawer=!this.drawer;
+                this.drawer = !this.drawer;
             },
             set_route() {
                 this.$store.dispatch('set_calendar_page', this.route);
-                //this.$router.push({ path: this.$store.getters.calendar_route });
             },
             minus_date() {
-                let fullDate=this.$store.getters.menuDate;
+                let fullDate = this.$store.getters.menuDate;
                 if (window.location.pathname == '/day') {
-                    fullDate.setDate(fullDate.getDate()-1);
+                    fullDate.setDate(fullDate.getDate() - 1);
                 } else if (window.location.pathname == '/year') {
-                    fullDate.setFullYear(fullDate.getFullYear()-1);
-                    this.$store.dispatch('year_data');
-                }
-                 else if (window.location.pathname == '/week') {
-                    fullDate.setDate(fullDate.getDate()-7);
-                }
-                 else {
-                    fullDate.setMonth(fullDate.getMonth()-1);
+                    fullDate.setFullYear(fullDate.getFullYear() - 1);
+                    this.$store.dispatch('yearData');
+                } else if (window.location.pathname == '/week') {
+                    fullDate.setDate(fullDate.getDate() - 7);
+                } else {
+                    fullDate.setMonth(fullDate.getMonth() - 1);
+                    this.$store.commit('setEvents', {});
+
                 }
                 this.$store.commit('setDate', fullDate);
-                this.$store.commit('setCurrentYear',fullDate);
-                this.year=this.$store.getters.year;
+                this.$store.commit('setCurrentYear', fullDate);
+                this.year = this.$store.getters.year;
 
             },
             plus_date() {
-                let fullDate=this.$store.getters.menuDate;
+                let fullDate = this.$store.getters.menuDate;
                 if (window.location.pathname == '/day') {
-                    fullDate.setDate(fullDate.getDate()+1);
+                    fullDate.setDate(fullDate.getDate() + 1);
                 } else if (window.location.pathname == '/year') {
-                    fullDate.setFullYear(fullDate.getFullYear()+1);
-                    this.$store.dispatch('year_data');
-                }
-                else if (window.location.pathname == '/week') {
-                    fullDate.setDate(fullDate.getDate()+7);
-                }
-                else {
-                    fullDate.setMonth(fullDate.getMonth()+1);
+                    fullDate.setFullYear(fullDate.getFullYear() + 1);
+                    this.$store.dispatch('yearData');
+                } else if (window.location.pathname == '/week') {
+                    fullDate.setDate(fullDate.getDate() + 7);
+                } else {
+                    fullDate.setMonth(fullDate.getMonth() + 1);
+                    this.$store.commit('setEvents', {});
                 }
                 this.$store.commit('setDate', fullDate);
 
-                this.$store.commit('setCurrentYear',fullDate);
-                this.year=this.$store.getters.year;
+                this.$store.commit('setCurrentYear', fullDate);
+                this.year = this.$store.getters.year;
             },
             display_date() {
                 if (window.location.pathname == '/day') {
-                    return this.$store.getters.menuDate.getDate()+'.'+(this.$store.getters.menuDate.getMonth()+1)+'.'+this.$store.getters.menuDate.getFullYear();
+                    return this.$store.getters.menuDate.getDate() + '.' + (this.$store.getters.menuDate.getMonth() + 1) + '.' + this.$store.getters.menuDate.getFullYear();
                 }
                 if (window.location.pathname == '/year') {
                     return this.$store.getters.menuDate.getFullYear();
                 }
-                let months=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
-                return months[this.$store.getters.menuDate.getMonth()]+' '+this.$store.getters.menuDate.getFullYear();
+                let months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+                return months[this.$store.getters.menuDate.getMonth()] + ' ' + this.$store.getters.menuDate.getFullYear();
             },
             set_date() {
-                let fullDate=new Date();
+                let fullDate = new Date();
                 this.$store.commit('setDate', fullDate);
             }
         },
         computed: {
+            isSearched() {
+                return this.$store.getters.isSearched;
+            },
             current_route() {
                 return this.$store.getters.calendar_route;
             },
-
         },
-        created(){
-            this.$store.dispatch('get_holidays', {year:this.year});
+        created() {
+            this.$store.dispatch('getHolidays', {year: this.year});
+            this.$eventBus.$on('currentRoute', this.getDayRoute);
+        },
+        beforeDestroy() {
+            this.$eventBus.$off('currentRoute');
         },
         watch: {
             current_route(value) {
-                if (value != window.location.pathname){
-                    this.$router.push({ path: value });
+                if (value != window.location.pathname) {
+                    this.$router.push({path: value});
                 }
             },
-            year(){
-                this.$store.dispatch('get_holidays',{year:this.year});
-            }
+            year() {
+                this.$store.dispatch('getHolidays', {year: this.year});
+            },
+            isSearched(value) {
+                if (value === true) {
+                    if (window.location.pathname != '/search-result') {
+                        this.$router.push('search-result');
+                    }
+                    this.$store.commit('setStatusSearched',false);
+                }
+            },
         },
-
     }
+
 </script>
 
 <style lang="scss" scoped>

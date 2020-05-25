@@ -1,8 +1,8 @@
 <template>
   <v-row justify="center">
     <v-dialog v-model="showModal" persistent max-width="850px">
-    <!--<v-btn icon class="close" @click="showModal"><v-icon>mdi-close</v-icon></v-btn>-->
       <v-card>
+        <v-btn icon class="close" @click="closeModal()"><v-icon>mdi-close</v-icon></v-btn>
         <v-card-title>
             <v-tabs
                 v-model="tab"
@@ -19,7 +19,7 @@
         <v-tabs-items v-model="tab">
             <v-tab-item>
                 <v-card-text>
-                    <activity-modal></activity-modal>
+                    <activity-modal ></activity-modal>
                 </v-card-text>
             </v-tab-item>
              <v-tab-item>
@@ -46,6 +46,9 @@
 	export default {
         data: () => ({
             tab: null,
+            checkIsUpdateActivity:false,
+            checkIsUpdateTask:false,
+            checkIsUpdateBirthday:false,
             items: [
                 'МЕРОПРИЯТИЕ', 'НАПОМИНАНИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',
             ],
@@ -53,15 +56,25 @@
         created() {
             this.$eventBus.$on('type', this.getType);
         },
+        beforeDestroy() {
+            this.$eventBus.$off('type');
+        },
         methods: {
+            closeModal() {
+                this.$store.commit('changeShowModal')
+            },
             getType(value) {
+
                  if (value == 'activity') {
                     this.tab = 0;
+                     this.$store.commit('setIsUpdateActive',true);
                 } else if (value == 'reminders') {
                     this.tab = 1;
                 } else if (value == 'task') {
                     this.tab = 2;
+                     this.$store.commit('setIsUpdateTask',true);
                 } else if (value == 'birthday') {
+                     this.$store.commit('setIsUpdateBirthday',true);
                     this.tab = 3;
                 }
             }
@@ -74,6 +87,9 @@
 	}
 </script>
 <style type="scss">
+    .delimiter {
+        margin-bottom: 17px;
+    }
     .error-message{
         font-family: Roboto;
         font-style: normal;

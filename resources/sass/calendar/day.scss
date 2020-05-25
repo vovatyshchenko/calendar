@@ -1,6 +1,6 @@
 .calendar-day {
     width: 100%;
-    max-width: 735px;
+    max-width: 800px;
 }
 .day-header {
     height: 30px;
@@ -21,7 +21,7 @@
 }
 .day-event-header {
     width: 100%;
-    max-width: 665px;
+    max-width: 735px;
     background-color: #FAFAFA;
     border-bottom: 3px solid #F5F5F5;
     color: #808080;
@@ -30,28 +30,39 @@
     height: 60px;
     display: flex;
 }
-.day-time {
-    width: 100%;
-    max-width: 65px;
-    border-right: 3px solid #F5F5F5;
-    color: #B3B3B3;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-.day-events {
-    width: 100%;
-    max-width: 665px;
-    display: flex;
-    border-bottom: 2px solid #F5F5F5;;
-}
+//.day-time {
+//    width: 100%;
+//    max-width: 65px;
+//    border-right: 3px solid #F5F5F5;
+//    color: #B3B3B3;
+//    display: flex;
+//    flex-direction: column;
+//    justify-content: flex-end;
+//}
+//.day-events {
+//    width: 100%;
+//    max-width: 665px;
+//    display: flex;
+//    border-bottom: 2px solid #F5F5F5;
+//}
 .day-event {
-    width: 100%;
-    background: #E0F7D7;
-    border-left: 2px solid #63DA38;
+    border-left: 2px solid grey;
+    color: #000;
+    font-weight: bold;
+    font-size: 12px;
+}
+.day-birthdays {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    color: #008947;
+    border: 2px solid;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.day-birthdays span {
+    font-size: 12px;
+    line-height: 30px;
+}
+.birthday-name {
+    text-transform: uppercase;
     font-weight: bold;
 }

@@ -7,74 +7,44 @@
             :nudge-width="200"
             :min-width="300"
             offset-x
-            :left="false"
+            :left="(setPosition==0)?true:false"
         >
             <template v-slot:activator="{ on }">
-                <v-btn
-                    color="indigo"
-                    dark
-
-                    v-on="on"
-                >
-                    Menu as Popover
-                </v-btn>
+               <button class="event" v-on="on">{{item.name|cutText(15)}}</button>
             </template>
-
             <v-card>
-                    <div class="d-flex">
-                        <button>sda</button>
-                        <button>ssdda</button>
-                        <v-row justify="center">
-                            <v-btn
-                                color="primary"
-                                dark
-                                @click.stop="dialog = true"
-                            >
-                                Open Dialog
-                            </v-btn>
-
-                            <v-dialog
-                                hide-overlay
-                                v-model="dialog"
-                                max-width="290">
-                                <div class="flex">
-                                    <div class="delete-modal">sdfsfsfsfsfsfsfsfsf</div>
-                                    <div class="delete-modal">sdfsfsfsfsfsfsfsfsf</div>
-                                    <button @click="deleteEvent(item)">Удалить</button>
-                                </div>
-
-                                <button @click="dialog=false">23123</button>
-                            </v-dialog>
-                        </v-row>
-                        <button class="create-btn" @click="change_show_modal()" v-ripple>Редактировать</button>
-                    </div>
-                    <v-list-item-action>
-                    </v-list-item-action>
-                <v-divider></v-divider>
-                <div>
-<!--                    {{item}}-->
-                   {{item.name}},,,   {{item.type}}
+                <div class="d-flex justify-content-end">
+                    <button class="delete" @click.stop="dialog = true">
+                        <img src="../../../../../../public/img/icon/email.svg" alt="Email">
+                    </button>
+                    <delete @close="close($event)" :event="item"></delete>
+                    <button class="create-btn" @click="edit(item)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
+                    <button class="create-btn clear" @click="close()"><img src="../../../../../../public/img/icon/clear.svg" alt="Clear"></button>
                 </div>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-
-                    <v-btn text @click="menu = false">Cancel</v-btn>
-                    <v-btn color="primary" text @click="menu = false">Save</v-btn>
-                </v-card-actions>
+                <div class="container-event">
+                    <div class="text">
+                        {{item.name}}
+                    </div>
+                    {{currentDate}}
+                </div>
             </v-card>
         </v-menu>
     </div>
 </template>
 
 <script>
+
+    import notification from '../../../../mixin/eventNotifications'
     export default {
-        props:['item'],
+        mixins: [notification],
+        props: ['item', 'index','date','getDate'],
         name: "CellItem",
-        data(){
-           return{
-               menu:false,
-               dialog: false,
-           }
+        data() {
+            return {
+                menu: false,
+                getDay:null,
+                dateForModal:null
+            }
         },
         computed: {
             error() {
@@ -83,65 +53,79 @@
             processing() {
                 return this.$store.getters.get_processing;
             },
-            status() {
-                return this.$store.getters.getStatus;
+
+            currentDate() {
+                let parseDate = this.date.split("-");
+               let dateCurrent = new Date(parseDate[0],parseDate[1]-1,parseDate[2]);
+                let months = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "ментября", "октября", "ноября","декабря"]
+                let days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+                this.getDay=dateCurrent.getDay();
+                return days[dateCurrent.getDay()]+","+parseDate[2]+' '+months[parseDate[1]-1]
+
+            },
+            setPosition()
+            {
+                return this.getDay;
             },
         },
-        methods:{
-            change_show_modal() {
+        methods: {
+            edit(event) {
                 this.$store.commit('changeShowModal');
-                this.$eventBus.$emit('type', this.item.type);
+                if (event.type == 'birthday') {
+                    this.$store.dispatch('getBirthday',event.id );
+                } else if (event.type == 'activity') {
+                    this.$store.dispatch('getActivity',event.id );
+                } else if (event.type == 'task') {
+                    this.$store.dispatch('getTask',event.id );
+                }
+                this.$eventBus.$emit('type', event.type);
                 this.menu = false;
             },
-            deleteEvent(event)
+            close(event=null)
             {
-                if(event.type=='birthday')
-                {
-                    this.$store.dispatch('deleteEvent',{event:event,date:'2020-05-12'})
-                }
-                else if(event.type=='activity')
-                {
-                    axios.delete('/delete-activity/'+id).then((response) =>{
-                        if(response.data.response=='deleted')
-                        {
-                            this.$toaster.success("Запись успешно удалена");
-                        }
-                    }).catch(e => {
-                        this.$toaster.error("Пользователь не найден");
-                    });
-                }
-                else if(event.type=='task')
-                {
-                    axios.delete('/delete-task/'+id).then((response) =>{
-                        if(response.data.response=='deleted')
-                        {
-                            this.$toaster.success("Запись успешно удалена");
-                        }
-                    }).catch(e => {
-                        this.$toaster.error("Пользователь не найден");
-                    });
-                }
+                return  this.menu=event;
             }
+        },
+        created(){
+
         },
         watch: {
-            status(value) {
-                if (value === true) {
-                    this.$toaster.success('Даннык успешно сохранены.');
-                    this.$store.commit("setStatus", false);
-                    this.dialog=false;
-                    this.menu=false;
-                }
-            }
+
         },
-
-
     }
 </script>
 
 <style scoped>
+    .container-event
+    {
+        margin: 6px 14px 0 20px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 30px;
 
-    .delete-modal {
-    height: 200px;
-    background:red;
-}
+        color: #000000;
+    }
+    .clear{
+    margin-left: 10px;
+    }
+
+    .text{
+
+    }
+    .event
+    {
+        height: 30px;
+        width: 150px;
+        background: #D8D8D8;
+        border-radius: 4px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 30px;
+        color: #666666;
+        margin-bottom: 9px;
+    }
 </style>

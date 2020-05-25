@@ -11,7 +11,9 @@ class LogoutController extends Controller
 {
    protected  function logout()
    {
+       $token = auth()->user()->token;
        Auth::logout();
-       return response()->redirectTo(RouteServiceProvider::HOME);
+
+       return response($token,200);
    }
 }

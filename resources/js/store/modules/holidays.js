@@ -4,18 +4,17 @@ export default {
 
     },
     mutations: {
-        set_holidays(state, params) {
+        setHolidays(state, params) {
             state.holidays = params.data;
         }
     },
     actions: {
-        get_holidays(context, paramData) {
+        getHolidays(context, paramData) {
 
             axios.post('/month/get-holidays', paramData)
                 .then(response => {
 
                     let newResponse = {};
-
                     _.each(response.data, function (value, index) {
                         const month = response.data[index].date.month;
                         newResponse[month] = [];
@@ -36,10 +35,10 @@ export default {
                     const params = {
                         data: newResponse,
                     }
-                    context.commit("set_holidays", params);
+                    context.commit("setHolidays", params);
                 })
                 .catch(error => {
-                    context.commit("set_error", error.message);
+                    context.commit("setError", error.message);
                 })
         },
     },

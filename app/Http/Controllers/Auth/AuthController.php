@@ -42,6 +42,7 @@ class AuthController extends Controller
     }
     protected function callback(Request $request)
     {
+     
         //заюзать use GuzzleHttp\Client;
         $http = new Client;
 

@@ -77,14 +77,14 @@
 
                 this.dateForMonth = this.date;
                 let parseDate = this.dateForMonth.split("-");
-                this.dateForEvents = moment(parseDate[0] + '-' + parseDate[1] + '-' + parseDate[2]).format('YYYY-MM-DD');
-                let months = ["Декабря", "Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября"]
+                this.dateForEvents = moment(parseDate[1] + '-' + parseDate[2]).format('MM-DD');
+                let months = ["Декабря","Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября"]
                 let daysAbbreviation=['ВC', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
                 this.dateModal=daysAbbreviation[new Date(this.dateForEvents).getDay()]+' '+parseDate[2];
                 let dateForCalendar = "";
                 if (parseDate[2] == '1') {
                     if (parseDate[1] == 12) {
-                        dateForCalendar = parseDate[2] + " " + months[1];
+                        dateForCalendar = parseDate[2] + " " + months[0];
                     } else {
                         dateForCalendar = parseDate[2] + " " + months[parseDate[1]];
                     }
@@ -93,6 +93,7 @@
                 }
                 return dateForCalendar;
             },
+
             displayEvents()
             {
                 if(typeof(this.еvents)=='object')

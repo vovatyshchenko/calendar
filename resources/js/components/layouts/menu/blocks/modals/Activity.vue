@@ -14,15 +14,21 @@
             @input="$v.name.$touch()"
             @blur="$v.name.$touch()"
         ></v-text-field>
-        <v-text-field
-            v-model="guests"
-            :error-messages="guestsErrors"
-            outlined
-            dense
-            label="Гости"
-            @input="$v.guests.$touch()"
-            @blur="$v.guests.$touch()"
-        ></v-text-field>
+        <div class="position-relative">
+                <v-text-field
+                    v-model="guests"
+                    :error-messages="guestsErrors"
+                    @input="$v.guests.$touch()"
+                    @blur="$v.guests.$touch()"
+                    append-icon="info"
+                    label="Гости"
+                    outlined
+                    dense
+                    @click:append="show = !show">
+                </v-text-field>
+            <span class="position-absolute info-email" v-if="show">разделяйте введеные почты с помощью знака ";"</span>
+        </div>
+
         <v-text-field
             v-model="location"
             :error-messages="locationErrors"
@@ -178,6 +184,7 @@
             timeEnd: '00:00',
             description: null,
             id: null,
+            show:false,
             openTimeStart: false,
             openDataStart: false,
             openTimeEnd: false,
@@ -205,24 +212,13 @@
                 this.timeStart = this.$store.getters.getActivity.timeStart;
                 this.timeEnd = this.$store.getters.getActivity.timeEnd;
                 this.description = this.$store.getters.getActivity.description;
-                this.location = this.$store.getters.getActivity.description;
+                this.location = this.$store.getters.getActivity.location;
                 this.id = this.$store.getters.getActivity.id;
             },
 
         },
         methods: {
             save() {
-                if(this.timeStart>this.timeEnd)
-                {
-                    console.log('d111');
-                }
-                else if(this.timeStart>this.timeEnd)
-                {     console.log('d22');
-
-                }
-                else{
-                    console.log(';24424');
-                }
                 this.$v.$touch()
                 if (!this.nameErrors.length == 0 ||
                     !this.guestsErrors.length == 0 ||
@@ -296,5 +292,8 @@
     }
 </script>
 <style scoped>
-
+.info-email{
+    background: #4c110f;
+    color: #ffffff;
+}
 </style>

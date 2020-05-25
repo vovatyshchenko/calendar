@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 |
 */
 require_once('Holidays/index.php');
-Auth::routes();
+
 
 Route::get('/auth/redirect','Auth\AuthController@authorizathion')->name('login');
 Route::get('/auth/callback', 'Auth\AuthController@callback');
@@ -39,6 +39,8 @@ Route::put('/update-activity', ('Api\v1\ActivityController@update'));
 Route::put('/update-task', ('Api\v1\TaskController@update'));
 Route::post('/search', ('Api\v1\EventsController@search'));
 
+//Route::get('/1', 'Mail\MailController@send');
+
 Route::view('/{any}', 'index')->where('any', '.*');
-    Route::middleware('auth')->post('/logout', 'Auth\LogoutController@logout');
+Route::middleware('auth')->post('/logout', 'Auth\LogoutController@logout');
 

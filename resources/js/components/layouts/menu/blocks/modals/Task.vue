@@ -24,7 +24,7 @@
             label="Описание*"
         ></v-textarea>
         <v-col class="d-flex align-items-center">
-            <span>Весь день</span>
+            <span>Напомнить</span>
             <v-checkbox v-model="isRemind"></v-checkbox>
         </v-col>
         <div class="d-flex">

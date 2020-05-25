@@ -32,6 +32,7 @@
                     <option value="/day">День</option>
                     <option value="/week">Неделя</option>
                     <option value="/year">Год</option>
+                    <option v-if="this.current_route == '/search-result'" value="/search-result">Поиск</option>
                 </select>
             </div>
         </v-app-bar>
@@ -141,14 +142,14 @@
             year() {
                 this.$store.dispatch('getHolidays', {year: this.year});
             },
-            isSearched(value) {
+            /*isSearched(value) {
                 if (value === true) {
                     if (window.location.pathname != '/search-result') {
                         this.$router.push('search-result');
                     }
                     this.$store.commit('setStatusSearched',false);
                 }
-            },
+            },*/
         },
     }
 

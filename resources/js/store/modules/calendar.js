@@ -15,9 +15,9 @@ export default {
         yearData({ commit, getters, dispatch }) {
             let year = getters.menuDate.getFullYear();
 
-            //dispatch('getEvents',{date_start:moment({ year: year, month: 0, day: 1 }).format('YYYY-MM-DD'),date_end:moment({ year: year, month: 11, day: 31 }).format('YYYY-MM-DD')});
-            //commit('setStartDate',moment({ year: year, month: 0, day: 1 }).format('YYYY-MM-DD'));
-            //commit('setEndDate',moment({ year: year, month: 11, day: 31 }).format('YYYY-MM-DD'));
+            dispatch('getEvents',{date_start:moment(year + '-' + 0 + '-' + 1).format('YYYY-MM-DD'),date_end:moment(year + '-' + 11 + '-' + 31).format('YYYY-MM-DD')});
+            commit('setStartDate',moment(year + '-' + 0 + '-' + 1).format('YYYY-MM-DD'));
+            commit('setEndDate',moment(year + '-' + 11 + '-' + 31).format('YYYY-MM-DD'));
 
             let data = [];
             let holiday = '';
@@ -47,7 +47,7 @@ export default {
                 let nameBirthday = [];
 
                 if (getters.events && objLength > 0) {
-                  let currentDate = moment(year +'-'+ (m + 1) +'-'+ (d + 1)).format('YYYY-MM-DD');
+                  let currentDate = moment((m + 1) +'-'+ (d + 1)).format('MM-DD');
 
                   if (event[currentDate]) {
                     for (let i = 0; i < event[currentDate].length; i++){
@@ -77,6 +77,9 @@ export default {
                 }
                 if (m === 0 && week === 53 || week === 52) {
                   week = 0
+                }
+                if (m === 11 && week === 0) {
+                  week = 52
                 }
                 // если неделя еще не присутствует в месяце, то добавляем ее
                 if (!month.weeks.hasOwnProperty(week)) {

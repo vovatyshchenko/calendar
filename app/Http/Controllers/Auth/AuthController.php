@@ -162,8 +162,22 @@ class AuthController extends Controller
                 ]
 
             );
+            Auth::login($user);
+            TypeColor::create(
+                [
+                    'user_id'=>Auth::user()->id,
+                    'birthdays_active'=>true,
+                    'tasks_active'=>true,
+                    'activities_active'=>true,
+                    'holidays_active'=>true,
+
+                    'birthdays_color'=>0,
+                    'tasks_color'=>0,
+                    'activities_color'=>0,
+                    'holidays_color'=>0
+                ]
+            );
         }
-         Auth::login($user);
 
         return response()->redirectTo(RouteServiceProvider::HOME);
     }

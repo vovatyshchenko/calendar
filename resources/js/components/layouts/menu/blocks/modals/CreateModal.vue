@@ -65,8 +65,6 @@
                  if (value == 'activity') {
                     this.tab = 0;
                      this.$store.commit('setIsUpdateActive',true);
-                } else if (value == 'reminders') {
-                    this.tab = 3;
                 } else if (value == 'task') {
                     this.tab = 1;
                      this.$store.commit('setIsUpdateTask',true);

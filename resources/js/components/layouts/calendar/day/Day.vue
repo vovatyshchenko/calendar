@@ -9,7 +9,7 @@
         <div v-if="!dayEvents" class="no-day-events">
             <span>На данный день не заплонировано событий!</span>
         </div>
-        <div v-if="dayEvents && typeColors[0].active">
+        <div v-if="typeColors[0].active ">
             <div class="day-birthdays" :style="{'border-color': typeColors[0].textColor, 'color': typeColors[0].textColor}">
             <span v-for="(birthday, index) in getBirthdays">
                 <span v-if="index==0">{{birthday}}</span>
@@ -33,7 +33,6 @@
                         </div>
                     </div>
                 </td>
-                <td v-if="emptyCell(n).active" class="empty-day" :colspan="emptyCell(n).cells"></td>
                 <td v-if="showAdditionalEvents(n)[0]">
                     <additional-events :events="showAdditionalEvents(n)[1]"></additional-events>
                 </td>
@@ -83,17 +82,17 @@
                 let cells = 0;
                 if (typeof this.eventGrid[count-1] != "undefined") {
                     for (let i=0; i<4; i++) {
-                        if (this.eventGrid[count-1][i]!=true) {
+                        if (this.eventGrid[count-1][i]==true) {
                             cells++;
                         }
                     }
                     let cellsInfo = {};
                     if (cells>0) {
-                        cellsInfo.active = true;
-                    } else {
                         cellsInfo.active = false;
+                    } else {
+                        cellsInfo.active = true;
                     }
-                    cellsInfo.cells = cells;
+                    cellsInfo.cells = 4;
                     return cellsInfo;
                 }
                 return false;

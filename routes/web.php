@@ -39,6 +39,7 @@ Route::put('/update-activity', ('Api\v1\ActivityController@update'));
 Route::put('/update-task', ('Api\v1\TaskController@update'));
 Route::post('/search', ('Api\v1\EventsController@search'));
 Route::get('/token', 'Auth\AuthController@authByToken');
+
 Route::view('/{any}', 'index')->where('any', '.*');
 Route::middleware('auth')->post('/logout', 'Auth\LogoutController@logout');
 

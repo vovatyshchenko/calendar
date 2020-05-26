@@ -10,7 +10,7 @@
         </div>
         <div class="week" v-for="week in month.weeks">
           <div class="day" v-for="day in 7">
-            <span :class="(haveHolliday(week[day].holiday) || haveEvents(week[day].events))?'holiday':'days'"
+            <span :class="(haveHolliday(week[day].holiday))?'holiday':'days'"
               v-if="week[day]"
               @dblclick="showHoliday(week[day].date)">
               {{ week[day].date.getDate() }}

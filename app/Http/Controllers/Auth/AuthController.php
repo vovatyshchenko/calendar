@@ -81,7 +81,6 @@ class AuthController extends Controller
             $userData['email'] = $response['email'];
             $userData['surname'] = $response['surname'];
             $userData['name'] = $response['name'];
-            $userData['patronymic'] = $response['middle_name'];
             $userData['token'] = $access->access_token;
             $user = User::where('email',$response['email'])->first();
             if($user){
@@ -97,7 +96,6 @@ class AuthController extends Controller
                         'token' => $access->access_token,
                         'surname' => $response['surname'],
                         'name' => $response['name'],
-                        'patronymic' => $request['middle_name']
                     ]
 
                 );
@@ -120,6 +118,54 @@ class AuthController extends Controller
             return response()->redirectTo(RouteServiceProvider::HOME);
         }
     }
+    public function authByToken(Request $request)
+    {
 
+        $access_token = $request->access_token;
+
+        if(empty($access_token)){
+            return response()->redirectTo('/redirect');
+        }
+        // use above token to make further api calls in this session or until the access token expires
+        $ch = curl_init();
+        $url = env('GET_USER');
+        $header = array(
+            'Authorization: Bearer '. $access_token
+        );
+
+
+        curl_setopt($ch,CURLOPT_URL, $url );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $response = json_decode($result, true);//данные о user
+        $user = User::where('email',$response['email'])->first();
+        $userData['email'] = $response['email'];
+        $userData['surname'] = $response['surname'];
+        $userData['name'] = $response['name'];
+        $userData['token'] =$access_token;
+        if($user){
+
+            User::where('email',$response['email'])->update($userData);
+            $user = User::where('email',$response['email'])->first();
+            Auth::login($user);
+        }
+        else {
+            $user = User::firstOrCreate(
+                [
+                    'email' => $response['email'],
+                    'token' => $access_token,
+                    'surname' => $response['surname'],
+                    'name' => $response['name'],
+                ]
+
+            );
+        }
+         Auth::login($user);
+
+        return response()->redirectTo(RouteServiceProvider::HOME);
+    }
 }
 

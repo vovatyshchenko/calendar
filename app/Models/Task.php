@@ -43,6 +43,7 @@ class Task extends Model
                 array_push($result,$search);
             }
         }
+
         return $result;
     }
 }

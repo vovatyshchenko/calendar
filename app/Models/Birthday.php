@@ -26,6 +26,7 @@ class Birthday extends Model
             $date=date('d', strtotime($start . " +" . $day . " day"));
             array_push($dayRange, $date);
         }
+
         return  DB::table('birthdays')
             ->whereMonth('date','>=',$monthStart)
             ->whereMonth('date','<=',$monthEnd)
@@ -67,6 +68,7 @@ class Birthday extends Model
                 array_push($result,$search);
             }
         }
+
         return $result;
     }
 }

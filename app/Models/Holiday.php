@@ -50,6 +50,7 @@ class Holiday extends Model
         foreach ($cyr_chars as $cyr_char_key => $cyr_char) {
             $jsonStr = str_replace($cyr_char_key, $cyr_char, $jsonStr);
         }
+
         return $jsonStr;
     }
     public function getHolidaysForMonth($data)
@@ -68,6 +69,7 @@ class Holiday extends Model
 //        echo print_r($this->jsonEncode($data));
         $status = curl_getinfo($curl);
         curl_close($curl);
+
         return $this->jsonEncode($data);
     }
 

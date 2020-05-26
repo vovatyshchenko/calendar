@@ -107,7 +107,7 @@ export default {
                 })
                 .catch(error => {
                     context.commit("setProcessing", false);
-                    context.commit("setError", error);
+                    context.commit("setError", error.response.data.message);
                 })
         },
         deleteBirthdays(context, event) {
@@ -125,7 +125,7 @@ export default {
                 })
                 .catch(error => {
                     context.commit("setProcessing", false);
-                    context.commit("setError", error);
+                    context.commit("setError", error.response.data.message);
                 })
         },
         deleteActivity(context, event) {
@@ -144,7 +144,7 @@ export default {
                 })
                 .catch(error => {
                     context.commit("setProcessing", false);
-                    context.commit("setError", error);
+                    context.commit("setError", error.response.data.message);
                 })
         },
         deleteTask(context, event) {
@@ -163,7 +163,7 @@ export default {
                 })
                 .catch(error => {
                     context.commit("setProcessing", false);
-                    context.commit("setError", error);
+                    context.commit("setError", error.response.data.message);
                 })
         },
         getBirthday(context, id) {
@@ -224,7 +224,7 @@ export default {
                 })
                 .catch(error => {
                     commit("setProcessing", false);
-                    commit("setError", error);
+                    commit("setError", error.response.data.message);
                 })
         },
         birthdayCreate({commit, dispatch, getters}, birthday) {
@@ -241,7 +241,7 @@ export default {
                 .catch(error => {
                     commit("setProcessing", false);
                     commit("setStatus", false);
-                    commit("setError", error);
+                    commit("setError", error.response.data.message);
                 })
         },
         birthdayUpdate({commit, dispatch, getters}, birthday) {
@@ -258,7 +258,7 @@ export default {
                 .catch(error => {
                     commit("setProcessing", false);
                     commit("setStatusUpdated", false);
-                    commit("setError", error);
+                    commit("setError", error.response.data.message);
                 })
         },
         activityUpdate({commit, dispatch, getters}, activity) {
@@ -295,7 +295,7 @@ export default {
                 .catch(error => {
                     commit("setProcessing", false);
                     commit("setStatusUpdated", false);
-                    commit("setError", error);
+                    commit("setError", error.response.data.message);
                 })
         },
     },

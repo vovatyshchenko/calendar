@@ -4,18 +4,18 @@
             <div class="d-flex flex-column">
                <span class="date">
                    <span class="number">
-                      <v-tooltip top v-if="holidayTextEvent">
+                      <v-tooltip top v-if="holidayTextEvent && activeHoliday.active" :color="activeHoliday.mainColor">
                          <template v-slot:activator="{ on }">
-                              <span v-on="on" :class="holidayTextEvent?'active':''">{{currentDate}}</span>
+                              <span v-on="on" :class="holidayTextEvent?'active':''" :style="{'background-color': activeHoliday.mainColor, 'color': activeHoliday.textColor}">{{currentDate}}</span>
                         </template>
-                        <span class="test">{{holidayTextEvent}}</span>
-                        </v-tooltip>
+                        <span class="test" :style="{'color': activeHoliday.textColor}">{{holidayTextEvent}}</span>
+                      </v-tooltip>
                        <span v-else>{{currentDate}}</span>
                    </span>
                </span>
             </div>
             <div v-for="(item,index) in еvents">
-                <cell-item :date="date" v-if="index<2" :index="index" :item="item"></cell-item>
+                <cell-item :date="date" v-if="index<2" :index="index" :item="item" :color="{'main':item.color, 'text':item.textColor}"></cell-item>
             </div>
             <div>
                 <div v-if="еvents?displayEvents>2:''" class="text-center">
@@ -33,7 +33,7 @@
                                 </button>
                               </div>
                             <div v-for="(item,index) in еvents">
-                                <cell-item :date="date" v-if="index>1" :item="item"></cell-item>
+                                <cell-item :date="date" v-if="index>1" :item="item" :color="{'main':item.color, 'text':item.textColor}"></cell-item>
                             </div>
                         </v-list>
                     </v-menu>
@@ -73,6 +73,14 @@
             }
         },
         computed: {
+            activeHoliday() {
+                let holidays = {};
+                holidays.active = this.$store.getters.typeColors[3].active;
+                holidays.mainColor = this.$store.getters.colors[this.$store.getters.typeColors[3].color];
+                holidays.textColor = this.$store.getters.textColors[this.$store.getters.typeColors[3].color];
+
+                return holidays;
+            },
             currentDate() {
 
                 this.dateForMonth = this.date;
@@ -104,11 +112,44 @@
             },
             еvents()
             {
+                let currentEvents= this.$store.getters.events[this.dateForEvents];
+                let typeColors = this.$store.getters.typeColors;
+                let showEvents = [];
+                let count = 0;
+                if (currentEvents!=null) {
+                    for (let i = 0; i < currentEvents.length; i++) {
+                        if ((currentEvents[i].type == 'birthday' && typeColors[0].active) ||
+                            (currentEvents[i].type == 'task' && typeColors[1].active) ||
+                            (currentEvents[i].type == 'activity' && typeColors[2].active)) {
+
+                            showEvents[count] = currentEvents[i];
+                            if (currentEvents[i].type == 'birthday') {
+                                showEvents[count].color=this.$store.getters.colors[typeColors[0].color];
+                                showEvents[count].textColor=this.$store.getters.textColors[typeColors[0].color];
+                            }
+                            if (currentEvents[i].type == 'task') {
+                                showEvents[count].color=this.$store.getters.colors[typeColors[1].color];
+                                showEvents[count].textColor=this.$store.getters.textColors[typeColors[1].color];
+                            }
+                            if (currentEvents[i].type == 'activity') {
+                                showEvents[count].color=this.$store.getters.colors[typeColors[2].color];
+                                showEvents[count].textColor=this.$store.getters.textColors[typeColors[2].color];
+                            }
+                            count++;
+                        }
+                    }
+                    return showEvents;
+                }
                 return this.$store.getters.events[this.dateForEvents];
             },
             dateForModal()
             {
                 return this.dateModal;
+            }
+        },
+        watch: {
+            events: function (value) {
+                console.log(value.type, value.color);
             }
         },
     }
@@ -133,22 +174,14 @@
         margin-bottom: 9px;
     }
 
-    .v-tooltip__content {
-        background: #F44336;
-    }
-
     .my-tooltip-class {
         min-width: 200px;
         min-height: 118px;
-        color: #FFFFFF;
         padding: 5px;
-        background: #F44336;
     }
 
     .Cell .date .number .active {
-        color: #FFFFFF;
         padding: 5px;
-        background: #F44336;
         border-radius: 3px;
     }
 

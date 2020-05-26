@@ -6,6 +6,9 @@
 <script>
 export default {
     data: () => ({ }),
+    created() {
+        this.$store.dispatch('getTypeColors');
+    }
 }
 </script>
 

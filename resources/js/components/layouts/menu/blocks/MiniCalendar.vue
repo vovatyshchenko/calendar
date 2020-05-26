@@ -58,19 +58,16 @@
                 this.$store.commit('setDatePicker', fullDate);
                 this.$store.commit('setDate', this.$store.getters.datepicker);
 
-                // if (window.location.pathname == '/day'){
-                //     let formatCurrentDate = moment(parseDate[2]+'-'+parseDate[1]+'-'+parseDate[0]).format('YYYY-MM-DD');
-                //     this.$store.dispatch('getEvents',{date_start:formatCurrentDate, date_end:formatCurrentDate});
-                // }
+                if (window.location.pathname == '/search-result'){
+                    this.$eventBus.$emit('currentRoute', '/day');
+                    this.$store.commit('set_route', '/day');
+                }
             },
             changeDay(date) {
                 let parseDate = date.split("-");
                 let fullDate=new Date(parseDate[2], parseDate[1]-1, parseDate[0]);
                 this.$store.commit('setDatePicker', fullDate);
                 this.$store.commit('setDate', this.$store.getters.datepicker);
-
-                // let formatCurrentDate = moment(parseDate[2]+'-'+parseDate[1]+'-'+parseDate[0]).format('YYYY-MM-DD');
-                // this.$store.dispatch('getEvents',{date_start:formatCurrentDate, date_end:formatCurrentDate});
 
                 if (window.location.pathname != '/day'){
                     this.$eventBus.$emit('currentRoute', '/day');

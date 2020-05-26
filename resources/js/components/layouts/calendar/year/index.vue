@@ -10,7 +10,8 @@
         </div>
         <div class="week" v-for="week in month.weeks">
           <div class="day" v-for="day in 7">
-            <span :class="(haveHolliday(week[day].holiday))?'holiday':'days'"
+            <span
+                  :style="{'color': (haveHolliday(week[day].holiday) && activeHoliday.active)?activeHoliday.textColor:'#B3B3B3'}"
               v-if="week[day]"
               @dblclick="showHoliday(week[day].date)">
               {{ week[day].date.getDate() }}
@@ -19,6 +20,7 @@
         </div>
       </div>
     </div>
+<!--      || haveEvents(week[day].events)-->
   </div>
 </template>
 
@@ -38,9 +40,9 @@ export default {
       }
     },
     haveEvents(value) {
-      if (value.activitys.length !== 0 || 
-        value.reminders.length !== 0 || 
-        value.tasks.length !== 0 || 
+      if (value.activitys.length !== 0 ||
+        value.reminders.length !== 0 ||
+        value.tasks.length !== 0 ||
         value.birthdays.length !== 0  ) {
         return true;
       } else {
@@ -64,6 +66,13 @@ export default {
     days() {
       return this.$store.getters.getDays;
     },
+      activeHoliday() {
+          let holidays = {};
+          holidays.active = this.$store.getters.typeColors[3].active;
+          holidays.textColor = this.$store.getters.textColors[this.$store.getters.typeColors[3].color];
+
+          return holidays;
+      },
   },
 }
 </script>

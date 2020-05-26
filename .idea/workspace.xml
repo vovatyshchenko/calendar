@@ -20,29 +20,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="530ed881-a690-4da1-94b1-52aaa0d6d684" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Console/Commands/ReminderBirthday.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/mail/reminder.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/TypeColorsController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/TypeColor.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_05_24_165500_create_type_colors_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/ReminderTask.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/ReminderTask.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/ActivityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/ActivityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/BirthdayController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/BirthdayController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Birthday/StoreRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Birthday/StoreRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Birthday/UpdateRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Birthday/UpdateRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Mail/Reminder.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/Reminder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Birthday.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Birthday.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Event.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Holiday.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Holiday.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Task.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_11_133350_create_birthdays_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_05_11_133350_create_birthdays_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_19_000001_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_19_000001_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/ActivitySeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/ActivitySeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/BirthdaySeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/BirthdaySeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/TaskSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/TaskSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/UserSeeder.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/Menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/Menu.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/Birthday.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/Birthday.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/blocks/nav/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/blocks/nav/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/blocks/nav/sidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/blocks/nav/sidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/week/WeekIndex.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/week/WeekIndex.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/year/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/year/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/MiniCalendar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/MiniCalendar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/TypeList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/TypeList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/CreateModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/CreateModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/Task.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/Task.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellWeek.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellWeek.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellMonth.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellMonth.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/AdditionalEvents.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/AdditionalEvents.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/CellItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/CellItem.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/modules/display.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/display.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/events.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/typeColors.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/typeColors.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/calendar/day.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/calendar/day.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/Alexandr/api.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/Maxim/api.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/Vitaliy/api.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/Vladimir/api.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -255,11 +265,22 @@
       <workItem from="1590261457803" duration="597000" />
       <workItem from="1590263923076" duration="1690000" />
       <workItem from="1590511207105" duration="212000" />
+      <workItem from="1590531842183" duration="485000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -282,40 +303,48 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2564" y="175" width="645" height="690" key="#phpunit.xml/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588496563307" />
+    <state x="100" y="127" width="1720" height="785" key="DiffContextDialog" timestamp="1590527908958">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state x="100" y="127" width="1720" height="785" key="DiffContextDialog/0.27.1920.985@0.27.1920.985" timestamp="1590527908958" />
     <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1588252943713">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1588252943713" />
-    <state width="1877" height="234" key="GridCell.Tab.0.bottom" timestamp="1590483191357">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1874" height="253" key="GridCell.Tab.0.bottom" timestamp="1590526015193">
+      <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="1877" height="234" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590483191357" />
-    <state width="1874" height="253" key="GridCell.Tab.0.bottom/0.27.1920.985@0.27.1920.985" timestamp="1589565329083" />
-    <state width="1877" height="234" key="GridCell.Tab.0.center" timestamp="1590483191357">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1874" height="253" key="GridCell.Tab.0.bottom/0.27.1920.985@0.27.1920.985" timestamp="1590526015193" />
+    <state width="1874" height="253" key="GridCell.Tab.0.center" timestamp="1590526015192">
+      <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="1877" height="234" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590483191357" />
-    <state width="1874" height="253" key="GridCell.Tab.0.center/0.27.1920.985@0.27.1920.985" timestamp="1589565329082" />
-    <state width="1877" height="234" key="GridCell.Tab.0.left" timestamp="1590483191355">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1874" height="253" key="GridCell.Tab.0.center/0.27.1920.985@0.27.1920.985" timestamp="1590526015192" />
+    <state width="1874" height="253" key="GridCell.Tab.0.left" timestamp="1590526015192">
+      <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="1877" height="234" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590483191355" />
-    <state width="1874" height="253" key="GridCell.Tab.0.left/0.27.1920.985@0.27.1920.985" timestamp="1589565329082" />
-    <state width="1877" height="234" key="GridCell.Tab.0.right" timestamp="1590483191357">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1874" height="253" key="GridCell.Tab.0.left/0.27.1920.985@0.27.1920.985" timestamp="1590526015192" />
+    <state width="1874" height="253" key="GridCell.Tab.0.right" timestamp="1590526015192">
+      <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="1877" height="234" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590483191357" />
-    <state width="1874" height="253" key="GridCell.Tab.0.right/0.27.1920.985@0.27.1920.985" timestamp="1589565329082" />
-    <state x="6" y="75" width="1896" height="825" key="MergeDialog" timestamp="1590511406861">
+    <state width="1874" height="253" key="GridCell.Tab.0.right/0.27.1920.985@0.27.1920.985" timestamp="1590526015192" />
+    <state x="122" y="76" width="1896" height="825" key="MergeDialog" timestamp="1590532261191">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="6" y="75" key="MergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1590511406861" />
+    <state x="122" y="76" key="MergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1590532261191" />
     <state x="9" y="128" width="1896" height="825" key="MergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1589192808481" />
-    <state x="295" y="266" width="1146" height="380" key="MultipleFileMergeDialog" timestamp="1590511406892">
+    <state x="295" y="266" width="1146" height="380" key="MultipleFileMergeDialog" timestamp="1590532261201">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="295" y="266" key="MultipleFileMergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1590511406892" />
+    <state x="295" y="266" key="MultipleFileMergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1590532261201" />
     <state x="414" y="387" width="1146" height="380" key="MultipleFileMergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1589192809865" />
+    <state x="730" y="203" width="449" height="640" key="RollbackChangesDialog" timestamp="1590527858935">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state x="730" y="203" width="449" height="640" key="RollbackChangesDialog/0.27.1920.985@0.27.1920.985" timestamp="1590527858935" />
     <state x="449" y="154" width="1022" height="737" key="SettingsEditor" timestamp="1589041555301">
       <screen x="0" y="27" width="1920" height="985" />
     </state>

@@ -13,13 +13,11 @@
         </template>
         <v-card>
             <div class="additional-events">
-                <div v-for="event in events" class="additional-event" :style="{'background-color': event.color}">
+                <div v-for="event in events" class="additional-event" :style="{'background-color': event.mainColor, 'color': event.textColor, 'border-color': event.textColor}">
                     <span>{{event.time_start}}-{{event.time_end}} {{event.name}}</span>
-                    <div>
-                        <button class="create-btn" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
-                        <button class="delete" v-ripple>
-                            <img src="../../../../../../public/img/icon/delete.svg" alt="Delete">
-                        </button>
+                    <div class="d-flex">
+                        <button class="create-btn" @click="edit(event)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
+                        <delete :event="event"></delete>
                     </div>
                 </div>
             </div>
@@ -33,6 +31,20 @@
         data: () => ({
             menu: false,
         }),
+        methods: {
+            edit(event) {
+                this.$store.commit('changeShowModal');
+                if (event.type == 'birthday') {
+                    this.$store.dispatch('getBirthday',event.id );
+                } else if (event.type == 'activity') {
+                    this.$store.dispatch('getActivity',event.id );
+                } else if (event.type == 'task') {
+                    this.$store.dispatch('getTask',event.id );
+                }
+                this.$eventBus.$emit('type', event.type);
+                this.menu = false;
+            }
+        }
     }
 </script>
 
@@ -56,8 +68,7 @@
     .additional-event{
         display: flex;
         justify-content: space-between;
-        color: #000;
-        border: 1px solid grey;
+        border: 1px solid;
         border-radius: 5px;
         margin: 10px;
         padding: 5px;

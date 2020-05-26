@@ -56,6 +56,12 @@
         data: () => ({
             sidebarOpen : false,
         }),
+        methods:{
+            AuthByToken()
+            {
+
+            }
+        }
     }
 </script>
 

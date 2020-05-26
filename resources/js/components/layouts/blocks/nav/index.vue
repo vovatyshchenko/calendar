@@ -64,8 +64,6 @@
                         axios.get('https://team1-group-project.azurewebsites.net/api/client_logout' , { headers: {Authorization: "Bearer "+this.token}})
                             .then(r => location.href= r.data)
                     });
-
-
             }
         }
     }

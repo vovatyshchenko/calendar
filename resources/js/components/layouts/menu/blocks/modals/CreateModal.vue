@@ -22,11 +22,6 @@
                     <activity-modal ></activity-modal>
                 </v-card-text>
             </v-tab-item>
-             <v-tab-item>
-                <v-card-text>
-                    <reminders-modal></reminders-modal>
-                </v-card-text>
-            </v-tab-item>
            <v-tab-item>
                 <v-card-text>
                     <task-modal></task-modal>
@@ -50,7 +45,7 @@
             checkIsUpdateTask:false,
             checkIsUpdateBirthday:false,
             items: [
-                'МЕРОПРИЯТИЕ', 'НАПОМИНАНИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',
+                'МЕРОПРИЯТИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',
             ],
         }),
         created() {
@@ -70,14 +65,12 @@
                  if (value == 'activity') {
                     this.tab = 0;
                      this.$store.commit('setIsUpdateActive',true);
-                } else if (value == 'reminders') {
-                    this.tab = 1;
                 } else if (value == 'task') {
-                    this.tab = 2;
+                    this.tab = 1;
                      this.$store.commit('setIsUpdateTask',true);
                 } else if (value == 'birthday') {
                      this.$store.commit('setIsUpdateBirthday',true);
-                    this.tab = 3;
+                    this.tab = 2;
                 }
             },
         },

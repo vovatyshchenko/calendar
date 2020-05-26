@@ -32,7 +32,7 @@ export default {
             dateEnd: moment(new Date()).format('YYYY-MM-DD'),
             timeStart: '00:00',
             timeEnd: '00:00',
-            isRemind: false,
+            isRemind: 0,
             about: null,
             id: null,
         },
@@ -77,7 +77,7 @@ export default {
                 state.task.id = payload.id
         },
         setBirthdayValues(state, payload) {
-                state.birthday.name = payload.name,
+            state.birthday.name = payload.name,
                 state.birthday.date = payload.date,
                 state.birthday.time = payload.time_start,
                 state.birthday.allDay = payload.is_remind,
@@ -171,7 +171,6 @@ export default {
             axios.get('/birthday/' + id)
                 .then(response => {
                     context.commit('setBirthdayValues', response.data);
-                    // context.dispatch('setContactValue');
                 })
                 .catch(error => {
 
@@ -269,9 +268,8 @@ export default {
                     if (responce.data.message) {
                         commit("setStatusUpdated", true);
                         dispatch('getEvents', {date_start: getters.getStartDate, date_end: getters.getEndDate})
-                        if(getters.searchActive==true)
-                        {
-                            dispatch('searchEvents',getters.lastRequestSearched);
+                        if (getters.searchActive == true) {
+                            dispatch('searchEvents', getters.lastRequestSearched);
                         }
                     }
                     commit("clearError");
@@ -313,7 +311,6 @@ export default {
         getTask: (state) => state.task,
         isUpdateBirthday: (state) => state.isUpdateBirthday,
         isUpdateActive: (state) => state.isUpdateActive,
-        // getBirthdayDate:(state)=>state.birthday.date,
         getStatusUpdated: state => state.statusUpdated,
         isUpdateTask: (state) => state.isUpdateTask
     }

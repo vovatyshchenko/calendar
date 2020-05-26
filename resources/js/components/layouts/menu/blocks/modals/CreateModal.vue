@@ -61,6 +61,9 @@
         },
         methods: {
             closeModal() {
+                this.$store.commit('setActivityValues', {});
+                this.$store.commit('setTaskValues', {});
+                this.$store.commit('setBirthdayValues', {});
                 this.$store.commit('changeShowModal')
             },
             getType(value) {

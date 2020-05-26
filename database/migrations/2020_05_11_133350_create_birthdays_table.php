@@ -19,7 +19,6 @@ class CreateBirthdaysTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('time_start',10);
             $table->boolean('is_remind')->default(0);
-            $table->boolean('is_remind_year')->default(0);
             $table->timestamp('date')->nullable();;
             $table->timestamps();
         });

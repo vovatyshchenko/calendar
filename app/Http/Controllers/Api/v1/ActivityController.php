@@ -21,32 +21,7 @@ class ActivityController extends Controller
     {
         return strip_tags(trim($data));
     }
-    public function test()
-    {
-        $date=Carbon::now()->format('Y-m-d');
 
-        $reminders=DB::table('tasks')
-            ->join('users','users.id',"=",'tasks.user_id')
-            ->where('tasks.date_start','<=','2020-05-26')
-            ->where('tasks.date_end','>=','2020-05-26')
-            ->where('tasks.is_remind','=',1)
-            ->get(['tasks.name','tasks.description','tasks.time_start','tasks.time_end','tasks.date_start','tasks.date_end','users.email as email']);
-
-        dd($reminders);
-//        $subject='Напоминание о дне рождения';
-//
-//        foreach ($reminders as $key=>$reminder)
-//        {
-//            $reminders[$key]->type='birthday';
-//            Mail::to($reminder->email)
-//                ->send(new Reminder(['name' => $reminder->name,
-//                    'date' => explode(' ',$reminder->date)[0],
-//                    'type'=>$reminder->type
-//                ],
-//                    $subject));
-//        }
-
-    }
     public function store(StoreRequest $request)
     {
         $emails=$request->only('guests');

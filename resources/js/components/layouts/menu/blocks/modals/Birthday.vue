@@ -97,8 +97,7 @@
             name: null,
             dateStart: moment(new Date()).format('YYYY-MM-DD'),
             time: '00:00',
-            allDay: false,
-            allYear: false,
+            allDay: 0,
             id: null,
         }),
         computed: {
@@ -167,7 +166,7 @@
                 this.name = null,
                 this.date = moment(new Date()).format('YYYY-MM-DD'),
                 this.time = '00:00',
-                this.allDay = false,
+                this.allDay = 0,
                 this.id = null
             }
         },

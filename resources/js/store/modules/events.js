@@ -9,7 +9,7 @@ export default {
             name: null,
             date: moment(new Date()).format('YYYY-MM-DD'),
             time: '00:00',
-            allDay: false,
+            allDay: 0,
             id: null,
         },
         isUpdateBirthday: false,

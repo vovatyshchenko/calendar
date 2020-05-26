@@ -14,7 +14,6 @@ export default {
         },
         changeShowModal(state) {
             state.showModal=!state.showModal;
-            console.log(state.showModal);
         },
         setCurrentYear(state, date) {
             let currentDate=new Date(date);

@@ -25,6 +25,7 @@ class Event extends Model
                 array_push($events[$parseKeyDate[1].'-'.$parseKeyDate[2]], $elementData);
             }
         }
+
         return $events;
     }
 
@@ -34,6 +35,7 @@ class Event extends Model
         foreach ($events as $key => $event) {
             $events[$key] = collect($event)->sortBy('time_start')->values();
         }
+
         return collect($events);
     }
 
@@ -54,7 +56,6 @@ class Event extends Model
                     array_push($events[$dateParse[1].'-'.$dateParse[2]], $event[$elementKey]);
                 }
             }
-
         }
 
         return $events;
@@ -64,7 +65,6 @@ class Event extends Model
     {
 
         $resultSeacrh = [];
-
         foreach ($events['search_area'] as $valueEvent) {
             switch ($valueEvent) {
                 case 'Дни рождения':
@@ -84,7 +84,6 @@ class Event extends Model
             }
 
         }
-
         $flattened = collect($resultSeacrh)->flatten();
         $sorted = $flattened->sortBy('time_start')->sortBy('date_start')->values()->all();
 

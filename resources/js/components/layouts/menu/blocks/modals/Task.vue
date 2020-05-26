@@ -163,7 +163,7 @@
             dateEnd: moment(new Date()).format('YYYY-MM-DD'),
             timeStart: '00:00',
             timeEnd: '00:00',
-            isRemind: false,
+            isRemind: 0,
             about: null,
             id: null,
             openTimeStart: false,
@@ -192,7 +192,7 @@
                 this.timeStart = this.$store.getters.getTask.timeStart;
                 this.timeEnd = this.$store.getters.getTask.timeEnd;
                 this.about = this.$store.getters.getTask.about;
-                this.isRemind = this.$store.getters.getTask.isRemind;
+                this.isRemind = Number(this.$store.getters.getTask.isRemind);
                 this.id = this.$store.getters.getTask.id;
             },
         },
@@ -249,7 +249,7 @@
                     this.dateEnd = moment(new Date()).format('YYYY-MM-DD'),
                     this.timeStart = '00:00',
                     this.timeEnd = '00:00',
-                    this.isRemind = false,
+                    this.isRemind = 0,
                     this.about = null,
                     this.id = null,
                     this.$store.commit('setIsUpdateTask', false);

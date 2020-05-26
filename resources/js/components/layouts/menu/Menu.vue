@@ -70,11 +70,14 @@
                 let fullDate = this.$store.getters.menuDate;
                 if (window.location.pathname == '/day') {
                     fullDate.setDate(fullDate.getDate() - 1);
+                    this.$store.commit('setEvents', {});
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear() - 1);
+                    this.$store.commit('setEvents', {});
                     this.$store.dispatch('yearData');
                 } else if (window.location.pathname == '/week') {
                     fullDate.setDate(fullDate.getDate() - 7);
+                    this.$store.commit('setEvents', {});
                 } else {
                     fullDate.setMonth(fullDate.getMonth() - 1);
                     this.$store.commit('setEvents', {});
@@ -89,10 +92,13 @@
                 let fullDate = this.$store.getters.menuDate;
                 if (window.location.pathname == '/day') {
                     fullDate.setDate(fullDate.getDate() + 1);
+                    this.$store.commit('setEvents', {});
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear() + 1);
+                    this.$store.commit('setEvents', {});
                     this.$store.dispatch('yearData');
                 } else if (window.location.pathname == '/week') {
+                    this.$store.commit('setEvents', {});
                     fullDate.setDate(fullDate.getDate() + 7);
                 } else {
                     fullDate.setMonth(fullDate.getMonth() + 1);

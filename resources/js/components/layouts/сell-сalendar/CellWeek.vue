@@ -8,7 +8,7 @@
         </div>
         <table>
             <tr class="week-events hour-block" v-for="n in 24">
-                <td class="event-block" v-for="(event, index) in getEvent(events, date, n)" :key="index" :rowspan="event.time_length" @dblclick="showEvent(date)">
+                <td class="event-block" v-for="(event, index) in getEvent(events, date, n)" :key="index" :rowspan="event.time_length">
                     <div class="d-flex justify-content-end">
                         <button class="create-btn" @click="edit(event)" v-ripple><img src="../../../../../public/img/icon/create.svg" alt="Edit"></button>
                         <delete :event="event"></delete>
@@ -54,60 +54,53 @@
                 let hourEvents = [];
                 let n = 0;
                 if(obj) {
-                    for (let i = 0; i < obj.length; i++) {
-                        if (obj[i].type == 'activity' || (obj[i].type == 'task')) {
-                            let dateStart = moment(obj[i].date_start);
-                            let dateEnd = moment(obj[i].date_end);
-                            let dateDiff = dateEnd.diff(dateStart, 'days');
-                            for (let d = 0; d <= dateDiff; d++) {
-                                if ((moment(obj[i].date_start).add(d, 'days')).isSame(currentDate)) {
+                    if (obj.length > 0) {
+                        for (let i = 0; i < obj.length; i++) {
+                            if (obj[i].type == 'activity' || (obj[i].type == 'task')) {
+                                let dateStart = moment(obj[i].date_start);
+                                let dateEnd = moment(obj[i].date_end);
+                                let dateDiff = dateEnd.diff(dateStart, 'days');
+                                for (let d = 0; d <= dateDiff; d++) {
+                                    if ((moment(obj[i].date_start).add(d, 'days')).isSame(currentDate)) {
+                                        objCurrentData.push(obj[i]);
+                                    }
+                                }
+                            }
+                            if (obj[i].type == 'birthday') {
+                                if (moment(obj[i].date).isSame(currentDate)) {
                                     objCurrentData.push(obj[i]);
                                 }
                             }
                         }
-                        if (obj[i].type == 'birthday') {
-                            if (moment(obj[i].date).isSame(currentDate)) {
-                                objCurrentData.push(obj[i]);
-                            }
-                        }
-                    }
-                    if (objCurrentData.length > 0) {
-                        for (let i = 0; i < objCurrentData.length; i++) {
-                            if (objCurrentData[i].type == 'task' || objCurrentData[i].type == 'activity') {
-                                let parseStart = objCurrentData[i].time_start.split(":");
-                                let parseEnd = objCurrentData[i].time_end.split(":");
-                                let hourStart = +parseStart[0];
-                                let hourEnd = 0;
-                                if (+parseEnd[1] > 0) {
-                                    hourEnd = +parseEnd[0] + 1;
-                                } else {
-                                    hourEnd = +parseEnd[0];
-                                }
+                        if (objCurrentData.length > 0) {
+                            for (let i = 0; i < objCurrentData.length; i++) {
+                                if (objCurrentData[i].type == 'task' || objCurrentData[i].type == 'activity') {
+                                    let parseStart = objCurrentData[i].time_start.split(":");
+                                    let parseEnd = objCurrentData[i].time_end.split(":");
+                                    let hourStart = +parseStart[0];
+                                    let hourEnd = 0;
+                                    if (+parseEnd[1] > 0) {
+                                        hourEnd = +parseEnd[0] + 1;
+                                    } else {
+                                        hourEnd = +parseEnd[0];
+                                    }
 
-                                if (hourStart == count - 1) {
-                                    hourEvents.push(objCurrentData[i]);
-                                    hourEvents[n].time_length = (hourEnd - hourStart);
-                                    n++;
-                                }
-                            } else {
-                                if (count == 1) {
-                                    hourEvents.push(objCurrentData[i]);
-                                    hourEvents[n].time_length = 0;
+                                    if (hourStart == count - 1) {
+                                        hourEvents.push(objCurrentData[i]);
+                                        hourEvents[n].time_length = (hourEnd - hourStart);
+                                        n++;
+                                    }
+                                } else {
+                                    if (count == 1) {
+                                        hourEvents.push(objCurrentData[i]);
+                                        hourEvents[n].time_length = 0;
+                                    }
                                 }
                             }
                         }
                     }
                 }
                 return hourEvents;
-            },
-            showEvent(date) {
-                let parseDate = date.split("-");
-                date = moment(this.year + '-' + parseDate[0] + '-' + parseDate[1]).format('YYYY-MM-DD');
-                this.$store.commit('setDate', date);
-                if (window.location.pathname != '/day') {
-                    this.$eventBus.$emit('currentRoute', '/day');
-                    this.$store.commit('set_route', '/day');
-                }
             },
             edit(event) {
                 this.$store.commit('changeShowModal');

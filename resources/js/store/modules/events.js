@@ -9,8 +9,7 @@ export default {
             name: null,
             date: moment(new Date()).format('YYYY-MM-DD'),
             time: '00:00',
-            allDay: false,
-            allYear: false,
+            allDay: 0,
             id: null,
         },
         isUpdateBirthday: false,
@@ -33,7 +32,7 @@ export default {
             dateEnd: moment(new Date()).format('YYYY-MM-DD'),
             timeStart: '00:00',
             timeEnd: '00:00',
-            isRemind: false,
+            isRemind: 0,
             about: null,
             id: null,
         },
@@ -82,7 +81,6 @@ export default {
                 state.birthday.date = payload.date,
                 state.birthday.time = payload.time_start,
                 state.birthday.allDay = payload.is_remind,
-                state.birthday.allYear = payload.is_remind_year,
                 state.birthday.id = payload.id
         },
         setActivityValues(state, payload) {
@@ -109,7 +107,7 @@ export default {
                 })
                 .catch(error => {
                     context.commit("setProcessing", false);
-                    context.commit("setError", error);
+                    context.commit("setError", error.response.data.message);
                 })
         },
         deleteBirthdays(context, event) {
@@ -127,7 +125,7 @@ export default {
                 })
                 .catch(error => {
                     context.commit("setProcessing", false);
-                    context.commit("setError", error);
+                    context.commit("setError", error.response.data.message);
                 })
         },
         deleteActivity(context, event) {
@@ -146,7 +144,7 @@ export default {
                 })
                 .catch(error => {
                     context.commit("setProcessing", false);
-                    context.commit("setError", error);
+                    context.commit("setError", error.response.data.message);
                 })
         },
         deleteTask(context, event) {
@@ -165,7 +163,7 @@ export default {
                 })
                 .catch(error => {
                     context.commit("setProcessing", false);
-                    context.commit("setError", error);
+                    context.commit("setError", error.response.data.message);
                 })
         },
         getBirthday(context, id) {
@@ -173,7 +171,6 @@ export default {
             axios.get('/birthday/' + id)
                 .then(response => {
                     context.commit('setBirthdayValues', response.data);
-                    // context.dispatch('setContactValue');
                 })
                 .catch(error => {
 
@@ -227,7 +224,7 @@ export default {
                 })
                 .catch(error => {
                     commit("setProcessing", false);
-                    commit("setError", error);
+                    commit("setError", error.response.data.message);
                 })
         },
         birthdayCreate({commit, dispatch, getters}, birthday) {
@@ -244,7 +241,7 @@ export default {
                 .catch(error => {
                     commit("setProcessing", false);
                     commit("setStatus", false);
-                    commit("setError", error);
+                    commit("setError", error.response.data.message);
                 })
         },
         birthdayUpdate({commit, dispatch, getters}, birthday) {
@@ -261,7 +258,7 @@ export default {
                 .catch(error => {
                     commit("setProcessing", false);
                     commit("setStatusUpdated", false);
-                    commit("setError", error);
+                    commit("setError", error.response.data.message);
                 })
         },
         activityUpdate({commit, dispatch, getters}, activity) {
@@ -271,9 +268,8 @@ export default {
                     if (responce.data.message) {
                         commit("setStatusUpdated", true);
                         dispatch('getEvents', {date_start: getters.getStartDate, date_end: getters.getEndDate})
-                        if(getters.searchActive==true)
-                        {
-                            dispatch('searchEvents',getters.lastRequestSearched);
+                        if (getters.searchActive == true) {
+                            dispatch('searchEvents', getters.lastRequestSearched);
                         }
                     }
                     commit("clearError");
@@ -282,7 +278,7 @@ export default {
                 .catch(error => {
                     commit("setProcessing", false);
                     commit("setStatusUpdated", false);
-                    commit("setError", error);
+                    commit("setError", error.response.data.message);
                 })
         },
         taskUpdate({commit, dispatch, getters}, task) {
@@ -299,7 +295,7 @@ export default {
                 .catch(error => {
                     commit("setProcessing", false);
                     commit("setStatusUpdated", false);
-                    commit("setError", error);
+                    commit("setError", error.response.data.message);
                 })
         },
     },
@@ -315,7 +311,6 @@ export default {
         getTask: (state) => state.task,
         isUpdateBirthday: (state) => state.isUpdateBirthday,
         isUpdateActive: (state) => state.isUpdateActive,
-        // getBirthdayDate:(state)=>state.birthday.date,
         getStatusUpdated: state => state.statusUpdated,
         isUpdateTask: (state) => state.isUpdateTask
     }

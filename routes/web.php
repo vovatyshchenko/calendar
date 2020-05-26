@@ -43,8 +43,6 @@ Route::get('/token', 'Auth\AuthController@authByToken');
 Route::get('/type-colors', ('Api\v1\TypeColorsController@show'));
 Route::put('/update-type-colors', ('Api\v1\TypeColorsController@update'));
 
-Route::get('/1', ('Api\v1\ActivityController@test'));
-
 Route::view('/{any}', 'index')->where('any', '.*');
 Route::middleware('auth')->post('/logout', 'Auth\LogoutController@logout');
 

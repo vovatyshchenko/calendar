@@ -10,7 +10,7 @@
             :left="(setPosition==0)?true:false"
         >
             <template v-slot:activator="{ on }">
-               <button class="event" :style="{'background-color': color}" v-on="on">{{item.name|cutText(15)}}</button>
+               <button class="event" :style="{'background-color': color.main, 'color': color.text}" v-on="on">{{item.name|cutText(15)}}</button>
             </template>
             <v-card>
                 <div class="d-flex justify-content-end">
@@ -125,7 +125,6 @@
         font-weight: bold;
         font-size: 12px;
         line-height: 30px;
-        color: #666666;
         margin-bottom: 9px;
     }
 </style>

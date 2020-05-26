@@ -69,7 +69,7 @@
             },
         },
         created() {
-            this.colors = this.$store.getters.colors;
+            this.colors = this.$store.getters.textColors;
         },
     }
 </script>

@@ -1,6 +1,8 @@
 export default {
     state: {
-        colors: ['#D8D8D8', '#f3c81e', '#0c4af3', '#ed5d15', '#70af31', '#0785bd', '#c91880', '#8341ac', '#4ac4a6', '#9d6b47', '#f6ecc9', '#ed9963'],
+        textColors: ['#878484', '#f3c81e', '#0c4af3', '#ed5d15', '#70af31', '#0785bd', '#c91880', '#8341ac', '#4ac4a6', '#9d6b47', '#ab9f76', '#ed9963'],
+        colors: ['#ededed', '#fff1b8', '#adc3ff', '#ffb996', '#d4ffa8', '#b5e8ff', '#ffa8db', '#e4b8ff', '#bdffef', '#ffd3b3', '#f6ecc9', '#ffd5ba'],
+
         typeColors: [
             {'active':true, 'color': 0}, //birthdays
             {'active':false, 'color': 0}, //tasks
@@ -58,6 +60,9 @@ export default {
         },
         colors (state) {
             return state.colors;
+        },
+        textColors (state) {
+            return state.textColors;
         },
     }
 }

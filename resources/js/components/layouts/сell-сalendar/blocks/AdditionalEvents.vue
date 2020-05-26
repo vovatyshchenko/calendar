@@ -13,9 +13,9 @@
         </template>
         <v-card>
             <div class="additional-events">
-                <div v-for="event in events" class="additional-event" :style="{'background-color': event.color}">
+                <div v-for="event in events" class="additional-event" :style="{'background-color': event.mainColor, 'color': event.textColor, 'border-color': event.textColor}">
                     <span>{{event.time_start}}-{{event.time_end}} {{event.name}}</span>
-                    <div>
+                    <div class="d-flex">
                         <button class="create-btn" @click="edit(event)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
                         <delete :event="event"></delete>
                     </div>
@@ -68,8 +68,7 @@
     .additional-event{
         display: flex;
         justify-content: space-between;
-        color: #000;
-        border: 1px solid grey;
+        border: 1px solid;
         border-radius: 5px;
         margin: 10px;
         padding: 5px;

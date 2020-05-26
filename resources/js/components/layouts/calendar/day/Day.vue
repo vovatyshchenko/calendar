@@ -4,15 +4,13 @@
         <span
             class="day-holiday"
             v-if="holidayTextEventForDay!=null && typeColors[3].active"
-            :style="{'background-color': typeColors[3].color}"
+            :style="{'background-color': typeColors[3].mainColor, 'color': typeColors[3].textColor}"
         >{{holidayTextEventForDay}}</span>
-
         <div v-if="!dayEvents" class="no-day-events">
             <span>На данный день не заплонировано событий!</span>
         </div>
-
         <div v-if="dayEvents && typeColors[0].active">
-            <div class="day-birthdays" :style="{'border-color': typeColors[0].color, 'color': typeColors[0].color}">
+            <div class="day-birthdays" :style="{'border-color': typeColors[0].textColor, 'color': typeColors[0].textColor}">
             <span v-for="(birthday, index) in getBirthdays">
                 <span v-if="index==0">{{birthday}}</span>
                 <span class="birthday-name">{{birthday.name}}</span>
@@ -26,15 +24,16 @@
         <table  width="100%" class="table-day">
             <tr v-for="n in 24">
                 <td class="day-time" valign="bottom"><span>{{n}}:00</span></td>
-                <td class="day-event" :style="{'background-color': event.color}" v-for="event in showEvents(n)" :rowspan="event.time_length">
-                    <div>
+                <td class="day-event" :style="{'background-color': event.mainColor, 'color': event.textColor, 'border-color': event.textColor}" v-for="event in showEvents(n)" :rowspan="event.time_length">
+                    <div class="d-flex justify-content-between">
+                        <span>{{event.time_start}}-{{event.time_end}} {{event.name}}</span>
                         <div align="right">
-                            <button class="create-btn" @click="edit(event)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
+                            <button @click="edit(event)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
                             <delete :event="event"></delete>
                         </div>
-                        <span>{{event.time_start}}-{{event.time_end}} {{event.name}}</span>
                     </div>
                 </td>
+                <td v-if="emptyCell(n).active" class="empty-day" :colspan="emptyCell(n).cells"></td>
                 <td v-if="showAdditionalEvents(n)[0]">
                     <additional-events :events="showAdditionalEvents(n)[1]"></additional-events>
                 </td>
@@ -51,7 +50,8 @@
             fullDate: 0,
             events: 0,
             displayEvents: 0,
-            additionalEvents: 0
+            additionalEvents: 0,
+            eventGrid: 0
         }),
         methods: {
             edit(event) {
@@ -76,10 +76,27 @@
                             n++;
                         }
                     }
-                    if (hourEvents.length>0) {
-                        return hourEvents;
+                };
+                return hourEvents;
+            },
+            emptyCell(count) {
+                let cells = 0;
+                if (typeof this.eventGrid[count-1] != "undefined") {
+                    for (let i=0; i<4; i++) {
+                        if (this.eventGrid[count-1][i]!=true) {
+                            cells++;
+                        }
                     }
+                    let cellsInfo = {};
+                    if (cells>0) {
+                        cellsInfo.active = true;
+                    } else {
+                        cellsInfo.active = false;
+                    }
+                    cellsInfo.cells = cells;
+                    return cellsInfo;
                 }
+                return false;
             },
             showAdditionalEvents(count) {
                 let events = [];
@@ -123,7 +140,8 @@
                 {
                     typeColors[i] = {};
                     typeColors[i].active = this.$store.getters.typeColors[i].active;
-                    typeColors[i].color = this.$store.getters.colors[this.$store.getters.typeColors[i].color];
+                    typeColors[i].mainColor = this.$store.getters.colors[this.$store.getters.typeColors[i].color];
+                    typeColors[i].textColor = this.$store.getters.textColors[this.$store.getters.typeColors[i].color];
                 }
                 return typeColors;
             },
@@ -189,9 +207,11 @@
                                             this.displayEvents[countDisplay].hour_start=hourStart;
 
                                             if (this.events[i].type == 'task') {
-                                                this.displayEvents[countDisplay].color=this.$store.getters.colors[this.$store.getters.typeColors[1].color];
+                                                this.displayEvents[countDisplay].mainColor=this.$store.getters.colors[this.$store.getters.typeColors[1].color];
+                                                this.displayEvents[countDisplay].textColor=this.$store.getters.textColors[this.$store.getters.typeColors[1].color];
                                             } else {
-                                                this.displayEvents[countDisplay].color=this.$store.getters.colors[this.$store.getters.typeColors[2].color];
+                                                this.displayEvents[countDisplay].mainColor=this.$store.getters.colors[this.$store.getters.typeColors[2].color];
+                                                this.displayEvents[countDisplay].textColor=this.$store.getters.textColors[this.$store.getters.typeColors[2].color];
                                             }
                                             countDisplay++;
                                             break;
@@ -201,9 +221,11 @@
                                         this.additionalEvents[countAdditional]=this.events[i];
                                         this.additionalEvents[countAdditional].hour_start=hourStart;
                                         if (this.events[i].type == 'task') {
-                                            this.additionalEvents[countAdditional].color=this.$store.getters.colors[this.$store.getters.typeColors[1].color];
+                                            this.additionalEvents[countAdditional].mainColor=this.$store.getters.colors[this.$store.getters.typeColors[1].color];
+                                            this.additionalEvents[countAdditional].textColor=this.$store.getters.textColors[this.$store.getters.typeColors[1].color];
                                         } else {
-                                            this.additionalEvents[countAdditional].color=this.$store.getters.colors[this.$store.getters.typeColors[2].color];
+                                            this.additionalEvents[countAdditional].mainColor=this.$store.getters.colors[this.$store.getters.typeColors[2].color];
+                                            this.additionalEvents[countAdditional].textColor=this.$store.getters.textColors[this.$store.getters.typeColors[2].color];
                                         }
                                         countAdditional++;
                                     }
@@ -211,6 +233,7 @@
                             }
                         }
                     }
+                    this.eventGrid = eventGrid;
                     return true;
                 }
             },
@@ -220,27 +243,4 @@
 
 <style lang="scss" scoped>
     @import "./resources/sass/calendar/day.scss";
-    .day-holiday {
-        color: #fff;
-        padding: 5px;
-        margin: 15px 0;
-        border-radius: 4px;
-        font-size: 20px;
-    }
-    .no-day-events {
-        margin: 15px 0;
-        color: #B3B3B3;
-    }
-    .table-day {
-        width: 800px;
-    }
-    .day-time {
-        width: 62px;
-        height: 60px;
-        color: #B3B3B3;
-    }
-    .table-day tr{
-        max-height: 60px;
-        border-bottom: 2px solid #F5F5F5;
-    }
 </style>

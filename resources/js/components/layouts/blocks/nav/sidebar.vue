@@ -14,7 +14,7 @@
             <li>
                 <a href="#">
                     <img src="/img/ic_cloud_download.png" alt="logo">
-                    <span>Диск</span>
+                    <span>Диски</span>
                 </a>
             </li>
             <li>

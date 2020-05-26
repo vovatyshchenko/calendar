@@ -14,15 +14,9 @@ export default {
     actions: {
       yearData({ commit, getters, dispatch }) {
           let year = getters.menuDate.getFullYear();
-
-          dispatch('getEvents',{date_start:moment(year + '-' + 0 + '-' + 1).format('YYYY-MM-DD'),date_end:moment(year + '-' + 11 + '-' + 31).format('YYYY-MM-DD')});
-          commit('setStartDate',moment(year + '-' + 0 + '-' + 1).format('YYYY-MM-DD'));
-          commit('setEndDate',moment(year + '-' + 11 + '-' + 31).format('YYYY-MM-DD'));
-
           let data = [];
           let holiday = '';
-          let event = getters.events;
-          let objLength = Object.keys(event).length;
+          //let event = getters.events;
 
           for (let m = 0; m < 12; m++) {
             let day = moment({ year: year, month: m, day: 1 });// формируем дату на первый день каждого месяца
@@ -41,12 +35,12 @@ export default {
                 }
               }
               // получаем и записываем наши мероприятия, напоминания, задачи, дни рождения  в календарь
-              let nameActivity = [];
+              /*let nameActivity = [];
               let nameReminder = [];
               let nameTask = [];
-              let nameBirthday = [];
+              let nameBirthday = [];*/
 
-              if (getters.events && objLength > 0) {
+              /*if (getters.events && objLength > 0) {
                 let currentDate = moment((m + 1) +'-'+ (d + 1)).format('MM-DD');
 
                 if (event[currentDate]) {
@@ -55,11 +49,6 @@ export default {
                     if (event[currentDate][i].type == 'activity') {
                       nameActivity.push(event[currentDate][i].name);
                     }
-
-                    if (event[currentDate][i].type == 'reminder') {
-                      nameReminder.push(event[currentDate][i].name);
-                    }
-
                     if (event[currentDate][i].type == 'task') {
                       nameTask.push(event[currentDate][i].name);
                     }
@@ -69,7 +58,7 @@ export default {
                     }
                   }
                 }
-              }
+              }*/
               let week = day.week();
               // moment считает последние дни декабря за первую неделю, но мне надо чтобы считалось за 53
               if (m === 11 && week === 1) {
@@ -89,12 +78,12 @@ export default {
               month.weeks[week][day.weekday() + 1] = {
                 date: day.toDate(),
                 holiday: holiday,
-                events: {
+                /*events: {
                   activitys: nameActivity,
                   reminders: nameReminder,
                   tasks: nameTask,
                   birthdays: nameBirthday,
-                }
+                }*/
               };
               // итерируем день на единицу, moment мутирует исходное значение
               day.add(1, 'd');

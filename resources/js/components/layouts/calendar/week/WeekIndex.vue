@@ -42,7 +42,7 @@
                 for(let i=1;i<=7;i++){
 
                     let parseDate =new Date(nowDate.setDate(nowDate.getDate()+1))
-                    let day = parseDate.getDate();
+                    let day = ((parseDate.getDate()<10)?'0'+parseDate.getDate():parseDate.getDate());
                     let month =((parseDate.getMonth()+1)<10)?'0'+(parseDate.getMonth()+1):parseDate.getMonth();
                     let year = parseDate.getFullYear();
 
@@ -50,6 +50,7 @@
                     currentWeek.push(year+"-"+month+"-"+day);
                     eventWeek.push(month+"-"+day);
                     this.$store.commit('setCurrentWeek',currentWeek);
+                    console.log(currentWeek);
                 }
 
                 this.$store.dispatch('getEvents',{date_start:moment(currentWeek[0]).format('YYY-MM-DD'),date_end:moment(currentWeek[6]).format('YYYY-MM-DD')});

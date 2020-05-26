@@ -22,11 +22,6 @@
                     <activity-modal ></activity-modal>
                 </v-card-text>
             </v-tab-item>
-             <v-tab-item>
-                <v-card-text>
-                    <reminders-modal></reminders-modal>
-                </v-card-text>
-            </v-tab-item>
            <v-tab-item>
                 <v-card-text>
                     <task-modal></task-modal>
@@ -50,7 +45,7 @@
             checkIsUpdateTask:false,
             checkIsUpdateBirthday:false,
             items: [
-                'МЕРОПРИЯТИЕ', 'НАПОМИНАНИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',
+                'МЕРОПРИЯТИЕ', 'ЗАДАЧА', 'ДЕНЬ РОЖДЕНИЯ',
             ],
         }),
         created() {

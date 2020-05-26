@@ -21,14 +21,13 @@
   <component name="ChangeListManager">
     <list default="true" id="530ed881-a690-4da1-94b1-52aaa0d6d684" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/TypeColorsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/TypeColorsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_24_165500_create_type_colors_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_05_24_165500_create_type_colors_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/TypeColor.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/TypeColor.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/TypeList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/TypeList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/typeColors.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/typeColors.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/CreateModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/CreateModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellMonth.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellMonth.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/CellItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/CellItem.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,7 +241,11 @@
       <workItem from="1590320538034" duration="6292000" />
       <workItem from="1590332590684" duration="8984000" />
       <workItem from="1590397667661" duration="3003000" />
-      <workItem from="1590409942603" duration="11775000" />
+      <workItem from="1590409942603" duration="14146000" />
+      <workItem from="1590431289876" duration="2182000" />
+      <workItem from="1590466970394" duration="8031000" />
+      <workItem from="1590482142110" duration="623000" />
+      <workItem from="1590500617016" duration="4347000" />
     </task>
     <servers />
   </component>
@@ -275,26 +278,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1588252943713" />
-    <state width="1874" height="253" key="GridCell.Tab.0.bottom" timestamp="1590406035893">
+    <state width="1874" height="253" key="GridCell.Tab.0.bottom" timestamp="1590504595060">
       <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="1877" height="189" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590277924935" />
-    <state width="1874" height="253" key="GridCell.Tab.0.bottom/0.27.1920.985@0.27.1920.985" timestamp="1590406035893" />
-    <state width="1874" height="253" key="GridCell.Tab.0.center" timestamp="1590406035893">
+    <state width="1874" height="253" key="GridCell.Tab.0.bottom/0.27.1920.985@0.27.1920.985" timestamp="1590504595060" />
+    <state width="1874" height="253" key="GridCell.Tab.0.center" timestamp="1590504595059">
       <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="1877" height="189" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590277924935" />
-    <state width="1874" height="253" key="GridCell.Tab.0.center/0.27.1920.985@0.27.1920.985" timestamp="1590406035893" />
-    <state width="1874" height="253" key="GridCell.Tab.0.left" timestamp="1590406035893">
+    <state width="1874" height="253" key="GridCell.Tab.0.center/0.27.1920.985@0.27.1920.985" timestamp="1590504595059" />
+    <state width="1874" height="253" key="GridCell.Tab.0.left" timestamp="1590504595058">
       <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="1877" height="189" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590277924934" />
-    <state width="1874" height="253" key="GridCell.Tab.0.left/0.27.1920.985@0.27.1920.985" timestamp="1590406035893" />
-    <state width="1874" height="253" key="GridCell.Tab.0.right" timestamp="1590406035893">
+    <state width="1874" height="253" key="GridCell.Tab.0.left/0.27.1920.985@0.27.1920.985" timestamp="1590504595058" />
+    <state width="1874" height="253" key="GridCell.Tab.0.right" timestamp="1590504595060">
       <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="1877" height="189" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590277924935" />
-    <state width="1874" height="253" key="GridCell.Tab.0.right/0.27.1920.985@0.27.1920.985" timestamp="1590406035893" />
+    <state width="1874" height="253" key="GridCell.Tab.0.right/0.27.1920.985@0.27.1920.985" timestamp="1590504595060" />
     <state x="6" y="75" width="1896" height="825" key="MergeDialog" timestamp="1590264213981">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

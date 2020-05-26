@@ -10,7 +10,7 @@
             :left="(setPosition==0)?true:false"
         >
             <template v-slot:activator="{ on }">
-               <button class="event" v-on="on">{{item.name|cutText(15)}}</button>
+               <button class="event" :style="{'background-color': color}" v-on="on">{{item.name|cutText(15)}}</button>
             </template>
             <v-card>
                 <div class="d-flex justify-content-end">
@@ -37,7 +37,7 @@
     import notification from '../../../../mixin/eventNotifications'
     export default {
         mixins: [notification],
-        props: ['item', 'index','date','getDate'],
+        props: ['item', 'index','date','getDate', 'color'],
         name: "CellItem",
         data() {
             return {
@@ -53,10 +53,12 @@
             processing() {
                 return this.$store.getters.get_processing;
             },
-
+            getMessage() {
+                console.log(this.message);
+            },
             currentDate() {
                 let parseDate = this.date.split("-");
-               let dateCurrent = new Date(parseDate[0],parseDate[1]-1,parseDate[2]);
+                let dateCurrent = new Date(parseDate[0],parseDate[1]-1,parseDate[2]);
                 let months = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "ментября", "октября", "ноября","декабря"]
                 let days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
                 this.getDay=dateCurrent.getDay();
@@ -67,6 +69,9 @@
             {
                 return this.getDay;
             },
+            test () {
+                console.log(this.item);
+            }
         },
         methods: {
             edit(event) {
@@ -89,9 +94,6 @@
         created(){
 
         },
-        watch: {
-
-        },
     }
 </script>
 
@@ -104,7 +106,6 @@
         font-weight: bold;
         font-size: 14px;
         line-height: 30px;
-
         color: #000000;
     }
     .clear{
@@ -118,7 +119,6 @@
     {
         height: 30px;
         width: 150px;
-        background: #D8D8D8;
         border-radius: 4px;
         font-family: Roboto;
         font-style: normal;

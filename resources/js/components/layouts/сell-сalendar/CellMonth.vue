@@ -9,13 +9,13 @@
                               <span v-on="on" :class="holidayTextEvent?'active':''">{{currentDate}}</span>
                         </template>
                         <span class="test">{{holidayTextEvent}}</span>
-                        </v-tooltip>
+                      </v-tooltip>
                        <span v-else>{{currentDate}}</span>
                    </span>
                </span>
             </div>
             <div v-for="(item,index) in еvents">
-                <cell-item :date="date" v-if="index<2" :index="index" :item="item"></cell-item>
+                <cell-item :date="date" v-if="index<2" :index="index" :item="item" :color="item.color"></cell-item>
             </div>
             <div>
                 <div v-if="еvents?displayEvents>2:''" class="text-center">
@@ -33,7 +33,7 @@
                                 </button>
                               </div>
                             <div v-for="(item,index) in еvents">
-                                <cell-item :date="date" v-if="index>1" :item="item"></cell-item>
+                                <cell-item :date="date" v-if="index>1" :item="item" :color="item.color"></cell-item>
                             </div>
                         </v-list>
                     </v-menu>
@@ -104,11 +104,41 @@
             },
             еvents()
             {
+                let currentEvents= this.$store.getters.events[this.dateForEvents];
+                let typeColors = this.$store.getters.typeColors;
+                let showEvents = [];
+                let count = 0;
+                if (currentEvents!=null) {
+                    for (let i = 0; i < currentEvents.length; i++) {
+                        if ((currentEvents[i].type == 'birthday' && typeColors[0].active) ||
+                            (currentEvents[i].type == 'task' && typeColors[1].active) ||
+                            (currentEvents[i].type == 'activity' && typeColors[2].active)) {
+
+                            showEvents[count] = currentEvents[i];
+                            if (currentEvents[i].type == 'birthday') {
+                                showEvents[count].color=this.$store.getters.colors[typeColors[0].color];
+                            }
+                            if (currentEvents[i].type == 'task') {
+                                showEvents[count].color=this.$store.getters.colors[typeColors[1].color];
+                            }
+                            if (currentEvents[i].type == 'activity') {
+                                showEvents[count].color=this.$store.getters.colors[typeColors[2].color];
+                            }
+                            count++;
+                        }
+                    }
+                    return showEvents;
+                }
                 return this.$store.getters.events[this.dateForEvents];
             },
             dateForModal()
             {
                 return this.dateModal;
+            }
+        },
+        watch: {
+            events: function (value) {
+                console.log(value.type, value.color);
             }
         },
     }

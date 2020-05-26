@@ -125,7 +125,6 @@
                     typeColors[i].active = this.$store.getters.typeColors[i].active;
                     typeColors[i].color = this.$store.getters.colors[this.$store.getters.typeColors[i].color];
                 }
-                console.log(typeColors);
                 return typeColors;
             },
             getBirthdays() {

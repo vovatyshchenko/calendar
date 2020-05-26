@@ -8,7 +8,7 @@
         </div>
         <table>
             <tr class="week-events hour-block" v-for="n in 24">
-                <td class="event-block" v-for="(event, index) in getEvent(events, date, n)" :key="index" :rowspan="event.time_length">
+                <td class="event-block" v-for="(event, index) in getEvent(events, date, n)" :key="index" :rowspan="event.time_length" @dblclick="showEvent(date)">
                     <div class="d-flex justify-content-end">
                         <button class="create-btn" @click="edit(event)" v-ripple><img src="../../../../../public/img/icon/create.svg" alt="Edit"></button>
                         <delete :event="event"></delete>
@@ -53,7 +53,7 @@
                 let objCurrentData = [];
                 let hourEvents = [];
                 let n = 0;
-                if(obj.length > 0) {
+                if(obj) {
                     for (let i = 0; i < obj.length; i++) {
                         if (obj[i].type == 'activity' || (obj[i].type == 'task')) {
                             let dateStart = moment(obj[i].date_start);
@@ -99,6 +99,15 @@
                     }
                 }
                 return hourEvents;
+            },
+            showEvent(date) {
+                let parseDate = date.split("-");
+                date = moment(this.year + '-' + parseDate[0] + '-' + parseDate[1]).format('YYYY-MM-DD');
+                this.$store.commit('setDate', date);
+                if (window.location.pathname != '/day') {
+                    this.$eventBus.$emit('currentRoute', '/day');
+                    this.$store.commit('set_route', '/day');
+                }
             },
             edit(event) {
                 this.$store.commit('changeShowModal');

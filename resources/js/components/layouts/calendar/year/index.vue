@@ -11,7 +11,7 @@
         <div class="week" v-for="week in month.weeks">
           <div class="day" v-for="day in 7">
             <span
-                  :style="{'color': (haveHolliday(week[day].holiday) && activeHoliday.active)?activeHoliday.textColor:'#B3B3B3'}"
+              :style="{'color': (haveHolliday(week[day].holiday) && activeHoliday.active)?activeHoliday.textColor:'#B3B3B3'}"
               v-if="week[day]"
               @dblclick="showHoliday(week[day].date)">
               {{ week[day].date.getDate() }}
@@ -20,7 +20,6 @@
         </div>
       </div>
     </div>
-<!--      || haveEvents(week[day].events)-->
   </div>
 </template>
 
@@ -82,12 +81,6 @@ export default {
     max-width: 75%;
     margin: 0 auto;
   }
-  .header {
-    padding: 0.25em;
-    display: flex;
-    flex-shrink: 0;
-    justify-content: space-between;
-  }
   .title {
     margin-bottom: 10px;
     text-transform: capitalize;
@@ -120,11 +113,11 @@ export default {
     color: red;
   }
   .day__title {
-      font-weight: bold;
-      font-size: 12px;
-      line-height: 30px;
-      letter-spacing: 1px;
-      color: #808080;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 30px;
+    letter-spacing: 1px;
+    color: #808080;
   }
   .day {
     margin: 0.25em;
@@ -144,6 +137,6 @@ export default {
     flex-basis: 0;
   }
   .v-content__wrap {
-      background-color: #f5f5f5 !important;
+    background-color: #f5f5f5 !important;
   }
 </style>

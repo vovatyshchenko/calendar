@@ -58,6 +58,7 @@
                     }
                     if (n>1) {
                         currentBirthdays[0] = 'Сегодня День рождения у:';
+                        this.$store.dispatch('getEvents', {date_start: this.$store.getters.getStartDate, date_end: this.$store.getters.getEndDate})
                         return currentBirthdays;
                     } else {
                         return false;
@@ -89,6 +90,7 @@
                         }*/
                     }
                 }
+                this.$store.dispatch('getEvents', {date_start: this.$store.getters.getStartDate, date_end: this.$store.getters.getEndDate})
                 return objCurrentData;
             },
         },

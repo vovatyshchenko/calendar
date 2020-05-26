@@ -20,17 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba956f8c-5f47-40d5-b874-cc0ac5618fbb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/day/Day.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/calendar/year/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/calendar/year/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/TypeList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/TypeList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/CreateModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/modals/CreateModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellMonth.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/CellMonth.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/AdditionalEvents.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/AdditionalEvents.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/CellItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/сell-сalendar/blocks/CellItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/typeColors.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/typeColors.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/calendar/day.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/calendar/day.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/MiniCalendar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layouts/menu/blocks/MiniCalendar.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

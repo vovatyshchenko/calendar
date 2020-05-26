@@ -4,11 +4,15 @@
             <div>
                 <span>{{getDayWeek}} </span>
                 <span class="event">{{holidayTextEvent}}</span>
+                <span v-for="(birthday, index) in getBirthdays">
+                    <span class="bday" v-if="index==0">{{birthday}}</span>
+                    <span class="bday">{{birthday.name}}</span>
+                </span>
             </div>
         </div>
         <table>
             <tr class="week-events hour-block" v-for="n in 24">
-                <td class="event-block" v-for="(event, index) in getEvent(events, date, n)" :key="index" :rowspan="event.time_length">
+                <td class="event-block" v-for="(event, index) in getEvent(n)" :key="index" :rowspan="event.time_length">
                     <div class="d-flex justify-content-end">
                         <button class="create-btn" @click="edit(event)" v-ripple><img src="../../../../../public/img/icon/create.svg" alt="Edit"></button>
                         <delete :event="event"></delete>
@@ -30,8 +34,6 @@
         data() {
             return {
                 days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
-                testEvents:[]
-
             }
         },
         computed: {
@@ -44,58 +46,79 @@
                 let dayNumber = new Date(year, parseDate[0] - 1, parseDate[1]).getDay();
                 return this.days[dayNumber] + ', ' + parseDate[1];
             },
-        },
-        methods: {
-            getEvent(obj, date, count) {
+            getBirthdays() {
+                let currentBirthdays = [];
+                let n = 1;
+                if (this.events!=null) {
+                    for (let i = 0; i <  Object.keys(this.events).length; i++) {
+                        if (this.events[i].type == 'birthday') {
+                            currentBirthdays[n] = this.events[i];
+                            n++;
+                        }
+                    }
+                    if (n>1) {
+                        currentBirthdays[0] = 'Сегодня День рождения у:';
+                        return currentBirthdays;
+                    } else {
+                        return false;
+                    }
+                }
+            },
+            eventsParse() {
+                let obj = this.events;
                 let year = this.year;
-                let parseDate = date.split("-");
+                let parseDate = this.date.split("-");
                 let currentDate = new Date(year, parseDate[0] - 1, parseDate[1]);
                 let objCurrentData = [];
-                let hourEvents = [];
-                let n = 0;
-                if(obj) {
-                    if (obj.length > 0) {
-                        for (let i = 0; i < obj.length; i++) {
-                            if (obj[i].type == 'activity' || (obj[i].type == 'task')) {
-                                let dateStart = moment(obj[i].date_start);
-                                let dateEnd = moment(obj[i].date_end);
-                                let dateDiff = dateEnd.diff(dateStart, 'days');
-                                for (let d = 0; d <= dateDiff; d++) {
-                                    if ((moment(obj[i].date_start).add(d, 'days')).isSame(currentDate)) {
-                                        objCurrentData.push(obj[i]);
-                                    }
-                                }
-                            }
-                            if (obj[i].type == 'birthday') {
-                                if (moment(obj[i].date).isSame(currentDate)) {
+                if (obj) {
+                    for (let i = 0; i < Object.keys(obj).length; i++) {
+                        if (obj[i].type == 'activity' || (obj[i].type == 'task')) {
+                            let dateStart = moment(obj[i].date_start);
+                            let dateEnd = moment(obj[i].date_end);
+                            let dateDiff = dateEnd.diff(dateStart, 'days');
+                            for (let d = 0; d <= dateDiff; d++) {
+                                if ((moment(obj[i].date_start).add(d, 'days')).isSame(currentDate)) {
                                     objCurrentData.push(obj[i]);
                                 }
                             }
                         }
-                        if (objCurrentData.length > 0) {
-                            for (let i = 0; i < objCurrentData.length; i++) {
-                                if (objCurrentData[i].type == 'task' || objCurrentData[i].type == 'activity') {
-                                    let parseStart = objCurrentData[i].time_start.split(":");
-                                    let parseEnd = objCurrentData[i].time_end.split(":");
-                                    let hourStart = +parseStart[0];
-                                    let hourEnd = 0;
-                                    if (+parseEnd[1] > 0) {
-                                        hourEnd = +parseEnd[0] + 1;
-                                    } else {
-                                        hourEnd = +parseEnd[0];
-                                    }
+                        /*if (obj[i].type == 'birthday') {
+                            if (moment(obj[i].date).isSame(currentDate)) {
+                                objCurrentData.push(obj[i]);
+                            }
+                        }*/
+                    }
+                }
+                return objCurrentData;
+            },
+        },
+        methods: {
+            getEvent(count) {
+                let objCurrentData = this.eventsParse;
+                let hourEvents = [];
+                let n = 0;
+                if (objCurrentData) {
+                    for (let i = 0; i < objCurrentData.length; i++) {
+                        if (objCurrentData[i].type == 'task' || objCurrentData[i].type == 'activity') {
+                            let parseStart = objCurrentData[i].time_start.split(":");
+                            let parseEnd = objCurrentData[i].time_end.split(":");
+                            let hourStart = +parseStart[0];
+                            let hourEnd = 0;
+                            if (+parseEnd[1] > 0) {
+                                hourEnd = +parseEnd[0] + 1;
+                            } else {
+                                hourEnd = +parseEnd[0];
+                            }
 
-                                    if (hourStart == count - 1) {
-                                        hourEvents.push(objCurrentData[i]);
-                                        hourEvents[n].time_length = (hourEnd - hourStart);
-                                        n++;
-                                    }
-                                } else {
-                                    if (count == 1) {
-                                        hourEvents.push(objCurrentData[i]);
-                                        hourEvents[n].time_length = 0;
-                                    }
-                                }
+                            if (hourStart == count - 1) {
+                                hourEvents.push(objCurrentData[i]);
+                                hourEvents[n].time_length = (hourEnd - hourStart);
+                                n++;
+                            }
+                        } else {
+                            if (count == 1) {
+                                hourEvents.push(objCurrentData[i]);
+                                hourEvents[n].time_length = 0;
                             }
                         }
                     }

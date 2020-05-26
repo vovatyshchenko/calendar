@@ -23,11 +23,12 @@
             }
         },
         computed:{
-            events(){
+            events() {
               return this.$store.getters.events;
             },
             dateOfWeek() {
                 let currentWeek=[];
+                let eventWeek=[];
                 this.dayNumber=[];
                 let nowDate=new Date(this.$store.getters.menuDate);
                 if (nowDate.getDate() - nowDate.getDay() == 1) {
@@ -46,14 +47,15 @@
                     let year = parseDate.getFullYear();
 
                     this.dayNumber.push(day);
-                    currentWeek.push(year+"-"+month+"-"+day)
+                    currentWeek.push(year+"-"+month+"-"+day);
+                    eventWeek.push(month+"-"+day);
                     this.$store.commit('setCurrentWeek',currentWeek);
                 }
-                this.$store.dispatch('getEvents',{date_start:moment(currentWeek[0]).format('YYYY-MM-DD'),date_end:moment(currentWeek[6]).format('YYYY-MM-DD')});
+                this.$store.dispatch('getEvents',{date_start:moment(currentWeek[0]).format('YYY-MM-DD'),date_end:moment(currentWeek[6]).format('YYYY-MM-DD')});
                 this.$store.commit('setStartDate',moment(currentWeek[0]).format('YYYY-MM-DD'));
                 this.$store.commit('setEndDate',moment(currentWeek[6]).format('YYYY-MM-DD'));
 
-                return currentWeek;
+                return eventWeek;
             },
         },
     }

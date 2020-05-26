@@ -21,6 +21,9 @@ export default {
             else if (route == '/year') {
                 commit('set_route', route);
             }
+            else if (route == '/search-result') {
+                commit('set_route', route);
+            }
         }
     },
     getters: {

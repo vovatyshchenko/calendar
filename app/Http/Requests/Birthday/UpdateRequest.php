@@ -28,7 +28,6 @@ class UpdateRequest extends FormRequest
             'time_start'=>'required|string|max:10',
             'date'=>'required|date_format:Y-m-d',
             'is_remind'=>'boolean',
-            'is_remind_year'=>'boolean'
         ];
     }
 }

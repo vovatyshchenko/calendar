@@ -32,6 +32,7 @@
                     <option value="/day">День</option>
                     <option value="/week">Неделя</option>
                     <option value="/year">Год</option>
+                    <option v-if="this.current_route == '/search-result'" value="/search-result">Поиск</option>
                 </select>
             </div>
         </v-app-bar>
@@ -69,11 +70,14 @@
                 let fullDate = this.$store.getters.menuDate;
                 if (window.location.pathname == '/day') {
                     fullDate.setDate(fullDate.getDate() - 1);
+                    this.$store.commit('setEvents', {});
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear() - 1);
+                    this.$store.commit('setEvents', {});
                     this.$store.dispatch('yearData');
                 } else if (window.location.pathname == '/week') {
                     fullDate.setDate(fullDate.getDate() - 7);
+                    this.$store.commit('setEvents', {});
                 } else {
                     fullDate.setMonth(fullDate.getMonth() - 1);
                     this.$store.commit('setEvents', {});
@@ -88,10 +92,13 @@
                 let fullDate = this.$store.getters.menuDate;
                 if (window.location.pathname == '/day') {
                     fullDate.setDate(fullDate.getDate() + 1);
+                    this.$store.commit('setEvents', {});
                 } else if (window.location.pathname == '/year') {
                     fullDate.setFullYear(fullDate.getFullYear() + 1);
+                    this.$store.commit('setEvents', {});
                     this.$store.dispatch('yearData');
                 } else if (window.location.pathname == '/week') {
+                    this.$store.commit('setEvents', {});
                     fullDate.setDate(fullDate.getDate() + 7);
                 } else {
                     fullDate.setMonth(fullDate.getMonth() + 1);
@@ -141,14 +148,14 @@
             year() {
                 this.$store.dispatch('getHolidays', {year: this.year});
             },
-            isSearched(value) {
+            /*isSearched(value) {
                 if (value === true) {
                     if (window.location.pathname != '/search-result') {
                         this.$router.push('search-result');
                     }
                     this.$store.commit('setStatusSearched',false);
                 }
-            },
+            },*/
         },
     }
 

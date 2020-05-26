@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\DB;
 class Task extends Model
 {
     protected $fillable = [
-        'name','description','user_id','time_start','time_end','date_start','date_end','parent_id'
+
+        'name','description','user_id','time_start','time_end','date_start','date_end','is_remind'
     ];
     public function getTasks($dateStart,$dateEnd)
     {
@@ -42,6 +43,7 @@ class Task extends Model
                 array_push($result,$search);
             }
         }
+
         return $result;
     }
 }

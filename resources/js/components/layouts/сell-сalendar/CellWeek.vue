@@ -35,64 +35,66 @@
             }
         },
         computed: {
+            year() {
+                return this.$store.getters.menuDate.getFullYear();
+            },
             getDayWeek() {
                 let parseDate = this.date.split("-");
-                let dayNumber = new Date(parseDate[0], parseDate[1] - 1, parseDate[2]).getDay();
-                return this.days[dayNumber] + ', ' + parseDate[2];
+                let year = this.year;
+                let dayNumber = new Date(year, parseDate[0] - 1, parseDate[1]).getDay();
+                return this.days[dayNumber] + ', ' + parseDate[1];
             },
-            /*test(){
-                let events=[];
-                for (let n = 0;n <= 24;n++){
-                  events.push(this.getEvent(this.events,this.date,n));
-                }
-                return events;
-            },*/
         },
         methods: {
             getEvent(obj, date, count) {
+                let year = this.year;
+                let parseDate = date.split("-");
+                let currentDate = new Date(year, parseDate[0] - 1, parseDate[1]);
                 let objCurrentData = [];
                 let hourEvents = [];
                 let n = 0;
                 if(obj) {
-                    for (let i = 0; i < obj.length; i++) {
-                        if (obj[i].type == 'activity' || (obj[i].type == 'task')) {
-                            let dateStart = moment(obj[i].date_start);
-                            let dateEnd = moment(obj[i].date_end);
-                            let dateDiff = dateEnd.diff(dateStart, 'days');
-                            for (let d = 0; d <= dateDiff; d++) {
-                                if ((moment(obj[i].date_start).add(d, 'days')).isSame(date)) {
+                    if (obj.length > 0) {
+                        for (let i = 0; i < obj.length; i++) {
+                            if (obj[i].type == 'activity' || (obj[i].type == 'task')) {
+                                let dateStart = moment(obj[i].date_start);
+                                let dateEnd = moment(obj[i].date_end);
+                                let dateDiff = dateEnd.diff(dateStart, 'days');
+                                for (let d = 0; d <= dateDiff; d++) {
+                                    if ((moment(obj[i].date_start).add(d, 'days')).isSame(currentDate)) {
+                                        objCurrentData.push(obj[i]);
+                                    }
+                                }
+                            }
+                            if (obj[i].type == 'birthday') {
+                                if (moment(obj[i].date).isSame(currentDate)) {
                                     objCurrentData.push(obj[i]);
                                 }
                             }
                         }
-                        if (obj[i].type == 'birthday') {
-                            if (moment(obj[i].date).isSame(date)) {
-                                objCurrentData.push(obj[i]);
-                            }
-                        }
-                    }
-                    if (objCurrentData.length > 0) {
-                        for (let i = 0; i < objCurrentData.length; i++) {
-                            if (objCurrentData[i].type == 'task' || objCurrentData[i].type == 'activity') {
-                                let parseStart = objCurrentData[i].time_start.split(":");
-                                let parseEnd = objCurrentData[i].time_end.split(":");
-                                let hourStart = +parseStart[0];
-                                let hourEnd = 0;
-                                if (+parseEnd[1] > 0) {
-                                    hourEnd = +parseEnd[0] + 1;
-                                } else {
-                                    hourEnd = +parseEnd[0];
-                                }
+                        if (objCurrentData.length > 0) {
+                            for (let i = 0; i < objCurrentData.length; i++) {
+                                if (objCurrentData[i].type == 'task' || objCurrentData[i].type == 'activity') {
+                                    let parseStart = objCurrentData[i].time_start.split(":");
+                                    let parseEnd = objCurrentData[i].time_end.split(":");
+                                    let hourStart = +parseStart[0];
+                                    let hourEnd = 0;
+                                    if (+parseEnd[1] > 0) {
+                                        hourEnd = +parseEnd[0] + 1;
+                                    } else {
+                                        hourEnd = +parseEnd[0];
+                                    }
 
-                                if (hourStart == count - 1) {
-                                    hourEvents.push(objCurrentData[i]);
-                                    hourEvents[n].time_length = (hourEnd - hourStart);
-                                    n++;
-                                }
-                            } else {
-                                if (count == 1) {
-                                    hourEvents.push(objCurrentData[i]);
-                                    hourEvents[n].time_length = 0;
+                                    if (hourStart == count - 1) {
+                                        hourEvents.push(objCurrentData[i]);
+                                        hourEvents[n].time_length = (hourEnd - hourStart);
+                                        n++;
+                                    }
+                                } else {
+                                    if (count == 1) {
+                                        hourEvents.push(objCurrentData[i]);
+                                        hourEvents[n].time_length = 0;
+                                    }
                                 }
                             }
                         }

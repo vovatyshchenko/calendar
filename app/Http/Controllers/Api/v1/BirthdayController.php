@@ -34,7 +34,7 @@ class BirthdayController extends Controller
     public function update(UpdateRequest $request)
     {
 
-        $data = $request->only(['name','time_start','date','is_remind','is_remind_year']);
+        $data = $request->only(['name','time_start','date','is_remind']);
         Birthday::where('user_id',auth()->user()->id)->where('id',$request->only('id'))->update($data);
 
         return response(['message' => true], 200);

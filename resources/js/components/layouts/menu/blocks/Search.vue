@@ -145,6 +145,10 @@
                         }
                     );
 
+                    this.$eventBus.$emit('currentRoute', '/search-result');
+                    this.$store.commit('set_route', '/search-result');
+                    this.$store.commit('setStatusSearched',false);
+
                     this.searchEvents = null;
                     this.description = null;
                     this.searchDialog = false;

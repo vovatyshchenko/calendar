@@ -46,6 +46,7 @@ Route::put('/update-type-colors', ('Api\v1\TypeColorsController@update'));
 
 
 //Route::get('/1', 'Mail\MailController@send');
+Route::get('/1', ('Api\v1\ActivityController@test'));
 
 Route::view('/{any}', 'index')->where('any', '.*');
 Route::middleware('auth')->post('/logout', 'Auth\LogoutController@logout');

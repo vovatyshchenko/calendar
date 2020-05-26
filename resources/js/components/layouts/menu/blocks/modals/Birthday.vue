@@ -75,10 +75,6 @@
             <span class="label">Напомнить</span>
             <v-checkbox v-model="allDay"></v-checkbox>
         </v-col>
-        <v-col class="d-flex align-items-center">
-            <span class="label">Каждый год</span>
-            <v-checkbox v-model="allYear"></v-checkbox>
-        </v-col>
         <v-spacer></v-spacer>
         <div class="d-flex justify-content-between">
             <v-btn v-if="!checkIsUpdate" @click="save" type="submit" color="blue darken-2" dark large>Сохранить</v-btn>
@@ -101,8 +97,7 @@
             name: null,
             dateStart: moment(new Date()).format('YYYY-MM-DD'),
             time: '00:00',
-            allDay: false,
-            allYear: false,
+            allDay: 0,
             id: null,
         }),
         computed: {
@@ -125,8 +120,7 @@
                 this.name=this.$store.getters.getBirthday.name;
                 this.dateStart = this.$store.getters.getBirthday.date;
                 this.time = this.$store.getters.getBirthday.time;
-                this.allDay = this.$store.getters.getBirthday.allDay;
-                this.allYear = this.$store.getters.getBirthday.allYear;
+                this.allDay =Number(this.$store.getters.getBirthday.allDay);
                 this.id = this.$store.getters.getBirthday.id;
                 console.log(this.$store.getters.getBirthday);
             },
@@ -142,7 +136,6 @@
                         time_start: this.time,
                         date: moment(this.dateStart).format('YYYY-MM-DD'),
                         is_remind: this.allDay,
-                        is_remind_year: this.allYear,
                     });
                     this.clear();
                 }
@@ -158,7 +151,6 @@
                         time_start: this.time,
                         date: moment(this.dateStart).format('YYYY-MM-DD'),
                         is_remind: this.allDay,
-                        is_remind_year: this.allYear,
                     });
                     this.clear();
                 }
@@ -174,8 +166,7 @@
                 this.name = null,
                 this.date = moment(new Date()).format('YYYY-MM-DD'),
                 this.time = '00:00',
-                this.allDay = false,
-                this.allYear = false,
+                this.allDay = 0,
                 this.id = null
             }
         },

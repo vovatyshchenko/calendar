@@ -120,7 +120,7 @@
                 this.name=this.$store.getters.getBirthday.name;
                 this.dateStart = this.$store.getters.getBirthday.date;
                 this.time = this.$store.getters.getBirthday.time;
-                this.allDay = this.$store.getters.getBirthday.allDay;
+                this.allDay =Number(this.$store.getters.getBirthday.allDay);
                 this.id = this.$store.getters.getBirthday.id;
                 console.log(this.$store.getters.getBirthday);
             },

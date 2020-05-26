@@ -10,7 +10,6 @@ export default {
             date: moment(new Date()).format('YYYY-MM-DD'),
             time: '00:00',
             allDay: false,
-            allYear: false,
             id: null,
         },
         isUpdateBirthday: false,
@@ -78,11 +77,10 @@ export default {
                 state.task.id = payload.id
         },
         setBirthdayValues(state, payload) {
-            state.birthday.name = payload.name,
+                state.birthday.name = payload.name,
                 state.birthday.date = payload.date,
                 state.birthday.time = payload.time_start,
                 state.birthday.allDay = payload.is_remind,
-                state.birthday.allYear = payload.is_remind_year,
                 state.birthday.id = payload.id
         },
         setActivityValues(state, payload) {

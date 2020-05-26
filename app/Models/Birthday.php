@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class Birthday extends Model
 {
     protected $fillable = [
-        'name','user_id','time_start','date','is_remind','is_remind_year'
+        'name','user_id','time_start','date','is_remind'
     ];
     public function getBirthdays($dateStart,$dateEnd)
     {

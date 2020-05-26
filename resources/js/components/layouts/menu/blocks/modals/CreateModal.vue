@@ -2,7 +2,6 @@
   <v-row justify="center">
     <v-dialog v-model="showModal" persistent max-width="850px">
       <v-card>
-        <v-btn icon class="close" @click="closeModal()"><v-icon>mdi-close</v-icon></v-btn>
         <v-card-title>
             <v-tabs
                 v-model="tab"
@@ -55,12 +54,6 @@
             this.$eventBus.$off('type');
         },
         methods: {
-            closeModal() {
-                this.$store.commit('setActivityValues', {});
-                this.$store.commit('setTaskValues', {});
-                this.$store.commit('setBirthdayValues', {});
-                this.$store.commit('changeShowModal')
-            },
             getType(value) {
                  if (value == 'activity') {
                     this.tab = 0;

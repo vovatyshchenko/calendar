@@ -216,7 +216,7 @@
         height: 368px;
         width: 530px;
         display: flex;
-        margin: 0 auto;
+        margin: 0 10px;
         flex-direction: column;
     }
 

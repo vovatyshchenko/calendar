@@ -251,6 +251,9 @@ export default {
                     if (responce.data.message) {
                         commit("setStatusUpdated", true);
                         dispatch('getEvents', {date_start: getters.getStartDate, date_end: getters.getEndDate})
+                        if (getters.searchActive == true) {
+                            dispatch('searchEvents', getters.lastRequestSearched);
+                        }
                     }
                     commit("clearError");
                     commit("setProcessing", false);
@@ -288,6 +291,9 @@ export default {
                     if (responce.data.message) {
                         commit("setStatusUpdated", true);
                         dispatch('getEvents', {date_start: getters.getStartDate, date_end: getters.getEndDate})
+                        if (getters.searchActive == true) {
+                            dispatch('searchEvents', getters.lastRequestSearched);
+                        }
                     }
                     commit("clearError");
                     commit("setProcessing", false);

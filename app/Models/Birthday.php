@@ -58,7 +58,7 @@ class Birthday extends Model
                 ->whereMonth('date','<=',$monthEnd)
                 ->whereIn(DB::raw('DAY(date)'),$dayRange)
                 ->where('name', 'LIKE', '%' . $value . '%')
-                ->get(['name','time_start','date as date_start'])
+                ->get(['name','time_start','date as date_start','id'])
                 ->toArray();
             if (count($search) != 0) {
                 foreach ($search as $key=>$element)

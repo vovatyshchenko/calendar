@@ -9,12 +9,12 @@
                             :class="userMenuOpen ? 'user_menu-opened' : ''">
                             <ul class="user_menu">
                                 <li>
-                                    <b-btn @click="logout()">Выход</b-btn>
+                                    <button class="logout" @click="logout()">Выход</button>
                                 </li>
                             </ul>
                         </div>
-                        <a href="#">
-                            {{ name }}
+                        <a class="user"href="#">
+                            {{ user?user.name:''}}
                             <img :src="'/img/' + avatar">
                         </a>
                         <div @click.stop="userMenuOpen = !userMenuOpen" class="toggle_user-menu"></div>
@@ -45,7 +45,8 @@
                 name: 'Анна Кононенко',
                 avatar: 'user.png',
                 userMenuOpen: false,
-                token: null
+                token: null,
+                user:null
             }
         },
         computed: {
@@ -65,11 +66,32 @@
                             .then(r => location.href= r.data)
                     });
             }
+        },
+        created() {
+            axios.get('/user/getInfo')
+                .then(response => {
+                    this.user=response.data;
+                })
+                .catch(function (error) {
+
+                });
         }
     }
 </script>
 
 
-<style>
-
+<style scoped>
+  .logout
+  {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 75px;
+      text-align: right;
+      color: #999999;
+      position: relative;
+  }
+.user_block a:hover,.user_block a:active{
+    color: #999999;
+}
 </style>

@@ -6,37 +6,37 @@
         <div @click="sidebarOpen = !sidebarOpen" ><div class="toggle_sidebar" :class="sidebarOpen ? 'toggled' : ''"></div></div>
         <ul id="side_menu" class="list-unstyled components">
             <li>
-                <a href="#">
+                <a :href="'https://team1-group-project.azurewebsites.net/token?access_token='+(user?user.token:'')">
                     <img src="/img/ic_home.png" alt="logo">
                     <span>Главная страница</span>
                 </a>
             </li>
             <li>
-                <div @click="redirect('http://it20tools-disk.dtdgma.org.ua/')">
+                <a :href="'http://it20tools-disk.dtdgma.org.ua/token?access_token='+(user?user.token:'')">
                     <img src="/img/ic_cloud_download.png" alt="logo">
                     <span>Диск</span>
-                </div>
+                </a>
             </li>
             <li>
-                <a href="#">
+                <a :href="'http://cu66460.tmweb.ru/token?access_token='+(user?user.token:'')">
                     <img src="/img/ic_email.png" alt="logo">
                     <span>Почта</span>
                 </a>
             </li>
             <li class="active">
-                <a href="#">
+                <router-link to="/">
                     <img src="/img/ic_today_hover.png" alt="logo">
                     <span>Календарь</span>
-                </a>
+                </router-link>
             </li>
             <li>
-                <a href="#">
+                <a :href="'https://it20-tools-photogallery.azurewebsites.net'+(user?user.token:'')">
                     <img src="/img/ic_camera_alt.png" alt="logo">
                     <span>Фотографии</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a :href="'https://contacts.s-host.net'+(user?user.token:'')">
                     <img src="/img/ic_people.png" alt="logo">
                     <span>Контакты</span>
                 </a>
@@ -55,17 +55,14 @@
     export default {
         data: () => ({
             sidebarOpen : false,
+            user:null
         }),
         methods:{
-            redirect()
-            {
-
-            }
         },
         created() {
             axios.get('/user/getInfo')
                 .then(response => {
-                    console.log(response.data)
+                    this.user=response.data;
                 })
                 .catch(function (error) {
 
@@ -75,5 +72,6 @@
 </script>
 
 <style>
+
 
 </style>

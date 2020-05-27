@@ -12,7 +12,7 @@
                 </a>
             </li>
             <li>
-                <a :href="'http://it20tools-disk.dtdgma.org.ua/token?access_token='+(user?user.token:'')">
+                <a :href="'http://it20tools-disk.dtdgma.org.ua/disk/token?access_token='+(user?user.token:'')">
                     <img src="/img/ic_cloud_download.png" alt="logo">
                     <span>Диск</span>
                 </a>

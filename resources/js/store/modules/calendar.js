@@ -17,12 +17,12 @@ export default {
         let data = [];
         let holiday = '';
         //let event = getters.events;
-        dispatch('getHolidays', year);
+        // dispatch('getHolidays', year);
         for (let m = 0; m < 12; m++) {
           let day = moment({ year: year, month: m, day: 1 });// формируем дату на первый день каждого месяца
           let daysInMonth = day.daysInMonth(); // количество дней в месяце
           // готовим объект месяца
-          let month = { 
+          let month = {
             title: day.format("MMMM"),
             weeks: {},
           };
@@ -102,7 +102,7 @@ export default {
       },
     },
     getters: {
-        getDays: (state)=>state.days, 
+        getDays: (state)=>state.days,
         getYear: (state)=>state.data,
     }
   }

@@ -9,7 +9,7 @@
         <div v-if="!dayEvents" class="no-day-events">
             <span>На данный день не заплонировано событий!</span>
         </div>
-        <div v-if="typeColors[0].active ">
+        <div v-if="typeColors[0].active && getBirthdays!=false">
             <div class="day-birthdays" :style="{'border-color': typeColors[0].textColor, 'color': typeColors[0].textColor}">
             <span v-for="(birthday, index) in getBirthdays">
                 <span v-if="index==0">{{birthday}}</span>
@@ -161,6 +161,7 @@
                         return false;
                     }
                 }
+                return false;
             },
             dayEvents () {
                 let currentDate = this.$store.getters.menuDate;

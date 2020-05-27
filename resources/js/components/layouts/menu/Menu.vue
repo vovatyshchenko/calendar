@@ -110,13 +110,24 @@
                 this.year = this.$store.getters.year;
             },
             display_date() {
+                let months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
                 if (window.location.pathname == '/day') {
                     return this.$store.getters.menuDate.getDate() + '.' + (this.$store.getters.menuDate.getMonth() + 1) + '.' + this.$store.getters.menuDate.getFullYear();
                 }
                 if (window.location.pathname == '/year') {
                     return this.$store.getters.menuDate.getFullYear();
                 }
-                let months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+                if (window.location.pathname == '/week') {
+                    let fullDate=moment(this.$store.getters.menuDate);
+                    let startWeek = fullDate.startOf('week').format('M');
+                    let endWeek = fullDate.endOf('week').format('M');
+
+                    if (startWeek!=endWeek) {
+                        return months[startWeek-1]+' - '+months[endWeek-1]+' '+this.$store.getters.menuDate.getFullYear();
+                    } else {
+                        return months[startWeek-1]+' '+this.$store.getters.menuDate.getFullYear();
+                    }
+                }
                 return months[this.$store.getters.menuDate.getMonth()] + ' ' + this.$store.getters.menuDate.getFullYear();
             },
             set_date() {

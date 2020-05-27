@@ -14,11 +14,11 @@
                 <li class="col-lg-4 col-md-6 col-sm-12 pl-sm-3">
                     <h4 class="text">Инструменты</h4>
                     <ul>
-                        <li><a href="#">Диск</a></li>
-                        <li><a href="#">Календарь</a></li>
-                        <li><a href="#">Контакты</a></li>
-                        <li><a href="#">Почта</a></li>
-                        <li><a href="#">Фото</a></li>
+                        <li><a :href="'http://it20tools-disk.dtdgma.org.ua/token?access_token='+(user?user.token:'')">Диск</a></li>
+                        <li> <router-link to="/">Календарь</router-link></li>
+                        <li><a :href="'https://contacts-it.s-host.net/'+(user?user.token:'')">Контакты</a></li>
+                        <li><a :href="'http://cu66460.tmweb.ru/token?access_token='+(user?user.token:'')">Почта</a></li>
+                        <li><a :href="'https://it20-tools-photogallery.azurewebsites.net'+(user?user.token:'')">Фото</a></li>
                     </ul>
                 </li>
                 <li class="col-lg-4 offset-md-6 offset-sm-0 offset-lg-0 col-md-6 col-sm-12 pl-sm-3">
@@ -41,7 +41,7 @@
                         </li>
                         <li>
                             <a href="https://www.instagram.com/" target="_blank">
-                                <img src="/img/instagram.png" alt="logo"> 
+                                <img src="/img/instagram.png" alt="logo">
                             </a>
                         </li>
                     </ul>
@@ -54,6 +54,18 @@
 <script>
 export default {
 
+    data: () => ({
+        user:null
+    }),
+    created() {
+        axios.get('/user/getInfo')
+            .then(response => {
+                this.user=response.data;
+            })
+            .catch(function (error) {
+
+            });
+    }
 }
 </script>
 

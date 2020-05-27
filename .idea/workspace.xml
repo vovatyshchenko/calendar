@@ -27,9 +27,7 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution>
-      <executable />
-    </execution>
+    <execution />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -245,6 +243,7 @@
       <workItem from="1590511207105" duration="212000" />
       <workItem from="1590531842183" duration="485000" />
       <workItem from="1590532977838" duration="363000" />
+      <workItem from="1590536955475" duration="465000" />
     </task>
     <servers />
   </component>
@@ -266,13 +265,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2610" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1589392319845">
@@ -316,10 +314,10 @@
     </state>
     <state x="122" y="76" key="MergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1590533166163" />
     <state x="9" y="128" width="1896" height="825" key="MergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1589192808481" />
-    <state x="295" y="266" width="1146" height="380" key="MultipleFileMergeDialog" timestamp="1590533166176">
+    <state x="295" y="266" width="1146" height="380" key="MultipleFileMergeDialog" timestamp="1590537032894">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="295" y="266" key="MultipleFileMergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1590533166176" />
+    <state x="295" y="266" key="MultipleFileMergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1590537032894" />
     <state x="414" y="387" width="1146" height="380" key="MultipleFileMergeDialog/0.27.1920.985@0.27.1920.985" timestamp="1589192809865" />
     <state x="730" y="203" width="449" height="640" key="RollbackChangesDialog" timestamp="1590527858935">
       <screen x="0" y="27" width="1920" height="985" />

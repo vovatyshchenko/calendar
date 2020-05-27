@@ -25,8 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('reminder:birthday')->everyMinute();
-        $schedule->command('reminder:task')->everyMinute();
+         $schedule->command('reminder:birthday')->dailyAt('07:00');
+        $schedule->command('reminder:task')->dailyAt('07:00');
     }
 
     /**

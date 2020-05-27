@@ -122,7 +122,6 @@
                 this.time = this.$store.getters.getBirthday.time;
                 this.allDay =Number(this.$store.getters.getBirthday.allDay);
                 this.id = this.$store.getters.getBirthday.id;
-                console.log(this.$store.getters.getBirthday);
             },
         },
         methods: {

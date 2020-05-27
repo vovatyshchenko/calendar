@@ -22,7 +22,7 @@ export default {
         setLastRequestSearched(state,payload)
         {
             state.lastRequestSearched = payload;
-            console.log(state.lastRequestSearched);
+
         }
     },
     actions:{

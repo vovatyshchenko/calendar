@@ -107,6 +107,10 @@
         font-size: 12px;
         color: #808080;
     }
+    .v-dialog:not(.v-dialog--fullscreen)
+    {
+        max-height:100%
+    }
     .label {
         padding-left: 17px;
         margin-right: 50px;

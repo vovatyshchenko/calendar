@@ -12,10 +12,10 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <div @click="redirect('http://it20tools-disk.dtdgma.org.ua/')">
                     <img src="/img/ic_cloud_download.png" alt="logo">
-                    <span>Диски</span>
-                </a>
+                    <span>Диск</span>
+                </div>
             </li>
             <li>
                 <a href="#">
@@ -51,25 +51,25 @@
     </nav>
 </template>
 
-
-
-
-
-
-
-
-
-
 <script >
     export default {
         data: () => ({
             sidebarOpen : false,
         }),
         methods:{
-            AuthByToken()
+            redirect()
             {
 
             }
+        },
+        created() {
+            axios.get('/user/getInfo')
+                .then(response => {
+                    console.log(response.data)
+                })
+                .catch(function (error) {
+
+                });
         }
     }
 </script>

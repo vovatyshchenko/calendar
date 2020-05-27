@@ -81,6 +81,7 @@ class AuthController extends Controller
             $userData['email'] = $response['email'];
             $userData['surname'] = $response['surname'];
             $userData['name'] = $response['name'];
+            $userData['avatar'] = $response['avatar_url'];
             $userData['token'] = $access->access_token;
             $user = User::where('email',$response['email'])->first();
             if($user){
@@ -145,6 +146,7 @@ class AuthController extends Controller
         $userData['email'] = $response['email'];
         $userData['surname'] = $response['surname'];
         $userData['name'] = $response['name'];
+        $userData['avatar'] = $response['avatar_url'];
         $userData['token'] =$access_token;
         if($user){
 
@@ -159,6 +161,7 @@ class AuthController extends Controller
                     'token' => $access_token,
                     'surname' => $response['surname'],
                     'name' => $response['name'],
+                    'avatar'=>$response['avatar_url']
                 ]
 
             );
@@ -181,5 +184,7 @@ class AuthController extends Controller
 
         return response()->redirectTo(RouteServiceProvider::HOME);
     }
+
+
 }
 

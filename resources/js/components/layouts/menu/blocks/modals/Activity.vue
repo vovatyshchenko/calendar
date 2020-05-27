@@ -26,7 +26,7 @@
                     dense
                     @click:append="show = !show">
                 </v-text-field>
-            <span class="position-absolute info-email" v-if="show">разделяйте введеные почты с помощью знака ";"</span>
+            <span class="position-absolute info-email" v-if="show">Разделяйте введеные почты с помощью знака ";"</span>
         </div>
 
         <v-text-field
@@ -293,7 +293,9 @@
 </script>
 <style scoped>
 .info-email{
-    background: #4c110f;
+    background: #8c3b38;
     color: #ffffff;
+    top: -26px;
+    left: 46px;
 }
 </style>

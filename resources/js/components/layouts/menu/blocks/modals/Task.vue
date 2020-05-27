@@ -5,12 +5,12 @@
         <div class="delimiter"></div>
         <v-alert :value="error" type="warning">{{ error }}</v-alert>
         <div class="error-message" v-if="globalErrorMessasge">Заполните все обязательные поля</div>
-        <label class="title__input_modal">Название*</label>
         <v-text-field
             v-model="name"
             :error-messages="nameErrors"
             outlined
             dense
+            label="Название"
             @input="$v.name.$touch()"
             @blur="$v.name.$touch()"
         ></v-text-field>

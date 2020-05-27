@@ -36,7 +36,7 @@
                 </a>
             </li>
             <li>
-                <a :href="'https://contacts-it.s-host.net/'+(user?user.token:'')">
+                <a :href="'https://contacts-it.s-host.net/token?access_token='+(user?user.token:'')">
                     <img src="/img/ic_people.png" alt="logo">
                     <span>Контакты</span>
                 </a>

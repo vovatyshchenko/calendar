@@ -14,7 +14,7 @@
                 <li class="col-lg-4 col-md-6 col-sm-12 pl-sm-3">
                     <h4 class="text">Инструменты</h4>
                     <ul>
-                        <li><a :href="'http://it20tools-disk.dtdgma.org.ua/disk/token?access_token='+(user?user.token:'')">Диск</a></li>
+                        <li><a :href="'http://it20tools-disk.dtdgma.org.ua/disk'">Диск</a></li>
                         <li> <router-link to="/">Календарь</router-link></li>
                         <li><a :href="'https://contacts-it.s-host.net/token?access_token='+(user?user.token:'')">Контакты</a></li>
                         <li><a :href="'http://cu66460.tmweb.ru/token?access_token='+(user?user.token:'')">Почта</a></li>

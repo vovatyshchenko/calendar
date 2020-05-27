@@ -14,9 +14,6 @@
             </template>
             <v-card>
                 <div class="d-flex justify-content-end">
-                    <button class="delete" @click.stop="dialog = true">
-                        <img src="../../../../../../public/img/icon/email.svg" alt="Email">
-                    </button>
                     <delete @close="close($event)" :event="item"></delete>
                     <button class="create-btn" @click="edit(item)" v-ripple><img src="../../../../../../public/img/icon/create.svg" alt="Edit"></button>
                     <button class="create-btn clear" @click="close()"><img src="../../../../../../public/img/icon/clear.svg" alt="Clear"></button>

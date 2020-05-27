@@ -232,7 +232,7 @@
 
     .menu-search {
 
-        width: 550px;
+        min-width: 550px;
         height: 50px;
         background: #FFFFFF;
         border: 2px solid #F5F5F5;

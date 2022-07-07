@@ -21,7 +21,7 @@
         "laravel-mix": "^5.0.1",
         "lodash": "^4.17.15",
         "material-icons": "^0.3.1",
-        "moment": "^2.25.1",
+        "moment": "^2.29.4",
         "moment-locales-webpack-plugin": "^1.2.0",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
